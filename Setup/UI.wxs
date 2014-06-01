@@ -1,0 +1,54 @@
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<UI Id="MyWixUI_Minimal">
+			<TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+			<TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+			<TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+
+			<Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+			<Property Id="WixUI_Mode" Value="Minimal" />
+			
+			<Dialog Id="MyWelcomeDlg" Width="370" Height="270" Title="!(loc.WelcomeEulaDlg_Title)">
+				<Control Id="Bitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="234" TabSkip="no" Text="!(loc.WelcomeDlgBitmap)" />
+				<Control Id="Title" Type="Text" X="135" Y="20" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.WelcomeDlgTitle)" />
+				<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+				<Control Id="Text" Type="Text" Transparent="yes" X="135" Y="80" Width="220" Height="80">
+					<Text>[\[]インストール[\]] をクリックして、インストールを開始して下さい。</Text>
+				</Control>
+				<Control Id="InstallNoShield" Type="PushButton" X="212" Y="243" Width="80" Height="17" Default="yes" Text="!(loc.WelcomeEulaDlgInstall)">
+					<Publish Event="EndDialog" Value="Return"/>
+				</Control>
+				<Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+					<Publish Event="EndDialog" Value="Exit"/>
+				</Control>
+			</Dialog>
+			
+			<Dialog Id="MyProgressDlg" Width="370" Height="270" Title="!(loc.ProgressDlg_Title)" Modeless="yes">
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUICancel)">
+                    <Publish Event="EndDialog" Value="Exit"/>
+                </Control>
+				<Control Id="Bitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="234" TabSkip="no" Text="!(loc.WelcomeDlgBitmap)" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="TextInstalling" Type="Text" X="135" Y="80" Width="220" Height="80" Transparent="yes" NoPrefix="yes" Text="!(loc.ProgressDlgTextInstalling)"/>
+                <Control Id="TitleInstalling" Type="Text" X="135" Y="20" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.ProgressDlgTitleInstalling)"/>
+                <Control Id="ProgressBar" Type="ProgressBar" X="135" Y="115" Width="220" Height="10" ProgressBlocks="yes" Text="!(loc.ProgressDlgProgressBar)">
+                    <Subscribe Event="SetProgress" Attribute="Progress" />
+                </Control>
+            </Dialog>
+			
+			<DialogRef Id="ErrorDlg" />
+			<DialogRef Id="FatalError" />
+			<DialogRef Id="FilesInUse" />
+			<DialogRef Id="UserExit"/>
+
+			<Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999"/>
+
+			<InstallUISequence>
+				<Show Dialog="MyWelcomeDlg" Before="MyProgressDlg">NOT Installed</Show>
+				<Show Dialog="MyProgressDlg" Before="ExecuteAction" Overridable="yes" />
+			</InstallUISequence>
+		</UI>
+
+		<UIRef Id="WixUI_Common" />
+	</Fragment>
+</Wix>

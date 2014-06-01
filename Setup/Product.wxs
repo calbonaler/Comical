@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="{C703A05F-3AFE-4421-B030-75BDC7B1F538}" Codepage="932" Language="1041" Manufacturer="takumi" Name="Comical" UpgradeCode="{2E73E334-4D49-4BBF-8BEC-E210EF49DD6E}" Version="4.4.9">
+		<Package Compressed="yes" InstallerVersion="400" Languages="1041" Manufacturer="takumi" Platform="x86" SummaryCodepage="932" />
+		<MajorUpgrade DowngradeErrorMessage="新しいバージョンの [ProductName] が既にインストールされています。"/>
+		<Media Id="1" Cabinet="components" EmbedCab="yes" />
+		<PropertyRef Id="NETFRAMEWORK45"/>
+		<Condition Message="セットアップを実行するには Microsoft .NET Framework 4.5 がインストールされている必要があります。">Installed OR NETFRAMEWORK45</Condition>
+		<CustomAction Id="SET_TARGETDIR" Property="TARGETDIR" Value="[ProgramFilesFolder][Manufacturer]\[ProductName]" Execute="firstSequence" />
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Component Id="C_WeifenLuo.WinFormsUI.Docking.dll" Guid="{93FBAC71-EB15-F81B-0F07-D50C1557B141}">
+				<File
+					Id="WeifenLuo.WinFormsUI.Docking.dll" Name="WeifenLuo.WinFormsUI.Docking.dll" KeyPath="yes"
+					Assembly=".net" AssemblyManifest="WeifenLuo.WinFormsUI.Docking.dll" AssemblyApplication="WeifenLuo.WinFormsUI.Docking.dll"
+					Source="$(var.Comical.TargetDir)WeifenLuo.WinFormsUI.Docking.dll" />
+			</Component>
+			<Component Id="C_Microsoft.WindowsAPICodePack.Shell.dll" Guid="{71ADE1F1-92A8-38BA-0BA2-EF2461AB0D6B}">
+				<File
+					Id="Microsoft.WindowsAPICodePack.Shell.dll" Name="Microsoft.WindowsAPICodePack.Shell.dll" KeyPath="yes"
+					Assembly=".net" AssemblyManifest="Microsoft.WindowsAPICodePack.Shell.dll" AssemblyApplication="Microsoft.WindowsAPICodePack.Shell.dll"
+					Source="$(var.Comical.TargetDir)Microsoft.WindowsAPICodePack.Shell.dll" />
+			</Component>
+			<Component Id="C_Microsoft.WindowsAPICodePack.dll" Guid="{B753735C-40C2-2047-505A-6BBA14D141C8}">
+				<File
+					Id="Microsoft.WindowsAPICodePack.dll" Name="Microsoft.WindowsAPICodePack.dll" KeyPath="yes"
+					Assembly=".net" AssemblyManifest="Microsoft.WindowsAPICodePack.dll" AssemblyApplication="Microsoft.WindowsAPICodePack.dll"
+					Source="$(var.Comical.TargetDir)Microsoft.WindowsAPICodePack.dll" />
+			</Component>
+			<Component Id="C_HtmlAgilityPack.dll" Guid="{1BF5B26F-E635-481F-A01D-523157600064}">
+				<File
+					Id="HtmlAgilityPack.dll" Name="HtmlAgilityPack.dll" KeyPath="yes"
+					Assembly=".net" AssemblyManifest="HtmlAgilityPack.dll" AssemblyApplication="HtmlAgilityPack.dll"
+					Source="$(var.Comical.TargetDir)HtmlAgilityPack.dll" />
+			</Component>
+			<Component Id="C_Comical.exe" Guid="{79CAE661-FFD4-D2A5-9E1F-27B59CCD947F}">
+				<File
+					Id="Comical.exe" Name="Comical.exe" KeyPath="yes" ShortName="COMICAL.EXE"
+					Assembly=".net" AssemblyManifest="Comical.exe" AssemblyApplication="Comical.exe"
+					Source="$(var.Comical.TargetPath)" />
+				<ProgId Id="ComicImageCollectionFile" IconIndex="0" Advertise="yes" Description="Comic Image Collection File">
+					<Extension Id="cic" Advertise="yes">
+						<Verb Id="open" Command="開く(&amp;O)" Argument="/View &quot;%1&quot;"/>
+						<Verb Id="edit" Command="編集(&amp;E)" Argument="&quot;%1&quot;"/>
+					</Extension>
+				</ProgId>
+				<Shortcut Id="_A1E616D0E9BA43F5A731790C92F0E79C" Directory="ProgramMenuFolder" Name="Comical" Icon="Comical.ico" IconIndex="0" Show="normal" WorkingDirectory="TARGETDIR" Advertise="yes" />
+			</Component>
+			<Component Id="C_ComicFileHandler.dll" Guid="{B32A08B6-EB9B-4880-B05B-0E8714668BD9}">
+				<File
+					Id="ComicFileHandler.dll" Name="ComicFileHandler.dll" KeyPath="yes" SelfRegCost="0"
+					Source="$(var.ComicFileHandler.TargetPath)" />
+			</Component>
+			<Component Id="C_FileVersionViewer.exe" Guid="{42F7A306-84EE-9501-3851-2A649B25C9DA}">
+				<File
+					Id="FileVersionViewer.exe" Name="FileVersionViewer.exe" KeyPath="yes"
+					Assembly=".net" AssemblyManifest="FileVersionViewer.exe" AssemblyApplication="FileVersionViewer.exe"
+					Source="$(var.FileVersionViewer.TargetPath)" />
+			</Component>
+			<Component Id="C_Comical.exe.config" Guid="{423BFEDF-7732-FB9C-1BA1-509BDF6BDF7B}">
+				<File
+					Id="Comical.exe.config" Name="Comical.exe.config" KeyPath="yes"
+					Source="$(var.Comical.TargetPath).config" />
+			</Component>
+			<Component Id="C_ArchiversManager.exe.config" Guid="{A7AB91AF-9BFA-92DB-3A91-F76CBE2FBA11}">
+				<File
+					Id="ArchiversManager.exe.config" Name="ArchiversManager.exe.config" KeyPath="yes"
+					Source="$(var.ArchiversManager.TargetPath).config" />
+			</Component>
+			<Component Id="C_ArchiversManager.exe" Guid="{EE132471-393D-E9DF-3DC9-0F84615BBFA6}">
+				<File
+					Id="ArchiversManager.exe" Name="ArchiversManager.exe" KeyPath="yes"
+					Assembly=".net" AssemblyManifest="ArchiversManager.exe" AssemblyApplication="ArchiversManager.exe"
+					Source="$(var.ArchiversManager.TargetPath)"/>
+			</Component>
+			<Component Id="C_ComicalCore.dll" Guid="{A9525028-FF66-4B74-88EC-163A656C0950}">
+				<File
+					Id="ComicalCore.dll" Name="ComicalCore.dll" KeyPath="yes"
+					Assembly=".net" AssemblyManifest="ComicalCore.dll" AssemblyApplication="ComicalCore.dll"
+					Source="$(var.ComicalCore.TargetPath)"/>
+			</Component>
+			<Component Id="C_CommonLibrary.dll" Guid="{A08A30E9-BCF8-439C-AA1F-67707EE91FAC}">
+				<File
+					Id="CommonLibrary.dll" Name="CommonLibrary.dll" KeyPath="yes"
+					Assembly=".net" AssemblyManifest="CommonLibrary.dll" AssemblyApplication="CommonLibrary.dll"
+					Source="$(var.CommonLibrary.TargetPath)"/>
+			</Component>
+			<Directory Id="ProgramMenuFolder" SourceName="Programs" />
+			<Directory Id="ResourceDirectory" Name="ja-JP" ShortName="JA-JP">
+				<Component Id="C_Comical.resources.dll" Guid="{A1A9313E-EB65-5958-0198-5CFF4C5E51C2}">
+					<File
+						Id="Comical.resources.dll" Name="Comical.resources.dll" KeyPath="yes"
+						Assembly=".net" AssemblyManifest="Comical.resources.dll" AssemblyApplication="Comical.resources.dll"
+						Source="$(var.Comical.TargetDir)ja-JP\Comical.resources.dll" />
+				</Component>
+				<Component Id="C_FileVersionViewer.resources.dll" Guid="{A2E746D5-D5F0-4464-B2B0-938FB723EB58}">
+					<File
+						Id="FileVersionViewer.resources.dll" Name="FileVersionViewer.resources.dll" KeyPath="yes"
+						Assembly=".net" AssemblyManifest="FileVersionViewer.resources.dll" AssemblyApplication="FileVersionViewer.resources.dll"
+						Source="$(var.FileVersionViewer.TargetDir)ja-JP\FileVersionViewer.resources.dll"/>
+				</Component>
+			</Directory>
+		</Directory>
+		<Feature
+			Id="DefaultFeature" ConfigurableDirectory="TARGETDIR" Level="1" AllowAdvertise="no" Absent="disallow"
+			Title="Comical" Description="Comical の実行に必要なコンポーネントをインストールします。">
+			<ComponentRef Id="C_WeifenLuo.WinFormsUI.Docking.dll" Primary="yes" />
+			<ComponentRef Id="C_Microsoft.WindowsAPICodePack.Shell.dll" Primary="yes" />
+			<ComponentRef Id="C_Microsoft.WindowsAPICodePack.dll" Primary="yes" />
+			<ComponentRef Id="C_HtmlAgilityPack.dll" Primary="yes"/>
+			<ComponentRef Id="C_Comical.exe" Primary="yes" />
+			<ComponentRef Id="C_Comical.resources.dll" Primary="yes" />
+			<ComponentRef Id="C_ComicFileHandler.dll" />
+			<ComponentRef Id="C_Comical.exe.config" />
+			<ComponentRef Id="C_ArchiversManager.exe.config" />
+			<ComponentRef Id="C_ArchiversManager.exe" Primary="yes" />
+			<ComponentRef Id="C_ComicalCore.dll"/>
+			<ComponentRef Id="C_CommonLibrary.dll"/>
+			<ComponentRef Id="C_FileVersionViewer.exe" Primary="yes" />
+			<ComponentRef Id="C_FileVersionViewer.resources.dll" Primary="yes"/>
+		</Feature>
+		<Icon Id="Comical.ico" SourceFile="$(var.Comical.ProjectDir)Comical.ico" />
+		<Property Id="ARPCONTACT" Value="takumi" />
+		<Property Id="ARPPRODUCTICON" Value="Comical.ico" />
+		<Property Id="ARPNOMODIFY">1</Property>
+		<Property Id="ARPNOREPAIR">1</Property>
+
+		<AdminExecuteSequence>
+			<Custom Before="CostInitialize" Action="SET_TARGETDIR"/>
+		</AdminExecuteSequence>
+		<AdminUISequence>
+			<Custom Before="CostInitialize" Action="SET_TARGETDIR"/>
+		</AdminUISequence>
+		<AdvertiseExecuteSequence>
+			<Custom Before="CostInitialize" Action="SET_TARGETDIR"/>
+		</AdvertiseExecuteSequence>
+		<InstallExecuteSequence>
+			<Custom Before="CostInitialize" Action="SET_TARGETDIR"/>
+		</InstallExecuteSequence>
+		<InstallUISequence>
+			<Custom Before="CostInitialize" Action="SET_TARGETDIR"/>
+		</InstallUISequence>
+
+		<UIRef Id="MyWixUI_Minimal"/>
+		<UIRef Id="WixUI_ErrorProgressText"/>
+	</Product>
+</Wix>

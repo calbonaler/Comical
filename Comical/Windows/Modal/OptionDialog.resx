@@ -1,0 +1,945 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="&gt;&gt;lblStartDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="txtEra.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="txtDefaultSavedFileName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 39</value>
+  </data>
+  <data name="&gt;&gt;lblPageViewDesc.Parent" xml:space="preserve">
+    <value>tpCommon</value>
+  </data>
+  <data name="btnRun.Location" type="System.Drawing.Point, System.Drawing">
+    <value>408, 6</value>
+  </data>
+  <data name="tcContents.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tpJapaneseEras.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;lvJapaneseEras.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lblStartDate.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="itmAuthor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 22</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="&gt;&gt;chkCheckArchiverUpdateWhenStarted.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPageViewDesc.Name" xml:space="preserve">
+    <value>lblPageViewDesc</value>
+  </data>
+  <data name="txtEra.Location" type="System.Drawing.Point, System.Drawing">
+    <value>408, 32</value>
+  </data>
+  <data name="&gt;&gt;tcContents.Name" xml:space="preserve">
+    <value>tcContents</value>
+  </data>
+  <data name="tpArchivers.Text" xml:space="preserve">
+    <value>Archivers</value>
+  </data>
+  <data name="txtDefaultSavedFileName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="dtpStartDate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>408, 81</value>
+  </data>
+  <data name="&gt;&gt;clmStartDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tpEditor.Parent" xml:space="preserve">
+    <value>tcContents</value>
+  </data>
+  <data name="btnUpdateAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 26</value>
+  </data>
+  <data name="&gt;&gt;lblStartDate.Name" xml:space="preserve">
+    <value>lblStartDate</value>
+  </data>
+  <data name="&gt;&gt;btnInsertMask.Parent" xml:space="preserve">
+    <value>tpEditor</value>
+  </data>
+  <data name="&gt;&gt;clmEra.Name" xml:space="preserve">
+    <value>clmEra</value>
+  </data>
+  <data name="lblPageViewDesc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>505, 59</value>
+  </data>
+  <data name="&gt;&gt;itmFormattedDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tpCommon.Name" xml:space="preserve">
+    <value>tpCommon</value>
+  </data>
+  <data name="btnRun.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="lvArchivers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 298</value>
+  </data>
+  <data name="lblEra.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="chkCheckArchiverUpdateWhenStarted.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 310</value>
+  </data>
+  <data name="lvArchivers.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="btnInsertMask.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>メイリオ, 9pt</value>
+  </data>
+  <data name="btnOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="btnInsertMask.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 26</value>
+  </data>
+  <data name="&gt;&gt;lvJapaneseEras.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dtpStartDate.Parent" xml:space="preserve">
+    <value>tpJapaneseEras</value>
+  </data>
+  <data name="tpArchivers.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;lblStartDate.Parent" xml:space="preserve">
+    <value>tpJapaneseEras</value>
+  </data>
+  <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
+    <value>362, 387</value>
+  </data>
+  <data name="btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 1, 0</value>
+  </data>
+  <data name="lblStartDate.Text" xml:space="preserve">
+    <value>Date of &amp;start:</value>
+  </data>
+  <data name="&gt;&gt;tpJapaneseEras.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dtpStartDate.Name" xml:space="preserve">
+    <value>dtpStartDate</value>
+  </data>
+  <data name="&gt;&gt;txtDefaultSavedFileName.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tcContents.Size" type="System.Drawing.Size, System.Drawing">
+    <value>552, 369</value>
+  </data>
+  <data name="&gt;&gt;tpArchivers.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lblEra.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 18</value>
+  </data>
+  <data name="&gt;&gt;tpArchivers.Parent" xml:space="preserve">
+    <value>tcContents</value>
+  </data>
+  <data name="clmStartDate.Text" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="btnRun.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 18</value>
+  </data>
+  <data name="btnUpdateAll.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;chkUsePageView.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;lvJapaneseEras.Name" xml:space="preserve">
+    <value>lvJapaneseEras</value>
+  </data>
+  <data name="lblDefaultSavedFileName.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;itmTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tpCommon.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 27</value>
+  </data>
+  <data name="dtpStartDate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lblDefaultSavedFileName.Text" xml:space="preserve">
+    <value>&amp;File name in default:</value>
+  </data>
+  <data name="tpArchivers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 27</value>
+  </data>
+  <data name="&gt;&gt;txtDefaultSavedFileName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblDefaultSavedFileName.Parent" xml:space="preserve">
+    <value>tpEditor</value>
+  </data>
+  <data name="tpEditor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>544, 338</value>
+  </data>
+  <data name="chkCheckArchiverUpdateWhenStarted.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;btnOK.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnInsertMask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblPageViewDesc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>33, 41</value>
+  </data>
+  <data name="btnOK.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="clmEra.Text" xml:space="preserve">
+    <value>Era</value>
+  </data>
+  <data name="&gt;&gt;chkUsePageView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnInsertMask.Name" xml:space="preserve">
+    <value>btnInsertMask</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lvArchivers.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tpJapaneseEras.Size" type="System.Drawing.Size, System.Drawing">
+    <value>544, 338</value>
+  </data>
+  <data name="&gt;&gt;txtEra.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;lvJapaneseEras.Parent" xml:space="preserve">
+    <value>tpJapaneseEras</value>
+  </data>
+  <data name="tpEditor.Text" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="&gt;&gt;tpArchivers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkUsePageView.Name" xml:space="preserve">
+    <value>chkUsePageView</value>
+  </data>
+  <data name="&gt;&gt;lblPageViewDesc.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tpArchivers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>544, 338</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.Name" xml:space="preserve">
+    <value>btnCancel</value>
+  </data>
+  <data name="&gt;&gt;clmVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tpEditor.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;btnOK.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>OptionDialog</value>
+  </data>
+  <data name="lvJapaneseEras.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tpJapaneseEras.Name" xml:space="preserve">
+    <value>tpJapaneseEras</value>
+  </data>
+  <data name="txtDefaultSavedFileName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>479, 25</value>
+  </data>
+  <data name="lblEra.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;dtpStartDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnRun.Text" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="&gt;&gt;btnInsertMask.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tpCommon.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lblDefaultSavedFileName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 18</value>
+  </data>
+  <data name="&gt;&gt;btnOK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnUpdateAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>408, 50</value>
+  </data>
+  <data name="chkUsePageView.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;btnOK.Name" xml:space="preserve">
+    <value>btnOK</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;txtEra.Parent" xml:space="preserve">
+    <value>tpJapaneseEras</value>
+  </data>
+  <data name="tpJapaneseEras.Text" xml:space="preserve">
+    <value>Japanese Eras</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="lblEra.Location" type="System.Drawing.Point, System.Drawing">
+    <value>405, 11</value>
+  </data>
+  <data name="&gt;&gt;clmEra.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;conInsertMask.Name" xml:space="preserve">
+    <value>conInsertMask</value>
+  </data>
+  <data name="btnCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;tpCommon.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tpJapaneseEras.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="lblEra.Text" xml:space="preserve">
+    <value>&amp;Era:</value>
+  </data>
+  <data name="&gt;&gt;clmName.Name" xml:space="preserve">
+    <value>clmName</value>
+  </data>
+  <data name="txtDefaultSavedFileName.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="tpCommon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>544, 338</value>
+  </data>
+  <data name="&gt;&gt;txtDefaultSavedFileName.Name" xml:space="preserve">
+    <value>txtDefaultSavedFileName</value>
+  </data>
+  <data name="lblDefaultSavedFileName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 18</value>
+  </data>
+  <data name="&gt;&gt;itmFormattedDate.Name" xml:space="preserve">
+    <value>itmFormattedDate</value>
+  </data>
+  <data name="&gt;&gt;lblEra.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lvArchivers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="&gt;&gt;conInsertMask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tcContents.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="chkUsePageView.Text" xml:space="preserve">
+    <value>Use &amp;Page View</value>
+  </data>
+  <data name="&gt;&gt;lblDefaultSavedFileName.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tpJapaneseEras.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;chkCheckArchiverUpdateWhenStarted.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;chkCheckArchiverUpdateWhenStarted.Parent" xml:space="preserve">
+    <value>tpArchivers</value>
+  </data>
+  <data name="btnOK.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ilStatus.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAA4
+        HAAAAk1TRnQBSQFMAgEBAgEAARABAAE4AQABIAEAASABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAGA
+        AwABIAMAAQEBAAEgBgABQB4AAwMBBAMKAQ4DEAEWAw0BEgMEAQY8AAMCAQMDCgEOAxMBGgMTARoDCQEM
+        AwEBAv8AlQADBwEJAi8BMAFKAlwBcgGuAlkBbQGuAjwBPQFnAxkBIwMHAQk0AAMCAQMDLwFJAl0BcwGt
+        AmEBiAHHAkgBTAGGAyYBOQMNAREDAQECNAADBgEIASkBKwEpAUMDIwE2AwQBBf8ASQADBgEIAjsBPQFg
+        AmQBjgHIAlcBpAHfAlgBrAHmAmABiQHRAkQBRwF9AxwBJwMGAQgsAAMDAQQCMQEyAU4CYgGBAbsCVAGf
+        AegCTQGdAe0CYwGdAeECTgFWAZoDKQE+AwwBEAMBAQIsAAMRARcBNAFqATwBsQEXAbUBLAH8ASEBkwEw
+        AeYBLwEyATABVv8ARQADAwEEAjQBNgFUAmQBlAHNAkEBzgHzAgcB6AH/AhAB4wH/AkwBwgHzAmEBigHS
+        AkMBRgF8AxsBJgMGAQgkAAMEAQUCMQEyAU4CYgGBAbsCSAGtAfMCBAGqAf8CAAGmAf8COQGnAfYCYgGf
+        AeQCSwFTAZUDJgE6AwsBDwMBAQIkAAMDAQQBNQFxAT0BtQEdAb0BMgH/ARgBqAEqAf8BGAG0ASsB/wEp
+        AXwBMwHTAxUBHv8AQQADJgE4AmcBkQHKAj4B0gH0AgAB6gH/AgAB6AH/AgAB5gH/AgwB3wH+AkwBxAHz
+        AmEBiwHTAkMBRgF8AxsBJgMFAQccAAMEAQYCMgEzAU8CYwGCAbwCSAGwAfMCBAGuAf8CAAGqAf8CAAGo
+        Af8CAAGnAf8CPAGpAfcCZAGcAeICSgFQAZADIgEyAwgBCyQAATkBVwE9AZABJgHGAT0B/wEiAbMBNgH/
+        ASABsQEzAf8BHQGtATAB/wEcAb0BMQH/ATYBRwE4AYUDAQEC/wA9AAJfAXoBsgJPAcoB8AIAAewB/wIB
+        AesB/wIBAeoB/wIBAekB/wIAAecB/wIMAeEB/gJPAcUB9AJfAYsB0wJDAUUBegMbASYDBQEHFAADBAEG
+        AjMBNAFRAmUBhwG/AkIBswH1AgQBsgH/AgABrwH/AgABrgH/AgABqwH/AgABqAH/AgABpwH/AkQBswH4
+        AmcBpgHkAzIBUgMPARQgAAE2AUMBOAFvATAB0gFHAf8BMAHBAUQB/wErAb4BQAH/ASgBugE8Af8BJgG3
+        ATkB/wEkAbkBOAH/ASUBmwE1AeoBIQEiASEBM/8APQACaQG4AeICIwHvAf8CAAHrAf8CAQHrAf8CAQHr
+        Af8CAQHqAf8CAQHpAf8CAAHmAf8CCwHkAf8CUAHGAfQCYQGLAdMCQwFFAXsDGwEmAwQBBgwAAwUBBwIz
+        ATQBUQJmAYkBwAJAAbkB9wIDAbcB/wIAAbMB/wIAAbMB/wIAAbEB/wIAAa4B/wIAAasB/wIAAacB/wIl
+        Ab8B/wJiAcYB9gMwAU0DDQERHAABMAE3ATEBWAE4AdEBTgH8AT0B0QFTAf8BOAHLAU4B/wE1AcgBSgH/
+        ATIBxQFHAf8BLwHCAUQB/wEsAb0BQAH/ASoBygFAAf8BNgFXAToBowMFAQf/ADkAAloBjAHCAkQB7wH/
+        AgwB7AH/AgAB6wH/AgEB6wH/AgEB6wH/AgEB6gH/AgEB6AH/AgAB5wH/Ag0B4QH+AlAByAH0AmEBiAHS
+        AkMBRQF5AxsBJgMEAQYEAAMFAQcCNAE1AVMCZgGMAcICPwG4AfYCAgG8Af8CAAG5Af8CAAG3Af8CAAG1
+        Af8CAAGzAf8CAAGvAf8CAAGsAf8CEAG3Af8CSwHWAf8CWwF/AckDHgErAwQBBRgAASsBLwEsAUkBPgHK
+        AVMB9QFHAd4BXwH/AUMB1QFZAf8BQAHUAVcB/wE+AdIBVQH/ATwBzwFSAf8BOQHMAU8B/wE2AckBSwH/
+        ATQBxwFJAf8BKwG7AT8B+AEtAS4BLQFO/wA5AAIuAS8BRwJcAbkB4gJAAe4B/wINAewB/wIAAesB/wIB
+        AesB/wIBAesB/wIBAesB/wIBAekB/wIAAecB/wINAeEB/gJPAckB9QJhAYoB0gJDAUUBegMYASIDCQEM
+        AjUBNgFVAmgBjwHDAj4BvwH3AgIBwAH/AgABvgH/AgABvAH/AgABugH/AgABuAH/AgABtQH/AgABsQH/
+        AhEBuQH/AkoB2AH/Al0BnwHgAzMBUgMIAQsYAAEqASwBKgFFAUIBvQFTAe0BUAHpAWkB/wFLAd8BYgH/
+        AUkB3QFgAf8BRwHaAV4B/wFFAd8BXQH/AUEB3AFYAf8BQQHTAVcB/wE+AdIBVAH/ATwBzgFSAf8BOwHZ
+        AVIB/wE0AW4BPAG/Aw8BFP8AOQACMwE0AVECVwG7AeMCQQHvAf8CDQHsAf8CAAHrAf8CAQHrAf8CAQHr
+        Af8CAQHrAf8CAQHpAf8CAAHoAf8CDgHiAf4CUAHKAfUCYAGGAdACQQFCAXQCPwFAAWwCaAGPAcUCPQHD
+        AfcCAgHGAf8CAAHDAf8CAAHBAf8CAAG/Af8CAAG9Af8CAAG6Af8CAAG1Af8CEQG+Af8CSwHbAf8CXQGj
+        AeICNwE4AVoDBQEHGAABMQE3ATIBWgFFAc0BWQH1AVcB8AFxAf8BUgHlAWoB/wFQAeQBaAH/AU8B4gFn
+        Af8BUQHtAWoB/wE+AYYBRwHCAT0BcgFEAaUBSgHkAWIB/wFFAdgBXAH/AUIB1wFZAf8BQgHVAVgB/wE5
+        AdkBUAH/ATUBPgE2AXP/AD0AAjQBNQFSAlUBtwHiAj8B7wH/Ag0B6wH/AgAB6gH/AgEB6wH/AgEB6wH/
+        AgEB6wH/AgEB6QH/AgAB6AH/AgsB5QH/Ak4BuwHwAmYBkwHXAmQBlQHWAj0BxQH2AgIB0QH/AgABywH/
+        AgABxwH/AgABxAH/AgABwQH/AgABvwH/AgABugH/Ag8BwQH/AkgB3AH/AmABrAHmAjgBOgFeAwQBBhQA
+        AwIBAwE5AUkBOwF9AUwB3AFiAfsBXAH0AXUB/wFXAesBcAH/AVYB6gFvAf8BVQHpAW0B/wFYAfMBcgH/
+        AUIBqwFSAd0DFQEdAw8BFAFDAdIBWAHwAU4B4QFmAf8BSQHdAWAB/wFHAdsBXgH/AUkB4gFgAf8BNAGd
+        AUMB4gMfAS7/AD0AAjQBNQFSAlYBtgHgAj4B7gH/AgwB6wH/AgAB6gH/AgEB6wH/AgEB6wH/AgEB6wH/
+        AgEB6QH/AgAB6AH/AhIB2QH8AkoBwAHxAjwBzgH5AgEB3AH/AgAB1QH/AgAB0QH/AgABzAH/AgABxwH/
+        AgABxAH/AgABvwH/Ag4BxQH/AkcB3gH/AmEBsQHmAjsBPAFkAwUBBxQAAwYBCAE9AVkBQAGVAVcB9QFw
+        Af8BXQHzAXcB/wFZAe0BcgH/AVkB7QFyAf8BWQHtAXIB/wFdAfgBdwH/AUUBuAFWAeQBHgEfAR4BLAgA
+        ATsBUwE+AXsBUwHzAWwB/wFPAeMBZwH/AU0B4QFlAf8BTAHfAWMB/wFJAewBYwH/ATgBVgE8AaADBQEH
+        /wA9AAIzATQBUQJTAbQB4AI5Ae4B/wIMAesB/wIAAeoB/wIBAesB/wIBAesB/wIBAesB/wIBAekB/wIA
+        AegB/wIDAekB/wIDAeQB/wIAAd4B/wIAAdoB/wIAAdYB/wIAAdEB/wIAAc0B/wIAAcUB/wIOAcgB/wJA
+        Ad4B/wJfAbcB6AI9AT4BaAMFAQcYAAEnASkBJwE+AU4B5gFlAf8BWgHvAXQB/wFXAesBcAH/AVgB7AFx
+        Af8BWgHtAXMB/wFeAfsBeQH/AUYBpgFTAdgBHgEfAR4BLAwAAwoBDgFGAbUBVgHcAVgB7gFxAf8BUgHm
+        AWoB/wFQAeQBaAH/AVIB5wFrAf8BPgHNAVUB+AEuATABLgFS/wBBAAIzATQBUQJSAbAB3gI0Ae4B/wIK
+        AesB/wIAAesB/wIBAesB/wIBAesB/wIBAesB/wIBAeoB/wIAAegB/wIAAeUB/wIBAeMB/wIAAd8B/wIA
+        AdsB/wIAAdcB/wIAAdEB/wIKAdAB/wI7Ad4B/wJfAbkB6QJAAUEBbgMHAQkcAAEgASEBIAEvAUYB0wFb
+        AfgBVAHpAW4B/wFTAeYBbAH/AVcB6wFwAf8BWQH2AXIB/wFDAYIBSwG7AxQBHBQAATABNwExAVMBVAH1
+        AW4B/wFYAesBcAH/AVUB6QFtAf8BVAHoAWwB/wFWAfQBcAH/ATgBgAFCAc0DFAEc/wBBAAM0AVECVgGv
+        Ad0CKQHtAf8CBwHqAf8CAAHqAf8CAQHrAf8CAQHrAf8CAQHrAf8CAQHqAf8CAQHoAf8CAQHmAf8CAQHi
+        Af8CAQHfAf8CAAHbAf8CBwHYAf8CMAHjAf8CXAG/AeoCQAFDAXEDBwEJJAABMwE8ATQBXQFEAcEBVgHt
+        AUsB4wFjAf8BSQHYAV0B+gE9AVgBQAGNAwYBCBwAAUMBjgFOAb8BXQH3AXcB/wFYAewBcAH/AVcB6wFw
+        Af8BWAHsAXEB/wFPAfEBaQH/ATcBRgE5AYQDAAEB/wBBAAIzATQBUAJZAaoB1wIkAe0B/wIDAeoB/wIA
+        AesB/wIBAesB/wIBAesB/wIBAesB/wIBAeoB/wIBAegB/wIBAeUB/wIAAeMB/wIFAd8B/wIqAeYB/wJY
+        AcEB6wJEAUYBeQMJAQwsAAMTARoBKQEsASkBQAEdAR4BHQEqJAABHwEhASABLwFPAegBZgH7AVwB8AF2
+        Af8BWQHtAXIB/wFYAewBcQH/AV0B9QF2Af8BQAG7AVIB7gMnAT//AEUAAjgBOgFcAkIBwwHsAgAB6wH/
+        AgAB6gH/AgAB6gH/AgEB6wH/AgEB6wH/AgEB6wH/AgEB6gH/AgEB6QH/AgAB5wH/Ag0B6AH/AlIBzAH1
+        AlABWgGkAyABLwMDAQRgAAE+AVoBQQGJAVsB+QF1Af8BWQHtAXIB/wFZAe0BcgH/AVoB7QFzAf8BXAH7
+        AXYB/wE4AWcBPwG2Aw0BEv8APQADCgEOAkMBSAF4AkoBxgHvAiEB7gH/Ag0B6gH/AgAB6QH/AgAB6gH/
+        AgAB6gH/AgAB6wH/AgAB6wH/AgEB6wH/AgAB6QH/AgYB7AH/AjgBvQHxAkwBVQGlAzcBWwMaASQDBAEG
+        XAADBwEJAUUBqgFTAdgBWgHxAXQB/wFXAesBcAH/AVgB7AFxAf8BXAHvAXUB/wFPAe0BaAH/ATYBPwE3
+        AXf/ADkAAwoBDgJDAUgBewJKAb8B7AJRAe0B/wJSAe8B/wJFAe0B/wIyAe0B/wIeAewB/wIPAesB/wIB
+        AesB/wIAAeoB/wIAAesB/wIAAeoB/wIAAeoB/wICAd0B/QIyAaMB6QJLAVQBpQM2AVoDGQEjAwQBBlwA
+        ASkBLQEqAUMBSgHnAWIB/wFUAeYBbQH/AVQB5wFtAf8BVgHpAW8B/wFcAfQBdgH/AT4BsAFPAekBJQEm
+        ASUBPP8AMQADCQEMAkMBRwF6Ak4BwwHtAloB7wH/AlgB7gH/AloB7gH/Al8B7wH/Al8B8AH/AlkB8AH/
+        Ak8B7wH/AkAB7wH/AjMB7gH/ASUBJgHuAf8CGwHtAf8CFAHsAf8CDQHsAf8CDgHrAf8CPAGmAekCSgFR
+        AaADNQFYAxkBIwMFAQdcAAE8AVsBQAGMAUwB5wFlAf8BTQHeAWUB/wFPAeIBaAH/AVIB5AFrAf8BVgH0
+        AXAB/wE4AW8BQAG/AxIBGP8AKQADCAELAkIBRwF4AlEBwQHtAmAB7gH/Al4B7QH/Al4B7QH/AmAB7QH/
+        AmIB7gH/AmUB8AH/AmcB8AH/AmwB8QH/AmsB8gH/AmYB8gH/AmEB8gH/AlsB8QH/AlUB8QH/AlAB8AH/
+        AkoB8AH/AlAB8wH/AkgBpQHpAkgBTgGbAzQBVQMZASMDBAEGWAADBgEIAT8BlgFKAc8BRgHcAV8B/wFF
+        AdcBXQH/AUoB2wFhAf8BTwHgAWcB/wFKAegBYgH/ATcBRgE5AYgDAwEE/wAhAAMHAQoCQgFHAXgCUwG/
+        Ae0CZQHsAf8CYwHrAf8CZAHrAf8CZgHsAf8CZwHtAf8CaAHuAf8CaAHvAf8CbAHwAf8CcwHzAf8CdQH0
+        Af8CbwHyAf8CbAHyAf8CbQHyAf8CbAHyAf8CawHyAf8CaAHyAf8CZQHzAf8CYQH1Af8CSgGiAecCRgFL
+        AZgDMwFUAxgBIQMEAQZYAAEhASMBIQEyAUUBywFZAfgBRQHQAVsB/wE+Ac8BVQH/AUIB0wFZAf8BSgHe
+        AWIB/wE7Ab0BTgH0AS4BLwEuAVH/AB0AAwgBCwJCAUcBeQJUAb4B7gJoAeoB/wJnAekB/wJoAeoB/wJr
+        AesB/wJsAewB/wJuAe0B/wJuAe4B/wJ0AfAB/wJ3AfEB/wJbAcwB8QJXAcYB7gJ1AfEB/wJ1AfMB/wJt
+        AfIB/wJtAfMB/wJsAfIB/wJqAfIB/wJnAfIB/wJnAfIB/wJlAfUB/wJIAZ4B5gJGAUsBlAMyAVIDGAEh
+        AwQBBVgAATsBTgE9AXoBUgHXAWYB/wFKAcoBXgH/AT4ByQFUAf8BPAHLAVIB/wFCAdwBWgH/ATUBggE/
+        AdQDHAEp/wAUAAEBAwcBCQJBAUUBdgJUAbwB7gJrAecB/wJpAecB/wJrAegB/wJuAekB/wJvAesB/wJy
+        AewB/wJyAe0B/wJ5Ae8B/wKCAfIB/wJfAcYB7QI+AUEBbwIxATIBTwJcAaYB1gJ9AfIB/wJ7AfMB/wJz
+        AfIB/wJyAfMB/wJvAfMB/wJsAfIB/wJoAfIB/wJrAfIB/wJnAfQB/wJHAZ0B5QJFAUoBkQMyAVEDFgEf
+        AwQBBVQAAwIBAwFAAX8BRwG8AVMBzwFlAf8BTwHIAWEB/wFLAckBXgH/AUMByAFZAf8BPgHWAVUB/wE2
+        AVwBOwGvAw4BE/8ADQADBAEGAkEBRQF2AlcBuAHtAm4B5QH/AmwB5QH/Am0B5gH/AnIB5wH/AnQB6QH/
+        AnYB6gH/AncB6wH/AnwB7QH/AoQB8QH/AmEByAHuAkABRAF0AwcBCQQAAiwBLQFEAlsBogHWAoEB8gH/
+        AoAB9AH/AnYB8wH/AnYB8wH/AnIB8wH/Am8B8wH/AmsB8gH/AmwB8wH/AmYB8wH/AkkBmQHkAkUBSQGO
+        AzABTgMVAR0DBAEFVAADFAEbAUEBrQFOAegBTAHFAV8B/wFMAcQBXgH/AU4BxgFgAf8BUAHKAWMB/wFH
+        Ac8BWgH/ATcBRAE4AYUDBAEF/wAJAAI5ATsBXwJYAbcB7QJuAeIB/wJtAeMB/wJvAeQB/wJzAeUB/wJ2
+        AecB/wJ4AekB/wJ5AeoB/wKBAewB/wKIAe8B/wJhAcUB7gJAAUQBdAMIAQsIAAMBAQICLAEtAUMCXgGf
+        AdUChQHyAf8CgwHzAf8CegHzAf8CeAHzAf8CdQHzAf8CcgHzAf8CbQHyAf8CbAHzAf8CZwHyAf8CSAGW
+        AeICRQFIAYkDKgFAAwsBD1gAAS8BNQEwAVEBQAHFAVIB/wFHAb0BWAH/AUcBvwFZAf8BSgHBAVsB/wFP
+        AcoBYgH/AT0BsQFLAfUBMAEzATEBWv8ACQACRgGFAckCcwHgAf8CbwHgAf8CcQHhAf8CdAHjAf8CeAHl
+        Af8CegHmAf8CewHoAf8CggHqAf8CiQHuAf8CYgHBAe0CQAFDAXIDBwEKEAADAQECAisBLAFCAl4BnwHV
+        AocB8wH/AoYB9AH/AnwB8wH/AnoB8wH/AnYB8wH/AnIB8wH/Am4B8gH/AmwB8wH/AmcB8QH/AkYBewHN
+        AzIBUQMPARRcAAE8AVcBPgGMAUIBwwFUAf8BQgG5AVMB/wFEAbsBVQH/AUUBvQFXAf8BSwHJAV0B/wE2
+        AZABQgHjASYBJwEmAT7/AAUAAj8BjQHTAn0B4AH/AnIB3wH/AnQB4QH/AnkB4wH/AnwB5AH/AnwB5gH/
+        AoUB6AH/AosB7AH/AmEBugHrAj4BQgFvAwcBCRgAAwEBAgMpAT4CXQGbAdICiAHyAf8CiAH0Af8CfQHz
+        Af8CegHzAf8CdwHzAf8CcgHzAf8CbQHyAf8CdwH1Af8CQAGiAeADKAE8AwgBC1wAAwQBBgE9AXsBRAG+
+        AT8BuwFQAf8BPgG1AU8B/wFAAbcBUAH/AUIBuAFTAf8BRgHJAVkB/wE4AWEBPQGzAwoBDf8AAQACPAFB
+        AWgCZQHPAfsCgQHhAf8CeQHgAf8CfAHiAf8CgAHkAf8ChQHmAf8CiwHpAf8CXwG1AeoCPgFBAW4DBgEI
+        IAADAQECAygBPAJcAZsB0QKJAfIB/wKHAfQB/wJ9AfMB/wJ6AfMB/wJ1AfMB/wJ8AfQB/wJgAesB/wJG
+        AU8BhgMRARcDAgEDYAADEgEZATgBmwFEAeMBOwG0AUwB/wE7AbABSwH/AT0BsgFNAf8BQwHCAVUB/wE8
+        AXABQgG4AwcBCf8AAQADBwEKAkUBTAF8Am4B0QH8AokB4wH/AoAB4gH/AoUB5AH/AooB5wH/AmEBsQHp
+        Aj0BPwFrAwYBCCgAAwEBAgIkASUBNgJfAZYBzgKJAfIB/wKHAfQB/wJ8AfMB/wKGAfQB/wJoAe0B/wJK
+        AVYBkAMVAR0DAgEDaAABIQEiASEBMQE3AZsBQwHkATkBuQFKAf8BOQG7AUoB/wE5AYoBQwHTARsBHAEb
+        ASf/AAkAAwcBCQJEAUoBeQJyAdUB/gKQAeQB/wKJAeMB/wJgAawB5gI7AT0BZQMEAQYzAAEBAiMBJAE0
+        AlwBkwHMAocB8AH/ApIB9AH/AmwB7QH/AkoBVwGQAxUBHQMBAQJwAAMXASABNgFAATcBaAEyATkBMgFa
+        AwwBEP8AEQADBwEJAj8BRAFuAkYBiAHOAkwBdQG3AzABSwMBAQIDAAEBNwABAQMfASwCSwFuAakCQwGa
+        AdMCQQFIAXQDEAEWAwEBAv8AjQABQgFNAT4HAAE+AwABKAMAAYADAAEgAwABAQEAAQEGAAECFgAD/wEA
+        AeAB/wH+AQcE/wgAAcABfwH8AQMB/wHhAv8IAAGAAT8B+AEBAf8BwQL/CQABHwHwAQAB/wGAAv8JAAEP
+        AeABAAH/AYABfwH/CQABBwHAAQAB/wEAAX8B/wkAAQMBgAEAAf4BAAE/Af8JAAEBAgAB/AEAAT8B/wsA
+        AQEB+AEAAR8B/wgAAYACAAEDAfABAAEfAf8IAAHAAgABBwHAAQABDwH/CAAB4AIAAQ8BgAEYAQcB/wgA
+        AfACAAEfAYABOAEHAf8IAAH4AgABPwGAAXwBAwH/CAAB/AIAAX8BwAH+AQEB/wgAAf4CAAH/AeMB/gEB
+        Af8IAAH/AgAD/wEAAf8IAAH+AgABfwL/AQAB/wgAAfwCAAE/Av8BgAF/CAAB+AIAAR8C/wHAAT8IAAHw
+        AgABDwL/AcABHwgAAeACAAEHAv8B4AEfCAABwAIAAQMC/wHwAQ8LAAEBAv8B8AEHCQABAQIAAv8B+AED
+        CQABAwIAAv8B/AEDCQABBwGAAQAC/wH+AQEJAAEPAcABAAL/Af4KAAEfAeABAAP/CgABPwHwAQED/wGB
+        CAABgAF/AfgBAwP/AcMIAAHAAX8B/AEHBP8eAAs=
+</value>
+  </data>
+  <data name="btnUpdateAll.Text" xml:space="preserve">
+    <value>Update All</value>
+  </data>
+  <data name="&gt;&gt;lblEra.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;itmAuthor.Name" xml:space="preserve">
+    <value>itmAuthor</value>
+  </data>
+  <data name="lblStartDate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblPageViewDesc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="btnCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;btnRun.Parent" xml:space="preserve">
+    <value>tpArchivers</value>
+  </data>
+  <data name="chkUsePageView.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;ilStatus.Name" xml:space="preserve">
+    <value>ilStatus</value>
+  </data>
+  <data name="chkCheckArchiverUpdateWhenStarted.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="btnRun.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;lvArchivers.Name" xml:space="preserve">
+    <value>lvArchivers</value>
+  </data>
+  <data name="lblStartDate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lblEra.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;lblEra.Name" xml:space="preserve">
+    <value>lblEra</value>
+  </data>
+  <data name="tpCommon.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="itmFormattedDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 22</value>
+  </data>
+  <data name="btnInsertMask.Location" type="System.Drawing.Point, System.Drawing">
+    <value>498, 38</value>
+  </data>
+  <data name="&gt;&gt;ilStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dtpStartDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 25</value>
+  </data>
+  <data name="itmAuthor.Text" xml:space="preserve">
+    <value>{1} Author</value>
+  </data>
+  <data name="clmVersion.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="&gt;&gt;btnRun.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnUpdateAll.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tpArchivers.Name" xml:space="preserve">
+    <value>tpArchivers</value>
+  </data>
+  <data name="&gt;&gt;lblPageViewDesc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkUsePageView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 16</value>
+  </data>
+  <data name="tpJapaneseEras.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 27</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnUpdateAll.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="chkUsePageView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 22</value>
+  </data>
+  <data name="&gt;&gt;chkUsePageView.Parent" xml:space="preserve">
+    <value>tpCommon</value>
+  </data>
+  <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 26</value>
+  </data>
+  <data name="&gt;&gt;itmTitle.Name" xml:space="preserve">
+    <value>itmTitle</value>
+  </data>
+  <data name="&gt;&gt;lblEra.Parent" xml:space="preserve">
+    <value>tpJapaneseEras</value>
+  </data>
+  <data name="&gt;&gt;tpCommon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dtpStartDate.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;tpEditor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lvJapaneseEras.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 326</value>
+  </data>
+  <data name="&gt;&gt;lblDefaultSavedFileName.Name" xml:space="preserve">
+    <value>lblDefaultSavedFileName</value>
+  </data>
+  <data name="lvArchivers.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;clmName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnRun.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="itmTitle.Text" xml:space="preserve">
+    <value>{0} Title</value>
+  </data>
+  <data name="lvJapaneseEras.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="txtEra.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="tpEditor.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="btnInsertMask.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;txtEra.Name" xml:space="preserve">
+    <value>txtEra</value>
+  </data>
+  <data name="&gt;&gt;itmAuthor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblStartDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 18</value>
+  </data>
+  <data name="&gt;&gt;tpEditor.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tcContents.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="&gt;&gt;dtpStartDate.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="txtEra.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 25</value>
+  </data>
+  <data name="&gt;&gt;lblDefaultSavedFileName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tcContents.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="tpCommon.Text" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="lblDefaultSavedFileName.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;txtDefaultSavedFileName.Parent" xml:space="preserve">
+    <value>tpEditor</value>
+  </data>
+  <data name="lblPageViewDesc.Text" xml:space="preserve">
+    <value>In Page View mode, images in the collection are shown like each pages of the book.
+You can modify view mode of images and turning direction of "Book" in Editor.</value>
+  </data>
+  <data name="&gt;&gt;clmVersion.Name" xml:space="preserve">
+    <value>clmVersion</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>574, 422</value>
+  </data>
+  <data name="btnUpdateAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;txtEra.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnInsertMask.Text" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="conInsertMask.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 70</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblStartDate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>405, 60</value>
+  </data>
+  <data name="chkCheckArchiverUpdateWhenStarted.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tpEditor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 27</value>
+  </data>
+  <data name="&gt;&gt;btnUpdateAll.Name" xml:space="preserve">
+    <value>btnUpdateAll</value>
+  </data>
+  <data name="btnRun.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 26</value>
+  </data>
+  <data name="tpArchivers.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;chkCheckArchiverUpdateWhenStarted.Name" xml:space="preserve">
+    <value>chkCheckArchiverUpdateWhenStarted</value>
+  </data>
+  <data name="&gt;&gt;lvArchivers.Parent" xml:space="preserve">
+    <value>tpArchivers</value>
+  </data>
+  <data name="itmTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 22</value>
+  </data>
+  <data name="&gt;&gt;lblStartDate.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tcContents.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lvArchivers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tpCommon.Parent" xml:space="preserve">
+    <value>tcContents</value>
+  </data>
+  <data name="btnRun.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="clmName.Text" xml:space="preserve">
+    <value>DLL</value>
+  </data>
+  <data name="btnOK.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 26</value>
+  </data>
+  <data name="&gt;&gt;btnUpdateAll.Parent" xml:space="preserve">
+    <value>tpArchivers</value>
+  </data>
+  <data name="&gt;&gt;tcContents.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tpEditor.Name" xml:space="preserve">
+    <value>tpEditor</value>
+  </data>
+  <data name="chkCheckArchiverUpdateWhenStarted.Text" xml:space="preserve">
+    <value>Check archiver &amp;update when started</value>
+  </data>
+  <data name="&gt;&gt;clmStartDate.Name" xml:space="preserve">
+    <value>clmStartDate</value>
+  </data>
+  <data name="&gt;&gt;btnRun.Name" xml:space="preserve">
+    <value>btnRun</value>
+  </data>
+  <data name="lblPageViewDesc.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>466, 387</value>
+  </data>
+  <data name="&gt;&gt;btnUpdateAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkCheckArchiverUpdateWhenStarted.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 22</value>
+  </data>
+  <data name="itmFormattedDate.Text" xml:space="preserve">
+    <value>{2} Formatted Date</value>
+  </data>
+  <data name="&gt;&gt;tpJapaneseEras.Parent" xml:space="preserve">
+    <value>tcContents</value>
+  </data>
+  <data name="lvJapaneseEras.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="conInsertMask.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>ja-JP</value>
+  </metadata>
+  <metadata name="ilStatus.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>156, 17</value>
+  </metadata>
+</root>

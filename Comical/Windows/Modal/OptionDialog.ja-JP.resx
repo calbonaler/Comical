@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lblPageViewDesc.Text" xml:space="preserve">
+    <value>ページビュー機能ではコレクション内の画像を書籍の各ページとして、ビューアに表示します。
+エディターで各画像の表示方式、開きを変更できます。</value>
+  </data>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="tpArchivers.Text" xml:space="preserve">
+    <value>アーカイバー</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="chkCheckArchiverUpdateWhenStarted.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 16</value>
+  </data>
+  <data name="chkCheckArchiverUpdateWhenStarted.Size" type="System.Drawing.Size, System.Drawing">
+    <value>262, 22</value>
+  </data>
+  <data name="chkCheckArchiverUpdateWhenStarted.Text" xml:space="preserve">
+    <value>起動時にアーカイバーの更新を確認する(&amp;U)</value>
+  </data>
+  <data name="ilStatus.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB0
+        CwAAAk1TRnQBSQFMAgEBAgEAARABAAEQAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABECIAAy0BRgNOAY0BZAFhAWQBxwNsAfADbAHwAWQBYQFkAccDTgGNAy0BRhQA
+        AwcBCQJcAXIBrgI8AT0BZwMHAQkYAAMCAQMCXQFzAa0CSAFMAYYDDQERjAADFwEgA04BjAGDAoEB9QGl
+        AaEBoAH/Ab4BuQG3Af8B0AHJAcgB/wHQAckByAH/Ab4BuQG3Af8BpQGhAaAB/wGDAoEB9QNOAYwDFwEg
+        CAADAwEEAmQBlAHNAgcB6AH/AkwBwgHzAkMBRgF8AwYBCBAAAwQBBQJiAYEBuwIEAaoB/wI4AacB9gJL
+        AVMBlQMLAQ+EAAMXASABVwFWAVcBowGbApcB/wGyAbsBrQH/AXkBswF8Af8BOQGeAUIB/wEYAZcBJgH/
+        ARcBowEsAf8BQQG4AVYB/wGAAcIBhwH/AbMBvAGuAf8BmwKXAf8BVwFWAVcBowMXASAEAAJfAXoBsgIA
+        AewB/wIBAeoB/wIAAecB/wJPAcUB9AJDAUUBegMFAQcIAAMEAQYCZQGHAb8CBAGyAf8CAAGuAf8CAAGo
+        Af8CQwGzAfgDMgFShAADTgGMAZsClwH/AaYBvwGjAf8BQQGpAUsB/wEhAZIBJgH/AfcB/AH4Af8BswHr
+        Ab0B/wFEAZYBQwH/AQgBogEgAf8BBgGxASgB/wFJAb0BXgH/AakBwQGlAf8BmwKXAf8DTgGMBAACWgGM
+        AcICDAHsAf8CAQHrAf8CAQHqAf8CAAHnAf8CUAHIAfQCQwFFAXkDBAEGAwUBBwJmAYwBwgICAbwB/wIA
+        AbcB/wIAAbMB/wIAAawB/wJLAdYB/wMeASuAAAMtAUYBgwKBAfUBsgG9Aa0B/wFGAbMBUgH/ASgBnAEw
+        Af8B/AH+AfwF/wH+A/8BowHjAa4B/wEVAZABHgH/AQYBqAEjAf8BBgGvAScB/wFLAbcBWwH/AbMBvAGu
+        Af8BgwKBAfUDLQFGBAACVwG7AeMCDQHsAf8CAQHrAf8CAQHrAf8CAAHoAf8CUAHJAfUCQQFCAXQCaAGP
+        AcUCAgHGAf8CAAHBAf8CAAG9Af8CAAG1Af8CSwHbAf8CNwE4AVqEAANOAY0BpQGhAaAB/wF7AcIBgwH/
+        ATABqAE9Af8B+AH9AfkF/wGtAeYBuAH/Af4B/wH+Af8B9wH8AfgB/wFEAZYBQwH/AQ0BngEgAf8BBgGl
+        ASIB/wEGAakBJAH/AYIBuwGFAf8BpQGhAaAB/wNOAY0IAAJWAbQB4AIMAesB/wIBAesB/wIBAesB/wIA
+        AegB/wJJAb8B8QIBAdwB/wIAAdEB/wIAAccB/wIAAb8B/wJHAd4B/wI7ATwBZIgAAWQBYQFkAccBvgG5
+        AbcB/wFPAcUBYQH/AeUB8QHlBf8B8wH8AfUB/wEoAaIBNAH/AbIB5wG8Af8B/QH+Af0B/wGnAeUBsgH/
+        ARkBkQEhAf8BCAGfAR4B/wEGAZ8BHwH/AUUBqwFSAf8BvgG5AbcB/wFkAWEBZAHHDAACUgGwAd4CCgHr
+        Af8CAQHrAf8CAQHrAf8CAAHoAf8CAQHjAf8CAAHbAf8CAAHRAf8COwHeAf8CQAFBAW6MAANsAfAB0AHJ
+        AcgB/wFBAcIBWwH/AY0B4QGgAf8B6QHzAekB/wFHAbMBVAH/ARgBqgErAf8BegHOAYgB/wH+Af8B/gH/
+        AfgB/QH4Af8BRAGaAUUB/wETAZoBIgH/AQYBmAEbAf8BGgGcASsB/wHQAckByAH/A2wB8BAAAlkBqgHX
+        AgMB6gH/AgEB6wH/AgEB6wH/AgEB6AH/AgAB4wH/AioB5gH/AkQBRgF5kAADbAHwAdAByQHIAf8BQAHC
+        AV0B/wE4AcMBVgH/ATkBwgFXAf8BKAGzAUYB/wEbAaoBNAH/ASYBtQE+Af8BsgHnAbwB/wH9Af4B/QH/
+        AaUB4wGvAf8BHQGSASQB/wEIAZUBFwH/AR0BmQEpAf8B0AHJAcgB/wNsAfAQAAJDAUgBeAIhAe4B/wIA
+        AekB/wIAAeoB/wIAAesB/wIAAekB/wI3AbwB8QM3AVsDBAEGjAABZAFhAWQBxwG+AbkBtwH/AWUBygF6
+        Af8BNgHEAVYB/wEzAcABUwH/ATEBuwFQAf8BLwG2AU0B/wEtAbQBSQH/AW0B0QGAAf8B/AH+AfwB/wH4
+        Af0B+QH/AUwBpAFPAf8BEgGWASQB/wFMAacBVgH/Ab4BuQG3Af8BZAFhAWQBxwwAAkMBRwF6AloB7wH/
+        AloB7gH/Al8B8AH/Ak8B7wH/AjMB7gH/AhsB7QH/Ag0B7AH/AjsBpgHpAzUBWAMFAQeIAANOAY0BpQGh
+        AaAB/wGTAdEBnQH/ATwBywFdAf8BOQHIAVoB/wE3AcMBVQH/ATMBvgFRAf8BMAG5AU4B/wEyAbwBTwH/
+        AZIB3AGhBf8ByAHvAc8B/wElAZ8BOAH/AYgBuwGKAf8BpQGhAaAB/wNOAY0IAAJCAUcBeAJlAewB/wJk
+        AesB/wJnAe0B/wJoAe8B/wJzAfMB/wJvAfIB/wJtAfIB/wJrAfIB/wJlAfMB/wJKAaIB5wMzAVQDBAEG
+        hAADLQFGAYMCgQH1AbgBwwG1Af8BbQHSAYMB/wE/Ac4BYAH/AT0BywFcAf8BOgHGAVgB/wE2AcEBVQH/
+        ATMBvQFQAf8BQwHFAVwB/wG0AegBvgH/Af0B/gH9Af8BXwG6AWoB/wG1Ab0BsAH/AYMCgQH1Ay0BRgMA
+        AQECQQFFAXYCawHnAf8CawHoAf8CbwHrAf8CcgHtAf8CggHyAf8CPgFBAW8CWwGmAdYCewHzAf8CcgHz
+        Af8CbAHyAf8CawHyAf8CRgGdAeUDMgFRAwQBBYQAA04BjAGbApcB/wGzAc4BtAH/AW4B1gGFAf8BQAHS
+        AWEB/wE/Ac0BYAH/AT0BygFcAf8BOQHFAVgB/wE3AcEBVAH/AZwB4QGqAf8BtwHjAb4B/wGvAccBrQH/
+        AZsClwH/A04BjAQAAjkBOwFfAm4B4gH/Am8B5AH/AnYB5wH/AnkB6gH/AogB7wH/AkABRAF0BAADAQEC
+        Al4BnwHVAoMB8wH/AngB8wH/AnIB8wH/AmwB8wH/AkgBlQHiAyoBQIQAAxcBIAFXAVYBVwGjAZsClwH/
+        AboBwgG3Af8BmgHUAaMB/wFsAdUBgwH/AU0B0wFrAf8BSgHPAWcB/wFpAcoBewH/AY4BygGWAf8BtgHD
+        AbIB/wGbApcB/wFXAVYBVwGjAxcBIAQAAj8BjQHTAnIB3wH/AnkB4wH/AnwB5gH/AosB7AH/Aj4BQgFv
+        DAADAQECAl0BmwHSAogB9AH/AnoB8wH/AnIB8wH/AncB9QH/AygBPIgAAxcBIANOAYwBgwKBAfUBpQGh
+        AaAB/wG+AbkBtwH/AdAByQHIAf8B0AHJAcgB/wG+AbkBtwH/AaUBoQGgAf8BgwKBAfUDTgGMAxcBIAgA
+        AwcBCgJuAdAB/AKAAeIB/wKKAecB/wI9AT8BaxQAAwEBAgJeAZYBzgKHAfQB/wKGAfQB/wJKAVYBkAMC
+        AQOQAAMtAUYDTgGNAWQBYQFkAccDbAHwA2wB8AFkAWEBZAHHA04BjQMtAUYUAAMHAQkCRgGIAc4DMAFL
+        AwABARsAAQECSwFuAakCQQFIAXQDAQEChAABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGA
+        FwAD/wEAAfABDwGHAeEEAAHAAgMBwAQAAYACAQGABAABgAEBCAABgAEBBgABwAEDBgAB4AEHBgAB8AEP
+        BgAB8AEHBgAB4AEDBgABwAEBDAABgAIBBQABgAEBAQMBgAQAAcABAwEHAcAEAAHwAQ8BhwHhBAAL
+</value>
+  </data>
+  <data name="tpCommon.Text" xml:space="preserve">
+    <value>共通設定</value>
+  </data>
+  <data name="tpEditor.Text" xml:space="preserve">
+    <value>エディター</value>
+  </data>
+  <data name="chkUsePageView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 22</value>
+  </data>
+  <data name="chkUsePageView.Text" xml:space="preserve">
+    <value>ページビューを使用する(&amp;P)</value>
+  </data>
+  <data name="lblDefaultSavedFileName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 18</value>
+  </data>
+  <data name="lblDefaultSavedFileName.Text" xml:space="preserve">
+    <value>「名前を付けて保存」で使用する既定のファイル名(&amp;F):</value>
+  </data>
+  <data name="conInsertMask.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 70</value>
+  </data>
+  <data name="itmTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="itmTitle.Text" xml:space="preserve">
+    <value>{0}  タイトル</value>
+  </data>
+  <data name="itmAuthor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="itmAuthor.Text" xml:space="preserve">
+    <value>{1}  作者</value>
+  </data>
+  <data name="itmFormattedDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="itmFormattedDate.Text" xml:space="preserve">
+    <value>{2}  フォーマット済み日付</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>オプション</value>
+  </data>
+</root>
