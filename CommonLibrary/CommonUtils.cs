@@ -18,7 +18,7 @@ namespace CommonLibrary
 
 		public static async Task<string> GetHtml(Uri url, CancellationToken token)
 		{
-			using (var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip }))
+			using (var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
 			using (var response = await client.GetAsync(url, token))
 			{
 				var bytes = await response.Content.ReadAsByteArrayAsync();

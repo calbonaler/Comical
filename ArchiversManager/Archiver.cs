@@ -31,7 +31,7 @@ namespace Comical.Archivers
 			if (string.IsNullOrEmpty(p))
 				throw new DllNotFoundException();
 			if ((ModuleHandle = NativeMethods.LoadLibrary(p)) == IntPtr.Zero)
-				throw new Win32Exception(Properties.Resources.FailedDllLoading, Marshal.GetExceptionForHR(Marshal.GetLastWin32Error()));
+				throw new Win32Exception(Marshal.GetLastWin32Error(), Properties.Resources.FailedDllLoading);
 			DllFileName = dllName;
 			ExecuteFunctionName = functionName;
 			ExtractCommand = extractCommand;

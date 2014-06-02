@@ -119,6 +119,7 @@
 			this.dgvImages.MultiDrag = true;
 			this.dgvImages.Name = "dgvImages";
 			this.dgvImages.RowHeadersVisible = false;
+			this.dgvImages.RowTemplate.Height = 42;
 			this.dgvImages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dgvImages.ShowCellToolTips = false;
 			this.dgvImages.VirtualMode = true;

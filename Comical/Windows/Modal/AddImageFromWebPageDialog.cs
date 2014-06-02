@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -82,11 +83,9 @@ namespace Comical
 					{
 						try
 						{
-							var req = WebRequest.CreateHttp(dgvResults["clmUrl", i].Value.ToString());
-							req.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-							using (var res = await req.GetResponseAsync())
-							using (var stream = res.GetResponseStream())
-							using (var img = System.Drawing.Image.FromStream(stream, false, false))
+							using (var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
+							using (var stream = await client.GetStreamAsync(dgvResults["clmUrl", i].Value.ToString()))
+							using (var img = Image.FromStream(stream, false, false))
 							{
 								dgvResults["clmSize", i].Value =
 									string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, img.Width, img.Height) + "\r\n\r\n" +
@@ -94,8 +93,6 @@ namespace Comical
 								dgvResults["clmImage", i].Value = img.Resize(new Size(clmImage.Width, clmImage.Width));
 							}
 						}
-						catch (NotSupportedException) { }
-						catch (WebException) { }
 						catch (ArgumentException) { }
 					}
 				};

@@ -125,7 +125,7 @@
     <value>メイリオ, 9pt, style=Bold</value>
   </data>
   <data name="itmOpen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+    <value>175, 22</value>
   </data>
   <data name="itmOpen.Text" xml:space="preserve">
     <value>&amp;Open</value>
@@ -143,37 +143,37 @@
 </value>
   </data>
   <data name="itmExclude.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+    <value>175, 22</value>
   </data>
   <data name="itmExclude.Text" xml:space="preserve">
     <value>E&amp;xclude</value>
   </data>
   <data name="sepImage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 6</value>
+    <value>172, 6</value>
   </data>
   <data name="itmExport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+    <value>175, 22</value>
   </data>
   <data name="itmExport.Text" xml:space="preserve">
     <value>Expor&amp;t...</value>
   </data>
   <data name="itmExtract.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+    <value>175, 22</value>
   </data>
   <data name="itmExtract.Text" xml:space="preserve">
     <value>Extra&amp;ct...</value>
   </data>
   <data name="sepImage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 6</value>
+    <value>172, 6</value>
   </data>
   <data name="itmAddToBookmark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+    <value>175, 22</value>
   </data>
   <data name="itmAddToBookmark.Text" xml:space="preserve">
     <value>Add to &amp;bookmark</value>
   </data>
   <data name="conImage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 148</value>
+    <value>176, 126</value>
   </data>
   <data name="&gt;&gt;conImage.Name" xml:space="preserve">
     <value>conImage</value>
@@ -214,7 +214,7 @@
     <value>dgvImages</value>
   </data>
   <data name="&gt;&gt;dgvImages.Type" xml:space="preserve">
-    <value>Comical.Controls.DraggableDataGridView, Comical, Version=4.4.8.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Comical.Controls.DraggableDataGridView, Comical, Version=4.4.11.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dgvImages.Parent" xml:space="preserve">
     <value>$this</value>
