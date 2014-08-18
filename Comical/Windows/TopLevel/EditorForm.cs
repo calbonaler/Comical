@@ -147,6 +147,16 @@ namespace Comical
 				action(file);
 		}
 
+		void AddAuthorToHistory(string author)
+		{
+			for (int i = Properties.Settings.Default.RecentAuthors.Count - 1; i >= 0; i--)
+			{
+				if (author.Equals(Properties.Settings.Default.RecentAuthors[i], StringComparison.CurrentCulture))
+					Properties.Settings.Default.RecentAuthors.RemoveAt(i);
+			}
+			Properties.Settings.Default.RecentAuthors.Insert(0, author);
+		}
+
 		async Task AddAnythingLocalAsync(bool open, params string[] paths)
 		{
 			List<string> openableFiles = new List<string>();
@@ -237,7 +247,7 @@ namespace Comical
 						{
 							lblStatus.Text = Properties.Resources.OpeningFile;
 							await comic.OpenAsync(cicFileToOpen.Path, password, false, System.Threading.CancellationToken.None, progress);
-							Properties.Settings.Default.RecentAuthors.Add(comic.Author);
+							AddAuthorToHistory(comic.Author);
 						}
 						else
 						{
@@ -264,7 +274,7 @@ namespace Comical
 				{
 					BeginAsyncWork();
 					await comic.SaveAsync(comic.SavedFilePath, Comic.DefaultPassword, defaultProgress);
-					Properties.Settings.Default.RecentAuthors.Add(comic.Author);
+					AddAuthorToHistory(comic.Author);
 					return true;
 				}
 				finally { EndAsyncWork(); }
@@ -303,7 +313,7 @@ namespace Comical
 					{
 						BeginAsyncWork();
 						await comic.SaveAsync(dialog.FileName, password, defaultProgress);
-						Properties.Settings.Default.RecentAuthors.Add(comic.Author);
+						AddAuthorToHistory(comic.Author);
 						return true;
 					}
 					finally { EndAsyncWork(); }
