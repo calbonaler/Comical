@@ -160,7 +160,7 @@ namespace Comical
 					if (cicFileToOpen == null)
 						cicFileToOpen = fh;
 				}
-				else if (imageExtensions.Any(ex => System.IO.Path.GetExtension(file) == "." + ex))
+				else if (imageExtensions.Any(ex => System.IO.Path.GetExtension(file).ToLowerInvariant() == "." + ex))
 					openableFiles.Add(file);
 				else
 					archives.Add(file);

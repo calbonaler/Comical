@@ -1,6 +1,6 @@
+#include <wincodec.h>
 #include "Dll.h"
 #include "CComicThumbnailProvider.h"
-#include <wincodec.h>
 
 #pragma comment(lib, "Shlwapi.lib")
 

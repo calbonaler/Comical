@@ -6,389 +6,312 @@ using System.Linq;
 
 namespace Comical.Archivers.Manager
 {
-	public sealed class LzhExtractor
+	public static class LzhExtractor
 	{
 		sealed class LzhDecoder
 		{
-			FileStream src;
-			FileStream dest;
-			uint cmpsize;
-			uint orisize;
-			int np;
-			int pbit;
-			ushort bitbuf;
-			byte subbitbuf;
-			byte bitcount;
-			ushort blocksize;
-			uint loc;
-			byte[] pt_len = new byte[128];
-			byte[] c_len = new byte[510];
-			ushort[] pt_table = new ushort[256];
-			ushort[] c_table = new ushort[4096];
-			ushort[] right = new ushort[1019];
-			ushort[] left = new ushort[1019];
+			ushort bitBuffer;
+			
+			ushort DecodeCode(Stream source, ushort[] codeTable, byte[] codeLength, ushort[] left, ushort[] right)
+            {
+                var code = codeTable[bitBuffer >> (16 - 12)];
+                if (code < codeLength.Length)
+                    FillBuffer(source, codeLength[code]);
+                else
+                {
+                    FillBuffer(source, 12);
+					for (var mask = 1 << (16 - 1); code >= codeLength.Length; mask >>= 1)
+						code = (bitBuffer & mask) != 0 ? right[code] : left[code];
+                    FillBuffer(source, (byte)(codeLength[code] - 12));
+                }
+                return code;
+            }
 
-			void Unstore()
+			ushort DecodePointer(Stream source, ushort[] pointerTable, byte[] pointerLength, ushort[] left, ushort[] right, int pointerCount)
 			{
-				const int UNS_BUFSIZE = 32768;
-				int hm;
-				byte[] buf = new byte[UNS_BUFSIZE];
-				if (cmpsize == uint.MaxValue)
-				{
-					while ((hm = src.Read(buf, 0, buf.Length)) != 0)
-					{
-						if (hm == -1)
-							break;
-						dest.Write(buf, 0, hm);
-					}
-					return;
-				}
-				while (cmpsize > 0)
-				{
-					hm = Math.Min(UNS_BUFSIZE, (int)cmpsize);
-					if (0 >= (hm = src.Read(buf, 0, hm)))
-						break;
-					dest.Write(buf, 0, hm);
-					cmpsize -= (uint)hm;
-				}
-			}
-
-			ushort DecodeC(LzhMethod method)
-			{
-				if ((int)method >= 4) return DecodeCSt1();
-				return 0;
-			}
-
-			ushort DecodeCSt1()
-			{
-				ushort j, mask;
-				if (blocksize == 0)
-				{
-					blocksize = GetBits(16);
-					ReadPtLen(19, 5, 3);
-					ReadCLen();
-					ReadPtLen((short)np, (short)pbit, -1);
-				}
-				blocksize--;
-				j = c_table[bitbuf >> 4];
-				if (j < 255 + 255)
-					FillBuf(c_len[j]);
+				var pointer = pointerTable[bitBuffer >> (16 - 8)];
+				if (pointer < pointerCount)
+					FillBuffer(source, pointerLength[pointer]);
 				else
 				{
-					FillBuf(12);
-					mask = 1 << (16 - 1);
-					do
-					{
-						if ((bitbuf & mask) != 0) j = right[j];
-						else j = left[j];
-						mask >>= 1;
-					} while (j >= 255 + 255);
-					FillBuf((byte)(c_len[j] - 12));
+					FillBuffer(source, 8);
+					for (var mask = 1 << (16 - 1); pointer >= pointerCount; mask >>= 1)
+						pointer = (bitBuffer & mask) != 0 ? right[pointer] : left[pointer];
+					FillBuffer(source, (byte)(pointerLength[pointer] - 8));
 				}
-				return j;
+				if (pointer != 0)
+					pointer = (ushort)((1 << (pointer - 1)) + ReadBits(source, (byte)(pointer - 1)));
+				return pointer;
 			}
 
-			ushort DecodeP(LzhMethod method)
-			{
-				if ((int)method >= 4) return DecodePSt1();
-				return 0;
-			}
-
-			ushort DecodePSt1()
-			{
-				ushort j, mask;
-
-				j = pt_table[bitbuf >> (16 - 8)];
-				if (j < np)
-					FillBuf(pt_len[j]);
-				else
-				{
-					FillBuf(8);
-					mask = 1 << (16 - 1);
-					do
-					{
-						j = (bitbuf & mask) != 0 ? right[j] : left[j];
-						mask >>= 1;
-					} while (j >= np);
-					FillBuf((byte)(pt_len[j] - 8));
-				}
-				if (j != 0)
-					j = (ushort)((1 << (j - 1)) + GetBits((byte)(j - 1)));
-				return j;
-			}
-
-			void MakeTable(ushort nchar, byte[] bitlen, ushort tablebits, ushort[] table)
+			void MakeTable(ushort bitLengthCount, byte[] bitLength, ushort tableBitCount, /*W*/ushort[] table, /*W*/ushort[] left, /*W*/ushort[] right)
 			{
 				ushort[] count = new ushort[17];
+				for (int i = 0; i < bitLengthCount; i++)
+					count[bitLength[i]]++;
+				ushort total = 0;
 				ushort[] weight = new ushort[17];
 				ushort[] start = new ushort[17];
-				ushort total;
-				int j, k, l, m, n, avail;
-				Func<bool, int, int> p;
-
-				avail = nchar;
-
-				for (int i = 1; i <= 16; i++)
-				{
-					count[i] = 0;
-					weight[i] = (ushort)(1 << (16 - i));
-				}
-
-				for (int i = 0; i < nchar; i++)
-					count[bitlen[i]]++;
-
-				total = 0;
 				for (int i = 1; i <= 16; i++)
 				{
 					start[i] = total;
+					weight[i] = (ushort)(1 << (16 - i));
 					total += (ushort)(weight[i] * count[i]);
 				}
-				if ((total & 0xFFFF) != 0)
+				if (total != 0)
 					return;
-
-				m = 16 - tablebits;
-				for (int i = 1; i <= tablebits; i++)
+				for (int i = 1; i <= tableBitCount; i++)
 				{
-					start[i] >>= m;
-					weight[i] >>= m;
+					start[i] >>= 16 - tableBitCount;
+					weight[i] >>= 16 - tableBitCount;
 				}
-
-				j = start[tablebits + 1] >> m;
-				k = 1 << tablebits;
-				if (j != 0)
+				if (start[tableBitCount + 1] >> (16 - tableBitCount) != 0)
+					Array.Clear(table, 0, 1 << tableBitCount);
+				int available = bitLengthCount;
+				for (ushort i = 0; i < bitLengthCount; i++)
 				{
-					for (int i = 0; i < k; i++)
-						table[i] = 0;
-				}
-
-				for (j = 0; j < nchar; j++)
-				{
-					k = bitlen[j];
-					if (k == 0)
+					if (bitLength[i] == 0)
 						continue;
-					l = start[k] + weight[k];
-					if (k <= tablebits)
+					if (bitLength[i] <= tableBitCount)
 					{
-						for (int i = start[k]; i < l; i++)
-							table[i] = (ushort)j;
+						for (ushort j = 0; j < weight[bitLength[i]]; j++)
+							table[j + start[bitLength[i]]] = i;
 					}
 					else
 					{
-						uint i = start[k];
-						p = (a, b) => !a ? table[start[k] >> m] : (table[start[k] >> m] = (ushort)b);
-						i <<= tablebits;
-						n = k - tablebits;
-						while (--n >= 0)
+						var pointer = Tuple.Create(table, start[bitLength[i]] >> (16 - tableBitCount));
+						for (int j = 0, direction = start[bitLength[i]] << tableBitCount; j < bitLength[i] - tableBitCount; j++, direction <<= 1)
 						{
-							if (p(false, 0) == 0)
+							if (pointer.Item1[pointer.Item2] == 0)
 							{
-								right[avail] = left[avail] = 0;
-								p(true, avail++);
+								right[available] = left[available] = 0;
+								pointer.Item1[pointer.Item2] = (ushort)available++;
 							}
-							int pv = p(false, 0);
-							if ((i & 0x8000) != 0)
-								p = (a, b) => !a ? right[pv] : (right[pv] = (ushort)b);
-							else
-								p = (a, b) => !a ? left[pv] : (left[pv] = (ushort)b);
-							i <<= 1;
+							pointer = Tuple.Create((direction & 0x8000) != 0 ? right : left, (int)pointer.Item1[pointer.Item2]);
 						}
-						p(true, j);
+						pointer.Item1[pointer.Item2] = i;
 					}
-					start[k] = (ushort)l;
+					start[bitLength[i]] += weight[bitLength[i]];
 				}
 			}
 
-			void ReadPtLen(short nn, short nbit, short i_special)
+			void ReadPointerLength(Stream source, /*W*/ushort[] pointerTable, /*W*/byte[] pointerLength, /*W*/ushort[] left, /*W*/ushort[] right, ushort pointerLengthCount, byte bitCount, int i_special)
 			{
-				short c;
-				short n = (short)GetBits((byte)nbit);
-
+				var n = ReadBits(source, bitCount);
 				if (n == 0)
 				{
-					c = (short)GetBits((byte)nbit);
-					for (short i = 0; i < nn; i++) pt_len[i] = 0;
-					for (short i = 0; i < 256; i++) pt_table[i] = (ushort)c;
+					var c = ReadBits(source, bitCount);
+					Array.Clear(pointerLength, 0, pointerLengthCount);
+					for (int i = 0; i < pointerTable.Length; i++)
+                        pointerTable[i] = c;
 				}
 				else
 				{
-					short i = 0;
+					ushort i = 0;
 					while (i < n)
 					{
-						c = (short)(bitbuf >> (16 - 3));
-						if (c == 7)
+						var c = (ushort)(bitBuffer >> (16 - 3));
+						if (c == ((1 << 3) - 1))
 						{
-							ushort mask = 1 << (16 - 4);
-							while ((mask & bitbuf) != 0)
-							{
-								mask >>= 1;
+							for (ushort mask = 1 << (16 - 4); (mask & bitBuffer) != 0; mask >>= 1)
 								c++;
-							}
 						}
-						FillBuf((byte)(c < 7 ? 3 : c - 3));
-						pt_len[i++] = (byte)c;
+						FillBuffer(source, (byte)(c < 7 ? 3 : c - 3));
+						pointerLength[i++] = (byte)c;
 						if (i == i_special)
 						{
-							c = (short)GetBits(2);
-							while (--c >= 0)
-								pt_len[i++] = 0;
+							c = ReadBits(source, 2);
+							while (c-- > 0)
+								pointerLength[i++] = 0;
 						}
 					}
-					while (i < nn)
-						pt_len[i++] = 0;
-					MakeTable((ushort)nn, pt_len, 8, pt_table);
+					while (i < pointerLengthCount)
+						pointerLength[i++] = 0;
+					MakeTable(pointerLengthCount, pointerLength, 8, pointerTable, left, right);
 				}
 			}
 
-			void ReadCLen()
+			void ReadCodeLength(Stream source, /*W*/ushort[] codeTable, /*W*/byte[] codeLength, ushort[] pointerTable, byte[] pointerLength, /*W*/ushort[] left, /*W*/ushort[] right)
 			{
-				short c, n = (short)GetBits(9);
-
+				var n = ReadBits(source, 9);
 				if (n == 0)
 				{
-					c = (short)GetBits(9);
-					Array.Clear(c_len, 0, c_len.Length);
-					for (short i = 0; i < 4096; i++) c_table[i] = (ushort)c;
+					var c = ReadBits(source, 9);
+					Array.Clear(codeLength, 0, codeLength.Length);
+					for (int i = 0; i < codeTable.Length; i++)
+						codeTable[i] = c;
 				}
 				else
 				{
-					short i = 0;
+					ushort i = 0;
 					while (i < n)
 					{
-						c = (short)pt_table[bitbuf >> (16 - 8)];
-						if (c >= 19)
-						{
-							ushort mask = 1 << (16 - 9);
-							do
-							{
-								c = (short)((bitbuf & mask) != 0 ? right[c] : left[c]);
-								mask >>= 1;
-							} while (c >= 19);
-						}
-						FillBuf(pt_len[c]);
+						var c = pointerTable[bitBuffer >> (16 - 8)];
+						for (ushort mask = 1 << (16 - 9); c >= 19; mask >>= 1)
+							c = (bitBuffer & mask) != 0 ? right[c] : left[c];
+						FillBuffer(source, pointerLength[c]);
 						if (c <= 2)
 						{
-							if (c == 0) c = 1;
-							else if (c == 1) c = (short)(GetBits(4) + 3);
-							else c = (short)(GetBits(9) + 20);
-							while (--c >= 0)
-								c_len[i++] = 0;
+							if (c == 0)
+								c = 1;
+							else if (c == 1)
+								c = (ushort)(ReadBits(source, 4) + 3);
+							else
+								c = (ushort)(ReadBits(source, 9) + 20);
+							while (c-- > 0)
+								codeLength[i++] = 0;
 						}
 						else
-							c_len[i++] = (byte)(c - 2);
+							codeLength[i++] = (byte)(c - 2);
 					}
-					while (i < (255 + 255))
-						c_len[i++] = 0;
-					MakeTable(255 + 255, c_len, 12, c_table);
+					while (i < codeLength.Length)
+						codeLength[i++] = 0;
+					MakeTable((ushort)codeLength.Length, codeLength, 12, codeTable, left, right);
 				}
 			}
 
-			public void Decode(LzhMethod method, FileStream srcFile, uint srcSize, FileStream destFile, uint destSize)
+			void Unstore(Stream source, uint compressedSize, Stream destination)
 			{
-				src = srcFile;
-				cmpsize = srcSize;
-				dest = destFile;
-				orisize = destSize;
+				byte[] buffer = new byte[32768];
+				int bytesRead;
+				if (compressedSize == uint.MaxValue)
+				{
+					while ((bytesRead = source.Read(buffer, 0, buffer.Length)) != 0)
+					{
+						if (bytesRead == -1)
+							break;
+						destination.Write(buffer, 0, bytesRead);
+					}
+				}
+				else
+				{
+					while (compressedSize > 0)
+					{
+						if ((bytesRead = source.Read(buffer, 0, Math.Min(buffer.Length, (int)compressedSize))) <= 0)
+							break;
+						destination.Write(buffer, 0, bytesRead);
+						compressedSize -= (uint)bytesRead;
+					}
+				}
+			}
 
-				uint dicsiz, dicbit;
-
+			public void Decode(LzhMethod method, Stream source, uint compressedSize, Stream destination, uint originalSize)
+			{
+                if (method == LzhMethod.LH0)
+                {
+					Unstore(source, compressedSize, destination);
+                    return;
+                }
+				ushort pointerCount;
+				byte pointerBitCount;
+				int dictionarySize;
 				switch (method)
 				{
-					case LzhMethod.LH0: Unstore(); return;
-					case LzhMethod.LH4: np = 14; pbit = 4; dicbit = 12; dicsiz = (uint)(1 << (int)dicbit); break;
-					case LzhMethod.LH5: np = 14; pbit = 4; dicbit = 13; dicsiz = (uint)(1 << (int)dicbit); break;
-					case LzhMethod.LH6: np = 16; pbit = 5; dicbit = 15; dicsiz = (uint)(1 << (int)dicbit); break;
-					case LzhMethod.LH7: np = 17; pbit = 5; dicbit = 16; dicsiz = (uint)(1 << (int)dicbit); break;
+					case LzhMethod.LH4: pointerCount = 14; pointerBitCount = 4; dictionarySize = 1 << 12; break;
+					case LzhMethod.LH5: pointerCount = 14; pointerBitCount = 4; dictionarySize = 1 << 13; break;
+					case LzhMethod.LH6: pointerCount = 16; pointerBitCount = 5; dictionarySize = 1 << 15; break;
+					case LzhMethod.LH7: pointerCount = 17; pointerBitCount = 5; dictionarySize = 1 << 16; break;
 					default: return;
 				}
+				byte[] text = new byte[dictionarySize];
+				remainingSize = compressedSize;
+				bitBuffer = 0;
+				subBitBuffer = 0;
+				subBitCount = 0;
+				FillBuffer(source, 16);
+				ushort blockSize = 0;
+				int location = 0;
+				const int offset = 0x0100 - 3;
+				ushort[] pointerTable = new ushort[256];
+				byte[] pointerLength = new byte[128];
+				ushort[] codeTable = new ushort[4096];
+				byte[] codeLength = new byte[510];
+				ushort[] right = new ushort[1019];
+				ushort[] left = new ushort[1019];
+                for (uint count = 0; count < originalSize; )
+                {
+					if (blockSize == 0)
+					{
+						blockSize = ReadBits(source, 16);
+						ReadPointerLength(source, pointerTable, pointerLength, left, right, 19, 5, 3);
+						ReadCodeLength(source, codeTable, codeLength, pointerTable, pointerLength, left, right);
+						ReadPointerLength(source, pointerTable, pointerLength, left, right, pointerCount, pointerBitCount, -1);
+					}
+					blockSize--;
+					var code = DecodeCode(source, codeTable, codeLength, left, right);
+                    if (code <= 255)
+                    {
+                        text[location++] = (byte)code;
+                        if (location == dictionarySize)
+                        {
+                            destination.Write(text, 0, dictionarySize);
+                            location = 0;
+                        }
+                        count++;
+                    }
+                    else
+                    {
+                        count += (uint)(code - offset);
+						int pointer = DecodePointer(source, pointerTable, pointerLength, left, right, pointerCount);
+                        if ((pointer = location - pointer - 1) < 0)
+                            pointer += dictionarySize;
+                        for (int i = 0; i < code - offset; i++)
+                        {
+                            text[location++] = text[pointer++];
+                            if (location == dictionarySize)
+                            {
+                                destination.Write(text, 0, dictionarySize);
+                                location = 0;
+                            }
+                            if (pointer == dictionarySize)
+                                pointer = 0;
+                        }
+                    }
+                }
+				if (location != 0)
+					destination.Write(text, 0, location);
+			}
 
-				byte[] text = new byte[dicsiz];
-				for (int i = 0; i < text.Length; i++) text[i] = 0x20;
+			byte subBitBuffer;
+			byte subBitCount;
+			uint remainingSize;
 
-				InitGetBits();
-				blocksize = 0;
-
-				uint count = 0;
-				loc = 0;
-				int offset = 0x0100 - 3;
-				while (count < orisize)
+			void FillBuffer(Stream source, byte bitCount)
+			{
+				while (bitCount > subBitCount)
 				{
-					int c = DecodeC(method);
-					if (c <= 255)
-					{
-						text[loc++] = (byte)c;
-						if (loc == dicsiz)
-						{
-							dest.Write(text, 0, (int)dicsiz);
-							loc = 0;
-						}
-						count++;
-					}
-					else
-					{
-						int j = c - offset;
-						count += (uint)j;
-						int i = DecodeP(method);
-						if ((i = (int)(loc - i - 1)) < 0)
-							i += (int)dicsiz;
-
-						for (int k = 0; k < j; k++)
-						{
-							text[loc++] = text[i];
-							if (loc >= dicsiz)
-							{
-								dest.Write(text, 0, (int)dicsiz);
-								loc = 0;
-							}
-							if (++i >= (int)dicsiz)
-								i = 0;
-						}
-					}
+					bitCount -= subBitCount;
+					bitBuffer = (ushort)(bitBuffer << subBitCount | subBitBuffer >> (8 - subBitCount));
+					subBitBuffer = (byte)(remainingSize-- > 0 ? source.ReadByte() : 0);
+					subBitCount = 8;
 				}
-
-				if (loc != 0)
-					dest.Write(text, 0, (int)loc);
+				subBitCount -= bitCount;
+				bitBuffer = (ushort)(bitBuffer << bitCount | subBitBuffer >> (8 - bitCount));
+				subBitBuffer <<= bitCount;
 			}
 
-			void InitGetBits()
+			ushort ReadBits(Stream source, byte bitCount)
 			{
-				bitbuf = 0;
-				subbitbuf = 0;
-				bitcount = 0;
-				FillBuf(16);
-			}
-
-			void FillBuf(byte n)
-			{
-				while (n > bitcount)
-				{
-					n -= bitcount;
-					bitbuf = (ushort)((bitbuf << bitcount) + (subbitbuf >> (8 - bitcount)));
-					if (cmpsize != 0)
-					{
-						cmpsize--;
-						subbitbuf = (byte)src.ReadByte();
-					}
-					else
-						subbitbuf = 0;
-					bitcount = 8;
-				}
-				bitcount -= n;
-				bitbuf = (ushort)((bitbuf << n) + (subbitbuf >> (8 - n)));
-				subbitbuf <<= n;
-			}
-
-			ushort GetBits(byte n)
-			{
-				ushort x = (ushort)(bitbuf >> (int)(16 - n));
-				FillBuf(n);
+				var x = (ushort)(bitBuffer >> (int)(16 - bitCount));
+				FillBuffer(source, bitCount);
 				return x;
 			}
 		}
 
+		sealed class HeaderInfo
+		{
+			public string FileName;
+			public LzhMethod Method;
+			public uint CompressedSize;
+			public uint OriginalSize;
+			public FileAttributes FileAttribute;
+			public DateTime UpdatedTime;
+		}
+
 		enum LzhMethod
 		{
-			Unknown = -1,
-			LH0 = 0,
+			Unknown,
+			LH0,
 			LH1,
 			LH2,
 			LH3,
@@ -398,192 +321,142 @@ namespace Comical.Archivers.Manager
 			LH7,
 		}
 
-		public static string[] Melt(string arc, string extractTo, params string[] files) { return new LzhExtractor().Extract(arc, extractTo, files); }
-
-		LzhExtractor() { InitCRCTable(); }
-
-		static void InitCRCTable()
+		public static string[] Melt(string arc, string extractTo, params string[] files)
 		{
-			for (ushort i = 0; i < crctable.Length; i++)
+			using (var fs = new FileStream(arc, FileMode.Open, FileAccess.Read))
 			{
-				ushort r = i;
-				for (ushort j = 0; j < 8; j++)
-					r = (ushort)((r & 1) != 0 ? (r >> 1) ^ 0xA001 : r >> 1);
-				crctable[i] = r;
-			}
-		}
-
-		ushort crc;
-		byte sum;
-		byte h_Level;
-		string h_FileName = "";
-		string h_Method = "";
-		uint h_CompSize;
-		uint h_OrigSize;
-		ushort h_Attrib;
-		uint h_Update;
-		static ushort[] crctable = new ushort[256];
-
-		string[] Extract(string arcname, string extractTo, string[] files)
-		{
-			using (FileStream fs = new FileStream(arcname, FileMode.Open, FileAccess.Read))
-			{
-				List<string> paths = new List<string>();
-				byte[] buffer = new byte[65536];
-				uint siz = (uint)fs.Read(buffer, 0, buffer.Length);
-				int ps = FindHeader(fs, buffer, siz);
-				if (ps == -1)
-					return paths.ToArray();
-				fs.Seek(ps, SeekOrigin.Begin);
-				while (ReadHeader(fs, buffer))
+				var paths = new List<string>();
+				var buffer = new byte[65536];
+				var info = FindHeader(fs, buffer);
+				while (info != null)
 				{
-					long bas = fs.Position;
-					string name = Path.GetFullPath(System.IO.Path.Combine(extractTo, h_FileName));
-					if (h_FileName[0] != '!' && h_FileName[0] != '$' && h_FileName[0] != '%' &&
-						files.Contains(h_FileName, StringComparer.Create(System.Globalization.CultureInfo.CurrentCulture, true)))
+					var basePosition = fs.Position;
+					var name = Path.GetFullPath(Path.Combine(extractTo, info.FileName));
+					if (info.FileName[0] != '!' && info.FileName[0] != '$' && info.FileName[0] != '%' && files.Contains(info.FileName, StringComparer.CurrentCultureIgnoreCase))
 					{
-						using (FileStream dest = new FileStream(name, FileMode.Create, FileAccess.Write))
+						using (var dest = new FileStream(name, FileMode.Create, FileAccess.Write))
 						{
 							paths.Add(name);
-							LzhDecoder dec = new LzhDecoder();
-							LzhMethod method = LzhMethod.Unknown;
-							if (h_Method == "-lh0-") method = LzhMethod.LH0;
-							else if (h_Method == "-lh5-") method = LzhMethod.LH5;
-							else if (h_Method == "-lh6-") method = LzhMethod.LH6;
-							else if (h_Method == "-lh7-") method = LzhMethod.LH7;
-							dec.Decode(method, fs, h_CompSize, dest, h_OrigSize);
+							new LzhDecoder().Decode(info.Method, fs, info.CompressedSize, dest, info.OriginalSize);
 						}
-
-						File.SetAttributes(name, (FileAttributes)h_Attrib);
-						DateTime dt;
-						if (h_Level < 2)
-							dt = GetDateTime((h_Update >> 16) & 0xFFFF, h_Update & 0xFFFF);
-						else
-						{
-							dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-							dt = dt.AddSeconds(h_Update);
-						}
-						File.SetCreationTimeUtc(name, dt);
-						File.SetLastWriteTimeUtc(name, dt);
+						File.SetAttributes(name, info.FileAttribute);
+						File.SetCreationTimeUtc(name, info.UpdatedTime);
+						File.SetLastWriteTimeUtc(name, info.UpdatedTime);
 					}
-					fs.Seek(bas + h_CompSize, SeekOrigin.Begin);
+					fs.Seek(basePosition + info.CompressedSize, SeekOrigin.Begin);
+					info = ReadHeader(fs, buffer);
 				}
 				return paths.ToArray();
 			}
 		}
 
-		static DateTime GetDateTime(uint date, uint time) { return new DateTime(GetBits(date, 9, 7) + 1980, GetBits(date, 5, 4), GetBits(date, 0, 5), GetBits(time, 11, 5), GetBits(time, 5, 6), GetBits(time, 0, 5) * 2); }
+		static ushort[] CreateCrcTable()
+		{
+			ushort[] crcTable = new ushort[256];
+			for (ushort i = 0; i < crcTable.Length; i++)
+			{
+				crcTable[i] = i;
+				for (int j = 0; j < 8; j++)
+					crcTable[i] = (ushort)((crcTable[i] & 1) != 0 ? (crcTable[i] >> 1) ^ 0xA001 : crcTable[i] >> 1);
+			}
+			return crcTable;
+		}
+
+		static readonly ushort[] _crcTable = CreateCrcTable();
 
 		static int GetBits(uint value, int startBit, int bitCount) { return (int)((value >> startBit) & ((1 << bitCount) - 1)); }
 
-		int FindHeader(FileStream fs, byte[] buffer, uint size)
+		static HeaderInfo FindHeader(Stream stream, byte[] buffer)
 		{
-			byte[] temp = new byte[65536];
-			int ans = -1;
-			for (uint i = 0; i < size - 20; i++)
+			var size = stream.Read(buffer, 0, buffer.Length);
+			var tempBuffer = new byte[65536];
+			for (int i = 0; i < size - 20; i++)
 			{
-				if (buffer[i + 2] == '-' && buffer[i + 3] == 'l' &&
-					(buffer[i + 4] == 'h' || buffer[i + 4] == 'z'))
+				if (buffer[i + 2] == '-' && buffer[i + 3] == 'l' && (buffer[i + 4] == 'h' || buffer[i + 4] == 'z') && buffer[i + 6] == '-')
 				{
-					fs.Seek(i, SeekOrigin.Begin);
-					if (ReadHeader(fs, temp))
-					{
-						ans = (int)i;
-						break;
-					}
+					stream.Seek(i, SeekOrigin.Begin);
+					var info = ReadHeader(stream, tempBuffer);
+					if (info != null)
+						return info;
 				}
 			}
-			return ans;
+			return null;
 		}
 
-		bool ReadHeader(FileStream fs, byte[] buffer)
+		static HeaderInfo ReadHeader(Stream stream, byte[] buffer)
 		{
-			Encoding sjis = Encoding.GetEncoding("Shift-JIS");
-			sum = 0;
-			crc = 0;
-			if (21 != ReadCrc(fs, buffer, 21, 0))
-				return false;
-			sum -= (byte)(buffer[0] + buffer[1]);
-			if ((h_Level = buffer[20]) > 2)
-				return false;
-			byte bshdr = h_Level == 2 ? (byte)26 : (byte)(buffer[0] + 2);
-			if (bshdr < 21 || buffer[0] == 0)
-				return false;
-			byte hdrsum = buffer[1];
-			h_Method = sjis.GetString(buffer, 2, 5);
-			h_CompSize = (uint)(buffer[7] + (buffer[8] << 8) + (buffer[9] << 16) + (buffer[10] << 24));
-			h_OrigSize = (uint)(buffer[11] + (buffer[12] << 8) + (buffer[13] << 16) + (buffer[14] << 24));
-			h_Update = (uint)(buffer[15] + (buffer[16] << 8) + (buffer[17] << 16) + (buffer[18] << 24));
-			h_Attrib = buffer[19];
-			if (h_Method[0] != '-' || h_Method[1] != 'l')
-				return false;
-			if (bshdr - 21 != ReadCrc(fs, buffer, bshdr - 21, 21))
-				return false;
-			if (h_Level != 2)
+			if (stream.Read(buffer, 0, 21) != 21)
+				return null;
+			var level = buffer[20];
+			var baseHeaderSize = level >= 2 ? 26 : buffer[0] + 2;
+			if (level > 2 || baseHeaderSize < 21 || buffer[0] == 0 || buffer[2] != '-' || buffer[3] != 'l' || buffer[6] != '-' ||
+				stream.Read(buffer, 21, baseHeaderSize - 21) != baseHeaderSize - 21)
+				return null;
+			var crc = CalculateCrc(buffer, 0, baseHeaderSize, 0);
+			var info = new HeaderInfo();
+			var shiftJis = Encoding.GetEncoding("Shift-JIS");
 			{
-				if (sum != hdrsum || 21 + 1 + buffer[21] + 2 > bshdr)
-					return false;
-				h_FileName = sjis.GetString(buffer, 22, buffer[21]);
-			}
-			string PathName = "";
-			if (h_Level != 0)
-			{
-				uint hdrcrc = 0xFFFFFFFF;
-				ushort tmpcrc;
-				ushort ehs = (ushort)(buffer[bshdr - 2] | (buffer[bshdr - 1] << 8));
-				while (ehs > 2)
+				info.FileName = string.Empty;
+				if (level < 2)
 				{
-					tmpcrc = crc;
-					if (ehs != ReadCrc(fs, buffer, ehs, 0))
-						return false;
-					if (h_Level == 1)
-						h_CompSize -= ehs;
-					switch (buffer[0])
-					{
-						case 0x00:
-							if (ehs >= 5 && hdrcrc == 0xFFFFFFFF)
-							{
-								hdrcrc = (ushort)(buffer[1] | (buffer[2] << 8));
-								crc = tmpcrc;
-								buffer[1] = buffer[2] = 0;
-								UpdateCrc(buffer, ehs, 0);
-							}
-							break;
-						case 0x01:
-							h_FileName = sjis.GetString(buffer, 1, Math.Min(ehs - 3, 260));
-							break;
-						case 0x02:
-							PathName = sjis.GetString(buffer, 1, Math.Min(ehs - 3, 260));
-							break;
-						case 0x40:
-							if (ehs >= 5)
-								h_Attrib = (ushort)(buffer[1] | (buffer[2] << 8));
-							break;
-					}
-					ehs = (ushort)(buffer[ehs - 2] | (buffer[ehs - 1] << 8));
+					byte sum = 0;
+					for (int i = 2; i < baseHeaderSize; i++)
+						sum = unchecked((byte)(sum + buffer[i]));
+					if (sum != buffer[1] || baseHeaderSize - 21 < 1 + buffer[21] + 2)
+						return null;
+					info.FileName = shiftJis.GetString(buffer, 22, buffer[21]);
 				}
-				if (hdrcrc != 0xFFFFFFFF && crc != hdrcrc)
-					return false;
+				info.CompressedSize = (uint)buffer[7] + ((uint)buffer[8] << 8) + ((uint)buffer[9] << 16) + ((uint)buffer[10] << 24);
+				info.OriginalSize = (uint)buffer[11] + ((uint)buffer[12] << 8) + ((uint)buffer[13] << 16) + ((uint)buffer[14] << 24);
+				info.FileAttribute = (FileAttributes)buffer[19];
+				Enum.TryParse(Encoding.ASCII.GetString(buffer, 3, 3), true, out info.Method);
+				var date = (uint)buffer[17] + ((uint)buffer[18] << 8);
+				var time = (uint)buffer[15] + ((uint)buffer[16] << 8);
+				info.UpdatedTime = level < 2 ?
+					new DateTime(GetBits(date, 9, 7) + 1980, GetBits(date, 5, 4), GetBits(date, 0, 5), GetBits(time, 11, 5), GetBits(time, 5, 6), GetBits(time, 0, 5) * 2) :
+					new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(time + (date << 16));
 			}
-			h_FileName = PathName + h_FileName;
-			return true;
+			var directoryName = string.Empty;
+			if (level > 0)
+			{
+				var extendedHeaderCrc = 0xFFFFFFFF;
+				var extendedHeaderSize = (ushort)(buffer[baseHeaderSize - 2] | (buffer[baseHeaderSize - 1] << 8));
+				while (extendedHeaderSize > 2)
+				{
+					if (stream.Read(buffer, 0, extendedHeaderSize) != extendedHeaderSize)
+						return null;
+					if (level == 1)
+						info.CompressedSize -= extendedHeaderSize;
+					if (buffer[0] == 0x00 && extendedHeaderSize >= 5 && extendedHeaderCrc == 0xFFFFFFFF) // Common Extended Header
+					{
+						extendedHeaderCrc = (uint)buffer[1] | ((uint)buffer[2] << 8);
+						buffer[1] = buffer[2] = 0;
+						crc = CalculateCrc(buffer, 0, extendedHeaderSize, crc);
+					}
+					else
+					{
+						crc = CalculateCrc(buffer, 0, extendedHeaderSize, crc);
+						if (buffer[0] == 0x01) // File Name Extended Header
+							info.FileName = shiftJis.GetString(buffer, 1, Math.Min(extendedHeaderSize - 3, 260));
+						else if (buffer[0] == 0x02) // Directory Name Extended Header
+							directoryName = shiftJis.GetString(buffer, 1, Math.Min(extendedHeaderSize - 3, 260));
+						else if (buffer[0] == 0x40 && extendedHeaderSize >= 5) // MS-DOS File Attribute Extended Header
+							info.FileAttribute = (FileAttributes)(buffer[1] | (buffer[2] << 8));
+					}
+					extendedHeaderSize = (ushort)(buffer[extendedHeaderSize - 2] | (buffer[extendedHeaderSize - 1] << 8));
+				}
+				if (extendedHeaderCrc != 0xFFFFFFFF && crc != extendedHeaderCrc)
+					return null;
+			}
+			info.FileName = directoryName + info.FileName;
+			return info;
 		}
 
-		void UpdateCrc(byte[] p, int n, int offset)
+        static int CalculateCrc(byte[] array, int offset, int count, int beforeCrc)
 		{
-			for (int i = 0; i < n; i++)
-				crc = (ushort)(crctable[(crc ^ p[i + offset]) & 0xFF] ^ (crc >> 8));
-		}
-
-		void UpdateSum(byte[] p, int n, int offset) { sum += (byte)Enumerable.Range(offset, n + offset).Select(i => p[i]).Sum(b => (int)b); }
-
-		int ReadCrc(FileStream fs, byte[] p, int n, int offset)
-		{
-			try { n = fs.Read(p, offset, n); }
-			catch (IOException) { }
-			UpdateCrc(p, n, offset);
-			UpdateSum(p, n, offset);
-			return n;
+			for (int i = 0; i < count; i++)
+				beforeCrc = (ushort)(_crcTable[(beforeCrc ^ array[i + offset]) & 0xFF] ^ (beforeCrc >> 8));
+			return beforeCrc;
 		}
 	}
 }

@@ -59,7 +59,7 @@ HRESULT CRegisterExtension::RegisterExtensionWithProgID(const wstring& wstrFileE
 
 HRESULT CRegisterExtension::SetRegValue(HKEY hkey, const wstring& wstrKeyName, const wstring& wstrValueName, const wstring& wstrValue)
 {
-	TEST(HRESULT_FROM_WIN32(static_cast<unsigned long>(RegSetKeyValueW(hkey, wstrKeyName.c_str(), wstrValueName.c_str(), REG_SZ, wstrValue.c_str(), (wstrValue.length() + 1) * sizeof(WCHAR)))));
+	TEST(HRESULT_FROM_WIN32(static_cast<unsigned long>(RegSetKeyValueW(hkey, wstrKeyName.c_str(), wstrValueName.c_str(), REG_SZ, wstrValue.c_str(), (static_cast<DWORD>((wstrValue.length() + 1) * sizeof(WCHAR)))))));
 	UpdateAssocChanged(hkey, wstrKeyName);
 	return S_OK;
 }
