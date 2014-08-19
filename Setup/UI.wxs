@@ -1,4 +1,5 @@
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Fragment>
 		<UI Id="MyWixUI_Minimal">
 			<TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
@@ -10,9 +11,7 @@
 				<Control Id="Bitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="234" TabSkip="no" Text="!(loc.WelcomeDlgBitmap)" />
 				<Control Id="Title" Type="Text" X="135" Y="20" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.WelcomeDlgTitle)" />
 				<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
-				<Control Id="Text" Type="Text" Transparent="yes" X="135" Y="80" Width="220" Height="80">
-					<Text>Click [\[]Install[\]] to start install process.</Text>
-				</Control>
+				<Control Id="Text" Type="Text" Transparent="yes" X="135" Y="80" Width="220" Height="80" Text="!(loc.WelcomDlgMessage)"/>
 				<Control Id="InstallNoShield" Type="PushButton" X="212" Y="243" Width="80" Height="17" Default="yes" Text="!(loc.WelcomeEulaDlgInstall)">
 					<Publish Event="EndDialog" Value="Return"/>
 				</Control>

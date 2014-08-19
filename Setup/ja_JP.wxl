@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="ja-JP" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+	<String Id="Language">1041</String>
+	<String Id="OpenCommand">開く(&amp;O)</String>
+	<String Id="EditCommand">編集(&amp;E)</String>
+	<String Id="InstallNetFramework45">セットアップを続行するには Microsoft .NET Framework 4.5 をインストールしてください。</String>
+	<String Id="NewerVersionAlreadyInstalled">[ProductName] の新しいバージョンが既にインストールされています。</String>
+	<String Id="WelcomDlgMessage">[\[]インストール[\]] をクリックするとインストールが開始されます。</String>
+</WixLocalization>

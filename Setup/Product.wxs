@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-	<Product Id="{C703A05F-3AFE-4421-B030-75BDC7B1F538}" Codepage="932" Language="1041" Manufacturer="takumi" Name="Comical" UpgradeCode="{2E73E334-4D49-4BBF-8BEC-E210EF49DD6E}" Version="4.4.9">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="{C703A05F-3AFE-4421-B030-75BDC7B1F538}" Codepage="932" Language="!(loc.Language)" Manufacturer="takumi" Name="Comical" UpgradeCode="{2E73E334-4D49-4BBF-8BEC-E210EF49DD6E}" Version="4.4.13">
 		<Package Compressed="yes" InstallerVersion="400" Languages="1041" Manufacturer="takumi" Platform="x86" SummaryCodepage="932" />
-		<MajorUpgrade DowngradeErrorMessage="The newer version [ProductName] is alreday installed."/>
+		<MajorUpgrade DowngradeErrorMessage="!(loc.NewerVersionAlreadyInstalled)"/>
 		<Media Id="1" Cabinet="components" EmbedCab="yes" />
 		<PropertyRef Id="NETFRAMEWORK45"/>
-		<Condition Message="To continue setup process, you need to install Microsoft .NET Framework 4.5.">Installed OR NETFRAMEWORK45</Condition>
+		<Condition Message="!(loc.InstallNetFramework45)">Installed OR NETFRAMEWORK45</Condition>
 		<CustomAction Id="SET_TARGETDIR" Property="TARGETDIR" Value="[ProgramFilesFolder][Manufacturer]\[ProductName]" Execute="firstSequence" />
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Component Id="C_WeifenLuo.WinFormsUI.Docking.dll" Guid="{93FBAC71-EB15-F81B-0F07-D50C1557B141}">
@@ -39,8 +39,8 @@
 					Source="$(var.Comical.TargetPath)" />
 				<ProgId Id="ComicImageCollectionFile" IconIndex="0" Advertise="yes" Description="Comic Image Collection File">
 					<Extension Id="cic" Advertise="yes">
-						<Verb Id="open" Command="&amp;Open" Argument="/View &quot;%1&quot;"/>
-						<Verb Id="edit" Command="&amp;Edit" Argument="&quot;%1&quot;"/>
+						<Verb Id="open" Command="!(loc.OpenCommand)" Argument="/View &quot;%1&quot;"/>
+						<Verb Id="edit" Command="!(loc.EditCommand)" Argument="&quot;%1&quot;"/>
 					</Extension>
 				</ProgId>
 				<Shortcut Id="_A1E616D0E9BA43F5A731790C92F0E79C" Directory="ProgramMenuFolder" Name="Comical" Icon="Comical.ico" IconIndex="0" Show="normal" WorkingDirectory="TARGETDIR" Advertise="yes" />
@@ -48,7 +48,7 @@
 			<Component Id="C_ComicFileHandler.dll" Guid="{B32A08B6-EB9B-4880-B05B-0E8714668BD9}">
 				<File
 					Id="ComicFileHandler.dll" Name="ComicFileHandler.dll" KeyPath="yes" SelfRegCost="0"
-					Source="$(var.ComicFileHandler.ProjectDir)x64\Debug\$(var.ComicFileHandler.TargetFileName)" />
+					Source="$(var.ComicFileHandler.ProjectDir)$(var.ComicFileHandler.Platform)\$(var.ComicFileHandler.Configuration)\$(var.ComicFileHandler.TargetFileName)" />
 			</Component>
 			<Component Id="C_FileVersionViewer.exe" Guid="{42F7A306-84EE-9501-3851-2A649B25C9DA}">
 				<File
