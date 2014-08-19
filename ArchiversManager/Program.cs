@@ -144,7 +144,7 @@ namespace Comical.Archivers.Manager
 
 		static void UpdateAll(IntPtr owner, string directory)
 		{
-			var t = Task.WhenAll(ArchiversConfiguration.Settings.Select(async x => new { Setting = x, LatestVersionAvailable = await x.IsLatestVersionAvailable() }));
+			var t = Task.WhenAll(ArchiversConfiguration.Settings.Where(x => x.Exists).Select(async x => new { Setting = x, LatestVersionAvailable = await x.IsLatestVersionAvailable() }));
 			t.Wait();
 			foreach (var set in t.Result)
 			{

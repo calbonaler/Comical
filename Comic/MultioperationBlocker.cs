@@ -10,7 +10,7 @@ namespace Comical.Core
 		public bool IsBusy
 		{
 			get { return busy; }
-			set
+			private set
 			{
 				if (busy != value)
 				{
