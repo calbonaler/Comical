@@ -29,9 +29,9 @@ IFACEMETHODIMP_(ULONG) CComicThumbnailProvider::Release()
 	return cRef;
 }
 
-IFACEMETHODIMP CComicThumbnailProvider::Initialize(IStream* pStream, DWORD) { return m_pStream ? HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED) : pStream->QueryInterface(&m_pStream); }
+IFACEMETHODIMP CComicThumbnailProvider::Initialize(_In_ IStream* pStream, _In_ DWORD) { return m_pStream ? HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED) : pStream->QueryInterface(&m_pStream); }
 
-IFACEMETHODIMP CComicThumbnailProvider::GetThumbnail(UINT, HBITMAP* phbmp, WTS_ALPHATYPE* pdwAlpha)
+IFACEMETHODIMP CComicThumbnailProvider::GetThumbnail(UINT, __RPC__deref_out_opt HBITMAP* phbmp, __RPC__out WTS_ALPHATYPE* pdwAlpha)
 {
 	*phbmp = nullptr;
 	IWICImagingFactory* pImagingFactory;

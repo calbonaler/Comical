@@ -189,19 +189,19 @@ IFACEMETHODIMP_(ULONG) CComicPropertyHandler::Release()
 	return cRef;
 }
 
-IFACEMETHODIMP CComicPropertyHandler::GetCount(DWORD* pcProps) { return m_pCache ? m_pCache->GetCount(pcProps) : E_UNEXPECTED; }
+IFACEMETHODIMP CComicPropertyHandler::GetCount(__RPC__out DWORD* pcProps) { return m_pCache ? m_pCache->GetCount(pcProps) : E_UNEXPECTED; }
 
-IFACEMETHODIMP CComicPropertyHandler::GetAt(DWORD iProp, PROPERTYKEY* pKey) { return m_pCache ? m_pCache->GetAt(iProp, pKey) : E_UNEXPECTED; }
+IFACEMETHODIMP CComicPropertyHandler::GetAt(DWORD iProp, __RPC__out PROPERTYKEY* pKey) { return m_pCache ? m_pCache->GetAt(iProp, pKey) : E_UNEXPECTED; }
 
-IFACEMETHODIMP CComicPropertyHandler::GetValue(REFPROPERTYKEY key, PROPVARIANT* pPropVar) { return m_pCache ? m_pCache->GetValue(key, pPropVar) : E_UNEXPECTED; }
+IFACEMETHODIMP CComicPropertyHandler::GetValue(__RPC__in REFPROPERTYKEY key, __RPC__out PROPVARIANT* pPropVar) { return m_pCache ? m_pCache->GetValue(key, pPropVar) : E_UNEXPECTED; }
 
-IFACEMETHODIMP CComicPropertyHandler::SetValue(REFPROPERTYKEY, REFPROPVARIANT) { return E_NOTIMPL; }
+IFACEMETHODIMP CComicPropertyHandler::SetValue(__RPC__in REFPROPERTYKEY, __RPC__in REFPROPVARIANT) { return E_NOTIMPL; }
 
 IFACEMETHODIMP CComicPropertyHandler::Commit() { return E_NOTIMPL; }
 
-IFACEMETHODIMP CComicPropertyHandler::IsPropertyWritable(REFPROPERTYKEY) { return S_FALSE; }
+IFACEMETHODIMP CComicPropertyHandler::IsPropertyWritable(__RPC__in REFPROPERTYKEY) { return S_FALSE; }
 
-IFACEMETHODIMP CComicPropertyHandler::Initialize(IStream* pStream, DWORD)
+IFACEMETHODIMP CComicPropertyHandler::Initialize(_In_ IStream* pStream, _In_ DWORD)
 {
 	if (m_pCache)
 		return HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED);
@@ -222,10 +222,10 @@ IFACEMETHODIMP CComicPropertyHandler::Initialize(IStream* pStream, DWORD)
 	PROPVARIANT prop = { };
 	for (size_t i = 0; i < ARRAYSIZE(mapping); ++i)
 	{
-		auto hr = mapping[i].getter(pStream, &prop, &version);
-		if (FAILED(hr))
-			return hr;
-		if (hr == S_OK)
+		auto hres = mapping[i].getter(pStream, &prop, &version);
+		if (FAILED(hres))
+			return hres;
+		if (hres == S_OK)
 		{
 			if (mapping[i].pKey)
 			{

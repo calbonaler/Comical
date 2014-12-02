@@ -12,6 +12,7 @@ extern "C" IMAGE_DOS_HEADER __ImageBase;
 CRegisterExtension::CRegisterExtension(REFCLSID clsid) : m_fAssocChanged(false)
 {
 	WCHAR szClsid[39];
+#pragma warning(suppress: 6031)
     StringFromGUID2(clsid, szClsid, ARRAYSIZE(szClsid));
 	m_wstrCLSID = szClsid;
 	GetModuleFileNameW(pointer_cast<HMODULE>(&__ImageBase), m_szModule, ARRAYSIZE(m_szModule));

@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="itmOpen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 22</value>
+    <value>176, 22</value>
   </data>
   <data name="itmOpen.Text" xml:space="preserve">
     <value>開く(&amp;O)</value>
@@ -128,7 +128,7 @@
   <data name="itmOpen.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmExclude.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="itmDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6
         JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAACXBIWXMAAAsMAAALDAE/QCLIAAABMklE
@@ -140,23 +140,20 @@
         /zMAAOJUuXVm8uKaAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="itmExclude.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 22</value>
+  <data name="itmDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 22</value>
   </data>
-  <data name="itmExclude.Text" xml:space="preserve">
-    <value>除外(&amp;X)</value>
-  </data>
-  <data name="itmExclude.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="itmDelete.Text" xml:space="preserve">
+    <value>削除(&amp;D)</value>
   </data>
   <data name="sepImage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 6</value>
+    <value>173, 6</value>
   </data>
   <data name="sepImage1.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="itmExport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 22</value>
+    <value>176, 22</value>
   </data>
   <data name="itmExport.Text" xml:space="preserve">
     <value>エクスポート(&amp;T)...</value>
@@ -165,7 +162,7 @@
     <value>False</value>
   </data>
   <data name="itmExtract.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 22</value>
+    <value>176, 22</value>
   </data>
   <data name="itmExtract.Text" xml:space="preserve">
     <value>抽出(&amp;C)...</value>
@@ -174,10 +171,13 @@
     <value>False</value>
   </data>
   <data name="sepImage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 6</value>
+    <value>173, 6</value>
   </data>
   <data name="sepImage2.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="itmAddToBookmark.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 22</value>
   </data>
   <data name="itmAddToBookmark.Text" xml:space="preserve">
     <value>ブックマークに追加(&amp;B)</value>
@@ -186,7 +186,7 @@
     <value>False</value>
   </data>
   <data name="conImage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 126</value>
+    <value>177, 148</value>
   </data>
   <data name="clmImage.HeaderText" xml:space="preserve">
     <value>画像</value>

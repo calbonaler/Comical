@@ -12,9 +12,9 @@ public:
 	IFACEMETHODIMP_(ULONG) AddRef();
 	IFACEMETHODIMP_(ULONG) Release();
 
-	IFACEMETHODIMP Initialize(IStream*, DWORD);
+	IFACEMETHODIMP Initialize(_In_ IStream*, _In_ DWORD);
 
-	IFACEMETHODIMP GetThumbnail(UINT, HBITMAP*, WTS_ALPHATYPE*);
+	IFACEMETHODIMP GetThumbnail(UINT, __RPC__deref_out_opt HBITMAP*, __RPC__out WTS_ALPHATYPE*);
 
 protected:
 	virtual ~CComicThumbnailProvider();

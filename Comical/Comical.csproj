@@ -227,12 +227,6 @@
     <Compile Include="Windows\Modeless\BookmarksView.Designer.cs">
       <DependentUpon>BookmarksView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Modeless\ExclusionView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\Modeless\ExclusionView.Designer.cs">
-      <DependentUpon>ExclusionView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Windows\Modeless\Viewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,9 +324,6 @@
     <EmbeddedResource Include="Windows\Modeless\ContentsView.ja-JP.resx">
       <DependentUpon>ContentsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modeless\ExclusionView.ja-JP.resx">
-      <DependentUpon>ExclusionView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modeless\Viewer.ja-JP.resx">
       <DependentUpon>Viewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -368,10 +359,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modeless\ContentsView.resx">
       <DependentUpon>ContentsView.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modeless\ExclusionView.resx">
-      <DependentUpon>ExclusionView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modeless\Viewer.resx">

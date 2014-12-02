@@ -143,10 +143,10 @@ namespace Comical
 			}
 		}
 
-		public void ExcludeSelectedImages()
+		public void DeleteSelectedImages()
 		{
 			foreach (var x in SelectedIndicies.OrderBy(x => x).Select(x => _comic.Images[x]).ToArray())
-				_comic.Images.Exclude(x);
+				_comic.Images.Remove(x);
 		}
 
 		public void BookmarkSelectedImages()
@@ -170,7 +170,7 @@ namespace Comical
 				}
 			}
 			itmOpen.Visible = count == 1;
-			itmAddToBookmark.Visible = itmExclude.Visible = itmExport.Visible = itmExtract.Visible = sepImage1.Visible = sepImage2.Visible = count > 0;
+			itmAddToBookmark.Visible = itmDelete.Visible = itmExport.Visible = itmExtract.Visible = sepImage1.Visible = sepImage2.Visible = count > 0;
 		}
 
 		private void dgvImages_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
@@ -189,11 +189,6 @@ namespace Comical
 		{
 			if (e.Source == dgvImages)
 				_comic.Images.MoveRange(e.SourceRows[0].Index, e.SourceRows.Count, e.Destination);
-			else if (e.Source.Name == "dgvTrashBox")
-			{
-				e.Cancel = true;
-				_comic.Images.Include(e.SourceRows[0].Index, e.Destination);
-			}
 		}
 
 		private void dgvImages_QueryActualDestination(object sender, Controls.QueryActualDestinationEventArgs e)
@@ -239,14 +234,14 @@ namespace Comical
 		{
 			if (rowIndex >= 0)
 			{
-				_comic.Images.ExcludeAt(rowIndex);
+				_comic.Images.RemoveAt(rowIndex);
 				rowIndex = -1;
 			}
 		}
 
 		private void itmOpen_Click(object sender, EventArgs e) { OpenFirstSelectedImage(); }
 
-		private void itmExclude_Click(object sender, EventArgs e) { ExcludeSelectedImages(); }
+		private void itmDelete_Click(object sender, EventArgs e) { DeleteSelectedImages(); }
 
 		private void itmBookmark_Click(object sender, EventArgs e) { BookmarkSelectedImages(); }
 	}

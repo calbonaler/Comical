@@ -70,7 +70,6 @@
 			this.sepImage1 = new System.Windows.Forms.ToolStripSeparator();
 			this.itmOpenImage = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmExclude = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmInclude = new System.Windows.Forms.ToolStripMenuItem();
 			this.sepImage2 = new System.Windows.Forms.ToolStripSeparator();
 			this.itmExport = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmExtract = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,7 +93,6 @@
 			this.itmView = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmContentsWindow = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmBookmarksWindow = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmExcluded = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsMain = new System.Windows.Forms.ToolStrip();
 			this.btnNew = new System.Windows.Forms.ToolStripButton();
 			this.btnOpen = new System.Windows.Forms.ToolStripButton();
@@ -212,7 +210,6 @@
             this.sepImage1,
             this.itmOpenImage,
             this.itmExclude,
-            this.itmInclude,
             this.sepImage2,
             this.itmExport,
             this.itmExtract,
@@ -270,12 +267,6 @@
 			resources.ApplyResources(this.itmExclude, "itmExclude");
 			this.itmExclude.Name = "itmExclude";
 			this.itmExclude.Click += new System.EventHandler(this.itmDelete_Click);
-			// 
-			// itmInclude
-			// 
-			resources.ApplyResources(this.itmInclude, "itmInclude");
-			this.itmInclude.Name = "itmInclude";
-			this.itmInclude.Click += new System.EventHandler(this.itmRestore_Click);
 			// 
 			// sepImage2
 			// 
@@ -415,8 +406,7 @@
 			resources.ApplyResources(this.itmView, "itmView");
 			this.itmView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmContentsWindow,
-            this.itmBookmarksWindow,
-            this.itmExcluded});
+            this.itmBookmarksWindow});
 			this.itmView.Name = "itmView";
 			// 
 			// itmContentsWindow
@@ -430,12 +420,6 @@
 			resources.ApplyResources(this.itmBookmarksWindow, "itmBookmarksWindow");
 			this.itmBookmarksWindow.Name = "itmBookmarksWindow";
 			this.itmBookmarksWindow.Click += new System.EventHandler(this.itmBookmarksWindow_Click);
-			// 
-			// itmExcluded
-			// 
-			resources.ApplyResources(this.itmExcluded, "itmExcluded");
-			this.itmExcluded.Name = "itmExcluded";
-			this.itmExcluded.Click += new System.EventHandler(this.itmTrashBox_Click);
 			// 
 			// tsMain
 			// 
@@ -555,7 +539,6 @@
 		System.Windows.Forms.ToolStripMenuItem itmInvertSelections;
 		System.Windows.Forms.ToolStripMenuItem itmSelectAll;
 		System.Windows.Forms.ToolStripMenuItem itmInvertViewMode;
-		System.Windows.Forms.ToolStripMenuItem itmInclude;
 		System.Windows.Forms.ToolStripMenuItem itmRemoveBookmark;
 		System.Windows.Forms.ToolStripMenuItem itmAddBookmark;
 		private System.Windows.Forms.ToolStrip tsMain;
@@ -594,7 +577,6 @@
 		private System.Windows.Forms.ToolStripMenuItem itmView;
 		private System.Windows.Forms.ToolStripMenuItem itmContentsWindow;
 		private System.Windows.Forms.ToolStripMenuItem itmBookmarksWindow;
-		private System.Windows.Forms.ToolStripMenuItem itmExcluded;
 		private System.Windows.Forms.ToolStripMenuItem itmOpenImage;
 		private System.Windows.Forms.ToolStripMenuItem itmArchivers;
 		private System.Windows.Forms.ToolStripSeparator sepTool;

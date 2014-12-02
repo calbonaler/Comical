@@ -2,6 +2,7 @@
 #include "CComicPropertyHandler.h"
 #include "CComicThumbnailProvider.h"
 #include "CRegisterExtension.h"
+#include <combaseapi.h>
 
 ULONG g_cRefModule = 0;
 
@@ -18,7 +19,7 @@ void DllAddRef() { InterlockedIncrement(&g_cRefModule); }
 
 void DllRelease() { InterlockedDecrement(&g_cRefModule); }
 
-STDAPI DllGetClassObject(const CLSID& clsid, const IID& riid, void** ppv)
+_Check_return_ STDAPI DllGetClassObject(_In_ REFCLSID clsid, _In_ REFIID riid, _Outptr_ LPVOID FAR* ppv)
 {
 	static const CLASS_OBJECT_INIT classObjectInit[] =
 	{

@@ -44,7 +44,7 @@ namespace Comical.Archivers.Manager
 				return pointer;
 			}
 
-			void MakeTable(ushort bitLengthCount, byte[] bitLength, ushort tableBitCount, /*W*/ushort[] table, /*W*/ushort[] left, /*W*/ushort[] right)
+			static void MakeTable(ushort bitLengthCount, byte[] bitLength, ushort tableBitCount, /*W*/ushort[] table, /*W*/ushort[] left, /*W*/ushort[] right)
 			{
 				ushort[] count = new ushort[17];
 				for (int i = 0; i < bitLengthCount; i++)
@@ -170,7 +170,7 @@ namespace Comical.Archivers.Manager
 				}
 			}
 
-			void Unstore(Stream source, uint compressedSize, Stream destination)
+			static void Unstore(Stream source, uint compressedSize, Stream destination)
 			{
 				byte[] buffer = new byte[32768];
 				int bytesRead;

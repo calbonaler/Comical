@@ -79,12 +79,8 @@ namespace Comical.Core
 
 	public class ImageReferenceCollection : IReadOnlyList<ImageReference>, INotifyCollectionChanged
 	{
-		public ImageReferenceCollection() { ExcludedItems = new ReadOnlyCollection<ImageReference>(excluded); }
-
 		List<ImageReference> references = new List<ImageReference>();
-		List<ImageReference> excluded = new List<ImageReference>();
 		readonly object lockObject = new object();
-		public ReadOnlyCollection<ImageReference> ExcludedItems { get; private set; }
 		bool _notificationSuspended = false;
 		List<NotifyCollectionChangedEventArgs> collectionChanges = new List<NotifyCollectionChangedEventArgs>();
 		Dictionary<object, string> itemChanges = new Dictionary<object, string>();
@@ -98,12 +94,6 @@ namespace Comical.Core
 					references[i].PropertyChanged -= OnItemPropertyChanged;
 					references[i].ReleaseContext();
 					references.RemoveAt(i);
-				}
-				for (int i = excluded.Count - 1; i >= 0; i--)
-				{
-					excluded[i].PropertyChanged -= OnItemPropertyChanged;
-					excluded[i].ReleaseContext();
-					excluded.RemoveAt(i);
 				}
 			}
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
@@ -132,38 +122,20 @@ namespace Comical.Core
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, refes, newIndex, oldIndex));
 		}
 
-		protected void ExcludeItem(int index)
+		protected void RemoveItem(int index)
 		{
 			var item = this[index];
-			lock (lockObject)
-			{
-				excluded.Add(item);
-				references.RemoveAt(index);
-			}
+			references.RemoveAt(index);
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
-		}
-
-		protected void IncludeItem(int excludedIndex, int insertIndex)
-		{
-			lock (lockObject)
-			{
-				references.Insert(insertIndex, excluded[excludedIndex]);
-				excluded.RemoveAt(excludedIndex);
-			}
-			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, this[insertIndex], insertIndex));
 		}
 
 		public void Move(int oldIndex, int newIndex) { MoveItems(oldIndex, 1, newIndex); }
 
 		public void MoveRange(int oldIndex, int count, int newIndex) { MoveItems(oldIndex, count, newIndex); }
 
-		public void Include(int excludedIndex) { IncludeItem(excludedIndex, references.Count); }
-
-		public void Include(int excludedIndex, int insertIndex) { IncludeItem(excludedIndex, insertIndex); }
-
 		public int IndexOf(ImageReference item) { return references.IndexOf(item); }
 
-		public void ExcludeAt(int index) { ExcludeItem(index); }
+		public void RemoveAt(int index) { RemoveItem(index); }
 
 		public ImageReference this[int index] { get { return references[index]; } }
 
@@ -175,9 +147,9 @@ namespace Comical.Core
 
 		public int Count { get { return references.Count; } }
 
-		public bool Exclude(ImageReference item)
+		public bool Remove(ImageReference item)
 		{
-			ExcludeItem(IndexOf(item));
+			RemoveItem(IndexOf(item));
 			return true;
 		}
 

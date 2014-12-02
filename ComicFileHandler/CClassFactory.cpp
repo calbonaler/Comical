@@ -24,7 +24,8 @@ IFACEMETHODIMP_(ULONG) CClassFactory::Release()
 	return static_cast<ULONG>(cRef);
 }
 
-IFACEMETHODIMP CClassFactory::CreateInstance(IUnknown* punkOuter, REFIID riid, void** ppv) { return m_pfnCreate(punkOuter, riid, ppv); }
+#pragma warning(suppress: 6388)
+IFACEMETHODIMP CClassFactory::CreateInstance(_In_opt_ IUnknown* punkOuter, _In_ REFIID riid, _COM_Outptr_ void** ppv) { return m_pfnCreate(punkOuter, riid, ppv); }
 
 IFACEMETHODIMP CClassFactory::LockServer(BOOL fLock)
 {

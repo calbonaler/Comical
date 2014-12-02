@@ -33,7 +33,6 @@ namespace Comical
 		string[] imageExtensions = new [] { "bmp", "dib", "gif", "jpeg", "jpe", "jpg", "jfif", "png", "tiff", "tif", };
 		ContentsView imageList = new ContentsView();
 		BookmarksView bookmarkList = new BookmarksView();
-		ExclusionView trashBox = new ExclusionView();
 		DocumentView document = new DocumentView();
 		GoToIndexView goToIndex = new GoToIndexView();
 		ViewModeSettingsView viewModeSettings = new ViewModeSettingsView();
@@ -51,8 +50,6 @@ namespace Comical
 							return imageList;
 						else if (ps == "BookmarkList")
 							return bookmarkList;
-						else if (ps == "TrashBox")
-							return trashBox;
 						else if (ps == "Document")
 							return document;
 						else if (ps == "GoToIndex")
@@ -82,9 +79,6 @@ namespace Comical
 			bookmarkList.SetBookmarks(comic.Bookmarks);
 			bookmarkList.BookmarkSelected += (s, ev) => itmRemoveBookmark.Enabled = bookmarkList.SelectedBookmarks.Any();
 			bookmarkList.BookmarkNavigated += (s, ev) => imageList.FirstSelectedRowIndex = ev.Bookmark.Target;
-
-			trashBox.SetImages(comic.Images);
-			trashBox.ImageReferenceSelected += (s, ev) => itmInclude.Enabled = trashBox.SelectedIndicies.Any();
 
 			document.SetComic(comic);
 
@@ -147,7 +141,7 @@ namespace Comical
 				action(file);
 		}
 
-		void AddAuthorToHistory(string author)
+		static void AddAuthorToHistory(string author)
 		{
 			for (int i = Properties.Settings.Default.RecentAuthors.Count - 1; i >= 0; i--)
 			{
@@ -370,8 +364,6 @@ namespace Comical
 
 		void itmBookmarksWindow_Click(object sender, EventArgs e) { bookmarkList.Show(dpMain); }
 
-		void itmTrashBox_Click(object sender, EventArgs e) { trashBox.Show(dpMain); }
-
 		#endregion
 
 		#region ImageMenu
@@ -427,13 +419,7 @@ namespace Comical
 
 		void itmOpenImage_Click(object sender, EventArgs e) { imageList.OpenFirstSelectedImage(); }
 
-		void itmDelete_Click(object sender, EventArgs e) { imageList.ExcludeSelectedImages(); }
-
-		void itmRestore_Click(object sender, EventArgs e)
-		{
-			foreach (var x in trashBox.SelectedIndicies.OrderBy(x => x).ToArray())
-				comic.Images.Include(x);
-		}
+		void itmDelete_Click(object sender, EventArgs e) { imageList.DeleteSelectedImages(); }
 
 		async void itmExport_Click(object sender, EventArgs e)
 		{

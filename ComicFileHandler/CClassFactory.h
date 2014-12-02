@@ -12,7 +12,7 @@ public:
 	IFACEMETHODIMP_(ULONG) AddRef();
 	IFACEMETHODIMP_(ULONG) Release();
 
-	IFACEMETHODIMP CreateInstance(IUnknown*, REFIID, void**);
+	IFACEMETHODIMP CreateInstance(_In_opt_ IUnknown*, _In_ REFIID, _COM_Outptr_ void**);
 	IFACEMETHODIMP LockServer(BOOL);
 
 protected:

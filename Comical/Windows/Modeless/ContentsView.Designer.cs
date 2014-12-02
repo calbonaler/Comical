@@ -32,7 +32,7 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContentsView));
 			this.conImage = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.itmOpen = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmExclude = new System.Windows.Forms.ToolStripMenuItem();
+			this.itmDelete = new System.Windows.Forms.ToolStripMenuItem();
 			this.sepImage1 = new System.Windows.Forms.ToolStripSeparator();
 			this.itmExport = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmExtract = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,16 +47,16 @@
 			// 
 			// conImage
 			// 
+			resources.ApplyResources(this.conImage, "conImage");
 			this.conImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmOpen,
-            this.itmExclude,
+            this.itmDelete,
             this.sepImage1,
             this.itmExport,
             this.itmExtract,
             this.sepImage2,
             this.itmAddToBookmark});
 			this.conImage.Name = "conImage";
-			resources.ApplyResources(this.conImage, "conImage");
 			// 
 			// itmOpen
 			// 
@@ -64,40 +64,41 @@
 			this.itmOpen.Name = "itmOpen";
 			this.itmOpen.Click += new System.EventHandler(this.itmOpen_Click);
 			// 
-			// itmExclude
+			// itmDelete
 			// 
-			resources.ApplyResources(this.itmExclude, "itmExclude");
-			this.itmExclude.Name = "itmExclude";
-			this.itmExclude.Click += new System.EventHandler(this.itmExclude_Click);
+			resources.ApplyResources(this.itmDelete, "itmDelete");
+			this.itmDelete.Name = "itmDelete";
+			this.itmDelete.Click += new System.EventHandler(this.itmDelete_Click);
 			// 
 			// sepImage1
 			// 
-			this.sepImage1.Name = "sepImage1";
 			resources.ApplyResources(this.sepImage1, "sepImage1");
+			this.sepImage1.Name = "sepImage1";
 			// 
 			// itmExport
 			// 
-			this.itmExport.Name = "itmExport";
 			resources.ApplyResources(this.itmExport, "itmExport");
+			this.itmExport.Name = "itmExport";
 			// 
 			// itmExtract
 			// 
-			this.itmExtract.Name = "itmExtract";
 			resources.ApplyResources(this.itmExtract, "itmExtract");
+			this.itmExtract.Name = "itmExtract";
 			// 
 			// sepImage2
 			// 
-			this.sepImage2.Name = "sepImage2";
 			resources.ApplyResources(this.sepImage2, "sepImage2");
+			this.sepImage2.Name = "sepImage2";
 			// 
 			// itmAddToBookmark
 			// 
-			this.itmAddToBookmark.Name = "itmAddToBookmark";
 			resources.ApplyResources(this.itmAddToBookmark, "itmAddToBookmark");
+			this.itmAddToBookmark.Name = "itmAddToBookmark";
 			this.itmAddToBookmark.Click += new System.EventHandler(this.itmBookmark_Click);
 			// 
 			// dgvImages
 			// 
+			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.AllowDrop = true;
 			this.dgvImages.AllowUserToAddRows = false;
 			this.dgvImages.AllowUserToMoveRows = true;
@@ -113,7 +114,6 @@
             this.clmImage,
             this.clmViewMode});
 			this.dgvImages.ContextMenuStrip = this.conImage;
-			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
 			this.dgvImages.GridColor = System.Drawing.SystemColors.Control;
 			this.dgvImages.MultiDrag = true;
@@ -150,8 +150,8 @@
 			// 
 			// ContentsView
 			// 
-			this.AllowDrop = true;
 			resources.ApplyResources(this, "$this");
+			this.AllowDrop = true;
 			this.Controls.Add(this.dgvImages);
 			this.HideOnClose = true;
 			this.Name = "ContentsView";
@@ -168,7 +168,7 @@
 		private Controls.DraggableDataGridView dgvImages;
 		private System.Windows.Forms.ContextMenuStrip conImage;
 		private System.Windows.Forms.ToolStripMenuItem itmOpen;
-		private System.Windows.Forms.ToolStripMenuItem itmExclude;
+		private System.Windows.Forms.ToolStripMenuItem itmDelete;
 		private System.Windows.Forms.ToolStripSeparator sepImage1;
 		private System.Windows.Forms.ToolStripMenuItem itmExport;
 		private System.Windows.Forms.ToolStripMenuItem itmExtract;

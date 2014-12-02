@@ -171,7 +171,7 @@ namespace Comical
 			using (Region reg = new Region(rect))
 			{
 				reg.Xor(ImageBounds);
-				lblSize.Text = string.Format(Properties.Resources.ImageSizeStringRepresentation, ImageBounds.Width, ImageBounds.Height);
+				lblSize.Text = string.Format(System.Globalization.CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, ImageBounds.Width, ImageBounds.Height);
 				e.Graphics.FillRegion(Brushes.Blue, reg);
 			}
 			DrawCross(e.Graphics, rectangle.BottomRight);
@@ -234,7 +234,7 @@ namespace Comical
 			picPreview.Invalidate();
 		}
 
-		int RoundInteger(int value, int min, int max)
+		static int RoundInteger(int value, int min, int max)
 		{
 			if (value < min)
 				return min;
