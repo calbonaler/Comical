@@ -67,6 +67,8 @@ namespace Comical.Core
 			while (length > 0)
 			{
 				int bytesRead = readStream.Read(temp, 0, (int)Math.Min(temp.Length, length));
+				if (bytesRead <= 0)
+					return;
 				for (int i = 0; i < bytesRead; i++)
 					temp[i] = (byte)(unchecked(temp[i] - pw[i % (pw.Length - 1)]));
 				writeStream.Write(temp, 0, bytesRead);

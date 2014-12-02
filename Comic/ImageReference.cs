@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using CommonLibrary;
@@ -12,15 +13,15 @@ namespace Comical.Core
 {
 	public class ImageReference : INotifyPropertyChanged
 	{
-		internal ImageReference(ImageViewMode mode, long pos, int len)
+		internal ImageReference(byte[] data, ImageViewMode mode, SynchronizationContext ownerContext)
 		{
+			_data = data;
 			_mode = mode;
-			Position = pos;
-			Length = len;
+			_ownerContext = ownerContext;
 		}
 
-		internal SynchronizationContext ownerContext;
-		internal Func<ImageReference, Size, Image> getImage = (ir, sz) => null;
+		byte[] _data;
+		SynchronizationContext _ownerContext;
 		ImageViewMode _mode;
 
 		public ImageViewMode ViewMode
@@ -36,18 +37,41 @@ namespace Comical.Core
 			}
 		}
 
-		public long Position { get; private set; }
+		public int Length { get { return _data.Length; } }
 
-		public int Length { get; private set; }
+		public Image GetImage() { return GetImage(Size.Empty); }
 
-		public Image GetImage() { return getImage(this, Size.Empty); }
+		public Image GetImage(Size size)
+		{
+			using (var ms = new MemoryStream(_data))
+			using (var image = Image.FromStream(ms))
+				return image.Resize(size);
+		}
 
-		public Image GetImage(Size size) { return getImage(this, size); }
+		internal MemoryStream GetBinaryImageNoLock()
+		{
+			MemoryStream ms = null;
+			MemoryStream temp = null;
+			try
+			{
+				temp = new MemoryStream(_data);
+				ms = temp;
+				temp = null;
+			}
+			finally
+			{
+				if (temp != null)
+					temp.Dispose();
+			}
+			return ms;
+		}
+
+		internal void ReleaseContext() { _ownerContext = null; }
 
 		protected void RaisePropertyChanged(string propertyName)
 		{
 			if (PropertyChanged != null)
-				ownerContext.SendIfNeeded(() => PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
+				_ownerContext.SendIfNeeded(() => PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -55,14 +79,8 @@ namespace Comical.Core
 
 	public class ImageReferenceCollection : IReadOnlyList<ImageReference>, INotifyCollectionChanged
 	{
-		public ImageReferenceCollection(Func<ImageReference, Size, Image> getImage, SynchronizationContext context)
-		{
-			ExcludedItems = new ReadOnlyCollection<ImageReference>(excluded);
-			ownerContext = context;
-			this.getImage = getImage;
-		}
+		public ImageReferenceCollection() { ExcludedItems = new ReadOnlyCollection<ImageReference>(excluded); }
 
-		Func<ImageReference, Size, Image> getImage = (ir, sz) => null;
 		List<ImageReference> references = new List<ImageReference>();
 		List<ImageReference> excluded = new List<ImageReference>();
 		readonly object lockObject = new object();
@@ -70,7 +88,6 @@ namespace Comical.Core
 		bool _notificationSuspended = false;
 		List<NotifyCollectionChangedEventArgs> collectionChanges = new List<NotifyCollectionChangedEventArgs>();
 		Dictionary<object, string> itemChanges = new Dictionary<object, string>();
-		SynchronizationContext ownerContext = null;
 
 		protected void ClearItems()
 		{
@@ -79,15 +96,13 @@ namespace Comical.Core
 				for (int i = references.Count - 1; i >= 0; i--)
 				{
 					references[i].PropertyChanged -= OnItemPropertyChanged;
-					references[i].ownerContext = null;
-					references[i].getImage = (ir, sz) => null;
+					references[i].ReleaseContext();
 					references.RemoveAt(i);
 				}
 				for (int i = excluded.Count - 1; i >= 0; i--)
 				{
 					excluded[i].PropertyChanged -= OnItemPropertyChanged;
-					excluded[i].ownerContext = null;
-					excluded[i].getImage = (ir, sz) => null;
+					excluded[i].ReleaseContext();
 					excluded.RemoveAt(i);
 				}
 			}
@@ -99,8 +114,6 @@ namespace Comical.Core
 			if (item == null)
 				throw new ArgumentNullException("item");
 			item.PropertyChanged += OnItemPropertyChanged;
-			item.ownerContext = ownerContext;
-			item.getImage = getImage;
 			references.Insert(index, item);
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
 		}

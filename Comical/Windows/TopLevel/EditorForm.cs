@@ -246,7 +246,7 @@ namespace Comical
 						if (open)
 						{
 							lblStatus.Text = Properties.Resources.OpeningFile;
-							await comic.OpenAsync(cicFileToOpen.Path, password, false, System.Threading.CancellationToken.None, progress);
+							await comic.OpenAsync(cicFileToOpen.Path, password, System.Threading.CancellationToken.None, progress);
 							AddAuthorToHistory(comic.Author);
 						}
 						else

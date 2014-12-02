@@ -69,25 +69,23 @@ namespace CommonLibrary
 			if (src == null)
 				throw new ArgumentNullException("src");
 			Bitmap bitmap = null;
-			Bitmap b = null;
+			Bitmap tmp = null;
 			try
 			{
 				if (size.IsEmpty)
-					b = new Bitmap(src);
+					tmp = new Bitmap(src);
 				else
 				{
-					if (src.Width * size.Height < size.Width * src.Height)
-						b = new Bitmap(src, src.Width * size.Height / src.Height, size.Height); // 縦に合わせる
-					else
-						b = new Bitmap(src, size.Width, src.Height * size.Width / src.Width); // 横に合わせる
+					var x = Math.Min(src.Width * size.Height, size.Width * src.Height);
+					tmp = new Bitmap(src, x / src.Height, x / src.Width);
 				}
-				bitmap = b;
-				b = null;
+				bitmap = tmp;
+				tmp = null;
 			}
 			finally
 			{
-				if (b != null)
-					b.Dispose();
+				if (tmp != null)
+					tmp.Dispose();
 			}
 			return bitmap;
 		}

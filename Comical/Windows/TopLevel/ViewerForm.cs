@@ -72,7 +72,7 @@ namespace Comical
 					{
 						try
 						{
-							await icd.OpenAsync(fileName, pass, true, cts.Token, new Progress<int>(value => dialog.ProgressBar.Value = value));
+							await icd.OpenAsync(fileName, pass, cts.Token, new Progress<int>(value => dialog.ProgressBar.Value = value));
 							dialog.Close(TaskDialogResult.Ok);
 						}
 						catch (OperationCanceledException)

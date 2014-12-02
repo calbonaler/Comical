@@ -52,7 +52,7 @@ namespace Comical
 			if (dgvTrashBox.Columns[e.ColumnIndex].Name == "clmImage")
 			{
 				if (e.RowIndex >= 0 && e.RowIndex < _images.ExcludedItems.Count)
-					e.Value = _images.ExcludedItems[e.RowIndex].GetImage().Resize(trashThumSize);
+					e.Value = _images.ExcludedItems[e.RowIndex].GetImage(trashThumSize);
 			}
 		}
 
