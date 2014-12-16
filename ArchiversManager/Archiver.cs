@@ -246,21 +246,13 @@ namespace Comical.Archivers
 	{
 		static IEnumerable<ArchiverSetting> ReadSettings()
 		{
-			ArchiverSetting unlha32, unzip32, sevenzip32;
-			yield return unlha32 = new ArchiverSetting()
-			{
-				DllName = "Unlha32.dll",
-				FunctionName = "Unlha",
-				ExtractCommand = "x -a1 -r1 {arc} {dir} {filespec}",
-				WebPage = "unlha32.html",
-			};
+			ArchiverSetting unzip32, sevenzip32;
 			yield return unzip32 = new ArchiverSetting()
 			{
 				DllName = "UnZip32.dll",
 				FunctionName = "UnZip",
 				ExtractCommand = "-x {arc} {dir} {filespec}",
 				WebPage = "unzip32.html",
-				DependedArchiver = unlha32
 			};
 			yield return new ArchiverSetting()
 			{
@@ -269,39 +261,6 @@ namespace Comical.Archivers
 				ExtractCommand = "-x -r {arc} {dir} {filespec}",
 				WebPage = "unrar32.html",
 				BundleDllName = "UnRAR.dll",
-				DependedArchiver = unlha32
-			};
-			yield return new ArchiverSetting()
-			{
-				DllName = "Tar32.dll",
-				FunctionName = "Tar",
-				ExtractCommand = "-x {arc} {dir} {filespec}",
-				WebPage = "tar32.html",
-				DependedArchiver = unzip32,
-			};
-			yield return new ArchiverSetting()
-			{
-				DllName = "Bga32.dll",
-				FunctionName = "Bga",
-				ExtractCommand = "x -a -r {arc} {dir} {filespec}",
-				WebPage = "bga32.html",
-				DependedArchiver = unlha32,
-			};
-			yield return new ArchiverSetting()
-			{
-				DllName = "Unarj32j.dll",
-				FunctionName = "Unarj",
-				ExtractCommand = "x -jyc -r {arc} {dir} {filespec}",
-				WebPage = "unarj32.html",
-				DependedArchiver = unlha32,
-			};
-			yield return new ArchiverSetting()
-			{
-				DllName = "UnGCA32.dll",
-				FunctionName = "UnGCA",
-				ExtractCommand = "e -sx1 {arc} {dir} {filespec}",
-				WebPage = "ungca32.html",
-				DependedArchiver = unlha32,
 			};
 			yield return sevenzip32 = new ArchiverSetting()
 			{
@@ -309,39 +268,6 @@ namespace Comical.Archivers
 				FunctionName = "SevenZip",
 				ExtractCommand = "x -r {arc} {dir} {filespec}",
 				WebPage = "7-zip32.html",
-				DependedArchiver = unzip32,
-			};
-			yield return new ArchiverSetting()
-			{
-				DllName = "UnImp32.dll",
-				FunctionName = "UnImp",
-				ExtractCommand = "x -r1 {arc} {dir} {filespec}",
-				WebPage = "unimp32.html",
-				DependedArchiver = unlha32,
-			};
-			yield return new ArchiverSetting()
-			{
-				DllName = "UnHki32.dll",
-				FunctionName = "UnHki",
-				ExtractCommand = "x -r1 {arc} {dir} {filespec}",
-				WebPage = "unhki32.html",
-				DependedArchiver = unzip32,
-			};
-			yield return new ArchiverSetting()
-			{
-				DllName = "UnAceV2J.dll",
-				FunctionName = "UnAce",
-				ExtractCommand = "x {arc} {dir} {filespec}",
-				WebPage = "UnAceV2J.html",
-				BundleDllName = "UnAceV2.dll",
-				DependedArchiver = unzip32,
-			};
-			yield return new ArchiverSetting()
-			{
-				DllName = "unbel32.dll",
-				FunctionName = "Unbel",
-				ExtractCommand = "{arc} {dir}",
-				WebPage = "unbel32.html",
 				DependedArchiver = unzip32,
 			};
 			yield return new ArchiverSetting()

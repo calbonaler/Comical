@@ -57,49 +57,41 @@ namespace Comical.Archivers.Manager
 				dialog.Opened += async (s, ev) =>
 				{
 					var di = CommonUtils.TempFolder.CreateSubdirectory("Dll");
-					string name = Path.Combine(di.FullName, Path.GetFileName(urls[0]));
-					for (int i = 0; i < urls.Length; i++)
+					try
 					{
-						var timeout = Task.Delay(5000);
-						var download = client.DownloadFileTaskAsync(new Uri(urls[i]), name, new Progress<int>(p => dialog.ProgressBar.Value = p));
-						dialog.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.InstallRetryMessage, i + 1);
-						if (await Task.WhenAny(download, timeout) == timeout && dialog.ProgressBar.Value == 0)
-							client.CancelAsync();
-						else
+						string name = Path.Combine(di.FullName, Path.GetFileName(urls[0]));
+						for (int i = 0; i < urls.Length; i++)
 						{
-							await download;
-							if (download.Status == TaskStatus.RanToCompletion)
+							var timeout = Task.Delay(5000);
+							var download = client.DownloadFileTaskAsync(new Uri(urls[i]), name, new Progress<int>(p => dialog.ProgressBar.Value = p));
+							dialog.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.InstallRetryMessage, i + 1);
+							if (await Task.WhenAny(download, timeout) == timeout && dialog.ProgressBar.Value == 0)
+								client.CancelAsync();
+							else
 							{
-								dialog.InstructionText = Properties.Resources.InstallExtractingArchive;
-								var needList = new List<string>() { set.BundleDllName, set.DllName };
-								var arc = ArchiversConfiguration.FindArchiverToExtract(name);
-								if (arc != null)
-								{
-									using (arc)
-										arc.Extract(name, di.FullName, string.Join(" ", needList));
-									foreach (var f in needList)
-									{
-										var file = new FileInfo(Path.Combine(di.FullName, f));
-										if (file.Exists)
-										{
-											file.CopyTo(Path.Combine(directory, f), true);
-											file.Delete();
-										}
-									}
-									foreach (var dir in di.EnumerateDirectories())
-									{
-										foreach (var file in dir.EnumerateFiles("*", SearchOption.AllDirectories))
-											file.CopyTo(Path.Combine(directory, file.Name), true);
-									}
-								}
-								else if (set.DependedArchiver == null)
-									LzhExtractor.Melt(name, directory, needList.ToArray());
+								await download;
+								if (download.Status != TaskStatus.RanToCompletion)
+									return;
+								break;
 							}
-							break;
 						}
+						dialog.InstructionText = Properties.Resources.InstallExtractingArchive;
+						var needList = new string[] { set.BundleDllName, set.DllName };
+						if (LzhExtractor.Melt(name, directory, needList))
+							return;
+						var arc = ArchiversConfiguration.FindArchiverToExtract(name);
+						if (arc == null)
+							return;
+						using (arc)
+							arc.Extract(name, di.FullName, string.Join(" ", needList.Where(x => !string.IsNullOrEmpty(x))));
+						foreach (var file in di.EnumerateFiles("*", SearchOption.AllDirectories))
+							file.CopyTo(Path.Combine(directory, file.Name), true);
 					}
-					di.Delete(true);
-					dialog.Close();
+					finally
+					{
+						di.Delete(true);
+						dialog.Close();
+					}
 				};
 				if (dialog.Show() == TaskDialogResult.Cancel)
 					client.CancelAsync();

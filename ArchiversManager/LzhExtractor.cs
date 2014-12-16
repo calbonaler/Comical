@@ -3,304 +3,389 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using CommonLibrary;
 
 namespace Comical.Archivers.Manager
 {
 	public static class LzhExtractor
 	{
-		sealed class LzhDecoder
+		static class LzhDecoder
 		{
-			ushort bitBuffer;
-			
-			ushort DecodeCode(Stream source, ushort[] codeTable, byte[] codeLength, ushort[] left, ushort[] right)
-            {
-                var code = codeTable[bitBuffer >> (16 - 12)];
-                if (code < codeLength.Length)
-                    FillBuffer(source, codeLength[code]);
-                else
-                {
-                    FillBuffer(source, 12);
-					for (var mask = 1 << (16 - 1); code >= codeLength.Length; mask >>= 1)
-						code = (bitBuffer & mask) != 0 ? right[code] : left[code];
-                    FillBuffer(source, (byte)(codeLength[code] - 12));
-                }
-                return code;
-            }
-
-			ushort DecodePointer(Stream source, ushort[] pointerTable, byte[] pointerLength, ushort[] left, ushort[] right, int pointerCount)
+			sealed class BitStream
 			{
-				var pointer = pointerTable[bitBuffer >> (16 - 8)];
-				if (pointer < pointerCount)
-					FillBuffer(source, pointerLength[pointer]);
-				else
+				public BitStream(Stream source)
 				{
-					FillBuffer(source, 8);
-					for (var mask = 1 << (16 - 1); pointer >= pointerCount; mask >>= 1)
-						pointer = (bitBuffer & mask) != 0 ? right[pointer] : left[pointer];
-					FillBuffer(source, (byte)(pointerLength[pointer] - 8));
+					_source = source;
+					FillBuffer(16);
 				}
-				if (pointer != 0)
-					pointer = (ushort)((1 << (pointer - 1)) + ReadBits(source, (byte)(pointer - 1)));
-				return pointer;
+
+				Stream _source;
+				ushort _bitBuffer;
+				byte _subBitBuffer;
+				byte _subBitCount;
+
+				void FillBuffer(int bitCount)
+				{
+					while (true)
+					{
+						_bitBuffer = (ushort)(_bitBuffer << Math.Min(bitCount, _subBitCount) | _subBitBuffer >> (8 - Math.Min(bitCount, _subBitCount)));
+						if (bitCount > _subBitCount)
+						{
+							_subBitBuffer = (byte)Math.Max(_source.ReadByte(), 0);
+							bitCount -= _subBitCount;
+							_subBitCount = 8;
+						}
+						else
+						{
+							_subBitBuffer <<= bitCount;
+							_subBitCount -= (byte)bitCount;
+							return;
+						}
+					}
+				}
+
+				public ushort Peek(int bitCount) { return (ushort)(_bitBuffer >> (16 - bitCount)); }
+
+				public ushort Read(int bitCount)
+				{
+					var x = Peek(bitCount);
+					FillBuffer(bitCount);
+					return x;
+				}
 			}
 
-			static void MakeTable(ushort bitLengthCount, byte[] bitLength, ushort tableBitCount, /*W*/ushort[] table, /*W*/ushort[] left, /*W*/ushort[] right)
+			sealed class Pointer<T>
+			{
+				public Pointer(IList<T> array, int index)
+				{
+					_array = array;
+					_index = index;
+				}
+
+				IList<T> _array;
+				int _index;
+
+				public T Value
+				{
+					get { return _array[_index]; }
+					set { _array[_index] = value; }
+				}
+			}
+
+			sealed class DecoderPair
+			{
+				public DecoderPair(IReadOnlyList<ushort> table, IReadOnlyList<byte> lengths)
+				{
+					_table = table;
+					_lengths = lengths;
+					_tableBitCount = 31 - CommonUtils.CountLeadingZero((uint)table.Count);
+				}
+
+				IReadOnlyList<ushort> _table;
+				IReadOnlyList<byte> _lengths;
+				int _tableBitCount;
+
+				public ushort Decode(BitStream source, IReadOnlyList<ushort> left, IReadOnlyList<ushort> right)
+				{
+					var data = _table[source.Peek(_tableBitCount)];
+					if (data < _lengths.Count)
+						source.Read(_lengths[data]);
+					else
+					{
+						source.Read(_tableBitCount);
+						for (var mask = 1 << (16 - 1); data >= _lengths.Count; mask >>= 1)
+							data = (source.Peek(16) & mask) != 0 ? right[data] : left[data];
+						source.Read(_lengths[data] - _tableBitCount);
+					}
+					return data;
+				}
+			}
+
+			sealed class SlidingWindow : IDisposable
+			{
+				public SlidingWindow(Stream destination, int dictionarySize)
+				{
+					_dest = destination;
+					_dictionary = new byte[dictionarySize];
+				}
+
+				~SlidingWindow() { Dispose(false); }
+
+				Stream _dest;
+				byte[] _dictionary;
+				int _writing;
+				
+				public void Dispose()
+				{
+					Dispose(true);
+					GC.SuppressFinalize(this);
+				}
+
+				void Dispose(bool disposing)
+				{
+					if (_dest != null)
+					{
+						if (_writing > 0)
+							_dest.Write(_dictionary, 0, _dictionary.Length);
+						_dest = null;
+					}
+				}
+
+				public void Write(byte data)
+				{
+					_dictionary[_writing++] = data;
+					if (_writing == _dictionary.Length)
+					{
+						_dest.Write(_dictionary, 0, _dictionary.Length);
+						_writing = 0;
+					}
+				}
+
+				public int WriteDuplicate(int disp, int count)
+				{
+					var index = _writing - disp - 1;
+					if (index < 0)
+						index += _dictionary.Length;
+					for (int i = 0; i < count; i++)
+					{
+						Write(_dictionary[index++]);
+						if (index == _dictionary.Length)
+							index = 0;
+					}
+					return count;
+				}
+			}
+
+			// codeLengths: symbol -> length of code
+			// symbols: code -> symbol
+			static ushort[] MakeTable(IReadOnlyList<byte> codeLengths, byte tableBitCount, /*W*/ushort[] left, /*W*/ushort[] right)
 			{
 				ushort[] count = new ushort[17];
-				for (int i = 0; i < bitLengthCount; i++)
-					count[bitLength[i]]++;
+				foreach (var length in codeLengths)
+					count[length]++;
 				ushort total = 0;
-				ushort[] weight = new ushort[17];
 				ushort[] start = new ushort[17];
 				for (int i = 1; i <= 16; i++)
 				{
-					start[i] = total;
-					weight[i] = (ushort)(1 << (16 - i));
-					total += (ushort)(weight[i] * count[i]);
+					start[i] = (ushort)(i <= tableBitCount ? total >> (16 - tableBitCount) : total);
+					total += (ushort)((1 << (16 - i)) * count[i]);
 				}
-				if (total != 0)
-					return;
-				for (int i = 1; i <= tableBitCount; i++)
+				System.Diagnostics.Debug.Assert(total == 0);
+				ushort[] symbols = new ushort[1 << tableBitCount];
+				var availableLinkId = (ushort)codeLengths.Count;
+				for (ushort symbol = 0; symbol < codeLengths.Count; symbol++)
 				{
-					start[i] >>= 16 - tableBitCount;
-					weight[i] >>= 16 - tableBitCount;
-				}
-				if (start[tableBitCount + 1] >> (16 - tableBitCount) != 0)
-					Array.Clear(table, 0, 1 << tableBitCount);
-				int available = bitLengthCount;
-				for (ushort i = 0; i < bitLengthCount; i++)
-				{
-					if (bitLength[i] == 0)
+					if (codeLengths[symbol] == 0)
 						continue;
-					if (bitLength[i] <= tableBitCount)
+					ushort weight;
+					if (codeLengths[symbol] <= tableBitCount)
 					{
-						for (ushort j = 0; j < weight[bitLength[i]]; j++)
-							table[j + start[bitLength[i]]] = i;
+						weight = (ushort)(1 << (tableBitCount - codeLengths[symbol]));
+						for (int j = 0; j < weight; j++)
+							symbols[start[codeLengths[symbol]] + j] = symbol;
 					}
 					else
 					{
-						var pointer = Tuple.Create(table, start[bitLength[i]] >> (16 - tableBitCount));
-						for (int j = 0, direction = start[bitLength[i]] << tableBitCount; j < bitLength[i] - tableBitCount; j++, direction <<= 1)
+						weight = (ushort)(1 << (16 - codeLengths[symbol]));
+						var pointer = new Pointer<ushort>(symbols, start[codeLengths[symbol]] >> (16 - tableBitCount));
+						for (int j = tableBitCount; j < codeLengths[symbol]; j++)
 						{
-							if (pointer.Item1[pointer.Item2] == 0)
+							if (pointer.Value == 0)
 							{
-								right[available] = left[available] = 0;
-								pointer.Item1[pointer.Item2] = (ushort)available++;
+								pointer.Value = availableLinkId++;
+								right[pointer.Value] = left[pointer.Value] = 0;
 							}
-							pointer = Tuple.Create((direction & 0x8000) != 0 ? right : left, (int)pointer.Item1[pointer.Item2]);
+							pointer = new Pointer<ushort>((start[codeLengths[symbol]] & (1 << (16 - j - 1))) != 0 ? right : left, pointer.Value);
 						}
-						pointer.Item1[pointer.Item2] = i;
+						pointer.Value = symbol;
 					}
-					start[bitLength[i]] += weight[bitLength[i]];
+					start[codeLengths[symbol]] += weight;
 				}
+				return symbols;
 			}
 
-			void ReadPointerLength(Stream source, /*W*/ushort[] pointerTable, /*W*/byte[] pointerLength, /*W*/ushort[] left, /*W*/ushort[] right, ushort pointerLengthCount, byte bitCount, int i_special)
+			static DecoderPair ReadPointerLength(BitStream source, /*W*/ushort[] left, /*W*/ushort[] right, ushort pointerLengthCount, int i_special)
 			{
-				var n = ReadBits(source, bitCount);
+				byte[] pointerLength = new byte[pointerLengthCount];
+				int bitCount = 32 - CommonUtils.CountLeadingZero(pointerLengthCount);
+				var n = source.Read(bitCount);
 				if (n == 0)
-				{
-					var c = ReadBits(source, bitCount);
-					Array.Clear(pointerLength, 0, pointerLengthCount);
-					for (int i = 0; i < pointerTable.Length; i++)
-                        pointerTable[i] = c;
-				}
+					return new DecoderPair(Enumerable.Repeat(source.Read(bitCount), 1 << 8).ToArray(), pointerLength);
 				else
 				{
-					ushort i = 0;
-					while (i < n)
+					for (ushort i = 0; i < n; )
 					{
-						var c = (ushort)(bitBuffer >> (16 - 3));
-						if (c == ((1 << 3) - 1))
+						var c = source.Peek(3);
+						if (c == 7)
 						{
-							for (ushort mask = 1 << (16 - 4); (mask & bitBuffer) != 0; mask >>= 1)
+							for (ushort mask = 1 << (16 - 4); (mask & source.Peek(16)) != 0; mask >>= 1)
 								c++;
 						}
-						FillBuffer(source, (byte)(c < 7 ? 3 : c - 3));
+						source.Read(c < 7 ? 3 : c - 3);
 						pointerLength[i++] = (byte)c;
 						if (i == i_special)
 						{
-							c = ReadBits(source, 2);
+							c = source.Read(2);
 							while (c-- > 0)
 								pointerLength[i++] = 0;
 						}
 					}
-					while (i < pointerLengthCount)
-						pointerLength[i++] = 0;
-					MakeTable(pointerLengthCount, pointerLength, 8, pointerTable, left, right);
+					return new DecoderPair(MakeTable(pointerLength, 8, left, right), pointerLength);
 				}
 			}
 
-			void ReadCodeLength(Stream source, /*W*/ushort[] codeTable, /*W*/byte[] codeLength, ushort[] pointerTable, byte[] pointerLength, /*W*/ushort[] left, /*W*/ushort[] right)
+			static DecoderPair ReadCodeLength(BitStream source, DecoderPair pointer, /*W*/ushort[] left, /*W*/ushort[] right)
 			{
-				var n = ReadBits(source, 9);
+				byte[] codeLength = new byte[510];
+				var n = source.Read(9);
 				if (n == 0)
-				{
-					var c = ReadBits(source, 9);
-					Array.Clear(codeLength, 0, codeLength.Length);
-					for (int i = 0; i < codeTable.Length; i++)
-						codeTable[i] = c;
-				}
+					return new DecoderPair(Enumerable.Repeat(source.Read(9), 1 << 12).ToArray(), codeLength);
 				else
 				{
-					ushort i = 0;
-					while (i < n)
+					for (ushort i = 0; i < n; )
 					{
-						var c = pointerTable[bitBuffer >> (16 - 8)];
-						for (ushort mask = 1 << (16 - 9); c >= 19; mask >>= 1)
-							c = (bitBuffer & mask) != 0 ? right[c] : left[c];
-						FillBuffer(source, pointerLength[c]);
+						var c = pointer.Decode(source, left, right);
 						if (c <= 2)
 						{
 							if (c == 0)
 								c = 1;
 							else if (c == 1)
-								c = (ushort)(ReadBits(source, 4) + 3);
+								c = (ushort)(source.Read(4) + 3);
 							else
-								c = (ushort)(ReadBits(source, 9) + 20);
+								c = (ushort)(source.Read(9) + 20);
 							while (c-- > 0)
 								codeLength[i++] = 0;
 						}
 						else
 							codeLength[i++] = (byte)(c - 2);
 					}
-					while (i < codeLength.Length)
-						codeLength[i++] = 0;
-					MakeTable((ushort)codeLength.Length, codeLength, 12, codeTable, left, right);
+					return new DecoderPair(MakeTable(codeLength, 12, left, right), codeLength);
 				}
 			}
 
-			static void Unstore(Stream source, uint compressedSize, Stream destination)
-			{
-				byte[] buffer = new byte[32768];
-				int bytesRead;
-				if (compressedSize == uint.MaxValue)
-				{
-					while ((bytesRead = source.Read(buffer, 0, buffer.Length)) != 0)
-					{
-						if (bytesRead == -1)
-							break;
-						destination.Write(buffer, 0, bytesRead);
-					}
-				}
-				else
-				{
-					while (compressedSize > 0)
-					{
-						if ((bytesRead = source.Read(buffer, 0, Math.Min(buffer.Length, (int)compressedSize))) <= 0)
-							break;
-						destination.Write(buffer, 0, bytesRead);
-						compressedSize -= (uint)bytesRead;
-					}
-				}
-			}
-
-			public void Decode(LzhMethod method, Stream source, uint compressedSize, Stream destination, uint originalSize)
+			public static void Decode(LzhMethod method, Stream source, Stream destination, uint originalSize)
 			{
                 if (method == LzhMethod.LH0)
                 {
-					Unstore(source, compressedSize, destination);
+					byte[] buffer = new byte[32768];
+					int bytesRead;
+					while ((bytesRead = source.Read(buffer, 0, buffer.Length)) > 0)
+						destination.Write(buffer, 0, bytesRead);
                     return;
                 }
 				ushort pointerCount;
-				byte pointerBitCount;
 				int dictionarySize;
 				switch (method)
 				{
-					case LzhMethod.LH4: pointerCount = 14; pointerBitCount = 4; dictionarySize = 1 << 12; break;
-					case LzhMethod.LH5: pointerCount = 14; pointerBitCount = 4; dictionarySize = 1 << 13; break;
-					case LzhMethod.LH6: pointerCount = 16; pointerBitCount = 5; dictionarySize = 1 << 15; break;
-					case LzhMethod.LH7: pointerCount = 17; pointerBitCount = 5; dictionarySize = 1 << 16; break;
+					case LzhMethod.LH4: pointerCount = 14; dictionarySize = 1 << 12; break;
+					case LzhMethod.LH5: pointerCount = 14; dictionarySize = 1 << 13; break;
+					case LzhMethod.LH6: pointerCount = 16; dictionarySize = 1 << 15; break;
+					case LzhMethod.LH7: pointerCount = 17; dictionarySize = 1 << 16; break;
 					default: return;
 				}
-				byte[] text = new byte[dictionarySize];
-				remainingSize = compressedSize;
-				bitBuffer = 0;
-				subBitBuffer = 0;
-				subBitCount = 0;
-				FillBuffer(source, 16);
-				ushort blockSize = 0;
-				int location = 0;
-				const int offset = 0x0100 - 3;
-				ushort[] pointerTable = new ushort[256];
-				byte[] pointerLength = new byte[128];
-				ushort[] codeTable = new ushort[4096];
-				byte[] codeLength = new byte[510];
-				ushort[] right = new ushort[1019];
-				ushort[] left = new ushort[1019];
-                for (uint count = 0; count < originalSize; )
-                {
-					if (blockSize == 0)
-					{
-						blockSize = ReadBits(source, 16);
-						ReadPointerLength(source, pointerTable, pointerLength, left, right, 19, 5, 3);
-						ReadCodeLength(source, codeTable, codeLength, pointerTable, pointerLength, left, right);
-						ReadPointerLength(source, pointerTable, pointerLength, left, right, pointerCount, pointerBitCount, -1);
-					}
-					blockSize--;
-					var code = DecodeCode(source, codeTable, codeLength, left, right);
-                    if (code <= 255)
-                    {
-                        text[location++] = (byte)code;
-                        if (location == dictionarySize)
-                        {
-                            destination.Write(text, 0, dictionarySize);
-                            location = 0;
-                        }
-                        count++;
-                    }
-                    else
-                    {
-                        count += (uint)(code - offset);
-						int pointer = DecodePointer(source, pointerTable, pointerLength, left, right, pointerCount);
-                        if ((pointer = location - pointer - 1) < 0)
-                            pointer += dictionarySize;
-                        for (int i = 0; i < code - offset; i++)
-                        {
-                            text[location++] = text[pointer++];
-                            if (location == dictionarySize)
-                            {
-                                destination.Write(text, 0, dictionarySize);
-                                location = 0;
-                            }
-                            if (pointer == dictionarySize)
-                                pointer = 0;
-                        }
-                    }
-                }
-				if (location != 0)
-					destination.Write(text, 0, location);
-			}
-
-			byte subBitBuffer;
-			byte subBitCount;
-			uint remainingSize;
-
-			void FillBuffer(Stream source, byte bitCount)
-			{
-				while (bitCount > subBitCount)
+				using (SlidingWindow window = new SlidingWindow(destination, dictionarySize))
 				{
-					bitCount -= subBitCount;
-					bitBuffer = (ushort)(bitBuffer << subBitCount | subBitBuffer >> (8 - subBitCount));
-					subBitBuffer = (byte)(remainingSize-- > 0 ? source.ReadByte() : 0);
-					subBitCount = 8;
+					var src = new BitStream(source);
+					ushort blockSize = 0;
+					DecoderPair pointers = null;
+					DecoderPair codes = null;
+					ushort[] right = new ushort[1019];
+					ushort[] left = new ushort[1019];
+					for (uint count = 0; count < originalSize; )
+					{
+						if (blockSize == 0)
+						{
+							blockSize = src.Read(16);
+							codes = ReadCodeLength(src, ReadPointerLength(src, left, right, 19, 3), left, right);
+							pointers = ReadPointerLength(src, left, right, pointerCount, -1);
+						}
+						blockSize--;
+						var code = codes.Decode(src, left, right);
+						if (code <= byte.MaxValue)
+						{
+							window.Write((byte)code);
+							count++;
+						}
+						else
+						{
+							int reading = pointers.Decode(src, left, right);
+							if (reading != 0)
+								reading = (ushort)((1 << (reading - 1)) + src.Read(reading - 1));
+							count += (uint)window.WriteDuplicate(reading, code - 0x100 + 3);
+						}
+					}
 				}
-				subBitCount -= bitCount;
-				bitBuffer = (ushort)(bitBuffer << bitCount | subBitBuffer >> (8 - bitCount));
-				subBitBuffer <<= bitCount;
+			}
+		}
+
+		sealed class SubReadStream : Stream
+		{
+			readonly long _startInSuperStream;
+			long _positionInSuperStream;
+			readonly long _endInSuperStream;
+			readonly Stream _superStream;
+			bool _isDisposed;
+
+			public override long Length { get { return _endInSuperStream - _startInSuperStream; } }
+
+			public override long Position
+			{
+				get { return _positionInSuperStream - _startInSuperStream; }
+				set { throw new NotSupportedException(); }
 			}
 
-			ushort ReadBits(Stream source, byte bitCount)
+			public override bool CanRead { get { return _superStream.CanRead; } }
+
+			public override bool CanSeek { get { return false; } }
+
+			public override bool CanWrite { get { return false; } }
+
+			public SubReadStream(Stream superStream, long startPosition, long maxLength)
 			{
-				var x = (ushort)(bitBuffer >> (int)(16 - bitCount));
-				FillBuffer(source, bitCount);
-				return x;
+				_startInSuperStream = startPosition;
+				_positionInSuperStream = startPosition;
+				_endInSuperStream = startPosition + maxLength;
+				_superStream = superStream;
+				_isDisposed = false;
+			}
+
+			void ThrowIfDisposed()
+			{
+				if (_isDisposed)
+					throw new ObjectDisposedException(base.GetType().Name);
+			}
+
+			public override int Read(byte[] buffer, int offset, int count)
+			{
+				ThrowIfDisposed();
+				if (_superStream.Position != _positionInSuperStream)
+					_superStream.Seek(_positionInSuperStream, SeekOrigin.Begin);
+				if (_positionInSuperStream + count > _endInSuperStream)
+					count = (int)(_endInSuperStream - _positionInSuperStream);
+				int readBytes = _superStream.Read(buffer, offset, count);
+				_positionInSuperStream += (long)readBytes;
+				return readBytes;
+			}
+
+			public override long Seek(long offset, SeekOrigin origin) { throw new NotSupportedException(); }
+
+			public override void SetLength(long value) { throw new NotSupportedException(); }
+
+			public override void Write(byte[] buffer, int offset, int count) { throw new NotSupportedException(); }
+
+			public override void Flush() { throw new NotSupportedException(); }
+
+			protected override void Dispose(bool disposing)
+			{
+				if (disposing && !_isDisposed)
+					_isDisposed = true;
+				base.Dispose(disposing);
 			}
 		}
 
 		sealed class HeaderInfo
 		{
-			public string FileName;
+			public string RelativeFilePath = string.Empty;
 			public LzhMethod Method;
 			public uint CompressedSize;
 			public uint OriginalSize;
@@ -312,70 +397,67 @@ namespace Comical.Archivers.Manager
 		{
 			Unknown,
 			LH0,
-			LH1,
-			LH2,
-			LH3,
 			LH4,
 			LH5,
 			LH6,
 			LH7,
+			LHD,
 		}
 
-		public static string[] Melt(string arc, string extractTo, params string[] files)
+		public static bool Melt(string arc, string extractTo, params string[] files)
 		{
 			using (var fs = new FileStream(arc, FileMode.Open, FileAccess.Read))
 			{
-				var paths = new List<string>();
-				var buffer = new byte[65536];
-				var info = FindHeader(fs, buffer);
-				while (info != null)
+				var info = FindHeader(fs);
+				if (info == null)
+					return false;
+				do
 				{
 					var basePosition = fs.Position;
-					var name = Path.GetFullPath(Path.Combine(extractTo, info.FileName));
-					if (info.FileName[0] != '!' && info.FileName[0] != '$' && info.FileName[0] != '%' && files.Contains(info.FileName, StringComparer.CurrentCultureIgnoreCase))
+					var fileName = Path.GetFileName(info.RelativeFilePath);
+					if (fileName.Length > 0 && fileName[0] != '!' && fileName[0] != '$' && fileName[0] != '%' && files.Contains(fileName, StringComparer.CurrentCultureIgnoreCase))
 					{
-						using (var dest = new FileStream(name, FileMode.Create, FileAccess.Write))
-						{
-							paths.Add(name);
-							new LzhDecoder().Decode(info.Method, fs, info.CompressedSize, dest, info.OriginalSize);
-						}
-						File.SetAttributes(name, info.FileAttribute);
-						File.SetCreationTimeUtc(name, info.UpdatedTime);
-						File.SetLastWriteTimeUtc(name, info.UpdatedTime);
+						var filePath = Path.GetFullPath(Path.Combine(extractTo, fileName));
+						using (var dest = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+							LzhDecoder.Decode(info.Method, new SubReadStream(fs, basePosition, info.CompressedSize), dest, info.OriginalSize);
+						File.SetAttributes(filePath, info.FileAttribute);
+						File.SetCreationTimeUtc(filePath, info.UpdatedTime);
+						File.SetLastWriteTimeUtc(filePath, info.UpdatedTime);
 					}
 					fs.Seek(basePosition + info.CompressedSize, SeekOrigin.Begin);
-					info = ReadHeader(fs, buffer);
-				}
-				return paths.ToArray();
+				} while ((info = ReadHeader(fs)) != null);
+				return true;
 			}
 		}
 
-		static ushort[] CreateCrcTable()
+		static IReadOnlyList<ushort> CreateCrcTable()
 		{
-			ushort[] crcTable = new ushort[256];
-			for (ushort i = 0; i < crcTable.Length; i++)
+			ushort[] table = new ushort[256];
+			for (ushort i = 0; i < table.Length; i++)
 			{
-				crcTable[i] = i;
+				table[i] = i;
 				for (int j = 0; j < 8; j++)
-					crcTable[i] = (ushort)((crcTable[i] & 1) != 0 ? (crcTable[i] >> 1) ^ 0xA001 : crcTable[i] >> 1);
+					table[i] = (ushort)((table[i] & 1) != 0 ? (table[i] >> 1) ^ 0xA001 : table[i] >> 1);
 			}
-			return crcTable;
+			return table;
 		}
 
-		static readonly ushort[] _crcTable = CreateCrcTable();
+		static readonly IReadOnlyList<ushort> _crcTable = CreateCrcTable();
 
 		static int GetBits(uint value, int startBit, int bitCount) { return (int)((value >> startBit) & ((1 << bitCount) - 1)); }
 
-		static HeaderInfo FindHeader(Stream stream, byte[] buffer)
+		static bool IsProperMethod(byte[] buffer, int index) { return buffer[index] == '-' && buffer[index + 1] == 'l' && (buffer[index + 2] == 'h' || buffer[index + 2] == 'z') && buffer[index + 4] == '-'; }
+
+		static HeaderInfo FindHeader(Stream stream)
 		{
+			byte[] buffer = new byte[65536];
 			var size = stream.Read(buffer, 0, buffer.Length);
-			var tempBuffer = new byte[65536];
 			for (int i = 0; i < size - 20; i++)
 			{
-				if (buffer[i + 2] == '-' && buffer[i + 3] == 'l' && (buffer[i + 4] == 'h' || buffer[i + 4] == 'z') && buffer[i + 6] == '-')
+				if (IsProperMethod(buffer, i + 2))
 				{
 					stream.Seek(i, SeekOrigin.Begin);
-					var info = ReadHeader(stream, tempBuffer);
+					var info = ReadHeader(stream);
 					if (info != null)
 						return info;
 				}
@@ -383,80 +465,79 @@ namespace Comical.Archivers.Manager
 			return null;
 		}
 
-		static HeaderInfo ReadHeader(Stream stream, byte[] buffer)
+		static HeaderInfo ReadHeader(Stream stream)
 		{
+			byte[] buffer = new byte[65536];
 			if (stream.Read(buffer, 0, 21) != 21)
 				return null;
 			var level = buffer[20];
-			var baseHeaderSize = level >= 2 ? 26 : buffer[0] + 2;
-			if (level > 2 || baseHeaderSize < 21 || buffer[0] == 0 || buffer[2] != '-' || buffer[3] != 'l' || buffer[6] != '-' ||
-				stream.Read(buffer, 21, baseHeaderSize - 21) != baseHeaderSize - 21)
+			var headerSize = (ushort)(level >= 2 ? 26 : buffer[0] + 2);
+			if (level > 2 || headerSize < 21 || buffer[0] == 0 || !IsProperMethod(buffer, 2) || stream.Read(buffer, 21, headerSize - 21) != headerSize - 21)
 				return null;
-			var crc = CalculateCrc(buffer, 0, baseHeaderSize, 0);
 			var info = new HeaderInfo();
-			var shiftJis = Encoding.GetEncoding("Shift-JIS");
+			var shiftJis = Encoding.GetEncoding(932);
 			{
-				info.FileName = string.Empty;
+				uint date = BitConverter.ToUInt16(buffer, 17);
+				uint time = BitConverter.ToUInt16(buffer, 15);
 				if (level < 2)
 				{
-					byte sum = 0;
-					for (int i = 2; i < baseHeaderSize; i++)
-						sum = unchecked((byte)(sum + buffer[i]));
-					if (sum != buffer[1] || baseHeaderSize - 21 < 1 + buffer[21] + 2)
+					if (buffer.Skip(2).Take(headerSize - 2).Aggregate((x, y) => unchecked((byte)(x + y))) != buffer[1] || headerSize - 21 < 1 + buffer[21] + 2)
 						return null;
-					info.FileName = shiftJis.GetString(buffer, 22, buffer[21]);
+					info.RelativeFilePath = shiftJis.GetString(buffer, 22, buffer[21]);
+					info.UpdatedTime = new DateTime(GetBits(date, 9, 7) + 1980, GetBits(date, 5, 4), GetBits(date, 0, 5), GetBits(time, 11, 5), GetBits(time, 5, 6), GetBits(time, 0, 5) * 2);
 				}
-				info.CompressedSize = (uint)buffer[7] + ((uint)buffer[8] << 8) + ((uint)buffer[9] << 16) + ((uint)buffer[10] << 24);
-				info.OriginalSize = (uint)buffer[11] + ((uint)buffer[12] << 8) + ((uint)buffer[13] << 16) + ((uint)buffer[14] << 24);
+				else
+					info.UpdatedTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(time + (date << 16));
+				info.CompressedSize = BitConverter.ToUInt32(buffer, 7);
+				info.OriginalSize = BitConverter.ToUInt32(buffer, 11);
 				info.FileAttribute = (FileAttributes)buffer[19];
-				Enum.TryParse(Encoding.ASCII.GetString(buffer, 3, 3), true, out info.Method);
-				var date = (uint)buffer[17] + ((uint)buffer[18] << 8);
-				var time = (uint)buffer[15] + ((uint)buffer[16] << 8);
-				info.UpdatedTime = level < 2 ?
-					new DateTime(GetBits(date, 9, 7) + 1980, GetBits(date, 5, 4), GetBits(date, 0, 5), GetBits(time, 11, 5), GetBits(time, 5, 6), GetBits(time, 0, 5) * 2) :
-					new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(time + (date << 16));
+				if (!Enum.TryParse(Encoding.ASCII.GetString(buffer, 3, 3), true, out info.Method))
+					info.Method = LzhMethod.Unknown;
 			}
-			var directoryName = string.Empty;
 			if (level > 0)
 			{
-				var extendedHeaderCrc = 0xFFFFFFFF;
-				var extendedHeaderSize = (ushort)(buffer[baseHeaderSize - 2] | (buffer[baseHeaderSize - 1] << 8));
-				while (extendedHeaderSize > 2)
+				var directoryName = string.Empty;
+				uint? expectedCrc = null;
+				ushort crc = 0;
+				while (true)
 				{
-					if (stream.Read(buffer, 0, extendedHeaderSize) != extendedHeaderSize)
+					for (int i = 0; i < headerSize; i++)
+						crc = (ushort)(_crcTable[(crc & 0xFF) ^ buffer[i]] ^ (crc >> 8));
+					headerSize = BitConverter.ToUInt16(buffer, headerSize - 2);
+					if (headerSize <= 2)
+					{
+						if (expectedCrc != null && crc != expectedCrc)
+							return null;
+						break;
+					}
+					if (stream.Read(buffer, 0, headerSize) != headerSize)
 						return null;
 					if (level == 1)
-						info.CompressedSize -= extendedHeaderSize;
-					if (buffer[0] == 0x00 && extendedHeaderSize >= 5 && extendedHeaderCrc == 0xFFFFFFFF) // Common Extended Header
+						info.CompressedSize -= headerSize;
+					if (buffer[0] == 0x00 && expectedCrc == null) // Common Extended Header
 					{
-						extendedHeaderCrc = (uint)buffer[1] | ((uint)buffer[2] << 8);
+						expectedCrc = BitConverter.ToUInt16(buffer, 1);
 						buffer[1] = buffer[2] = 0;
-						crc = CalculateCrc(buffer, 0, extendedHeaderSize, crc);
 					}
-					else
+					else if (buffer[0] == 0x01) // File Name Extended Header
+						info.RelativeFilePath = shiftJis.GetString(buffer, 1, Math.Min(headerSize - 3, 260));
+					else if (buffer[0] == 0x02) // Directory Name Extended Header
 					{
-						crc = CalculateCrc(buffer, 0, extendedHeaderSize, crc);
-						if (buffer[0] == 0x01) // File Name Extended Header
-							info.FileName = shiftJis.GetString(buffer, 1, Math.Min(extendedHeaderSize - 3, 260));
-						else if (buffer[0] == 0x02) // Directory Name Extended Header
-							directoryName = shiftJis.GetString(buffer, 1, Math.Min(extendedHeaderSize - 3, 260));
-						else if (buffer[0] == 0x40 && extendedHeaderSize >= 5) // MS-DOS File Attribute Extended Header
-							info.FileAttribute = (FileAttributes)(buffer[1] | (buffer[2] << 8));
+						var newBuffer = new byte[Math.Min(headerSize - 3, 260)];
+						Array.Copy(buffer, 1, newBuffer, 0, newBuffer.Length);
+						for (int i = 0; i < newBuffer.Length; i++)
+						{
+							if (newBuffer[i] == 0xFF)
+								newBuffer[i] = (byte)'/';
+						}
+						directoryName = shiftJis.GetString(newBuffer);
 					}
-					extendedHeaderSize = (ushort)(buffer[extendedHeaderSize - 2] | (buffer[extendedHeaderSize - 1] << 8));
+					else if (buffer[0] == 0x40) // MS-DOS File Attribute Extended Header
+						info.FileAttribute = (FileAttributes)BitConverter.ToUInt16(buffer, 1);
 				}
-				if (extendedHeaderCrc != 0xFFFFFFFF && crc != extendedHeaderCrc)
-					return null;
+				info.RelativeFilePath = directoryName + info.RelativeFilePath;
 			}
-			info.FileName = directoryName + info.FileName;
 			return info;
-		}
-
-        static int CalculateCrc(byte[] array, int offset, int count, int beforeCrc)
-		{
-			for (int i = 0; i < count; i++)
-				beforeCrc = (ushort)(_crcTable[(beforeCrc ^ array[i + offset]) & 0xFF] ^ (beforeCrc >> 8));
-			return beforeCrc;
 		}
 	}
 }

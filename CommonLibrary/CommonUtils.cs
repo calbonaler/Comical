@@ -89,5 +89,17 @@ namespace CommonLibrary
 			}
 			return bitmap;
 		}
+
+		public static int CountLeadingZero(uint value)
+		{
+			if (value == 0) return 32;
+			int n = 0;
+			if ((value & 0xFFFF0000U) == 0) { n |= 0x10; value <<= 0x10; }
+			if ((value & 0xFF000000U) == 0) { n |= 0x08; value <<= 0x08; }
+			if ((value & 0xF0000000U) == 0) { n |= 0x04; value <<= 0x04; }
+			if ((value & 0xC0000000U) == 0) { n |= 0x02; value <<= 0x02; }
+			if ((value & 0x80000000U) == 0) { n |= 0x01; }
+			return n;
+		}
 	}
 }
