@@ -1,7 +1,6 @@
 #include "CClassFactory.h"
 #include "CComicPropertyHandler.h"
 #include "CComicThumbnailProvider.h"
-#include "CRegisterExtension.h"
 #include <combaseapi.h>
 
 ULONG g_cRefModule = 0;
@@ -41,32 +40,4 @@ _Check_return_ STDAPI DllGetClassObject(_In_ REFCLSID clsid, _In_ REFIID riid, _
 		}
 	}
 	return hr;
-}
-
-LPCWSTR c_szComicFileExtension = L".cic";
-LPCWSTR c_szComicProgID = L"Comic Image Collection File";
-
-STDAPI DllRegisterServer()
-{
-	CRegisterExtension re(__uuidof(CComicPropertyHandler));
-	TEST(re.RegisterInProcServer(L"Comic Property Handler", L"Apartment"));
-	TEST(re.RegisterPropertyHandler(c_szComicFileExtension));
-	TEST(re.RegisterProgIDValue(c_szComicProgID, L"InfoTip", L"prop:System.ItemType;System.Author;System.Size;System.DateModified"));
-	TEST(re.RegisterProgIDValue(c_szComicProgID, L"FullDetails", L"prop:System.PropGroup.Description;System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.FileVersion;System.PropGroup.FileSystem;System.ItemNameDisplay;System.ItemType;System.ItemFolderPathDisplay;System.Size;System.DateCreated;System.DateModified;System.DateAccessed;System.FileAttributes;System.OfflineAvailability;System.OfflineStatus;System.SharedWith;System.FileOwner;System.ComputerName"));
-	TEST(re.RegisterProgIDValue(c_szComicProgID, L"PreviewDetails", L"prop:System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.DateModified;System.Size;System.FileVersion;System.DateCreated;System.SharedWith"));
-	TEST(re.RegisterExtensionWithProgID(c_szComicFileExtension, c_szComicProgID));
-	CRegisterExtension re2(__uuidof(CComicThumbnailProvider));
-	TEST(re2.RegisterInProcServer(L"Comic Thumbnail Handler", L"Apartment"));
-	return re2.RegisterThumbnailHandler(c_szComicFileExtension);
-}
-
-STDAPI DllUnregisterServer()
-{
-	CRegisterExtension re(__uuidof(CComicPropertyHandler));
-	TEST(re.UnRegisterObject());
-	TEST(re.UnRegisterPropertyHandler(c_szComicFileExtension));
-	TEST(re.UnRegisterProgID(c_szComicProgID, c_szComicFileExtension));
-	CRegisterExtension re2(__uuidof(CComicThumbnailProvider));
-	TEST(re2.UnRegisterObject());
-	return re2.UnRegisterThumbnailHandler(c_szComicFileExtension);
 }
