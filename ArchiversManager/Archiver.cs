@@ -186,40 +186,28 @@ namespace Comical.Archivers
 
 		public string Path { get { return Archiver.GetPath(DllName); } }
 
-		public async Task<Version> GetUploadedVersionAsync()
+		public async Task<AvailableArchiverInfo> GetAvailableArchiverInfoAsync()
 		{
 			CancellationTokenSource cts = new CancellationTokenSource();
 			var getHtmlTask = CommonUtils.GetHtml(new Uri("http://www.madobe.net/archiver/lib/" + WebPage), cts.Token);
 			var timeout = Task.Delay(2000);
 			try
 			{
-				if (await Task.WhenAny(getHtmlTask, timeout) == getHtmlTask)
+				if (await Task.WhenAny(getHtmlTask, timeout) == timeout)
 				{
-					var mWWWC = Regex.Matches(await getHtmlTask, "<META\\s+name=\"WWWC\"\\s+content=\"[\\d/]+\\s+(?<vmaj>\\d+):(?<vmin>\\d+)\\s+(?<dll>.+?)\\s+.+\\[File:.+?].+\">", RegexOptions.IgnoreCase)
-						.Cast<Match>().FirstOrDefault(m => m.Success && m.Groups["dll"].Value.Equals(DllName, StringComparison.OrdinalIgnoreCase));
-					if (mWWWC != null)
-						return new Version(int.Parse(mWWWC.Groups["vmaj"].Value, CultureInfo.InvariantCulture), int.Parse(mWWWC.Groups["vmin"].Value, CultureInfo.InvariantCulture));
-				}
-				else
 					cts.Cancel();
+					return null;
+				}
+				var html = await getHtmlTask;
+				var mWWWC = Regex.Matches(html, "<META\\s+name=\"WWWC\"\\s+content=\"[\\d/]+\\s+(?<vmaj>\\d+):(?<vmin>\\d+)\\s+(?<dll>.+?)\\s+.+\\[File:(?<file>.+?)].+\">", RegexOptions.IgnoreCase)
+					.Cast<Match>().FirstOrDefault(m => m.Success && m.Groups["dll"].Value.Equals(DllName, StringComparison.OrdinalIgnoreCase));
+				return new AvailableArchiverInfo(
+					Regex.Matches(html, "<META\\s+name=\"download\"\\s+content=\"(?<url>.+/" + mWWWC.Groups["file"].Value + "/?)\">", RegexOptions.IgnoreCase).Cast<Match>().Where(m => m.Success).Select(m => new Uri(m.Groups["url"].Value)),
+					new Version(int.Parse(mWWWC.Groups["vmaj"].Value, CultureInfo.InvariantCulture), int.Parse(mWWWC.Groups["vmin"].Value, CultureInfo.InvariantCulture))
+				);
 			}
 			catch (WebException) { }
-			return new Version();
-		}
-
-		public async Task<string[]> GetDownloadUrlsAsync()
-		{
-			var code = await CommonUtils.GetHtml(new Uri("http://www.madobe.net/archiver/lib/" + WebPage), CancellationToken.None);
-			var mWWWC = Regex.Matches(code, "<META\\s+name=\"WWWC\"\\s+content=\"[\\d/]+\\s+\\d+:\\d+\\s+(?<dll>.+?)\\s+.+\\[File:(?<file>.+?)].+\">", RegexOptions.IgnoreCase)
-				.Cast<Match>().FirstOrDefault(m => m.Success && m.Groups["dll"].Value.Equals(DllName, StringComparison.OrdinalIgnoreCase));
-			return Regex.Matches(code, "<META\\s+name=\"download\"\\s+content=\"(?<url>.+/" + mWWWC.Groups["file"].Value + "/?)\">", RegexOptions.IgnoreCase)
-				.Cast<Match>().Where(m => m.Success).Select(m => m.Groups["url"].Value).ToArray();
-		}
-
-		public async Task<bool> IsLatestVersionAvailableAsync()
-		{
-			using (var arc = CreateArchiver())
-				return arc.Version < await GetUploadedVersionAsync();
+			return null;
 		}
 
 		public Archiver CreateArchiver()
@@ -240,6 +228,19 @@ namespace Comical.Archivers
 			}
 			return null;
 		}
+	}
+
+	public sealed class AvailableArchiverInfo
+	{
+		public AvailableArchiverInfo(IEnumerable<Uri> urls, Version availableVersion)
+		{
+			Urls = urls.ToArray();
+			AvailableVersion = availableVersion;
+		}
+
+		public IReadOnlyList<Uri> Urls { get; private set; }
+
+		public Version AvailableVersion { get; private set; }
 	}
 
 	public static class ArchiversConfiguration

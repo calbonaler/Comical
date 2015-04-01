@@ -94,34 +94,7 @@ namespace Comical
 				StartListeningToExited(ArchiversConfiguration.Uninstall(Handle, set));
 		}
 
-		private async void btnUpdate_Click(object sender, EventArgs e)
-		{
-			bool notNeedUpdate = true;
-			foreach (var set in ArchiversConfiguration.Settings.Where(x => x.Exists))
-			{
-				if (await set.IsLatestVersionAvailableAsync())
-				{
-					notNeedUpdate = false;
-					break;
-				}
-			}
-			if (notNeedUpdate)
-			{
-				using (TaskDialog dialog = new TaskDialog())
-				{
-					dialog.Cancelable = true;
-					dialog.Caption = Properties.Resources.Update;
-					dialog.Icon = TaskDialogStandardIcon.Information;
-					dialog.InstructionText = Properties.Resources.AllArchiversAreLatest;
-					dialog.OwnerWindowHandle = Handle;
-					dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
-					dialog.StandardButtons = TaskDialogStandardButtons.Close;
-					dialog.Show();
-				}
-			}
-			else
-				StartListeningToExited(ArchiversConfiguration.UpdateAll(Handle));
-		}
+		private void btnUpdate_Click(object sender, EventArgs e) { StartListeningToExited(ArchiversConfiguration.UpdateAll(Handle)); }
 
 		private void btnClose_Click(object sender, EventArgs e) { Close(); }
 

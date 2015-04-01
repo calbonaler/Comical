@@ -21,29 +21,36 @@ namespace Comical.Archivers.Manager
 			int ow = 0;
 			if (int.TryParse(args[1], out ow) && ow != 0)
 				ownerHandle = new IntPtr(ow);
-			var currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 			if (args[2].Equals("/update", StringComparison.OrdinalIgnoreCase))
-				UpdateAll(ownerHandle, currentDirectory);
+				UpdateAll(ownerHandle);
 			else if (args.Length > 3)
 			{
 				var set = ArchiversConfiguration.Settings.FirstOrDefault(s => s.DllName.Equals(args[3], StringComparison.OrdinalIgnoreCase));
 				if (set != null)
 				{
 					if (args[2].Equals("/install", StringComparison.OrdinalIgnoreCase))
-						Deploy(ownerHandle, set, currentDirectory);
+						Deploy(ownerHandle, set);
 					else if (args[2].Equals("/uninstall", StringComparison.OrdinalIgnoreCase))
-						Uninstall(ownerHandle, set, currentDirectory);
+						Uninstall(ownerHandle, set);
 				}
 			}
 		}
+		
+		static readonly string DeployedDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-		static void Deploy(IntPtr owner, ArchiverSetting set, string directory)
+		static bool Deploy(IntPtr owner, ArchiverSetting set)
 		{
+			bool innerResult = false;
 			if (set.DependedArchiver != null && !set.DependedArchiver.Exists)
-				Deploy(owner, set.DependedArchiver, directory);
-			var task = set.GetDownloadUrlsAsync();
+				innerResult = Deploy(owner, set.DependedArchiver);
+			var task = set.GetAvailableArchiverInfoAsync();
 			task.Wait();
-			var urls = task.Result;
+			using (var arc = set.CreateArchiver())
+			{
+				if (arc == null || task.Result == null || arc.Version >= task.Result.AvailableVersion)
+					return innerResult || false;
+			}
+			var urls = task.Result.Urls;
 			using (WebClient client = new WebClient())
 			using (TaskDialog dialog = new TaskDialog())
 			{
@@ -57,34 +64,31 @@ namespace Comical.Archivers.Manager
 					var di = CommonUtils.TempFolder.CreateSubdirectory("Dll");
 					try
 					{
-						string archiveFileName = Path.Combine(di.FullName, Path.GetFileName(urls[0]));
-						for (int i = 0; i < urls.Length; i++)
+						string archiveFileName = Path.Combine(di.FullName, Path.GetFileName(urls[0].AbsolutePath));
+						for (int i = 0; i < urls.Count; i++)
 						{
 							var timeout = Task.Delay(5000);
-							var download = client.DownloadFileTaskAsync(new Uri(urls[i]), archiveFileName, new Progress<int>(p => dialog.ProgressBar.Value = p));
+							var download = client.DownloadFileTaskAsync(urls[i], archiveFileName, new Progress<int>(p => dialog.ProgressBar.Value = p));
 							dialog.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.InstallRetryMessage, i + 1);
 							if (await Task.WhenAny(download, timeout) == timeout && dialog.ProgressBar.Value == 0)
 								client.CancelAsync();
 							else
 							{
 								await download;
-								if (download.Status != TaskStatus.RanToCompletion)
-									return;
+								if (download.IsFaulted)
+									throw download.Exception;
 								break;
 							}
 						}
 						dialog.InstructionText = Properties.Resources.InstallExtractingArchive;
 						var needList = new string[] { set.BundleDllName, set.DllName };
-						if (LzhExtractor.Melt(archiveFileName, directory, needList))
+						if (LzhExtractor.Melt(archiveFileName, DeployedDirectory, needList))
 							return;
-						var arc = ArchiversConfiguration.FindArchiverToExtract(archiveFileName);
-						if (arc == null)
-							return;
-						using (arc)
+						using (var arc = ArchiversConfiguration.FindArchiverToExtract(archiveFileName))
 							arc.Extract(archiveFileName, di.FullName, string.Join(" ", needList.Where(x => !string.IsNullOrEmpty(x))));
 						File.Delete(archiveFileName);
 						foreach (var file in di.EnumerateFiles("*", SearchOption.AllDirectories))
-							file.CopyTo(Path.Combine(directory, file.Name), true);
+							file.CopyTo(Path.Combine(DeployedDirectory, file.Name), true);
 					}
 					finally
 					{
@@ -94,16 +98,17 @@ namespace Comical.Archivers.Manager
 				};
 				if (dialog.Show() == TaskDialogResult.Cancel)
 					client.CancelAsync();
+				return true;
 			}
 		}
 
-		static void Uninstall(IntPtr owner, ArchiverSetting arcset, string directory)
+		static void Uninstall(IntPtr owner, ArchiverSetting arcset)
 		{
 			string source = "";
 			try
 			{
 				File.Delete(source = arcset.Path);
-				var files = Directory.GetFiles(directory, arcset.BundleDllName);
+				var files = Directory.GetFiles(DeployedDirectory, arcset.BundleDllName);
 				for (int j = 0; j < files.Length; j++)
 					File.Delete(source = files[j]);
 			}
@@ -133,14 +138,23 @@ namespace Comical.Archivers.Manager
 			}
 		}
 
-		static void UpdateAll(IntPtr owner, string directory)
+		static void UpdateAll(IntPtr owner)
 		{
-			var t = Task.WhenAll(ArchiversConfiguration.Settings.Where(x => x.Exists).Select(async x => new { Setting = x, LatestVersionAvailable = await x.IsLatestVersionAvailableAsync() }));
-			t.Wait();
-			foreach (var set in t.Result)
+			bool deployed = false;
+			foreach (var set in ArchiversConfiguration.Settings.Where(x => x.Exists))
+				deployed = deployed || Deploy(owner, set);
+			if (deployed)
+				return;
+			using (TaskDialog dialog = new TaskDialog())
 			{
-				if (set.LatestVersionAvailable)
-					Deploy(owner, set.Setting, directory);
+				dialog.Cancelable = true;
+				dialog.Caption = Properties.Resources.Update;
+				dialog.Icon = TaskDialogStandardIcon.Information;
+				dialog.InstructionText = Properties.Resources.AllArchiversAreLatest;
+				dialog.OwnerWindowHandle = owner;
+				dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
+				dialog.StandardButtons = TaskDialogStandardButtons.Close;
+				dialog.Show();
 			}
 		}
 	}

@@ -524,10 +524,14 @@ namespace Comical
 				bool needUpdate = false;
 				foreach (var set in Archivers.ArchiversConfiguration.Settings)
 				{
-					if (set.Exists && await set.IsLatestVersionAvailableAsync())
+					using (var arc = set.CreateArchiver())
 					{
-						needUpdate = true;
-						break;
+						var res = await set.GetAvailableArchiverInfoAsync();
+						if (arc != null && res != null && res.AvailableVersion > arc.Version)
+						{
+							needUpdate = true;
+							break;
+						}
 					}
 				}
 				lblStatus.Text = string.Empty;
