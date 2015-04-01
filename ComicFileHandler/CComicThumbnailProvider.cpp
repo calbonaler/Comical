@@ -34,63 +34,42 @@ IFACEMETHODIMP CComicThumbnailProvider::Initialize(_In_ IStream* pStream, _In_ D
 IFACEMETHODIMP CComicThumbnailProvider::GetThumbnail(UINT, __RPC__deref_out_opt HBITMAP* phbmp, __RPC__out WTS_ALPHATYPE* pdwAlpha)
 {
 	*phbmp = nullptr;
-	IWICImagingFactory* pImagingFactory;
-	auto hr = CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pImagingFactory));
-	if (SUCCEEDED(hr))
+	CComPtr<IWICImagingFactory> pImagingFactory;
+	TEST(pImagingFactory.CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER));
+	CComPtr<IWICBitmapDecoder> pDecoder;
+	TEST(pImagingFactory->CreateDecoderFromStream(m_pStream, &GUID_VendorMicrosoft, WICDecodeMetadataCacheOnDemand, &pDecoder));
+	CComPtr<IWICBitmapFrameDecode> pBitmapFrameDecode;
+	TEST(pDecoder->GetFrame(0, &pBitmapFrameDecode));
+	WICPixelFormatGUID guidPixelFormatSource;
+	TEST(pBitmapFrameDecode->GetPixelFormat(&guidPixelFormatSource));
+	CComPtr<IWICBitmapSource> pBitmapSourceConverted = nullptr;
+	if (guidPixelFormatSource != GUID_WICPixelFormat32bppBGRA)
 	{
-		IWICBitmapDecoder* pDecoder;
-		if (SUCCEEDED(hr = pImagingFactory->CreateDecoderFromStream(m_pStream, &GUID_VendorMicrosoft, WICDecodeMetadataCacheOnDemand, &pDecoder)))
-		{
-			IWICBitmapFrameDecode* pBitmapFrameDecode;
-			if (SUCCEEDED(hr = pDecoder->GetFrame(0, &pBitmapFrameDecode)))
-			{
-				IWICBitmapSource* pBitmapSourceConverted = nullptr;
-				WICPixelFormatGUID guidPixelFormatSource;
-				if (SUCCEEDED(hr = pBitmapFrameDecode->GetPixelFormat(&guidPixelFormatSource)))
-				{
-					if (guidPixelFormatSource != GUID_WICPixelFormat32bppBGRA)
-					{
-						IWICFormatConverter* pFormatConverter;
-						if (SUCCEEDED(hr = pImagingFactory->CreateFormatConverter(&pFormatConverter)))
-						{
-							if (SUCCEEDED(hr = pFormatConverter->Initialize(pBitmapFrameDecode, GUID_WICPixelFormat32bppBGRA, WICBitmapDitherTypeNone, nullptr, 0, WICBitmapPaletteTypeCustom)))
-								hr = pFormatConverter->QueryInterface(&pBitmapSourceConverted);
-							pFormatConverter->Release();
-						}
-					}
-					else
-						hr = pBitmapFrameDecode->QueryInterface(&pBitmapSourceConverted);
-				}
-				if (SUCCEEDED(hr))
-				{
-					UINT nWidth, nHeight;
-					if (SUCCEEDED(hr = pBitmapSourceConverted->GetSize(&nWidth, &nHeight)))
-					{
-						BITMAPINFO bmi = { sizeof(bmi.bmiHeader) };
-						bmi.bmiHeader.biWidth = nWidth;
-						bmi.bmiHeader.biHeight = -static_cast<LONG>(nHeight);
-						bmi.bmiHeader.biPlanes = 1;
-						bmi.bmiHeader.biBitCount = 32;
-						BYTE* pBits;
-						auto hbmp = CreateDIBSection(nullptr, &bmi, DIB_RGB_COLORS, pointer_cast<void**>(&pBits), nullptr, 0);
-						if (SUCCEEDED(hr = hbmp ? S_OK : E_OUTOFMEMORY))
-						{
-							if (SUCCEEDED(hr = pBitmapSourceConverted->CopyPixels(nullptr, nWidth * 4, nWidth * nHeight * 4, pBits)))
-							{
-								*pdwAlpha = WTSAT_ARGB;
-								*phbmp = hbmp;
-							}
-							else
-								DeleteObject(hbmp);
-						}
-					}
-					pBitmapSourceConverted->Release();
-				}
-				pBitmapFrameDecode->Release();
-			}
-			pDecoder->Release();
-		}
-		pImagingFactory->Release();
+		CComPtr<IWICFormatConverter> pFormatConverter;
+		TEST(pImagingFactory->CreateFormatConverter(&pFormatConverter));
+		TEST(pFormatConverter->Initialize(pBitmapFrameDecode, GUID_WICPixelFormat32bppBGRA, WICBitmapDitherTypeNone, nullptr, 0, WICBitmapPaletteTypeCustom));
+		TEST(pFormatConverter->QueryInterface(&pBitmapSourceConverted));
 	}
+	else
+		TEST(pBitmapFrameDecode->QueryInterface(&pBitmapSourceConverted));
+	UINT nWidth, nHeight;
+	TEST(pBitmapSourceConverted->GetSize(&nWidth, &nHeight));
+	BITMAPINFO bmi = { sizeof(bmi.bmiHeader) };
+	bmi.bmiHeader.biWidth = nWidth;
+	bmi.bmiHeader.biHeight = -static_cast<LONG>(nHeight);
+	bmi.bmiHeader.biPlanes = 1;
+	bmi.bmiHeader.biBitCount = 32;
+	BYTE* pBits;
+	auto hbmp = CreateDIBSection(nullptr, &bmi, DIB_RGB_COLORS, pointer_cast<void**>(&pBits), nullptr, 0);
+	if (!hbmp)
+		return E_OUTOFMEMORY;
+	HRESULT hr;
+	if (SUCCEEDED(hr = pBitmapSourceConverted->CopyPixels(nullptr, nWidth * 4, nWidth * nHeight * 4, pBits)))
+	{
+		*pdwAlpha = WTSAT_ARGB;
+		*phbmp = hbmp;
+	}
+	else
+		DeleteObject(hbmp);
 	return hr;
 }

@@ -25,5 +25,5 @@ protected:
 
 private:
 	ULONG m_cRef;
-	IPropertyStoreCache* m_pCache;
+	CComPtr<IPropertyStoreCache> m_pCache;
 };

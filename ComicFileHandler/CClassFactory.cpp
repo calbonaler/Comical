@@ -14,14 +14,14 @@ IFACEMETHODIMP CClassFactory::QueryInterface(REFIID riid, void** ppv)
 	return QISearch(this, qit, riid, ppv);
 }
 
-IFACEMETHODIMP_(ULONG) CClassFactory::AddRef() { return static_cast<ULONG>(InterlockedIncrement(&m_cRef)); }
+IFACEMETHODIMP_(ULONG) CClassFactory::AddRef() { return InterlockedIncrement(&m_cRef); }
 
 IFACEMETHODIMP_(ULONG) CClassFactory::Release()
 {
 	auto cRef = InterlockedDecrement(&m_cRef);
 	if (cRef == 0)
 		delete this;
-	return static_cast<ULONG>(cRef);
+	return cRef;
 }
 
 #pragma warning(suppress: 6388)

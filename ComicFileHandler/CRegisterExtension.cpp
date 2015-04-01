@@ -25,7 +25,7 @@ HRESULT CRegisterExtension::RegisterInProcServer(const wstring& wstrFriendlyName
 	if (!m_szModule[0])
 		return E_FAIL;
 	TEST(SetRegValue(HKEY_CLASSES_ROOT, L"CLSID\\" + m_wstrCLSID, L"", wstrFriendlyName));
-	TEST(SetRegValue(HKEY_CLASSES_ROOT, L"CLSID\\"+ m_wstrCLSID + L"\\InProcServer32", L"", m_szModule));
+	TEST(SetRegValue(HKEY_CLASSES_ROOT, L"CLSID\\" + m_wstrCLSID + L"\\InProcServer32", L"", m_szModule));
 	return SetRegValue(HKEY_CLASSES_ROOT, L"CLSID\\" + m_wstrCLSID + L"\\InProcServer32", L"ThreadingModel", wstrThreadingModel);
 }
 

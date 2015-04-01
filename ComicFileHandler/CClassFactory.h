@@ -19,6 +19,6 @@ protected:
 	virtual ~CClassFactory();
 
 private:
-	long m_cRef;
+	ULONG m_cRef;
 	PFNCREATEINSTANCE m_pfnCreate;
 };

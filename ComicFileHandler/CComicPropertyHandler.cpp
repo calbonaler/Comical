@@ -161,11 +161,7 @@ HRESULT ReadBookmarks(IStream* pStream, PROPVARIANT* pvar, VERSION*)
 
 CComicPropertyHandler::CComicPropertyHandler() : m_cRef(1), m_pCache(nullptr) { DllAddRef(); }
 
-CComicPropertyHandler::~CComicPropertyHandler()
-{
-	SafeRelease(m_pCache);
-	DllRelease();
-}
+CComicPropertyHandler::~CComicPropertyHandler() { DllRelease(); }
 
 IFACEMETHODIMP CComicPropertyHandler::QueryInterface(REFIID riid, void** ppv)
 {
@@ -189,11 +185,11 @@ IFACEMETHODIMP_(ULONG) CComicPropertyHandler::Release()
 	return cRef;
 }
 
-IFACEMETHODIMP CComicPropertyHandler::GetCount(__RPC__out DWORD* pcProps) { return m_pCache ? m_pCache->GetCount(pcProps) : E_UNEXPECTED; }
+IFACEMETHODIMP CComicPropertyHandler::GetCount(__RPC__out DWORD* pcProps) { return m_pCache.p ? m_pCache->GetCount(pcProps) : E_UNEXPECTED; }
 
-IFACEMETHODIMP CComicPropertyHandler::GetAt(DWORD iProp, __RPC__out PROPERTYKEY* pKey) { return m_pCache ? m_pCache->GetAt(iProp, pKey) : E_UNEXPECTED; }
+IFACEMETHODIMP CComicPropertyHandler::GetAt(DWORD iProp, __RPC__out PROPERTYKEY* pKey) { return m_pCache.p ? m_pCache->GetAt(iProp, pKey) : E_UNEXPECTED; }
 
-IFACEMETHODIMP CComicPropertyHandler::GetValue(__RPC__in REFPROPERTYKEY key, __RPC__out PROPVARIANT* pPropVar) { return m_pCache ? m_pCache->GetValue(key, pPropVar) : E_UNEXPECTED; }
+IFACEMETHODIMP CComicPropertyHandler::GetValue(__RPC__in REFPROPERTYKEY key, __RPC__out PROPVARIANT* pPropVar) { return m_pCache.p ? m_pCache->GetValue(key, pPropVar) : E_UNEXPECTED; }
 
 IFACEMETHODIMP CComicPropertyHandler::SetValue(__RPC__in REFPROPERTYKEY, __RPC__in REFPROPVARIANT) { return E_NOTIMPL; }
 
@@ -203,7 +199,7 @@ IFACEMETHODIMP CComicPropertyHandler::IsPropertyWritable(__RPC__in REFPROPERTYKE
 
 IFACEMETHODIMP CComicPropertyHandler::Initialize(_In_ IStream* pStream, _In_ DWORD)
 {
-	if (m_pCache)
+	if (m_pCache.p)
 		return HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED);
 	static const PROPERTYMAP mapping[] =
 	{

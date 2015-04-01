@@ -2,17 +2,9 @@
 
 #include <Shlwapi.h>
 #include <new>
+#include <atlbase.h>
 
 template <typename T> inline T pointer_cast(void* pv) { return static_cast<T>(pv); }
-
-template <typename T> inline void SafeRelease(T*& rpT)
-{
-	if (rpT)
-	{
-		rpT->Release();
-		rpT = nullptr;
-	}
-}
 
 #define CLSID_CREATOR(type) { &__uuidof(type), CoInstanceCreator<type> }
 
