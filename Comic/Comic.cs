@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -36,7 +35,6 @@ namespace Comical.Core
 			};
 		}
 
-		Stream _saved;
 		string _password = "";
 		SynchronizationContext _context;
 		MultioperationBlocker _blocker = new MultioperationBlocker();
@@ -138,11 +136,6 @@ namespace Comical.Core
 			Title = Author = "";
 			Images.Clear();
 			Bookmarks.Clear();
-			if (_saved != null)
-			{
-				_saved.Dispose();
-				_saved = null;
-			}
 			IsDirty = false;
 		}
 
@@ -169,11 +162,6 @@ namespace Comical.Core
 				_fileVersion = null;
 				_pageTurningDirection = Core.PageTurningDirection.None;
 				_password = null;
-				if (_saved != null)
-				{
-					_saved.Dispose();
-					_saved = null;
-				}
 				_savedFilePath = null;
 				if (_thumbnail != null)
 				{

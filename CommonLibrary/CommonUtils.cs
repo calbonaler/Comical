@@ -90,6 +90,7 @@ namespace CommonLibrary
 			return bitmap;
 		}
 
+		[CLSCompliant(false)]
 		public static int CountLeadingZero(uint value)
 		{
 			if (value == 0) return 32;

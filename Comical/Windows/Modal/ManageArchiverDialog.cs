@@ -99,7 +99,7 @@ namespace Comical
 			bool notNeedUpdate = true;
 			foreach (var set in ArchiversConfiguration.Settings.Where(x => x.Exists))
 			{
-				if (await set.IsLatestVersionAvailable())
+				if (await set.IsLatestVersionAvailableAsync())
 				{
 					notNeedUpdate = false;
 					break;

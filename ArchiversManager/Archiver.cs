@@ -186,7 +186,7 @@ namespace Comical.Archivers
 
 		public string Path { get { return Archiver.GetPath(DllName); } }
 
-		public async Task<Version> GetUploadedVersion()
+		public async Task<Version> GetUploadedVersionAsync()
 		{
 			CancellationTokenSource cts = new CancellationTokenSource();
 			var getHtmlTask = CommonUtils.GetHtml(new Uri("http://www.madobe.net/archiver/lib/" + WebPage), cts.Token);
@@ -207,7 +207,7 @@ namespace Comical.Archivers
 			return new Version();
 		}
 
-		public async Task<string[]> GetDownloadUrls()
+		public async Task<string[]> GetDownloadUrlsAsync()
 		{
 			var code = await CommonUtils.GetHtml(new Uri("http://www.madobe.net/archiver/lib/" + WebPage), CancellationToken.None);
 			var mWWWC = Regex.Matches(code, "<META\\s+name=\"WWWC\"\\s+content=\"[\\d/]+\\s+\\d+:\\d+\\s+(?<dll>.+?)\\s+.+\\[File:(?<file>.+?)].+\">", RegexOptions.IgnoreCase)
@@ -216,10 +216,10 @@ namespace Comical.Archivers
 				.Cast<Match>().Where(m => m.Success).Select(m => m.Groups["url"].Value).ToArray();
 		}
 
-		public async Task<bool> IsLatestVersionAvailable()
+		public async Task<bool> IsLatestVersionAvailableAsync()
 		{
 			using (var arc = CreateArchiver())
-				return arc.Version < await GetUploadedVersion();
+				return arc.Version < await GetUploadedVersionAsync();
 		}
 
 		public Archiver CreateArchiver()
@@ -280,7 +280,7 @@ namespace Comical.Archivers
 			};
 		}
 
-		static readonly IReadOnlyList<ArchiverSetting> settings = new List<ArchiverSetting>(ReadSettings());
+		static readonly IReadOnlyList<ArchiverSetting> settings = ReadSettings().ToArray();
 
 		public static Archiver FindArchiverToExtract(string filePath)
 		{

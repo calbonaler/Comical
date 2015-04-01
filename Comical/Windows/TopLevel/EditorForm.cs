@@ -524,7 +524,7 @@ namespace Comical
 				bool needUpdate = false;
 				foreach (var set in Archivers.ArchiversConfiguration.Settings)
 				{
-					if (set.Exists && await set.IsLatestVersionAvailable())
+					if (set.Exists && await set.IsLatestVersionAvailableAsync())
 					{
 						needUpdate = true;
 						break;

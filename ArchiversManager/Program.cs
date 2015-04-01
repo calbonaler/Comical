@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -16,25 +15,24 @@ namespace Comical.Archivers.Manager
 		static void Main()
 		{
 			var args = Environment.GetCommandLineArgs();
-			if (args.Length > 2)
+			if (args.Length <= 2)
+				return;
+			IntPtr ownerHandle = IntPtr.Zero;
+			int ow = 0;
+			if (int.TryParse(args[1], out ow) && ow != 0)
+				ownerHandle = new IntPtr(ow);
+			var currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			if (args[2].Equals("/update", StringComparison.OrdinalIgnoreCase))
+				UpdateAll(ownerHandle, currentDirectory);
+			else if (args.Length > 3)
 			{
-				IntPtr ownerHandle = IntPtr.Zero;
-				int ow = 0;
-				if (int.TryParse(args[1], out ow) && ow != 0)
-					ownerHandle = new IntPtr(ow);
-				var currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-				if (args[2].Equals("/update", StringComparison.OrdinalIgnoreCase))
-					UpdateAll(ownerHandle, currentDirectory);
-				else if (args.Length > 3)
+				var set = ArchiversConfiguration.Settings.FirstOrDefault(s => s.DllName.Equals(args[3], StringComparison.OrdinalIgnoreCase));
+				if (set != null)
 				{
-					var set = ArchiversConfiguration.Settings.FirstOrDefault(s => s.DllName.Equals(args[3], StringComparison.OrdinalIgnoreCase));
-					if (set != null)
-					{
-						if (args[2].Equals("/install", StringComparison.OrdinalIgnoreCase))
-							Deploy(ownerHandle, set, currentDirectory);
-						else if (args[2].Equals("/uninstall", StringComparison.OrdinalIgnoreCase))
-							Uninstall(ownerHandle, set, currentDirectory);
-					}
+					if (args[2].Equals("/install", StringComparison.OrdinalIgnoreCase))
+						Deploy(ownerHandle, set, currentDirectory);
+					else if (args[2].Equals("/uninstall", StringComparison.OrdinalIgnoreCase))
+						Uninstall(ownerHandle, set, currentDirectory);
 				}
 			}
 		}
@@ -43,7 +41,7 @@ namespace Comical.Archivers.Manager
 		{
 			if (set.DependedArchiver != null && !set.DependedArchiver.Exists)
 				Deploy(owner, set.DependedArchiver, directory);
-			var task = set.GetDownloadUrls();
+			var task = set.GetDownloadUrlsAsync();
 			task.Wait();
 			var urls = task.Result;
 			using (WebClient client = new WebClient())
@@ -59,11 +57,11 @@ namespace Comical.Archivers.Manager
 					var di = CommonUtils.TempFolder.CreateSubdirectory("Dll");
 					try
 					{
-						string name = Path.Combine(di.FullName, Path.GetFileName(urls[0]));
+						string archiveFileName = Path.Combine(di.FullName, Path.GetFileName(urls[0]));
 						for (int i = 0; i < urls.Length; i++)
 						{
 							var timeout = Task.Delay(5000);
-							var download = client.DownloadFileTaskAsync(new Uri(urls[i]), name, new Progress<int>(p => dialog.ProgressBar.Value = p));
+							var download = client.DownloadFileTaskAsync(new Uri(urls[i]), archiveFileName, new Progress<int>(p => dialog.ProgressBar.Value = p));
 							dialog.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.InstallRetryMessage, i + 1);
 							if (await Task.WhenAny(download, timeout) == timeout && dialog.ProgressBar.Value == 0)
 								client.CancelAsync();
@@ -77,13 +75,14 @@ namespace Comical.Archivers.Manager
 						}
 						dialog.InstructionText = Properties.Resources.InstallExtractingArchive;
 						var needList = new string[] { set.BundleDllName, set.DllName };
-						if (LzhExtractor.Melt(name, directory, needList))
+						if (LzhExtractor.Melt(archiveFileName, directory, needList))
 							return;
-						var arc = ArchiversConfiguration.FindArchiverToExtract(name);
+						var arc = ArchiversConfiguration.FindArchiverToExtract(archiveFileName);
 						if (arc == null)
 							return;
 						using (arc)
-							arc.Extract(name, di.FullName, string.Join(" ", needList.Where(x => !string.IsNullOrEmpty(x))));
+							arc.Extract(archiveFileName, di.FullName, string.Join(" ", needList.Where(x => !string.IsNullOrEmpty(x))));
+						File.Delete(archiveFileName);
 						foreach (var file in di.EnumerateFiles("*", SearchOption.AllDirectories))
 							file.CopyTo(Path.Combine(directory, file.Name), true);
 					}
@@ -136,7 +135,7 @@ namespace Comical.Archivers.Manager
 
 		static void UpdateAll(IntPtr owner, string directory)
 		{
-			var t = Task.WhenAll(ArchiversConfiguration.Settings.Where(x => x.Exists).Select(async x => new { Setting = x, LatestVersionAvailable = await x.IsLatestVersionAvailable() }));
+			var t = Task.WhenAll(ArchiversConfiguration.Settings.Where(x => x.Exists).Select(async x => new { Setting = x, LatestVersionAvailable = await x.IsLatestVersionAvailableAsync() }));
 			t.Wait();
 			foreach (var set in t.Result)
 			{

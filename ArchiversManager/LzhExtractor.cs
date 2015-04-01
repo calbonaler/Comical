@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Text;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using CommonLibrary;
 
 namespace Comical.Archivers.Manager
@@ -211,27 +211,24 @@ namespace Comical.Archivers.Manager
 				var n = source.Read(bitCount);
 				if (n == 0)
 					return new DecoderPair(Enumerable.Repeat(source.Read(bitCount), 1 << 8).ToArray(), pointerLength);
-				else
+				for (ushort i = 0; i < n; )
 				{
-					for (ushort i = 0; i < n; )
+					var c = source.Peek(3);
+					if (c == 7)
 					{
-						var c = source.Peek(3);
-						if (c == 7)
-						{
-							for (ushort mask = 1 << (16 - 4); (mask & source.Peek(16)) != 0; mask >>= 1)
-								c++;
-						}
-						source.Read(c < 7 ? 3 : c - 3);
-						pointerLength[i++] = (byte)c;
-						if (i == i_special)
-						{
-							c = source.Read(2);
-							while (c-- > 0)
-								pointerLength[i++] = 0;
-						}
+						for (ushort mask = 1 << (16 - 4); (mask & source.Peek(16)) != 0; mask >>= 1)
+							c++;
 					}
-					return new DecoderPair(MakeTable(pointerLength, 8, left, right), pointerLength);
+					source.Read(c < 7 ? 3 : c - 3);
+					pointerLength[i++] = (byte)c;
+					if (i == i_special)
+					{
+						c = source.Read(2);
+						while (c-- > 0)
+							pointerLength[i++] = 0;
+					}
 				}
+				return new DecoderPair(MakeTable(pointerLength, 8, left, right), pointerLength);
 			}
 
 			static DecoderPair ReadCodeLength(BitStream source, DecoderPair pointer, /*W*/ushort[] left, /*W*/ushort[] right)
@@ -240,27 +237,24 @@ namespace Comical.Archivers.Manager
 				var n = source.Read(9);
 				if (n == 0)
 					return new DecoderPair(Enumerable.Repeat(source.Read(9), 1 << 12).ToArray(), codeLength);
-				else
+				for (ushort i = 0; i < n; )
 				{
-					for (ushort i = 0; i < n; )
+					var c = pointer.Decode(source, left, right);
+					if (c <= 2)
 					{
-						var c = pointer.Decode(source, left, right);
-						if (c <= 2)
-						{
-							if (c == 0)
-								c = 1;
-							else if (c == 1)
-								c = (ushort)(source.Read(4) + 3);
-							else
-								c = (ushort)(source.Read(9) + 20);
-							while (c-- > 0)
-								codeLength[i++] = 0;
-						}
+						if (c == 0)
+							c = 1;
+						else if (c == 1)
+							c = (ushort)(source.Read(4) + 3);
 						else
-							codeLength[i++] = (byte)(c - 2);
+							c = (ushort)(source.Read(9) + 20);
+						while (c-- > 0)
+							codeLength[i++] = 0;
 					}
-					return new DecoderPair(MakeTable(codeLength, 12, left, right), codeLength);
+					else
+						codeLength[i++] = (byte)(c - 2);
 				}
+				return new DecoderPair(MakeTable(codeLength, 12, left, right), codeLength);
 			}
 
 			public static void Decode(LzhMethod method, Stream source, Stream destination, uint originalSize)
