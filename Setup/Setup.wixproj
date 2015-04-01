@@ -27,7 +27,8 @@
     <Pedantic>False</Pedantic>
     <SuppressSpecificWarnings>
     </SuppressSpecificWarnings>
-    <SuppressIces>ICE80</SuppressIces>
+    <SuppressIces>
+    </SuppressIces>
     <LinkerAdditionalOptions>
     </LinkerAdditionalOptions>
     <SuppressValidation>False</SuppressValidation>

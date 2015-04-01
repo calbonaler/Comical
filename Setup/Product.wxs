@@ -46,21 +46,6 @@
 							</ProgId>
 							<Shortcut Id="_A1E616D0E9BA43F5A731790C92F0E79C" Directory="ProgramMenuFolder" Name="Comical" Icon="Comical.ico" IconIndex="0" Show="normal" WorkingDirectory="TARGETDIR" Advertise="yes" />
 						</Component>
-						<Component Id="C_ComicFileHandler.dll" Guid="{B32A08B6-EB9B-4880-B05B-0E8714668BD9}" Win64="yes">
-							<File
-								Id="ComicFileHandler.dll" Name="ComicFileHandler.dll" KeyPath="yes"
-								Source="$(var.ComicFileHandler.ProjectDir)$(var.ComicFileHandler.Configuration)\$(var.ComicFileHandler.TargetFileName)" >
-								<Class Id="001823E8-247E-4685-BD84-350347B0460C" Context="InprocServer32" Description="Comic Property Handler" ThreadingModel="apartment"/>
-								<Class Id="4423CDF9-0C1B-4F23-8CC4-BA634252CD6A" Context="InprocServer32" Description="Comic Thumbnail Provider" ThreadingModel="apartment"/>
-							</File>
-							<RegistryKey Id="PropertyHandlerRegistrationForProgId" Root="HKCR" Key="Comic Image Collection File" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
-								<RegistryValue Type="string" Name="InfoTip" Value="prop:System.ItemType;System.Author;System.Size;System.DateModified"/>
-								<RegistryValue Type="string" Name="FullDetails" Value="prop:System.PropGroup.Description;System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.FileVersion;System.PropGroup.FileSystem;System.ItemNameDisplay;System.ItemType;System.ItemFolderPathDisplay;System.Size;System.DateCreated;System.DateModified;System.DateAccessed;System.FileAttributes;System.OfflineAvailability;System.OfflineStatus;System.SharedWith;System.FileOwner;System.ComputerName"/>
-								<RegistryValue Type="string" Name="PreviewDetails" Value="prop:System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.DateModified;System.Size;System.FileVersion;System.DateCreated;System.SharedWith"/>
-							</RegistryKey>
-							<RegistryValue Id="PropertyHandlerRegistrationForExtension" Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\PropertySystem\PropertyHandlers\.cic" Type="string" Value="{001823E8-247E-4685-BD84-350347B0460C}"/>
-							<RegistryValue Id="ThumbnailProviderRegistrationForExtension" Root="HKCR" Key=".cic\ShellEx\{e357fccd-a995-4576-b01f-234630154e96}" Type="string" Value="{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}"/>
-						</Component>
 						<Component Id="C_FileVersionViewer.exe" Guid="{42F7A306-84EE-9501-3851-2A649B25C9DA}">
 							<File
 								Id="FileVersionViewer.exe" Name="FileVersionViewer.exe" KeyPath="yes"
@@ -109,6 +94,24 @@
 									Source="$(var.FileVersionViewer.TargetDir)ja-JP\FileVersionViewer.resources.dll"/>
 							</Component>
 						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="ProgramFiles64Folder" Name="Program Files 64bit">
+				<Directory Id="ManufacturerDirectory64" Name="takumi">
+					<Directory Id="INSTALLDIR64" Name="Comical">
+						<Component Id="C_ComicFileHandler.dll" Guid="{B32A08B6-EB9B-4880-B05B-0E8714668BD9}" Win64="yes">
+							<File
+								Id="ComicFileHandler.dll" Name="ComicFileHandler.dll" KeyPath="yes"
+								Source="$(var.ComicFileHandler.ProjectDir)$(var.ComicFileHandler.Configuration)\$(var.ComicFileHandler.TargetFileName)" />
+							<Class Id="001823E8-247E-4685-BD84-350347B0460C" Advertise="yes" Context="InprocServer32" Description="Comic Property Handler" ThreadingModel="apartment"/>
+							<Class Id="4423CDF9-0C1B-4F23-8CC4-BA634252CD6A" Advertise="yes" Context="InprocServer32" Description="Comic Thumbnail Provider" ThreadingModel="apartment"/>
+							<RegistryValue Root="HKCR" Key="Comic Image Collection File" Type="string" Name="InfoTip" Value="prop:System.ItemType;System.Author;System.Size;System.DateModified"/>
+							<RegistryValue Root="HKCR" Key="Comic Image Collection File" Type="string" Name="FullDetails" Value="prop:System.PropGroup.Description;System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.FileVersion;System.PropGroup.FileSystem;System.ItemNameDisplay;System.ItemType;System.ItemFolderPathDisplay;System.Size;System.DateCreated;System.DateModified;System.DateAccessed;System.FileAttributes;System.OfflineAvailability;System.OfflineStatus;System.SharedWith;System.FileOwner;System.ComputerName"/>
+							<RegistryValue Root="HKCR" Key="Comic Image Collection File" Type="string" Name="PreviewDetails" Value="prop:System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.DateModified;System.Size;System.FileVersion;System.DateCreated;System.SharedWith"/>
+							<RegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\PropertySystem\PropertyHandlers\.cic" Type="string" Value="{001823E8-247E-4685-BD84-350347B0460C}"/>
+							<RegistryValue Root="HKCR" Key=".cic\ShellEx\{e357fccd-a995-4576-b01f-234630154e96}" Type="string" Value="{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}"/>
+						</Component>
 					</Directory>
 				</Directory>
 			</Directory>
