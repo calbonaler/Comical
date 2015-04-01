@@ -5,5 +5,4 @@
 	<String Id="EditCommand">編集(&amp;E)</String>
 	<String Id="InstallNetFramework45">セットアップを続行するには Microsoft .NET Framework 4.5 をインストールしてください。</String>
 	<String Id="WelcomDlgMessage">[\[]インストール[\]] をクリックするとインストールが開始されます。</String>
-	<String Id="CicProgIdDescription">Comical イメージコレクション</String>
 </WixLocalization>

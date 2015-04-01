@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product Id="{C703A05F-3AFE-4421-B030-75BDC7B1F538}" Codepage="932" Language="!(loc.Language)" Manufacturer="takumi" Name="Comical" UpgradeCode="{2E73E334-4D49-4BBF-8BEC-E210EF49DD6E}" Version="4.4.13">
-		<Package Compressed="yes" InstallerVersion="400" Languages="1041" Manufacturer="takumi" SummaryCodepage="932" Platform="x64" />
+		<Package Compressed="yes" InstallerVersion="400" Languages="1041" Manufacturer="takumi" SummaryCodepage="932" Platform="x64" InstallScope="perMachine" />
 		<Media Id="1" Cabinet="components" EmbedCab="yes" />
 		<PropertyRef Id="NETFRAMEWORK45"/>
 		<Condition Message="!(loc.InstallNetFramework45)">Installed OR NETFRAMEWORK45</Condition>
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder" Name="Program Files">
+			<Directory Id="ProgramFilesFolder">
 				<Directory Id="ManufacturerDirectory" Name="takumi">
 					<Directory Id="INSTALLDIR" Name="Comical">
 						<Component Id="C_WeifenLuo.WinFormsUI.Docking.dll" Guid="{93FBAC71-EB15-F81B-0F07-D50C1557B141}">
@@ -38,13 +38,13 @@
 								Id="Comical.exe" Name="Comical.exe" KeyPath="yes" ShortName="COMICAL.EXE"
 								Assembly=".net" AssemblyManifest="Comical.exe" AssemblyApplication="Comical.exe"
 								Source="$(var.Comical.TargetPath)" />
-							<ProgId Id="Comic Image Collection File" IconIndex="0" Advertise="yes" Description="!(loc.CicProgIdDescription)">
+							<ProgId Id="ComicalImageCollectionFile" IconIndex="0" Advertise="yes" Description="Comical Image Collection File">
 								<Extension Id="cic" Advertise="yes">
 									<Verb Id="open" Command="!(loc.OpenCommand)" Argument="/View &quot;%1&quot;"/>
 									<Verb Id="edit" Command="!(loc.EditCommand)" Argument="&quot;%1&quot;"/>
 								</Extension>
 							</ProgId>
-							<Shortcut Id="_A1E616D0E9BA43F5A731790C92F0E79C" Directory="ProgramMenuFolder" Name="Comical" Icon="Comical.ico" IconIndex="0" Show="normal" WorkingDirectory="TARGETDIR" Advertise="yes" />
+							<Shortcut Id="ShortcutForComical" Directory="ProgramMenuFolder" Name="Comical" Icon="Comical.ico" IconIndex="0" Show="normal" WorkingDirectory="TARGETDIR" Advertise="yes" />
 						</Component>
 						<Component Id="C_FileVersionViewer.exe" Guid="{42F7A306-84EE-9501-3851-2A649B25C9DA}">
 							<File
@@ -97,7 +97,7 @@
 					</Directory>
 				</Directory>
 			</Directory>
-			<Directory Id="ProgramFiles64Folder" Name="Program Files 64bit">
+			<Directory Id="ProgramFiles64Folder">
 				<Directory Id="ManufacturerDirectory64" Name="takumi">
 					<Directory Id="INSTALLDIR64" Name="Comical">
 						<Component Id="C_ComicFileHandler.dll" Guid="{B32A08B6-EB9B-4880-B05B-0E8714668BD9}" Win64="yes">
@@ -106,16 +106,17 @@
 								Source="$(var.ComicFileHandler.ProjectDir)$(var.ComicFileHandler.Configuration)\$(var.ComicFileHandler.TargetFileName)" />
 							<Class Id="001823E8-247E-4685-BD84-350347B0460C" Advertise="yes" Context="InprocServer32" Description="Comic Property Handler" ThreadingModel="apartment"/>
 							<Class Id="4423CDF9-0C1B-4F23-8CC4-BA634252CD6A" Advertise="yes" Context="InprocServer32" Description="Comic Thumbnail Provider" ThreadingModel="apartment"/>
-							<RegistryValue Root="HKCR" Key="Comic Image Collection File" Type="string" Name="InfoTip" Value="prop:System.ItemType;System.Author;System.Size;System.DateModified"/>
-							<RegistryValue Root="HKCR" Key="Comic Image Collection File" Type="string" Name="FullDetails" Value="prop:System.PropGroup.Description;System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.FileVersion;System.PropGroup.FileSystem;System.ItemNameDisplay;System.ItemType;System.ItemFolderPathDisplay;System.Size;System.DateCreated;System.DateModified;System.DateAccessed;System.FileAttributes;System.OfflineAvailability;System.OfflineStatus;System.SharedWith;System.FileOwner;System.ComputerName"/>
-							<RegistryValue Root="HKCR" Key="Comic Image Collection File" Type="string" Name="PreviewDetails" Value="prop:System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.DateModified;System.Size;System.FileVersion;System.DateCreated;System.SharedWith"/>
+							<RegistryValue Root="HKCR" Key="ComicalImageCollectionFile" Type="string" Name="FriendlyTypeName" Value='@"[INSTALLDIR64]ComicFileHandler.dll",-101'/>
+							<RegistryValue Root="HKCR" Key="ComicalImageCollectionFile" Type="string" Name="InfoTip" Value="prop:System.ItemType;System.Author;System.Size;System.DateModified"/>
+							<RegistryValue Root="HKCR" Key="ComicalImageCollectionFile" Type="string" Name="FullDetails" Value="prop:System.PropGroup.Description;System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.FileVersion;System.PropGroup.FileSystem;System.ItemNameDisplay;System.ItemType;System.ItemFolderPathDisplay;System.Size;System.DateCreated;System.DateModified;System.DateAccessed;System.FileAttributes;System.OfflineAvailability;System.OfflineStatus;System.SharedWith;System.FileOwner;System.ComputerName"/>
+							<RegistryValue Root="HKCR" Key="ComicalImageCollectionFile" Type="string" Name="PreviewDetails" Value="prop:System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.DateModified;System.Size;System.FileVersion;System.DateCreated;System.SharedWith"/>
 							<RegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\PropertySystem\PropertyHandlers\.cic" Type="string" Value="{001823E8-247E-4685-BD84-350347B0460C}"/>
 							<RegistryValue Root="HKCR" Key=".cic\ShellEx\{e357fccd-a995-4576-b01f-234630154e96}" Type="string" Value="{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}"/>
 						</Component>
 					</Directory>
 				</Directory>
 			</Directory>
-			<Directory Id="ProgramMenuFolder" Name="Programs" />
+			<Directory Id="ProgramMenuFolder" />
 		</Directory>
 		<Feature Id="Complete" ConfigurableDirectory="TARGETDIR" Level="1">
 			<ComponentRef Id="C_WeifenLuo.WinFormsUI.Docking.dll" />
