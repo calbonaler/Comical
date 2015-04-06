@@ -61,12 +61,6 @@
 								</Extension>
 							</ProgId>
 						</Component>
-						<Component Id="C_FileVersionViewer.exe" Guid="{42F7A306-84EE-9501-3851-2A649B25C9DA}">
-							<File
-								Id="FileVersionViewer.exe" Name="FileVersionViewer.exe" KeyPath="yes"
-								Assembly=".net" AssemblyManifest="FileVersionViewer.exe" AssemblyApplication="FileVersionViewer.exe"
-								Source="$(var.FileVersionViewer.TargetPath)" />
-						</Component>
 						<Component Id="C_Comical.exe.config" Guid="{423BFEDF-7732-FB9C-1BA1-509BDF6BDF7B}">
 							<File
 								Id="Comical.exe.config" Name="Comical.exe.config" KeyPath="yes"
@@ -91,12 +85,6 @@
 									Assembly=".net" AssemblyManifest="Comical.resources.dll" AssemblyApplication="Comical.resources.dll"
 									Source="$(var.Comical.TargetDir)ja-JP\Comical.resources.dll" />
 							</Component>
-							<Component Id="C_FileVersionViewer.resources.dll" Guid="{A2E746D5-D5F0-4464-B2B0-938FB723EB58}">
-								<File
-									Id="FileVersionViewer.resources.dll" Name="FileVersionViewer.resources.dll" KeyPath="yes"
-									Assembly=".net" AssemblyManifest="FileVersionViewer.resources.dll" AssemblyApplication="FileVersionViewer.resources.dll"
-									Source="$(var.FileVersionViewer.TargetDir)ja-JP\FileVersionViewer.resources.dll"/>
-							</Component>
 						</Directory>
 					</Directory>
 				</Directory>
@@ -114,8 +102,6 @@
 			<ComponentRef Id="C_Comical.exe.config" />
 			<ComponentRef Id="C_ComicalCore.dll"/>
 			<ComponentRef Id="C_CommonLibrary.dll"/>
-			<ComponentRef Id="C_FileVersionViewer.exe" />
-			<ComponentRef Id="C_FileVersionViewer.resources.dll" />
 		</Feature>
 		<Icon Id="Comical.ico" SourceFile="$(var.Comical.ProjectDir)Comical.ico" />
 		<Property Id="ARPCONTACT" Value="takumi" />
