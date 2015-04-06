@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
@@ -8,6 +9,18 @@ namespace Comical.Controls
 	[ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.ContextMenuStrip | ToolStripItemDesignerAvailability.MenuStrip)]
 	public class ToolStripRadioMenuItem : ToolStripMenuItem
 	{
+		static class NativeMethods
+		{
+			[DllImport("gdi32.dll")]
+			public static extern uint GetPixel(IntPtr hdc, int x, int y);
+
+			public static Color GetPixelColor(IntPtr hdc, int xPos, int yPos)
+			{
+				uint rgb = GetPixel(hdc, xPos, yPos);
+				return Color.FromArgb((int)(rgb & 0xFF), (int)((rgb >> 8) & 0xFF), (int)((rgb >> 16) & 0xFF));
+			}
+		}
+
 		public ToolStripRadioMenuItem() : base() { Initialize(); }
 
 		void Initialize() { CheckOnClick = true; }

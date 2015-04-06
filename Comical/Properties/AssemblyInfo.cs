@@ -12,7 +12,7 @@ using System;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("takumi")]
 [assembly: AssemblyProduct("Comical")]
-[assembly: AssemblyCopyright("Copyright © takumi 2010-2013")]
+[assembly: AssemblyCopyright("Copyright © takumi 2010-2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,8 +34,8 @@ using System;
 // すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.4.13.0")]
-[assembly: AssemblyFileVersion("4.4.13.0")]
+[assembly: AssemblyVersion("4.4.14.0")]
+[assembly: AssemblyFileVersion("4.4.14.0")]
 [assembly: NeutralResourcesLanguageAttribute("")]
 
 [assembly: CLSCompliant(true)]

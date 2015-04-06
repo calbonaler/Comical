@@ -9,8 +9,6 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "Setup\Setup.wixpro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicalCore", "Comic\ComicalCore.csproj", "{9C92D548-FA74-4E71-A040-A24F3E93067F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{B9112E9D-0907-4F8E-9CB5-6815DCD81FE8}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ComicFileHandler", "ComicFileHandler\ComicFileHandler.vcxproj", "{DB009F18-6821-4290-B70D-309BEFCB61FC}"
 EndProject
 Global
@@ -41,14 +39,6 @@ Global
 		{9C92D548-FA74-4E71-A040-A24F3E93067F}.Release|x64.Build.0 = Release|Any CPU
 		{9C92D548-FA74-4E71-A040-A24F3E93067F}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C92D548-FA74-4E71-A040-A24F3E93067F}.Release|x86.Build.0 = Release|Any CPU
-		{B9112E9D-0907-4F8E-9CB5-6815DCD81FE8}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B9112E9D-0907-4F8E-9CB5-6815DCD81FE8}.Debug|x64.Build.0 = Debug|Any CPU
-		{B9112E9D-0907-4F8E-9CB5-6815DCD81FE8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B9112E9D-0907-4F8E-9CB5-6815DCD81FE8}.Debug|x86.Build.0 = Debug|Any CPU
-		{B9112E9D-0907-4F8E-9CB5-6815DCD81FE8}.Release|x64.ActiveCfg = Release|Any CPU
-		{B9112E9D-0907-4F8E-9CB5-6815DCD81FE8}.Release|x64.Build.0 = Release|Any CPU
-		{B9112E9D-0907-4F8E-9CB5-6815DCD81FE8}.Release|x86.ActiveCfg = Release|Any CPU
-		{B9112E9D-0907-4F8E-9CB5-6815DCD81FE8}.Release|x86.Build.0 = Release|Any CPU
 		{DB009F18-6821-4290-B70D-309BEFCB61FC}.Debug|x64.ActiveCfg = Debug|x64
 		{DB009F18-6821-4290-B70D-309BEFCB61FC}.Debug|x64.Build.0 = Debug|x64
 		{DB009F18-6821-4290-B70D-309BEFCB61FC}.Debug|x86.ActiveCfg = Debug|x64

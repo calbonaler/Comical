@@ -29,55 +29,47 @@
 		void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
-			this.lblCopyright2 = new System.Windows.Forms.Label();
-			this.lblCopyrightInformation = new System.Windows.Forms.Label();
-			this.lblCopyright = new System.Windows.Forms.Label();
+			this.lblLibraries = new System.Windows.Forms.Label();
 			this.lblVersionHeader = new System.Windows.Forms.Label();
-			this.lblAllRightsReserved = new System.Windows.Forms.Label();
+			this.lblCopyright = new System.Windows.Forms.Label();
+			this.txtLibraries = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
-			// lblCopyright2
+			// lblLibraries
 			// 
-			this.lblCopyright2.BackColor = System.Drawing.Color.Transparent;
-			resources.ApplyResources(this.lblCopyright2, "lblCopyright2");
-			this.lblCopyright2.Name = "lblCopyright2";
-			this.lblCopyright2.Click += new System.EventHandler(this.SplashScreen_Click);
-			// 
-			// lblCopyrightInformation
-			// 
-			resources.ApplyResources(this.lblCopyrightInformation, "lblCopyrightInformation");
-			this.lblCopyrightInformation.BackColor = System.Drawing.Color.Transparent;
-			this.lblCopyrightInformation.Name = "lblCopyrightInformation";
-			this.lblCopyrightInformation.Click += new System.EventHandler(this.SplashScreen_Click);
-			// 
-			// lblCopyright
-			// 
-			this.lblCopyright.BackColor = System.Drawing.Color.Transparent;
-			resources.ApplyResources(this.lblCopyright, "lblCopyright");
-			this.lblCopyright.Name = "lblCopyright";
-			this.lblCopyright.Click += new System.EventHandler(this.SplashScreen_Click);
+			resources.ApplyResources(this.lblLibraries, "lblLibraries");
+			this.lblLibraries.BackColor = System.Drawing.Color.Transparent;
+			this.lblLibraries.Name = "lblLibraries";
+			this.lblLibraries.Click += new System.EventHandler(this.SplashScreen_Click);
 			// 
 			// lblVersionHeader
 			// 
-			this.lblVersionHeader.BackColor = System.Drawing.Color.Transparent;
 			resources.ApplyResources(this.lblVersionHeader, "lblVersionHeader");
+			this.lblVersionHeader.BackColor = System.Drawing.Color.Transparent;
+			this.lblVersionHeader.ForeColor = System.Drawing.Color.White;
 			this.lblVersionHeader.Name = "lblVersionHeader";
 			this.lblVersionHeader.Click += new System.EventHandler(this.SplashScreen_Click);
 			// 
-			// lblAllRightsReserved
+			// lblCopyright
 			// 
-			resources.ApplyResources(this.lblAllRightsReserved, "lblAllRightsReserved");
-			this.lblAllRightsReserved.BackColor = System.Drawing.Color.Transparent;
-			this.lblAllRightsReserved.Name = "lblAllRightsReserved";
+			resources.ApplyResources(this.lblCopyright, "lblCopyright");
+			this.lblCopyright.BackColor = System.Drawing.Color.Transparent;
+			this.lblCopyright.Name = "lblCopyright";
+			// 
+			// txtLibraries
+			// 
+			resources.ApplyResources(this.txtLibraries, "txtLibraries");
+			this.txtLibraries.BackColor = System.Drawing.SystemColors.Window;
+			this.txtLibraries.Name = "txtLibraries";
+			this.txtLibraries.ReadOnly = true;
 			// 
 			// AboutDialog
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.lblAllRightsReserved);
-			this.Controls.Add(this.lblCopyrightInformation);
-			this.Controls.Add(this.lblCopyright2);
+			this.Controls.Add(this.txtLibraries);
 			this.Controls.Add(this.lblCopyright);
+			this.Controls.Add(this.lblLibraries);
 			this.Controls.Add(this.lblVersionHeader);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.MaximizeBox = false;
@@ -94,9 +86,8 @@
 		#endregion
 
 		System.Windows.Forms.Label lblVersionHeader;
+		private System.Windows.Forms.Label lblLibraries;
 		private System.Windows.Forms.Label lblCopyright;
-		private System.Windows.Forms.Label lblCopyright2;
-		private System.Windows.Forms.Label lblCopyrightInformation;
-		private System.Windows.Forms.Label lblAllRightsReserved;
+		private System.Windows.Forms.TextBox txtLibraries;
 	}
 }

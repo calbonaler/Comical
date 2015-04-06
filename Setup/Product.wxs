@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="{C703A05F-3AFE-4421-B030-75BDC7B1F538}" Codepage="932" Language="!(loc.Language)" Manufacturer="takumi" Name="Comical" UpgradeCode="{2E73E334-4D49-4BBF-8BEC-E210EF49DD6E}" Version="4.4.13">
+	<Product Id="{12844AA5-1233-4932-8407-74A122492F13}" Codepage="932" Language="!(loc.Language)" Manufacturer="takumi" Name="Comical" UpgradeCode="{2E73E334-4D49-4BBF-8BEC-E210EF49DD6E}" Version="4.4.14">
 		<Package Compressed="yes" InstallerVersion="400" Languages="1041" Manufacturer="takumi" SummaryCodepage="932" Platform="x64" InstallScope="perMachine" />
 		<Media Id="1" Cabinet="components" EmbedCab="yes" />
 		<PropertyRef Id="NETFRAMEWORK45"/>
@@ -72,12 +72,6 @@
 								Assembly=".net" AssemblyManifest="ComicalCore.dll" AssemblyApplication="ComicalCore.dll"
 								Source="$(var.ComicalCore.TargetPath)"/>
 						</Component>
-						<Component Id="C_CommonLibrary.dll" Guid="{A08A30E9-BCF8-439C-AA1F-67707EE91FAC}">
-							<File
-								Id="CommonLibrary.dll" Name="CommonLibrary.dll" KeyPath="yes"
-								Assembly=".net" AssemblyManifest="CommonLibrary.dll" AssemblyApplication="CommonLibrary.dll"
-								Source="$(var.CommonLibrary.TargetPath)"/>
-						</Component>
 						<Directory Id="ResourceDirectory" Name="ja-JP">
 							<Component Id="C_Comical.resources.dll" Guid="{A1A9313E-EB65-5958-0198-5CFF4C5E51C2}">
 								<File
@@ -101,9 +95,8 @@
 			<ComponentRef Id="C_ComicFileHandler.dll" />
 			<ComponentRef Id="C_Comical.exe.config" />
 			<ComponentRef Id="C_ComicalCore.dll"/>
-			<ComponentRef Id="C_CommonLibrary.dll"/>
 		</Feature>
-		<Icon Id="Comical.ico" SourceFile="$(var.Comical.ProjectDir)Comical.ico" />
+		<Icon Id="Comical.ico" SourceFile="$(var.Comical.ProjectDir)Resources\Comical.ico" />
 		<Property Id="ARPCONTACT" Value="takumi" />
 		<Property Id="ARPPRODUCTICON" Value="Comical.ico" />
 

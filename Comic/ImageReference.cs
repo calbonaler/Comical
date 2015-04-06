@@ -6,7 +6,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using CommonLibrary;
 
 namespace Comical.Core
 {

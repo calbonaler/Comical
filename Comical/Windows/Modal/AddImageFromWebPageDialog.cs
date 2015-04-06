@@ -6,10 +6,8 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CommonLibrary;
+using Comical.Core;
 
 namespace Comical
 {
@@ -62,7 +60,7 @@ namespace Comical
 				List<Uri> urls = new List<Uri>();
 				var attributes = txtAttributes.Text.Split(';');
 				var document = new HtmlAgilityPack.HtmlDocument();
-				document.LoadHtml(await CommonUtils.GetHtml(pageUrl, CancellationToken.None));
+				document.LoadHtml(await Utils.GetHtml(pageUrl));
 				foreach (var node in document.DocumentNode.Descendants())
 				{
 					foreach (var attribute in attributes.Select(att => node.Attributes[att]).Where(att => att != null && AllowExtensions.Any(ex => System.IO.Path.GetExtension(att.Value) == "." + ex)))

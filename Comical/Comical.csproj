@@ -93,8 +93,9 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\HtmlAgilityPack.1.4.6\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack">
       <HintPath>..\..\..\Windows API Code Pack 1.1\source\WindowsAPICodePack\Shell\bin\Release\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -114,9 +115,9 @@
     <Reference Include="System.Xaml" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.5.0.15095, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.9.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DockPanel_2_7_0\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+      <HintPath>..\packages\DockPanelSuite.2.9.0.0\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -124,7 +125,6 @@
     <Compile Include="Controls\DraggableDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\NativeMethods.cs" />
     <Compile Include="Controls\ToolStripRadioItem.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -138,6 +138,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="Window.cs" />
     <Compile Include="Windows\Modal\AddImageFromWebPageDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -338,6 +340,7 @@
       <DependentUpon>WindowBrowseDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -383,10 +386,6 @@
     <ProjectReference Include="..\Comic\ComicalCore.csproj">
       <Project>{9c92d548-fa74-4e71-a040-a24f3e93067f}</Project>
       <Name>ComicalCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
-      <Project>{b9112e9d-0907-4f8e-9cb5-6815dcd81fe8}</Project>
-      <Name>CommonLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

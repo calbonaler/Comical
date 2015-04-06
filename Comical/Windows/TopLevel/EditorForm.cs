@@ -6,7 +6,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Comical.Core;
-using CommonLibrary;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Comical
