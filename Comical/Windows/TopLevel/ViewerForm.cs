@@ -175,30 +175,27 @@ namespace Comical
 
 		void picPreview_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.None)
+			if (e.Button == System.Windows.Forms.MouseButtons.None && (icd.PageTurningDirection == PageTurningDirection.ToLeft ? e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - prevMain.AutoScrollPosition.X))
 			{
-				if (icd.PageTurningDirection == PageTurningDirection.ToLeft ? e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - prevMain.AutoScrollPosition.X)
-				{
-					focusMode = FocusMode.Next;
-					prevMain.Cursor = Cursors.Default;
-				}
-				else if (icd.PageTurningDirection == PageTurningDirection.ToLeft ? e.X <= Properties.Resources.Previous.Width - prevMain.AutoScrollPosition.X : e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Previous.Width)
-				{
-					focusMode = FocusMode.Previous;
-					prevMain.Cursor = Cursors.Default;
-				}
-				else if (e.Y >= prevMain.ClientSize.Height - closeHeight - prevMain.AutoScrollPosition.Y)
-				{
-					focusMode = FocusMode.Close;
-					prevMain.Cursor = Cursors.Default;
-				}
-				else
-				{
-					focusMode = FocusMode.None;
-					prevMain.Cursor = null;
-				}
-				prevMain.Invalidate();
+				focusMode = FocusMode.Next;
+				prevMain.Cursor = Cursors.Default;
 			}
+			else if (e.Button == System.Windows.Forms.MouseButtons.None && (icd.PageTurningDirection == PageTurningDirection.ToLeft ? e.X <= Properties.Resources.Previous.Width - prevMain.AutoScrollPosition.X : e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Previous.Width))
+			{
+				focusMode = FocusMode.Previous;
+				prevMain.Cursor = Cursors.Default;
+			}
+			else if (e.Button == System.Windows.Forms.MouseButtons.None && e.Y >= prevMain.ClientSize.Height - closeHeight - prevMain.AutoScrollPosition.Y)
+			{
+				focusMode = FocusMode.Close;
+				prevMain.Cursor = Cursors.Default;
+			}
+			else
+			{
+				focusMode = FocusMode.None;
+				prevMain.Cursor = null;
+			}
+			prevMain.Invalidate();
 		}
 
 		void picPreview_MouseUp(object sender, MouseEventArgs e)
