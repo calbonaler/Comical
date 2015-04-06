@@ -92,41 +92,6 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Debug\Comical.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
-    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
-    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSetDirectories>$(DevEnvDir)\..\..\Team Tools\Static Analysis Tools\Rule Sets</CodeAnalysisRuleSetDirectories>
-    <CodeAnalysisRuleDirectories>$(DevEnvDir)\..\..\Team Tools\Static Analysis Tools\FxCop\Rules</CodeAnalysisRuleDirectories>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Release\Comical.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
-    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
-    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSetDirectories>$(DevEnvDir)\..\..\Team Tools\Static Analysis Tools\Rule Sets</CodeAnalysisRuleSetDirectories>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisRuleDirectories>$(DevEnvDir)\..\..\Team Tools\Static Analysis Tools\FxCop\Rules</CodeAnalysisRuleDirectories>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <DefineConstants>TRACE</DefineConstants>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\..\..\HtmlAgilityPack.1.4.6\Net45\HtmlAgilityPack.dll</HintPath>
@@ -173,12 +138,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Windows\Modal\ManageArchiverDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\Modal\ManageArchiverDialog.Designer.cs">
-      <DependentUpon>ManageArchiverDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Windows\Modal\AddImageFromWebPageDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,12 +244,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modal\ImageEditingDialog.ja-JP.resx">
       <DependentUpon>ImageEditingDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modal\ManageArchiverDialog.ja-JP.resx">
-      <DependentUpon>ManageArchiverDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modal\ManageArchiverDialog.resx">
-      <DependentUpon>ManageArchiverDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modal\OptionDialog.ja-JP.resx">
       <DependentUpon>OptionDialog.cs</DependentUpon>
@@ -427,10 +380,6 @@
     <Content Include="Resources\ReleaseHand.cur" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArchiversManager\ArchiversManager.csproj">
-      <Project>{b65ddb75-099f-41ed-8d48-93fa20c1bbee}</Project>
-      <Name>ArchiversManager</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Comic\ComicalCore.csproj">
       <Project>{9c92d548-fa74-4e71-a040-a24f3e93067f}</Project>
       <Name>ComicalCore</Name>

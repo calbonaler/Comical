@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
-using Comical.Archivers;
-using CommonLibrary;
-using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Comical
 {
@@ -13,23 +7,17 @@ namespace Comical
 	{
 		public OptionDialog() { InitializeComponent(); }
 
-		public string InitialPageName { get; set; }
-
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
 			chkUsePageView.Checked = Properties.Settings.Default.UsePageView;
 			txtDefaultSavedFileName.Text = Properties.Settings.Default.DefaultSavedFileName;
-			chkCheckArchiverUpdateWhenStarted.Checked = Properties.Settings.Default.CheckArchiverUpdateWhenStarted;
-			if (InitialPageName != null)
-				tcContents.SelectTab(InitialPageName);
 		}
 
 		void btnOK_Click(object sender, EventArgs e)
 		{
 			Properties.Settings.Default.UsePageView = chkUsePageView.Checked;
 			Properties.Settings.Default.DefaultSavedFileName = txtDefaultSavedFileName.Text;
-			Properties.Settings.Default.CheckArchiverUpdateWhenStarted = chkCheckArchiverUpdateWhenStarted.Checked;
 			Properties.Settings.Default.Save();
 		}
 

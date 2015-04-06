@@ -6,9 +6,26 @@
 		<PropertyRef Id="NETFRAMEWORK45"/>
 		<Condition Message="!(loc.InstallNetFramework45)">Installed OR NETFRAMEWORK45</Condition>
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
+			<Directory Id="ProgramFiles64Folder">
 				<Directory Id="ManufacturerDirectory" Name="takumi">
 					<Directory Id="INSTALLDIR" Name="Comical">
+						<Component Id="C_ComicFileHandler.dll" Guid="{B32A08B6-EB9B-4880-B05B-0E8714668BD9}" Win64="yes">
+							<File
+								Id="ComicFileHandler.dll" Name="ComicFileHandler.dll" KeyPath="yes"
+								Source="$(var.ComicFileHandler.ProjectDir)$(var.ComicFileHandler.Configuration)\$(var.ComicFileHandler.TargetFileName)" />
+							<Class Id="001823E8-247E-4685-BD84-350347B0460C" Advertise="yes" Context="InprocServer32" Description="Comic Property Handler" ThreadingModel="apartment"/>
+							<Class Id="4423CDF9-0C1B-4F23-8CC4-BA634252CD6A" Advertise="yes" Context="InprocServer32" Description="Comic Thumbnail Provider" ThreadingModel="apartment"/>
+							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="FriendlyTypeName" Value='@"[INSTALLDIR]ComicFileHandler.dll",-101'/>
+							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="InfoTip" Value="prop:System.ItemType;System.Author;System.Size;System.DateModified"/>
+							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="FullDetails" Value="prop:System.PropGroup.Description;System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.FileVersion;System.PropGroup.FileSystem;System.ItemNameDisplay;System.ItemType;System.ItemFolderPathDisplay;System.Size;System.DateCreated;System.DateModified;System.DateAccessed;System.FileAttributes;System.OfflineAvailability;System.OfflineStatus;System.SharedWith;System.FileOwner;System.ComputerName"/>
+							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="PreviewDetails" Value="prop:System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.DateModified;System.Size;System.FileVersion;System.DateCreated;System.SharedWith"/>
+							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="ContentViewModeForBrowse" Value="prop:~System.ItemNameDisplay;~System.Author;System.FileVersion;~System.LayoutPattern.PlaceHolder;System.Document.DateCreated;System.Size"/>
+							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="ContentViewModeLayoutPatternForBrowse" Value="delta"/>
+							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="ContentViewModeForSearch" Value="prop:~System.ItemNameDisplay;System.Document.DateCreated;~System.ItemFolderPathDisplay;~System.Keywords;System.Size;System.Author"/>
+							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="ContentViewModeLayoutPatternForSearch" Value="alpha"/>
+							<RegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\PropertySystem\PropertyHandlers\.cic" Type="string" Value="{001823E8-247E-4685-BD84-350347B0460C}"/>
+							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1\ShellEx\{e357fccd-a995-4576-b01f-234630154e96}" Type="string" Value="{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}"/>
+						</Component>
 						<Component Id="C_WeifenLuo.WinFormsUI.Docking.dll" Guid="{93FBAC71-EB15-F81B-0F07-D50C1557B141}">
 							<File
 								Id="WeifenLuo.WinFormsUI.Docking.dll" Name="WeifenLuo.WinFormsUI.Docking.dll" KeyPath="yes"
@@ -55,17 +72,6 @@
 								Id="Comical.exe.config" Name="Comical.exe.config" KeyPath="yes"
 								Source="$(var.Comical.TargetPath).config" />
 						</Component>
-						<Component Id="C_ArchiversManager.exe.config" Guid="{A7AB91AF-9BFA-92DB-3A91-F76CBE2FBA11}">
-							<File
-								Id="ArchiversManager.exe.config" Name="ArchiversManager.exe.config" KeyPath="yes"
-								Source="$(var.ArchiversManager.TargetPath).config" />
-						</Component>
-						<Component Id="C_ArchiversManager.exe" Guid="{EE132471-393D-E9DF-3DC9-0F84615BBFA6}">
-							<File
-								Id="ArchiversManager.exe" Name="ArchiversManager.exe" KeyPath="yes"
-								Assembly=".net" AssemblyManifest="ArchiversManager.exe" AssemblyApplication="ArchiversManager.exe"
-								Source="$(var.ArchiversManager.TargetPath)"/>
-						</Component>
 						<Component Id="C_ComicalCore.dll" Guid="{A9525028-FF66-4B74-88EC-163A656C0950}">
 							<File
 								Id="ComicalCore.dll" Name="ComicalCore.dll" KeyPath="yes"
@@ -95,29 +101,6 @@
 					</Directory>
 				</Directory>
 			</Directory>
-			<Directory Id="ProgramFiles64Folder">
-				<Directory Id="ManufacturerDirectory64" Name="takumi">
-					<Directory Id="INSTALLDIR64" Name="Comical">
-						<Component Id="C_ComicFileHandler.dll" Guid="{B32A08B6-EB9B-4880-B05B-0E8714668BD9}" Win64="yes">
-							<File
-								Id="ComicFileHandler.dll" Name="ComicFileHandler.dll" KeyPath="yes"
-								Source="$(var.ComicFileHandler.ProjectDir)$(var.ComicFileHandler.Configuration)\$(var.ComicFileHandler.TargetFileName)" />
-							<Class Id="001823E8-247E-4685-BD84-350347B0460C" Advertise="yes" Context="InprocServer32" Description="Comic Property Handler" ThreadingModel="apartment"/>
-							<Class Id="4423CDF9-0C1B-4F23-8CC4-BA634252CD6A" Advertise="yes" Context="InprocServer32" Description="Comic Thumbnail Provider" ThreadingModel="apartment"/>
-							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="FriendlyTypeName" Value='@"[INSTALLDIR64]ComicFileHandler.dll",-101'/>
-							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="InfoTip" Value="prop:System.ItemType;System.Author;System.Size;System.DateModified"/>
-							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="FullDetails" Value="prop:System.PropGroup.Description;System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.FileVersion;System.PropGroup.FileSystem;System.ItemNameDisplay;System.ItemType;System.ItemFolderPathDisplay;System.Size;System.DateCreated;System.DateModified;System.DateAccessed;System.FileAttributes;System.OfflineAvailability;System.OfflineStatus;System.SharedWith;System.FileOwner;System.ComputerName"/>
-							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="PreviewDetails" Value="prop:System.Title;System.Author;System.Document.DateCreated;System.Keywords;System.DateModified;System.Size;System.FileVersion;System.DateCreated;System.SharedWith"/>
-							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="ContentViewModeForBrowse" Value="prop:~System.ItemNameDisplay;~System.Author;System.FileVersion;~System.LayoutPattern.PlaceHolder;System.Document.DateCreated;System.Size"/>
-							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="ContentViewModeLayoutPatternForBrowse" Value="delta"/>
-							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="ContentViewModeForSearch" Value="prop:~System.ItemNameDisplay;System.Document.DateCreated;~System.ItemFolderPathDisplay;~System.Keywords;System.Size;System.Author"/>
-							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1" Type="string" Name="ContentViewModeLayoutPatternForSearch" Value="alpha"/>
-							<RegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\PropertySystem\PropertyHandlers\.cic" Type="string" Value="{001823E8-247E-4685-BD84-350347B0460C}"/>
-							<RegistryValue Root="HKCR" Key="Comical.ImageCollection.1\ShellEx\{e357fccd-a995-4576-b01f-234630154e96}" Type="string" Value="{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}"/>
-						</Component>
-					</Directory>
-				</Directory>
-			</Directory>
 			<Directory Id="ProgramMenuFolder" />
 		</Directory>
 		<Feature Id="Complete" ConfigurableDirectory="TARGETDIR" Level="1">
@@ -129,8 +112,6 @@
 			<ComponentRef Id="C_Comical.resources.dll" />
 			<ComponentRef Id="C_ComicFileHandler.dll" />
 			<ComponentRef Id="C_Comical.exe.config" />
-			<ComponentRef Id="C_ArchiversManager.exe.config" />
-			<ComponentRef Id="C_ArchiversManager.exe" />
 			<ComponentRef Id="C_ComicalCore.dll"/>
 			<ComponentRef Id="C_CommonLibrary.dll"/>
 			<ComponentRef Id="C_FileVersionViewer.exe" />

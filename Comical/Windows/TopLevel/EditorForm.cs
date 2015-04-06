@@ -154,7 +154,6 @@ namespace Comical
 		async Task AddAnythingLocalAsync(bool open, params string[] paths)
 		{
 			List<string> openableFiles = new List<string>();
-			List<string> archives = new List<string>();
 			FileHeader cicFileToOpen = null;
 			Action<string> sortingFiles = file =>
 			{
@@ -166,10 +165,7 @@ namespace Comical
 				}
 				else if (imageExtensions.Any(ex => System.IO.Path.GetExtension(file).ToLowerInvariant() == "." + ex))
 					openableFiles.Add(file);
-				else
-					archives.Add(file);
 			};
-			var di = CommonUtils.TempFolder.CreateSubdirectory("ZipExtract");
 			try
 			{
 				BeginAsyncWork();
@@ -186,19 +182,6 @@ namespace Comical
 					}
 				});
 				prgStatus.Style = ProgressBarStyle.Blocks;
-				string fileSpecifier = string.Join(" ", imageExtensions.Select(it => "*." + it));
-				for (int i = 0; i < archives.Count; i++)
-				{
-					var arc = Archivers.ArchiversConfiguration.FindArchiverToExtract(archives[i]);
-					if (arc == null)
-						continue;
-					using (arc)
-					{
-						var extractFolder = System.IO.Path.Combine(di.FullName, System.IO.Path.GetFileNameWithoutExtension(archives[i]));
-						arc.Extract(archives[i], extractFolder, fileSpecifier);
-						EnumerateFiles(extractFolder, sortingFiles);
-					}
-				}
 				bool hasOpened = false;
 				if (cicFileToOpen != null)
 				{
@@ -253,11 +236,7 @@ namespace Comical
 				lblStatus.Text = Properties.Resources.ImportingImages;
 				await comic.ImportImageFilesAsync(openableFiles, hasOpened ? new Progress<int>(x => prgStatus.Value = 50 + x / 2) : defaultProgress);
 			}
-			finally
-			{
-				EndAsyncWork();
-				di.Delete(true);
-			}
+			finally { EndAsyncWork(); }
 		}
 
 		async Task<bool> SaveAsync()
@@ -485,27 +464,11 @@ namespace Comical
 
 		#endregion
 
-		#region ToolMenu
-
-		void itmManageArchiver_Click(object sender, EventArgs e)
-		{
-			Action<IWin32Window> afterClosed = null;
-			using (ManageArchiverDialog dialog = new ManageArchiverDialog())
-			{
-				dialog.ShowDialog(this);
-				afterClosed = dialog.AfterClosed;
-			}
-			if (afterClosed != null)
-				afterClosed(this);
-		}
-
 		void itmOption_Click(object sender, EventArgs e)
 		{
 			using (OptionDialog dialog = new OptionDialog())
 				dialog.ShowDialog(this);
 		}
-
-		#endregion
 
 		void itmAbout_Click(object sender, EventArgs e)
 		{
@@ -518,45 +481,6 @@ namespace Comical
 		protected override async void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			if (Properties.Settings.Default.CheckArchiverUpdateWhenStarted)
-			{
-				lblStatus.Text = Properties.Resources.CheckingArchiversUpdate;
-				bool needUpdate = false;
-				foreach (var set in Archivers.ArchiversConfiguration.Settings)
-				{
-					using (var arc = set.CreateArchiver())
-					{
-						var res = await set.GetAvailableArchiverInfoAsync();
-						if (arc != null && res != null && res.AvailableVersion > arc.Version)
-						{
-							needUpdate = true;
-							break;
-						}
-					}
-				}
-				lblStatus.Text = string.Empty;
-				if (needUpdate)
-				{
-					using (TaskDialog dialog = new TaskDialog())
-					{
-						dialog.Cancelable = true;
-						dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
-						dialog.OwnerWindowHandle = Handle;
-						dialog.Caption = Application.ProductName;
-						dialog.InstructionText = Properties.Resources.NewerVersionFoundMessage;
-						dialog.Icon = TaskDialogStandardIcon.None;
-						var bok = new TaskDialogButton("btnOK", Properties.Resources.Update);
-						bok.UseElevationIcon = true;
-						bok.Click += (s, ev) => dialog.Close(TaskDialogResult.Ok);
-						var bcancel = new TaskDialogButton("btnCancel", Properties.Resources.Cancel);
-						bcancel.Click += (s, ev) => dialog.Close(TaskDialogResult.Cancel);
-						dialog.Controls.Add(bok);
-						dialog.Controls.Add(bcancel);
-						if (dialog.Show() == TaskDialogResult.Ok)
-							Archivers.ArchiversConfiguration.UpdateAll(Handle);
-					}
-				}
-			}
 			var args = Environment.GetCommandLineArgs();
 			if (args.Length >= 2)
 				await AddAnythingLocalAsync(true, args[1]);

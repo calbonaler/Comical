@@ -80,8 +80,6 @@
 			this.itmAddBookmark = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmRemoveBookmark = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmTool = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmArchivers = new System.Windows.Forms.ToolStripMenuItem();
-			this.sepTool = new System.Windows.Forms.ToolStripSeparator();
 			this.itmOption = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmHelp = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,7 +103,6 @@
 			// 
 			// itmFile
 			// 
-			resources.ApplyResources(this.itmFile, "itmFile");
 			this.itmFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmNew,
             this.itmOpen,
@@ -117,6 +114,7 @@
             this.sepFile3,
             this.itmExit});
 			this.itmFile.Name = "itmFile";
+			resources.ApplyResources(this.itmFile, "itmFile");
 			// 
 			// itmNew
 			// 
@@ -132,8 +130,8 @@
 			// 
 			// sepFile1
 			// 
-			resources.ApplyResources(this.sepFile1, "sepFile1");
 			this.sepFile1.Name = "sepFile1";
+			resources.ApplyResources(this.sepFile1, "sepFile1");
 			// 
 			// itmSave
 			// 
@@ -149,8 +147,8 @@
 			// 
 			// sepFile2
 			// 
-			resources.ApplyResources(this.sepFile2, "sepFile2");
 			this.sepFile2.Name = "sepFile2";
+			resources.ApplyResources(this.sepFile2, "sepFile2");
 			// 
 			// itmDocumentSettings
 			// 
@@ -160,24 +158,24 @@
 			// 
 			// sepFile3
 			// 
-			resources.ApplyResources(this.sepFile3, "sepFile3");
 			this.sepFile3.Name = "sepFile3";
+			resources.ApplyResources(this.sepFile3, "sepFile3");
 			// 
 			// itmExit
 			// 
-			resources.ApplyResources(this.itmExit, "itmExit");
 			this.itmExit.Name = "itmExit";
+			resources.ApplyResources(this.itmExit, "itmExit");
 			this.itmExit.Click += new System.EventHandler(this.itmExit_Click);
 			// 
 			// itmEdit
 			// 
-			resources.ApplyResources(this.itmEdit, "itmEdit");
 			this.itmEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmSelectAll,
             this.itmInvertSelections,
             this.sepEdit,
             this.itmGoToIndex});
 			this.itmEdit.Name = "itmEdit";
+			resources.ApplyResources(this.itmEdit, "itmEdit");
 			// 
 			// itmSelectAll
 			// 
@@ -193,8 +191,8 @@
 			// 
 			// sepEdit
 			// 
-			resources.ApplyResources(this.sepEdit, "sepEdit");
 			this.sepEdit.Name = "sepEdit";
+			resources.ApplyResources(this.sepEdit, "sepEdit");
 			// 
 			// itmGoToIndex
 			// 
@@ -204,7 +202,6 @@
 			// 
 			// itmImage
 			// 
-			resources.ApplyResources(this.itmImage, "itmImage");
 			this.itmImage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmAdd,
             this.sepImage1,
@@ -217,16 +214,17 @@
             this.itmSetViewMode,
             this.itmInvertViewMode});
 			this.itmImage.Name = "itmImage";
+			resources.ApplyResources(this.itmImage, "itmImage");
 			// 
 			// itmAdd
 			// 
-			resources.ApplyResources(this.itmAdd, "itmAdd");
 			this.itmAdd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmFromFiles,
             this.itmFromFolder,
             this.sepAdd,
             this.itmFromWebPage});
 			this.itmAdd.Name = "itmAdd";
+			resources.ApplyResources(this.itmAdd, "itmAdd");
 			// 
 			// itmFromFiles
 			// 
@@ -242,8 +240,8 @@
 			// 
 			// sepAdd
 			// 
-			resources.ApplyResources(this.sepAdd, "sepAdd");
 			this.sepAdd.Name = "sepAdd";
+			resources.ApplyResources(this.sepAdd, "sepAdd");
 			// 
 			// itmFromWebPage
 			// 
@@ -253,13 +251,13 @@
 			// 
 			// sepImage1
 			// 
-			resources.ApplyResources(this.sepImage1, "sepImage1");
 			this.sepImage1.Name = "sepImage1";
+			resources.ApplyResources(this.sepImage1, "sepImage1");
 			// 
 			// itmOpenImage
 			// 
-			resources.ApplyResources(this.itmOpenImage, "itmOpenImage");
 			this.itmOpenImage.Name = "itmOpenImage";
+			resources.ApplyResources(this.itmOpenImage, "itmOpenImage");
 			this.itmOpenImage.Click += new System.EventHandler(this.itmOpenImage_Click);
 			// 
 			// itmExclude
@@ -270,8 +268,8 @@
 			// 
 			// sepImage2
 			// 
-			resources.ApplyResources(this.sepImage2, "sepImage2");
 			this.sepImage2.Name = "sepImage2";
+			resources.ApplyResources(this.sepImage2, "sepImage2");
 			// 
 			// itmExport
 			// 
@@ -287,8 +285,8 @@
 			// 
 			// sepImage3
 			// 
-			resources.ApplyResources(this.sepImage3, "sepImage3");
 			this.sepImage3.Name = "sepImage3";
+			resources.ApplyResources(this.sepImage3, "sepImage3");
 			// 
 			// itmSetViewMode
 			// 
@@ -304,11 +302,11 @@
 			// 
 			// itmBookmark
 			// 
-			resources.ApplyResources(this.itmBookmark, "itmBookmark");
 			this.itmBookmark.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmAddBookmark,
             this.itmRemoveBookmark});
 			this.itmBookmark.Name = "itmBookmark";
+			resources.ApplyResources(this.itmBookmark, "itmBookmark");
 			// 
 			// itmAddBookmark
 			// 
@@ -324,63 +322,50 @@
 			// 
 			// itmTool
 			// 
-			resources.ApplyResources(this.itmTool, "itmTool");
 			this.itmTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmArchivers,
-            this.sepTool,
             this.itmOption});
 			this.itmTool.Name = "itmTool";
-			// 
-			// itmArchivers
-			// 
-			resources.ApplyResources(this.itmArchivers, "itmArchivers");
-			this.itmArchivers.Name = "itmArchivers";
-			this.itmArchivers.Click += new System.EventHandler(this.itmManageArchiver_Click);
-			// 
-			// sepTool
-			// 
-			resources.ApplyResources(this.sepTool, "sepTool");
-			this.sepTool.Name = "sepTool";
+			resources.ApplyResources(this.itmTool, "itmTool");
 			// 
 			// itmOption
 			// 
-			resources.ApplyResources(this.itmOption, "itmOption");
 			this.itmOption.Name = "itmOption";
+			resources.ApplyResources(this.itmOption, "itmOption");
 			this.itmOption.Click += new System.EventHandler(this.itmOption_Click);
 			// 
 			// itmHelp
 			// 
-			resources.ApplyResources(this.itmHelp, "itmHelp");
 			this.itmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmAbout});
 			this.itmHelp.Name = "itmHelp";
+			resources.ApplyResources(this.itmHelp, "itmHelp");
 			// 
 			// itmAbout
 			// 
-			resources.ApplyResources(this.itmAbout, "itmAbout");
 			this.itmAbout.Name = "itmAbout";
+			resources.ApplyResources(this.itmAbout, "itmAbout");
 			this.itmAbout.Click += new System.EventHandler(this.itmAbout_Click);
 			// 
 			// stsMain
 			// 
-			resources.ApplyResources(this.stsMain, "stsMain");
 			this.stsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus,
             this.prgStatus,
             this.lblImageCount});
+			resources.ApplyResources(this.stsMain, "stsMain");
 			this.stsMain.Name = "stsMain";
 			this.stsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			// 
 			// lblStatus
 			// 
-			resources.ApplyResources(this.lblStatus, "lblStatus");
 			this.lblStatus.Name = "lblStatus";
+			resources.ApplyResources(this.lblStatus, "lblStatus");
 			this.lblStatus.Spring = true;
 			// 
 			// prgStatus
 			// 
-			resources.ApplyResources(this.prgStatus, "prgStatus");
 			this.prgStatus.Name = "prgStatus";
+			resources.ApplyResources(this.prgStatus, "prgStatus");
 			// 
 			// lblImageCount
 			// 
@@ -389,7 +374,6 @@
 			// 
 			// menMain
 			// 
-			resources.ApplyResources(this.menMain, "menMain");
 			this.menMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmFile,
             this.itmEdit,
@@ -398,16 +382,17 @@
             this.itmBookmark,
             this.itmTool,
             this.itmHelp});
+			resources.ApplyResources(this.menMain, "menMain");
 			this.menMain.Name = "menMain";
 			this.menMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			// 
 			// itmView
 			// 
-			resources.ApplyResources(this.itmView, "itmView");
 			this.itmView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmContentsWindow,
             this.itmBookmarksWindow});
 			this.itmView.Name = "itmView";
+			resources.ApplyResources(this.itmView, "itmView");
 			// 
 			// itmContentsWindow
 			// 
@@ -423,32 +408,32 @@
 			// 
 			// tsMain
 			// 
-			resources.ApplyResources(this.tsMain, "tsMain");
 			this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnNew,
             this.btnOpen,
             this.btnSave});
+			resources.ApplyResources(this.tsMain, "tsMain");
 			this.tsMain.Name = "tsMain";
 			this.tsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			// 
 			// btnNew
 			// 
-			resources.ApplyResources(this.btnNew, "btnNew");
 			this.btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			resources.ApplyResources(this.btnNew, "btnNew");
 			this.btnNew.Name = "btnNew";
 			this.btnNew.Click += new System.EventHandler(this.itmNew_Click);
 			// 
 			// btnOpen
 			// 
-			resources.ApplyResources(this.btnOpen, "btnOpen");
 			this.btnOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			resources.ApplyResources(this.btnOpen, "btnOpen");
 			this.btnOpen.Name = "btnOpen";
 			this.btnOpen.Click += new System.EventHandler(this.itmOpen_Click);
 			// 
 			// btnSave
 			// 
-			resources.ApplyResources(this.btnSave, "btnSave");
 			this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			resources.ApplyResources(this.btnSave, "btnSave");
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Click += new System.EventHandler(this.itmSave_Click);
 			// 
@@ -578,8 +563,6 @@
 		private System.Windows.Forms.ToolStripMenuItem itmContentsWindow;
 		private System.Windows.Forms.ToolStripMenuItem itmBookmarksWindow;
 		private System.Windows.Forms.ToolStripMenuItem itmOpenImage;
-		private System.Windows.Forms.ToolStripMenuItem itmArchivers;
-		private System.Windows.Forms.ToolStripSeparator sepTool;
 
 	}
 }

@@ -136,9 +136,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>
-  <data name="Uninstall" xml:space="preserve">
-    <value>アンインストール</value>
-  </data>
   <data name="ConfigureProtection" xml:space="preserve">
     <value>保護の設定(&amp;P)</value>
   </data>
@@ -156,15 +153,6 @@
   </data>
   <data name="TitleFormat" xml:space="preserve">
     <value>{0} - {1}</value>
-  </data>
-  <data name="Archivers_HasDependencyDialog_DetailsHeader" xml:space="preserve">
-    <value>依存している以下のアーカイバーを先にアンインストールしてください:</value>
-  </data>
-  <data name="CannotUninstallWithDependencies" xml:space="preserve">
-    <value>"{0}" は依存するアーカイバーが存在するためアンインストールできません</value>
-  </data>
-  <data name="CheckingArchiversUpdate" xml:space="preserve">
-    <value>アーカイバーの更新を確認しています...</value>
   </data>
   <data name="Downloading" xml:space="preserve">
     <value>ダウンロードしています {0} 個中 {1} 個完了</value>
@@ -196,9 +184,6 @@
   <data name="Untitled" xml:space="preserve">
     <value>無題</value>
   </data>
-  <data name="Update" xml:space="preserve">
-    <value>更新</value>
-  </data>
   <data name="ViewerDescription_NoSelection" xml:space="preserve">
     <value>ここにプレビューを生成します。</value>
   </data>
@@ -207,9 +192,6 @@
   </data>
   <data name="PasswordsNotSame" xml:space="preserve">
     <value>入力したパスワードは一致しません。</value>
-  </data>
-  <data name="NewerVersionFoundMessage" xml:space="preserve">
-    <value>利用可能な最新版が見つかりました。更新しますか?</value>
   </data>
   <data name="InputSamePasswordInBothBox" xml:space="preserve">
     <value>新しいパスワードを両方のボックスに入力してください。</value>

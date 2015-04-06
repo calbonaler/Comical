@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
@@ -14,8 +13,6 @@ namespace CommonLibrary
 {
 	public static class CommonUtils
 	{
-		public static DirectoryInfo TempFolder { get { return Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "takumi")); } }
-
 		public static async Task<string> GetHtml(Uri url, CancellationToken token)
 		{
 			using (var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
@@ -33,15 +30,6 @@ namespace CommonLibrary
 			if (control == null)
 				throw new ArgumentNullException("control");
 			Marshal.ThrowExceptionForHR(NativeMethods.SetWindowTheme(control.Handle, appName, null));
-		}
-
-		public static void UseElevationIcon(this ButtonBase button, bool value)
-		{
-			if (button == null)
-				throw new ArgumentNullException("button");
-			if (value)
-				button.FlatStyle = FlatStyle.System;
-			NativeMethods.SendMessage(button.Handle, 0x160C, new IntPtr(0), new IntPtr(value ? 1 : 0));
 		}
 
 		public static void ExtendFrameIntoClientArea(this Form form, bool fullWindow)
@@ -88,19 +76,6 @@ namespace CommonLibrary
 					tmp.Dispose();
 			}
 			return bitmap;
-		}
-
-		[CLSCompliant(false)]
-		public static int CountLeadingZero(uint value)
-		{
-			if (value == 0) return 32;
-			int n = 0;
-			if ((value & 0xFFFF0000U) == 0) { n |= 0x10; value <<= 0x10; }
-			if ((value & 0xFF000000U) == 0) { n |= 0x08; value <<= 0x08; }
-			if ((value & 0xF0000000U) == 0) { n |= 0x04; value <<= 0x04; }
-			if ((value & 0xC0000000U) == 0) { n |= 0x02; value <<= 0x02; }
-			if ((value & 0x80000000U) == 0) { n |= 0x01; }
-			return n;
 		}
 	}
 }

@@ -33,9 +33,6 @@
 			this.lblPageViewDesc = new System.Windows.Forms.Label();
 			this.btnOK = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
-			this.tpArchivers = new System.Windows.Forms.TabPage();
-			this.chkCheckArchiverUpdateWhenStarted = new System.Windows.Forms.CheckBox();
-			this.ilStatus = new System.Windows.Forms.ImageList(this.components);
 			this.tcContents = new System.Windows.Forms.TabControl();
 			this.tpCommon = new System.Windows.Forms.TabPage();
 			this.chkUsePageView = new System.Windows.Forms.CheckBox();
@@ -47,7 +44,6 @@
 			this.itmTitle = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmAuthor = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmFormattedDate = new System.Windows.Forms.ToolStripMenuItem();
-			this.tpArchivers.SuspendLayout();
 			this.tcContents.SuspendLayout();
 			this.tpCommon.SuspendLayout();
 			this.tpEditor.SuspendLayout();
@@ -74,41 +70,20 @@
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			// 
-			// tpArchivers
-			// 
-			resources.ApplyResources(this.tpArchivers, "tpArchivers");
-			this.tpArchivers.BackColor = System.Drawing.SystemColors.Window;
-			this.tpArchivers.Controls.Add(this.chkCheckArchiverUpdateWhenStarted);
-			this.tpArchivers.Name = "tpArchivers";
-			// 
-			// chkCheckArchiverUpdateWhenStarted
-			// 
-			resources.ApplyResources(this.chkCheckArchiverUpdateWhenStarted, "chkCheckArchiverUpdateWhenStarted");
-			this.chkCheckArchiverUpdateWhenStarted.Name = "chkCheckArchiverUpdateWhenStarted";
-			this.chkCheckArchiverUpdateWhenStarted.UseVisualStyleBackColor = true;
-			// 
-			// ilStatus
-			// 
-			this.ilStatus.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilStatus.ImageStream")));
-			this.ilStatus.TransparentColor = System.Drawing.Color.Transparent;
-			this.ilStatus.Images.SetKeyName(0, "installed");
-			this.ilStatus.Images.SetKeyName(1, "uninstalled");
-			// 
 			// tcContents
 			// 
 			resources.ApplyResources(this.tcContents, "tcContents");
 			this.tcContents.Controls.Add(this.tpCommon);
 			this.tcContents.Controls.Add(this.tpEditor);
-			this.tcContents.Controls.Add(this.tpArchivers);
 			this.tcContents.Name = "tcContents";
 			this.tcContents.SelectedIndex = 0;
 			// 
 			// tpCommon
 			// 
-			resources.ApplyResources(this.tpCommon, "tpCommon");
 			this.tpCommon.BackColor = System.Drawing.SystemColors.Window;
 			this.tpCommon.Controls.Add(this.lblPageViewDesc);
 			this.tpCommon.Controls.Add(this.chkUsePageView);
+			resources.ApplyResources(this.tpCommon, "tpCommon");
 			this.tpCommon.Name = "tpCommon";
 			// 
 			// chkUsePageView
@@ -119,11 +94,11 @@
 			// 
 			// tpEditor
 			// 
-			resources.ApplyResources(this.tpEditor, "tpEditor");
 			this.tpEditor.BackColor = System.Drawing.SystemColors.Window;
 			this.tpEditor.Controls.Add(this.btnInsertMask);
 			this.tpEditor.Controls.Add(this.txtDefaultSavedFileName);
 			this.tpEditor.Controls.Add(this.lblDefaultSavedFileName);
+			resources.ApplyResources(this.tpEditor, "tpEditor");
 			this.tpEditor.Name = "tpEditor";
 			// 
 			// btnInsertMask
@@ -145,32 +120,32 @@
 			// 
 			// conInsertMask
 			// 
-			resources.ApplyResources(this.conInsertMask, "conInsertMask");
 			this.conInsertMask.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmTitle,
             this.itmAuthor,
             this.itmFormattedDate});
 			this.conInsertMask.Name = "conInsertMask";
 			this.conInsertMask.ShowImageMargin = false;
+			resources.ApplyResources(this.conInsertMask, "conInsertMask");
 			// 
 			// itmTitle
 			// 
-			resources.ApplyResources(this.itmTitle, "itmTitle");
 			this.itmTitle.Name = "itmTitle";
+			resources.ApplyResources(this.itmTitle, "itmTitle");
 			this.itmTitle.Tag = "";
 			this.itmTitle.Click += new System.EventHandler(this.InsertMaskItem_Click);
 			// 
 			// itmAuthor
 			// 
-			resources.ApplyResources(this.itmAuthor, "itmAuthor");
 			this.itmAuthor.Name = "itmAuthor";
+			resources.ApplyResources(this.itmAuthor, "itmAuthor");
 			this.itmAuthor.Tag = "";
 			this.itmAuthor.Click += new System.EventHandler(this.InsertMaskItem_Click);
 			// 
 			// itmFormattedDate
 			// 
-			resources.ApplyResources(this.itmFormattedDate, "itmFormattedDate");
 			this.itmFormattedDate.Name = "itmFormattedDate";
+			resources.ApplyResources(this.itmFormattedDate, "itmFormattedDate");
 			this.itmFormattedDate.Tag = "";
 			this.itmFormattedDate.Click += new System.EventHandler(this.InsertMaskItem_Click);
 			// 
@@ -189,8 +164,6 @@
 			this.Name = "OptionDialog";
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
-			this.tpArchivers.ResumeLayout(false);
-			this.tpArchivers.PerformLayout();
 			this.tcContents.ResumeLayout(false);
 			this.tpCommon.ResumeLayout(false);
 			this.tpCommon.PerformLayout();
@@ -214,11 +187,8 @@
 		System.Windows.Forms.ToolStripMenuItem itmTitle;
 		System.Windows.Forms.ToolStripMenuItem itmAuthor;
 		System.Windows.Forms.ToolStripMenuItem itmFormattedDate;
-		private System.Windows.Forms.ImageList ilStatus;
-		private System.Windows.Forms.CheckBox chkCheckArchiverUpdateWhenStarted;
 		private System.Windows.Forms.Label lblPageViewDesc;
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.Button btnCancel;
-		private System.Windows.Forms.TabPage tpArchivers;
 	}
 }

@@ -70,15 +70,6 @@ namespace Comical.Properties {
         }
         
         /// <summary>
-        ///   依存している以下のアーカイバーを先にアンインストールしてください: に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string Archivers_HasDependencyDialog_DetailsHeader {
-            get {
-                return ResourceManager.GetString("Archivers_HasDependencyDialog_DetailsHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   キャンセル に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Cancel {
@@ -93,24 +84,6 @@ namespace Comical.Properties {
         internal static string CannotDecryptBecausePasswordNotProper {
             get {
                 return ResourceManager.GetString("CannotDecryptBecausePasswordNotProper", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   &quot;{0}&quot; は依存するアーカイバーが存在するためアンインストールできません に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string CannotUninstallWithDependencies {
-            get {
-                return ResourceManager.GetString("CannotUninstallWithDependencies", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   アーカイバーの更新を確認しています... に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string CheckingArchiversUpdate {
-            get {
-                return ResourceManager.GetString("CheckingArchiversUpdate", resourceCulture);
             }
         }
         
@@ -262,15 +235,6 @@ namespace Comical.Properties {
         }
         
         /// <summary>
-        ///   利用可能な最新版が見つかりました。更新しますか? に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string NewerVersionFoundMessage {
-            get {
-                return ResourceManager.GetString("NewerVersionFoundMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
         internal static System.Drawing.Bitmap Next {
@@ -345,29 +309,11 @@ namespace Comical.Properties {
         }
         
         /// <summary>
-        ///   アンインストール に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string Uninstall {
-            get {
-                return ResourceManager.GetString("Uninstall", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   無題 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Untitled {
             get {
                 return ResourceManager.GetString("Untitled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   更新 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string Update {
-            get {
-                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
         
