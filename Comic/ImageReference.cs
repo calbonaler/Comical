@@ -174,38 +174,29 @@ namespace Comical.Core
 				OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<ImageReference>(new[] { new KeyValuePair<ImageReference, string>((ImageReference)sender, e.PropertyName) }));
 		}
 
-		public IDisposable SuspendNotification()
+		public IDisposable EnterUnnotifiedSection()
 		{
 			_notificationSuspended = true;
-			return new Resumer(this);
+			return new DelegateDisposable(ResumeNotification);
+		}
+
+		void ResumeNotification()
+		{
+			_notificationSuspended = false;
+			if (collectionChanges.Any(x => x.Action == NotifyCollectionChangedAction.Reset) || collectionChanges.Count > 20)
+				OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+			else if (collectionChanges.Count > 0)
+			{
+				foreach (var ch in collectionChanges)
+					OnCollectionChanged(ch);
+			}
+			collectionChanges.Clear();
+			if (itemChanges.Count > 0)
+				OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<ImageReference>(itemChanges));
+			itemChanges.Clear();
 		}
 
 		public event NotifyCollectionChangedEventHandler CollectionChanged;
 		public event EventHandler<CompositePropertyChangedEventArgs<ImageReference>> CollectionItemPropertyChanged;
-
-		class Resumer : IDisposable
-		{
-			public Resumer(ImageReferenceCollection owner) { _owner = owner; }
-
-			ImageReferenceCollection _owner;
-
-			public void Dispose()
-			{
-				if (_owner != null)
-				{
-					_owner._notificationSuspended = false;
-					if (_owner.collectionChanges.Any(x => x.Action == NotifyCollectionChangedAction.Reset) || _owner.collectionChanges.Count > 20)
-						_owner.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-					else if (_owner.collectionChanges.Count > 0)
-						foreach (var ch in _owner.collectionChanges)
-							_owner.OnCollectionChanged(ch);
-					_owner.collectionChanges.Clear();
-					if (_owner.itemChanges.Count > 0)
-						_owner.OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<ImageReference>(_owner.itemChanges));
-					_owner.itemChanges.Clear();
-					_owner = null;
-				}
-			}
-		}
 	}
 }

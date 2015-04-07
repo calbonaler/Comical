@@ -16,7 +16,6 @@ namespace Comical.Core
 		public Comic()
 		{
 			_context = SynchronizationContext.Current;
-			_blocker.PropertyChanged += (s, ev) => PropertyChanged.Raise(this, _context, () => IsBusy);
 			Images = new ImageReferenceCollection();
 			Images.CollectionChanged += (s, ev) => IsDirty = true;
 			Images.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
@@ -36,17 +35,19 @@ namespace Comical.Core
 
 		string _password = "";
 		SynchronizationContext _context;
-		MultioperationBlocker _blocker = new MultioperationBlocker();
 		bool _canDirty = true;
 		readonly object _lockObject = new object();
 		static readonly Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 		public static readonly string DefaultPassword = null;
+		bool _busy = false;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public void StartDirtyCheck() { _canDirty = true; }
-
-		public void StopDirtyCheck() { _canDirty = false; }
+		public IDisposable EnterUndirtiableSection()
+		{
+			_canDirty = false;
+			return new DelegateDisposable(() => _canDirty = true);
+		}
 
 		FileHeader ReadFile(string fileName, string password, BookmarkCollection bookmarks, CancellationToken token, IProgress<int> progress)
 		{
@@ -143,18 +144,13 @@ namespace Comical.Core
 		{
 			if (disposing)
 			{
-				_canDirty = false;
 				if (Bookmarks != null)
 					Bookmarks.Clear();
 				if (Images != null)
 					Images.Clear();
 				_author = null;
-				_blocker = null;
 				_context = null;
-				_dateOfPublication = null;
-				_dirty = false;
 				_fileVersion = null;
-				_pageTurningDirection = Core.PageTurningDirection.None;
 				_password = null;
 				_savedFilePath = null;
 				if (_thumbnail != null)
@@ -182,34 +178,30 @@ namespace Comical.Core
 		public async Task OpenAsync(string fileName, string password, CancellationToken token, IProgress<int> progress)
 		{
 			ThrowIfDisposed();
-			using (_blocker.Enter())
+			using (EnterSingleOperation())
 			{
 				Clear();
-				try
+				using (EnterUndirtiableSection())
+				using (Images.EnterUnnotifiedSection())
 				{
-					StopDirtyCheck();
-					using (Images.SuspendNotification())
-					{
-						var cic = await Task.Run(() => ReadFile(fileName, password, Bookmarks, token, progress));
-						SavedFilePath = fileName;
-						_password = password;
-						Thumbnail = cic.Thumbnail;
-						FileVersion = cic.FileVersion;
-						Title = cic.Title;
-						Author = cic.Author;
-						DateOfPublication = cic.DateOfPublication;
-						PageTurningDirection = cic.PageTurningDirection;
-					}
+					var cic = await Task.Run(() => ReadFile(fileName, password, Bookmarks, token, progress));
+					SavedFilePath = fileName;
+					_password = password;
+					Thumbnail = cic.Thumbnail;
+					FileVersion = cic.FileVersion;
+					Title = cic.Title;
+					Author = cic.Author;
+					DateOfPublication = cic.DateOfPublication;
+					PageTurningDirection = cic.PageTurningDirection;
 				}
-				finally { StartDirtyCheck(); }
 			}
 		}
 
 		public async Task SaveAsync(string fileName, string password, IProgress<int> progress)
 		{
-			using (_blocker.Enter())
+			using (EnterSingleOperation())
+			using (EnterUndirtiableSection())
 			{
-				StopDirtyCheck();
 				if (password == DefaultPassword)
 					password = _password;
 				await Task.Run(() => WriteFile(Images, new FileHeader(fileName, password, AssemblyVersion)
@@ -224,23 +216,22 @@ namespace Comical.Core
 				SavedFilePath = fileName;
 				_password = password;
 				IsDirty = false;
-				StartDirtyCheck();
 			}
 		}
 
 		public async Task AppendAsync(string fileName, string password, CancellationToken token, IProgress<int> progress)
 		{
 			ThrowIfDisposed();
-			using (_blocker.Enter())
-			using (Images.SuspendNotification())
+			using (EnterSingleOperation())
+			using (Images.EnterUnnotifiedSection())
 				await Task.Run(() => ReadFile(fileName, password, new BookmarkCollection(null, null), token, progress));
 		}
 
 		public async Task ImportImageFilesAsync(IEnumerable<string> fileNames, IProgress<int> progress)
 		{
 			ThrowIfDisposed();
-			using (_blocker.Enter())
-			using (Images.SuspendNotification())
+			using (EnterSingleOperation())
+			using (Images.EnterUnnotifiedSection())
 			{
 				var fileNameList = fileNames.ToArray();
 				await Task.Run(() =>
@@ -259,7 +250,7 @@ namespace Comical.Core
 		public async Task ExportAsync(string baseDirectory, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
 			ThrowIfDisposed();
-			using (_blocker.Enter())
+			using (EnterSingleOperation())
 			{
 				var imageList = images.ToArray();
 				Directory.CreateDirectory(baseDirectory);
@@ -286,7 +277,7 @@ namespace Comical.Core
 		public async Task ExtractAsync(string fileName, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
 			ThrowIfDisposed();
-			using (_blocker.Enter())
+			using (EnterSingleOperation())
 				await Task.Run(() => WriteFile(images.ToArray(), new FileHeader(fileName, "", AssemblyVersion) { Author = Author, PageTurningDirection = PageTurningDirection }, new BookmarkCollection(null, null), progress));
 		}
 
@@ -334,12 +325,28 @@ namespace Comical.Core
 
 		protected void ThrowIfDisposed() { if (Images == null) throw new ObjectDisposedException(GetType().Name); }
 
+		protected IDisposable EnterSingleOperation()
+		{
+			if (IsBusy)
+				throw new InvalidOperationException(Properties.Resources.MultiAsyncOperationIsNotSupported);
+			IsBusy = true;
+			return new DelegateDisposable(() => IsBusy = false);
+		}
+
 		public bool IsBusy
 		{
 			get
 			{
 				ThrowIfDisposed();
-				return _blocker.IsBusy;
+				return _busy;
+			}
+			private set
+			{
+				if (_busy != value)
+				{
+					_busy = value;
+					PropertyChanged.Raise(this, _context);
+				}
 			}
 		}
 

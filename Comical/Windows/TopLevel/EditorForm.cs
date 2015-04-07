@@ -116,16 +116,15 @@ namespace Comical
 			}
 		}
 
-		void BeginAsyncWork()
+		IDisposable BeginAsyncWork()
 		{
 			prgStatus.Value = 0;
 			prgStatus.Visible = imageList.ReadOnly = bookmarkList.ReadOnly = !(menMain.Enabled = tsMain.Enabled = false);
-		}
-
-		void EndAsyncWork()
-		{
-			prgStatus.Visible = imageList.ReadOnly = bookmarkList.ReadOnly = !(menMain.Enabled = tsMain.Enabled = true);
-			lblStatus.Text = string.Empty;
+			return new DelegateDisposable(() =>
+			{
+				prgStatus.Visible = imageList.ReadOnly = bookmarkList.ReadOnly = !(menMain.Enabled = tsMain.Enabled = true);
+				lblStatus.Text = string.Empty;
+			});
 		}
 
 		static void EnumerateFiles(string path, Action<string> action)
@@ -165,9 +164,8 @@ namespace Comical
 				else if (imageExtensions.Any(ex => System.IO.Path.GetExtension(file).ToLowerInvariant() == "." + ex))
 					openableFiles.Add(file);
 			};
-			try
+			using (BeginAsyncWork())
 			{
-				BeginAsyncWork();
 				prgStatus.Style = ProgressBarStyle.Marquee;
 				lblStatus.Text = Properties.Resources.ScanningFiles;
 				await Task.Run(() =>
@@ -235,21 +233,18 @@ namespace Comical
 				lblStatus.Text = Properties.Resources.ImportingImages;
 				await comic.ImportImageFilesAsync(openableFiles, hasOpened ? new Progress<int>(x => prgStatus.Value = 50 + x / 2) : defaultProgress);
 			}
-			finally { EndAsyncWork(); }
 		}
 
 		async Task<bool> SaveAsync()
 		{
 			if (comic.HasSaved)
 			{
-				try
+				using (BeginAsyncWork())
 				{
-					BeginAsyncWork();
 					await comic.SaveAsync(comic.SavedFilePath, Comic.DefaultPassword, defaultProgress);
 					AddAuthorToHistory(comic.Author);
 					return true;
 				}
-				finally { EndAsyncWork(); }
 			}
 			else
 				return await SaveAsAsync();
@@ -281,14 +276,12 @@ namespace Comical
 					dialog.DefaultFileName = string.Format(CultureInfo.CurrentCulture, Properties.Settings.Default.DefaultSavedFileName, comic.Title, comic.Author, comic.DateOfPublication);
 				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
 				{
-					try
+					using (BeginAsyncWork())
 					{
-						BeginAsyncWork();
 						await comic.SaveAsync(dialog.FileName, password, defaultProgress);
 						AddAuthorToHistory(comic.Author);
 						return true;
 					}
-					finally { EndAsyncWork(); }
 				}
 				return false;
 			}
@@ -374,23 +367,19 @@ namespace Comical
 					dialog.AllowExtensions.Add(item);
 				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
 				{
-					try
+					using (BeginAsyncWork())
+					using (WebClient client = new WebClient())
+					using (comic.Images.EnterUnnotifiedSection())
 					{
-						BeginAsyncWork();
-						using (WebClient client = new WebClient())
-						using (comic.Images.SuspendNotification())
+						for (int i = 0; i < dialog.Images.Count; i++)
 						{
-							for (int i = 0; i < dialog.Images.Count; i++)
-							{
-								try { comic.ImportBinaryImage(await client.DownloadDataTaskAsync(dialog.Images[i])); }
-								catch (WebException) { }
-								await Task.Delay(100);
-								lblStatus.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.Downloading, dialog.Images.Count, i + 1);
-								prgStatus.Value = (i + 1) * 100 / dialog.Images.Count;
-							}
+							try { comic.ImportBinaryImage(await client.DownloadDataTaskAsync(dialog.Images[i])); }
+							catch (WebException) { }
+							await Task.Delay(100);
+							lblStatus.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.Downloading, dialog.Images.Count, i + 1);
+							prgStatus.Value = (i + 1) * 100 / dialog.Images.Count;
 						}
 					}
-					finally { EndAsyncWork(); }
 				}
 			}
 		}
@@ -407,12 +396,8 @@ namespace Comical
 				dialog.Title = Properties.Resources.ExportImages;
 				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
 				{
-					try
-					{
-						BeginAsyncWork();
+					using (BeginAsyncWork())
 						await comic.ExportAsync(dialog.FileName, imageList.SelectedIndicies.OrderBy(x => x).Select(x => comic.Images[x]), defaultProgress);
-					}
-					finally { EndAsyncWork(); }
 				}
 			}
 		}
@@ -426,12 +411,8 @@ namespace Comical
 				dialog.Title = Properties.Resources.ExtractImages;
 				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
 				{
-					try
-					{
-						BeginAsyncWork();
+					using (BeginAsyncWork())
 						await comic.ExtractAsync(dialog.FileName, imageList.SelectedIndicies.OrderBy(x => x).Select(x => comic.Images[x]), defaultProgress);
-					}
-					finally { EndAsyncWork(); }
 				}
 			}
 		}

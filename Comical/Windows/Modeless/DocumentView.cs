@@ -66,9 +66,8 @@ namespace Comical
 					if (comic.Images != null)
 						comic.Images.CollectionChanged += ComicImageCollection_CollectionChanged;
 					ComicImageCollection_CollectionChanged(comic.Images, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
-					comic.StopDirtyCheck();
-					cmbPageTurningDirection.SelectedIndex = (int)PageTurningDirection.ToRight - 1;
-					comic.StartDirtyCheck();
+					using (comic.EnterUndirtiableSection())
+						cmbPageTurningDirection.SelectedIndex = (int)PageTurningDirection.ToRight - 1;
 				}
 			}
 		}
