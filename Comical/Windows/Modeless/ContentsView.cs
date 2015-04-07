@@ -93,11 +93,11 @@ namespace Comical
 			dgvImages.Invalidate();
 		}
 
-		void Images_CollectionItemPropertyChanged(object sender, CompositePropertyChangedEventArgs e)
+		void Images_CollectionItemPropertyChanged(object sender, CompositePropertyChangedEventArgs<ImageReference> e)
 		{
-			foreach (var key in e.PropertyNames.Keys)
+			foreach (var group in e.PropertyNames)
 			{
-				int index = _comic.Images.IndexOf(key as ImageReference);
+				int index = _comic.Images.IndexOf(group.Key);
 				if (index >= 0)
 					dgvImages.UpdateCellValue(1, index);
 			}

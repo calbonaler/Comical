@@ -30,7 +30,7 @@ namespace Comical.Core
 				if (value != _mode)
 				{
 					_mode = value;
-					RaisePropertyChanged("ViewMode");
+					PropertyChanged.Raise(this, _ownerContext);
 				}
 			}
 		}
@@ -66,12 +66,6 @@ namespace Comical.Core
 
 		internal void ReleaseContext() { _ownerContext = null; }
 
-		protected void RaisePropertyChanged(string propertyName)
-		{
-			if (PropertyChanged != null)
-				_ownerContext.SendIfNeeded(() => PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
-		}
-
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
@@ -81,7 +75,7 @@ namespace Comical.Core
 		readonly object lockObject = new object();
 		bool _notificationSuspended = false;
 		List<NotifyCollectionChangedEventArgs> collectionChanges = new List<NotifyCollectionChangedEventArgs>();
-		Dictionary<object, string> itemChanges = new Dictionary<object, string>();
+		List<KeyValuePair<ImageReference, string>> itemChanges = new List<KeyValuePair<ImageReference, string>>();
 
 		protected void ClearItems()
 		{
@@ -166,7 +160,7 @@ namespace Comical.Core
 			}
 		}
 
-		protected virtual void OnCollectionItemPropertyChanged(CompositePropertyChangedEventArgs e)
+		protected virtual void OnCollectionItemPropertyChanged(CompositePropertyChangedEventArgs<ImageReference> e)
 		{
 			if (CollectionItemPropertyChanged != null)
 				CollectionItemPropertyChanged(this, e);
@@ -175,9 +169,9 @@ namespace Comical.Core
 		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (_notificationSuspended)
-				itemChanges.Add(sender, e.PropertyName);
+				itemChanges.Add(new KeyValuePair<ImageReference, string>((ImageReference)sender, e.PropertyName));
 			else
-				OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs(new Dictionary<object, string>() { { sender, e.PropertyName } }));
+				OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<ImageReference>(new[] { new KeyValuePair<ImageReference, string>((ImageReference)sender, e.PropertyName) }));
 		}
 
 		public IDisposable SuspendNotification()
@@ -187,7 +181,7 @@ namespace Comical.Core
 		}
 
 		public event NotifyCollectionChangedEventHandler CollectionChanged;
-		public event EventHandler<CompositePropertyChangedEventArgs> CollectionItemPropertyChanged;
+		public event EventHandler<CompositePropertyChangedEventArgs<ImageReference>> CollectionItemPropertyChanged;
 
 		class Resumer : IDisposable
 		{
@@ -207,7 +201,7 @@ namespace Comical.Core
 							_owner.OnCollectionChanged(ch);
 					_owner.collectionChanges.Clear();
 					if (_owner.itemChanges.Count > 0)
-						_owner.OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs(_owner.itemChanges));
+						_owner.OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<ImageReference>(_owner.itemChanges));
 					_owner.itemChanges.Clear();
 					_owner = null;
 				}

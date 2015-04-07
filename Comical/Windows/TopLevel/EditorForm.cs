@@ -157,7 +157,7 @@ namespace Comical
 			Action<string> sortingFiles = file =>
 			{
 				FileHeader fh;
-				if ((fh = FileHeader.Create(file)).CanOpen)
+				if ((fh = new FileHeader(file)).CanOpen)
 				{
 					if (cicFileToOpen == null)
 						cicFileToOpen = fh;

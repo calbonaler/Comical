@@ -15,8 +15,7 @@ namespace Comical.Core
 				if (busy != value)
 				{
 					busy = value;
-					if (PropertyChanged != null)
-						PropertyChanged(this, new PropertyChangedEventArgs("IsBusy"));
+					PropertyChanged.Raise(this, null);
 				}
 			}
 		}

@@ -42,7 +42,7 @@ namespace Comical
 			TaskDialogResult result;
 			do
 			{
-				if (!FileHeader.Create(fileName).IsProperPassword(""))
+				if (!new FileHeader(fileName).IsProperPassword(""))
 				{
 					using (PasswordDialog dialog = new PasswordDialog())
 					{

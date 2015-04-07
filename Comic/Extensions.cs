@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Comical.Core
 {
@@ -47,6 +44,19 @@ namespace Comical.Core
 					tmp.Dispose();
 			}
 			return bitmap;
+		}
+
+		public static void Raise<T>(this PropertyChangedEventHandler handler, object @this, SynchronizationContext context, System.Linq.Expressions.Expression<Func<T>> property)
+		{
+			var memberExp = property.Body as System.Linq.Expressions.MemberExpression;
+			if (memberExp != null && handler != null)
+				context.SendIfNeeded(() => handler(@this, new PropertyChangedEventArgs(memberExp.Member.Name)));
+		}
+
+		public static void Raise(this PropertyChangedEventHandler handler, object @this, SynchronizationContext context, [System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
+		{
+			if (handler != null)
+				context.SendIfNeeded(() => handler(@this, new PropertyChangedEventArgs(propertyName)));
 		}
 	}
 }

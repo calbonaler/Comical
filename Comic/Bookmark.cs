@@ -18,7 +18,7 @@ namespace Comical.Core
 
 		string _name;
 		int _target;
-		internal Func<int, ImageReference> getImageReferenceAtIndex = x => null;
+		internal IReadOnlyList<ImageReference> imageReferences;
 		internal SynchronizationContext ownerContext;
 
 		public string Name
@@ -29,7 +29,7 @@ namespace Comical.Core
 				if (_name != value)
 				{
 					_name = value;
-					RaisePropertyChanged("Name");
+					PropertyChanged.Raise(this, ownerContext);
 				}
 			}
 		}
@@ -42,52 +42,46 @@ namespace Comical.Core
 				if (_target != value)
 				{
 					_target = value;
-					RaisePropertyChanged("Target");
-					RaisePropertyChanged("TargetImage");
+					PropertyChanged.Raise(this, ownerContext);
+					PropertyChanged.Raise(this, ownerContext, () => TargetImage);
 				}
 			}
 		}
 
-		public ImageReference TargetImage { get { return getImageReferenceAtIndex(Target); } }
-
-		protected void RaisePropertyChanged(string propertyName)
-		{
-			if (PropertyChanged != null)
-				ownerContext.SendIfNeeded(() => PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
-		}
+		public ImageReference TargetImage { get { return imageReferences == null ? null : imageReferences[Target]; } }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
 	public class BookmarkCollection : System.Collections.ObjectModel.ObservableCollection<Bookmark>
 	{
-		public BookmarkCollection(Func<int, ImageReference> imageReferenceAtIndex, SynchronizationContext context)
+		public BookmarkCollection(IReadOnlyList<ImageReference> imageReferences, SynchronizationContext context)
 		{
-			getImageReferenceAtIndex = imageReferenceAtIndex;
-			ownerContext = context;
+			_imageReferences = imageReferences;
+			_ownerContext = context;
 		}
 
-		Func<int, ImageReference> getImageReferenceAtIndex = x => null;
-		SynchronizationContext ownerContext;
+		IReadOnlyList<ImageReference> _imageReferences;
+		SynchronizationContext _ownerContext;
 
-		public event EventHandler<CompositePropertyChangedEventArgs> CollectionItemPropertyChanged;
+		public event EventHandler<CompositePropertyChangedEventArgs<Bookmark>> CollectionItemPropertyChanged;
 
-		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e) { ownerContext.SendIfNeeded(() => base.OnCollectionChanged(e)); }
+		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e) { _ownerContext.SendIfNeeded(() => base.OnCollectionChanged(e)); }
 
-		protected virtual void OnCollectionItemPropertyChanged(CompositePropertyChangedEventArgs e)
+		protected virtual void OnCollectionItemPropertyChanged(CompositePropertyChangedEventArgs<Bookmark> e)
 		{
 			if (CollectionItemPropertyChanged != null)
-				ownerContext.SendIfNeeded(() => CollectionItemPropertyChanged(this, e));
+				_ownerContext.SendIfNeeded(() => CollectionItemPropertyChanged(this, e));
 		}
 
-		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e) { OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs(new Dictionary<object, string>() { { sender, e.PropertyName } })); }
+		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e) { OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<Bookmark>(new[] { new KeyValuePair<Bookmark, string>((Bookmark)sender, e.PropertyName) })); }
 
 		protected override void ClearItems()
 		{
 			foreach (var item in this)
 			{
 				item.ownerContext = null;
-				item.getImageReferenceAtIndex = x => null;
+				item.imageReferences = null;
 				item.PropertyChanged -= OnItemPropertyChanged;
 			}
 			base.ClearItems();
@@ -97,8 +91,8 @@ namespace Comical.Core
 		{
 			if (item == null)
 				throw new ArgumentNullException("item");
-			item.ownerContext = ownerContext;
-			item.getImageReferenceAtIndex = getImageReferenceAtIndex;
+			item.ownerContext = _ownerContext;
+			item.imageReferences = _imageReferences;
 			item.PropertyChanged += OnItemPropertyChanged;
 			base.InsertItem(index, item);
 		}
@@ -106,7 +100,7 @@ namespace Comical.Core
 		protected override void RemoveItem(int index)
 		{
 			this[index].ownerContext = null;
-			this[index].getImageReferenceAtIndex = x => null;
+			this[index].imageReferences = null;
 			this[index].PropertyChanged -= OnItemPropertyChanged;
 			base.RemoveItem(index);
 		}
@@ -116,10 +110,10 @@ namespace Comical.Core
 			if (item == null)
 				throw new ArgumentNullException("item");
 			this[index].ownerContext = null;
-			this[index].getImageReferenceAtIndex = x => null;
+			this[index].imageReferences = null;
 			this[index].PropertyChanged -= OnItemPropertyChanged;
-			item.ownerContext = ownerContext;
-			item.getImageReferenceAtIndex = getImageReferenceAtIndex;
+			item.ownerContext = _ownerContext;
+			item.imageReferences = _imageReferences;
 			item.PropertyChanged += OnItemPropertyChanged;
 			base.SetItem(index, item);
 		}
