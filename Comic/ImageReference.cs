@@ -204,10 +204,11 @@ namespace Comical.Core
 
 		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
+			var castedSender = (ImageReference)sender;
 			if (_notificationSuspended)
-				itemChanges.Add(new KeyValuePair<ImageReference, string>((ImageReference)sender, e.PropertyName));
+				itemChanges.Add(new KeyValuePair<ImageReference, string>(castedSender, e.PropertyName));
 			else
-				OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<ImageReference>(new[] { new KeyValuePair<ImageReference, string>((ImageReference)sender, e.PropertyName) }));
+				OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<ImageReference>(new[] { new KeyValuePair<ImageReference, string>(castedSender, e.PropertyName) }));
 		}
 
 		public IDisposable EnterUnnotifiedSection()

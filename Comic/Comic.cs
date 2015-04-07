@@ -38,7 +38,7 @@ namespace Comical.Core
 		static readonly Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 		public static readonly string DefaultPassword = null;
 		
-		FileHeader ReadFile(string fileName, string password, BookmarkCollection bookmarks, CancellationToken token, IProgress<int> progress)
+		static Tuple<FileHeader, ImageReference[]> ReadFile(string fileName, string password, BookmarkCollection bookmarks, CancellationToken token, IProgress<int> progress)
 		{
 			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
 			using (Stream readStream = FileStream.Synchronized(fs))
@@ -73,13 +73,11 @@ namespace Comical.Core
 						progress.Report((i + 1) * 100 / images);
 				}
 				token.ThrowIfCancellationRequested();
-				foreach (var addedImage in addedImages)
-					Images.Add(addedImage);
-				return cic;
+				return new Tuple<FileHeader, ImageReference[]>(cic, addedImages.ToArray());
 			}
 		}
 
-		void WriteFile(IReadOnlyList<ImageReference> images, FileHeader cic, BookmarkCollection bookmarks, IProgress<int> progress)
+		static void WriteFile(IReadOnlyList<ImageReference> images, FileHeader cic, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
 			using (FileStream fs = new FileStream(cic.Path, FileMode.Create, FileAccess.Write))
 			using (Stream writeStream = FileStream.Synchronized(fs))
@@ -124,15 +122,17 @@ namespace Comical.Core
 				using (EnterUndirtiableSection())
 				using (Images.EnterUnnotifiedSection())
 				{
-					var cic = await Task.Run(() => ReadFile(fileName, password, Bookmarks, token, progress));
+					var res = await Task.Run(() => ReadFile(fileName, password, Bookmarks, token, progress));
 					SavedFilePath = fileName;
 					_password = password;
-					Thumbnail = cic.Thumbnail;
-					FileVersion = cic.FileVersion;
-					Title = cic.Title;
-					Author = cic.Author;
-					DateOfPublication = cic.DateOfPublication;
-					PageTurningDirection = cic.PageTurningDirection;
+					Thumbnail = res.Item1.Thumbnail;
+					FileVersion = res.Item1.FileVersion;
+					Title = res.Item1.Title;
+					Author = res.Item1.Author;
+					DateOfPublication = res.Item1.DateOfPublication;
+					PageTurningDirection = res.Item1.PageTurningDirection;
+					foreach (var ir in res.Item2)
+						Images.Add(ir);
 				}
 			}
 		}
@@ -163,24 +163,9 @@ namespace Comical.Core
 		{
 			using (EnterSingleOperation())
 			using (Images.EnterUnnotifiedSection())
-				await Task.Run(() => ReadFile(fileName, password, new BookmarkCollection(null, null), token, progress));
-		}
-
-		public async Task ImportImageFilesAsync(IEnumerable<string> fileNames, IProgress<int> progress)
-		{
-			using (EnterSingleOperation())
-			using (Images.EnterUnnotifiedSection())
 			{
-				var fileNameList = fileNames.ToArray();
-				await Task.Run(() =>
-				{
-					for (int i = 0; i < fileNameList.Length; Interlocked.Increment(ref i))
-					{
-						Images.Add(new ImageReference(File.ReadAllBytes(fileNameList[i])));
-						if (progress != null)
-							progress.Report((i + 1) * 100 / fileNameList.Length);
-					}
-				});
+				foreach (var ir in (await Task.Run(() => ReadFile(fileName, password, new BookmarkCollection(null, null), token, progress))).Item2)
+					Images.Add(ir);
 			}
 		}
 

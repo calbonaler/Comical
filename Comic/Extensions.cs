@@ -48,6 +48,8 @@ namespace Comical.Core
 
 		public static void Raise<T>(this PropertyChangedEventHandler handler, object @this, SynchronizationContext context, System.Linq.Expressions.Expression<Func<T>> property)
 		{
+			if (property == null)
+				throw new ArgumentNullException("property");
 			var memberExp = property.Body as System.Linq.Expressions.MemberExpression;
 			if (memberExp != null && handler != null)
 				context.SendIfNeeded(() => handler(@this, new PropertyChangedEventArgs(memberExp.Member.Name)));

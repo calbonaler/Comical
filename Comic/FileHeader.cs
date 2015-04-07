@@ -9,6 +9,9 @@ namespace Comical.Core
 	{
 		public FileHeader(string fileName, string password, Version fileVersion)
 		{
+			password = password ?? string.Empty;
+			if (fileVersion == null)
+				throw new ArgumentNullException("fileVersion");
 			Path = fileName;
 			fileIdentifier = new byte[] { 0x43, 0x49, 0x43 };
 			FileVersionMajor = (byte)fileVersion.Major;

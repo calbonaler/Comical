@@ -29,7 +29,7 @@ namespace Comical
 		}
 
 		Comic comic;
-		string[] imageExtensions = new [] { "bmp", "dib", "gif", "jpeg", "jpe", "jpg", "jfif", "png", "tiff", "tif", };
+		static readonly IReadOnlyList<string> imageExtensions = new [] { "bmp", "dib", "gif", "jpeg", "jpe", "jpg", "jfif", "png", "tiff", "tif", };
 		ContentsView imageList = new ContentsView();
 		BookmarksView bookmarkList = new BookmarksView();
 		DocumentView document = new DocumentView();
@@ -127,16 +127,25 @@ namespace Comical
 			});
 		}
 
-		static void EnumerateFiles(string path, Action<string> action)
+		static void CollectFiles(IEnumerable<string> paths, List<FileHeader> comicFiles, List<ImageReference> images)
 		{
-			try
+			foreach (var path in paths)
 			{
-				foreach (var dir in System.IO.Directory.GetDirectories(path))
-					EnumerateFiles(dir, action);
+				try
+				{
+					if (System.IO.Directory.Exists(path))
+						CollectFiles(System.IO.Directory.EnumerateFileSystemEntries(path), comicFiles, images);
+					else if (System.IO.File.Exists(path))
+					{
+						var fh = new FileHeader(path);
+						if (fh.CanOpen)
+							comicFiles.Add(fh);
+						else if (imageExtensions.Any(ex => string.Equals(System.IO.Path.GetExtension(path), "." + ex, StringComparison.OrdinalIgnoreCase)))
+							images.Add(new ImageReference(System.IO.File.ReadAllBytes(path)));
+					}
+				}
+				catch (UnauthorizedAccessException) { }
 			}
-			catch (UnauthorizedAccessException) { }
-			foreach (var file in System.IO.Directory.GetFiles(path))
-				action(file);
 		}
 
 		static void AddAuthorToHistory(string author)
@@ -149,89 +158,64 @@ namespace Comical
 			Properties.Settings.Default.RecentAuthors.Insert(0, author);
 		}
 
-		async Task AddAnythingLocalAsync(bool open, params string[] paths)
+		async Task AddAnythingLocalAsync(bool canOpen, params string[] paths)
 		{
-			List<string> openableFiles = new List<string>();
-			FileHeader cicFileToOpen = null;
-			Action<string> sortingFiles = file =>
-			{
-				FileHeader fh;
-				if ((fh = new FileHeader(file)).CanOpen)
-				{
-					if (cicFileToOpen == null)
-						cicFileToOpen = fh;
-				}
-				else if (imageExtensions.Any(ex => System.IO.Path.GetExtension(file).ToLowerInvariant() == "." + ex))
-					openableFiles.Add(file);
-			};
+			List<FileHeader> comicFiles = new List<FileHeader>();
+			List<ImageReference> images = new List<ImageReference>();
 			using (BeginAsyncWork())
 			{
 				prgStatus.Style = ProgressBarStyle.Marquee;
 				lblStatus.Text = Properties.Resources.ScanningFiles;
-				await Task.Run(() =>
-				{
-					foreach (var path in paths)
-					{
-						if (System.IO.File.Exists(path))
-							sortingFiles(path);
-						else if (System.IO.Directory.Exists(path))
-							EnumerateFiles(path, sortingFiles);
-					}
-				});
+				await Task.Run(() => CollectFiles(paths, comicFiles, images));
 				prgStatus.Style = ProgressBarStyle.Blocks;
-				bool hasOpened = false;
-				if (cicFileToOpen != null)
+				foreach (var fileHeader in comicFiles)
 				{
-					string password = "";
-					if (cicFileToOpen.IsProperPassword(""))
-						hasOpened = true;
-					else
+					string password = string.Empty;
+					if (!fileHeader.IsProperPassword(password))
 					{
 						using (PasswordDialog dialog = new PasswordDialog())
 						{
 							dialog.Creating = false;
-							if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+							if (dialog.ShowDialog(this) != System.Windows.Forms.DialogResult.OK)
+								continue;
+							password = dialog.Password;
+							if (!fileHeader.IsProperPassword(password))
 							{
-								if (cicFileToOpen.IsProperPassword(dialog.Password))
+								using (TaskDialog errorDialog = new TaskDialog())
 								{
-									password = dialog.Password;
-									hasOpened = true;
+									errorDialog.Cancelable = true;
+									errorDialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
+									errorDialog.OwnerWindowHandle = Handle;
+									errorDialog.Caption = Application.ProductName;
+									errorDialog.InstructionText = Properties.Resources.CannotDecryptBecausePasswordNotProper;
+									errorDialog.Icon = TaskDialogStandardIcon.Error;
+									errorDialog.StandardButtons = TaskDialogStandardButtons.Close;
+									errorDialog.Show();
 								}
-								else
-								{
-									using (TaskDialog errorDialog = new TaskDialog())
-									{
-										errorDialog.Cancelable = true;
-										errorDialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
-										errorDialog.OwnerWindowHandle = Handle;
-										errorDialog.Caption = Application.ProductName;
-										errorDialog.InstructionText = Properties.Resources.CannotDecryptBecausePasswordNotProper;
-										errorDialog.Icon = TaskDialogStandardIcon.Error;
-										errorDialog.StandardButtons = TaskDialogStandardButtons.Close;
-										errorDialog.Show();
-									}
-								}
+								continue;
 							}
 						}
 					}
-					if (hasOpened)
+					if (canOpen)
 					{
-						var progress = openableFiles.Any() ? new Progress<int>(x => prgStatus.Value = x / 2) : defaultProgress;
-						if (open)
-						{
-							lblStatus.Text = Properties.Resources.OpeningFile;
-							await comic.OpenAsync(cicFileToOpen.Path, password, System.Threading.CancellationToken.None, progress);
-							AddAuthorToHistory(comic.Author);
-						}
-						else
-						{
-							lblStatus.Text = Properties.Resources.AppendingFile;
-							await comic.AppendAsync(cicFileToOpen.Path, password, System.Threading.CancellationToken.None, progress);
-						}
+						lblStatus.Text = Properties.Resources.OpeningFile;
+						await comic.OpenAsync(fileHeader.Path, password, System.Threading.CancellationToken.None, defaultProgress);
+						AddAuthorToHistory(comic.Author);
 					}
+					else
+					{
+						lblStatus.Text = Properties.Resources.AppendingFile;
+						await comic.AppendAsync(fileHeader.Path, password, System.Threading.CancellationToken.None, defaultProgress);
+					}
+					canOpen = false;
 				}
 				lblStatus.Text = Properties.Resources.ImportingImages;
-				await comic.ImportImageFilesAsync(openableFiles, hasOpened ? new Progress<int>(x => prgStatus.Value = 50 + x / 2) : defaultProgress);
+				Application.DoEvents();
+				using (comic.Images.EnterUnnotifiedSection())
+				{
+					foreach (var image in images)
+						comic.Images.Add(image);
+				}
 			}
 		}
 
