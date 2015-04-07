@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Comical.Core
 {
-	public class Comic : IDisposable, INotifyPropertyChanged
+	public class Comic : INotifyPropertyChanged
 	{
 		public Comic()
 		{
@@ -39,16 +39,7 @@ namespace Comical.Core
 		readonly object _lockObject = new object();
 		static readonly Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 		public static readonly string DefaultPassword = null;
-		bool _busy = false;
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		public IDisposable EnterUndirtiableSection()
-		{
-			_canDirty = false;
-			return new DelegateDisposable(() => _canDirty = true);
-		}
-
+		
 		FileHeader ReadFile(string fileName, string password, BookmarkCollection bookmarks, CancellationToken token, IProgress<int> progress)
 		{
 			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
@@ -120,7 +111,6 @@ namespace Comical.Core
 
 		public void Clear()
 		{
-			ThrowIfDisposed();
 			SavedFilePath = "";
 			if (Thumbnail != null)
 			{
@@ -134,41 +124,10 @@ namespace Comical.Core
 			IsDirty = false;
 		}
 
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				if (Bookmarks != null)
-					Bookmarks.Clear();
-				if (Images != null)
-					Images.Clear();
-				_author = null;
-				_context = null;
-				_fileVersion = null;
-				_password = null;
-				_savedFilePath = null;
-				if (_thumbnail != null)
-				{
-					_thumbnail.Dispose();
-					_thumbnail = null;
-				}
-				_title = null;
-				Bookmarks = null;
-				Images = null;
-			}
-		}
-
 		void ImportBinaryImageInternal(byte[] image) { Images.Add(new ImageReference(image, ImageViewMode.Default, _context)); }
 
 		public void ImportBinaryImage(byte[] image)
 		{
-			ThrowIfDisposed();
 			if (image == null)
 				throw new ArgumentNullException("image");
 			lock (_lockObject)
@@ -177,7 +136,6 @@ namespace Comical.Core
 
 		public async Task OpenAsync(string fileName, string password, CancellationToken token, IProgress<int> progress)
 		{
-			ThrowIfDisposed();
 			using (EnterSingleOperation())
 			{
 				Clear();
@@ -221,7 +179,6 @@ namespace Comical.Core
 
 		public async Task AppendAsync(string fileName, string password, CancellationToken token, IProgress<int> progress)
 		{
-			ThrowIfDisposed();
 			using (EnterSingleOperation())
 			using (Images.EnterUnnotifiedSection())
 				await Task.Run(() => ReadFile(fileName, password, new BookmarkCollection(null, null), token, progress));
@@ -229,7 +186,6 @@ namespace Comical.Core
 
 		public async Task ImportImageFilesAsync(IEnumerable<string> fileNames, IProgress<int> progress)
 		{
-			ThrowIfDisposed();
 			using (EnterSingleOperation())
 			using (Images.EnterUnnotifiedSection())
 			{
@@ -249,7 +205,6 @@ namespace Comical.Core
 
 		public async Task ExportAsync(string baseDirectory, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
-			ThrowIfDisposed();
 			using (EnterSingleOperation())
 			{
 				var imageList = images.ToArray();
@@ -276,14 +231,12 @@ namespace Comical.Core
 
 		public async Task ExtractAsync(string fileName, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
-			ThrowIfDisposed();
 			using (EnterSingleOperation())
 				await Task.Run(() => WriteFile(images.ToArray(), new FileHeader(fileName, "", AssemblyVersion) { Author = Author, PageTurningDirection = PageTurningDirection }, new BookmarkCollection(null, null), progress));
 		}
 
 		public IEnumerable<Spread> ConstructSpreads(bool simpleSpread)
 		{
-			ThrowIfDisposed();
 			Spread spread = null;
 			foreach (var image in Images)
 			{
@@ -322,8 +275,12 @@ namespace Comical.Core
 			if (spread != null)
 				yield return spread;
 		}
-
-		protected void ThrowIfDisposed() { if (Images == null) throw new ObjectDisposedException(GetType().Name); }
+		
+		public IDisposable EnterUndirtiableSection()
+		{
+			_canDirty = false;
+			return new DelegateDisposable(() => _canDirty = true);
+		}
 
 		protected IDisposable EnterSingleOperation()
 		{
@@ -333,13 +290,10 @@ namespace Comical.Core
 			return new DelegateDisposable(() => IsBusy = false);
 		}
 
+		bool _busy = false;
 		public bool IsBusy
 		{
-			get
-			{
-				ThrowIfDisposed();
-				return _busy;
-			}
+			get { return _busy; }
 			private set
 			{
 				if (_busy != value)
@@ -350,34 +304,14 @@ namespace Comical.Core
 			}
 		}
 
+		public bool HasSaved { get { return !string.IsNullOrEmpty(SavedFilePath); } }
+
 		string _savedFilePath = "";
-		bool _dirty = false;
-		Version _fileVersion = AssemblyVersion;
-		Image _thumbnail = null;
-		string _title = "";
-		string _author = "";
-		DateTime? _dateOfPublication = null;
-		PageTurningDirection _pageTurningDirection;
-
-		public bool HasSaved
-		{
-			get
-			{
-				ThrowIfDisposed();
-				return !string.IsNullOrEmpty(SavedFilePath);
-			}
-		}
-
 		public string SavedFilePath
 		{
-			get
-			{
-				ThrowIfDisposed();
-				return _savedFilePath;
-			}
+			get { return _savedFilePath; }
 			private set
 			{
-				ThrowIfDisposed();
 				if (_savedFilePath != value)
 				{
 					_savedFilePath = value;
@@ -387,16 +321,12 @@ namespace Comical.Core
 			}
 		}
 
+		bool _dirty = false;
 		public bool IsDirty
 		{
-			get
-			{
-				ThrowIfDisposed();
-				return _dirty;
-			}
+			get { return _dirty; }
 			private set
 			{
-				ThrowIfDisposed();
 				if (_dirty != value && (_canDirty || !value))
 				{
 					_dirty = value;
@@ -405,16 +335,12 @@ namespace Comical.Core
 			}
 		}
 
+		Version _fileVersion = AssemblyVersion;
 		public Version FileVersion
 		{
-			get
-			{
-				ThrowIfDisposed();
-				return _fileVersion;
-			}
+			get { return _fileVersion; }
 			private set
 			{
-				ThrowIfDisposed();
 				if (_fileVersion != value)
 				{
 					_fileVersion = value;
@@ -423,16 +349,12 @@ namespace Comical.Core
 			}
 		}
 
+		Image _thumbnail = null;
 		public Image Thumbnail
 		{
-			get
-			{
-				ThrowIfDisposed();
-				return _thumbnail;
-			}
+			get { return _thumbnail; }
 			set
 			{
-				ThrowIfDisposed();
 				if (_thumbnail != value)
 				{
 					_thumbnail = value;
@@ -441,16 +363,12 @@ namespace Comical.Core
 			}
 		}
 
+		string _title = "";
 		public string Title
 		{
-			get
-			{
-				ThrowIfDisposed();
-				return _title;
-			}
+			get { return _title; }
 			set
 			{
-				ThrowIfDisposed();
 				if (_title != value)
 				{
 					_title = value;
@@ -459,16 +377,12 @@ namespace Comical.Core
 			}
 		}
 
+		string _author = "";
 		public string Author
 		{
-			get
-			{
-				ThrowIfDisposed();
-				return _author;
-			}
+			get { return _author; }
 			set
 			{
-				ThrowIfDisposed();
 				if (_author != value)
 				{
 					_author = value;
@@ -477,16 +391,12 @@ namespace Comical.Core
 			}
 		}
 
+		DateTime? _dateOfPublication = null;
 		public DateTime? DateOfPublication
 		{
-			get
-			{
-				ThrowIfDisposed();
-				return _dateOfPublication;
-			}
+			get { return _dateOfPublication; }
 			set
 			{
-				ThrowIfDisposed();
 				if (_dateOfPublication != value)
 				{
 					_dateOfPublication = value;
@@ -495,16 +405,12 @@ namespace Comical.Core
 			}
 		}
 
+		PageTurningDirection _pageTurningDirection;
 		public PageTurningDirection PageTurningDirection
 		{
-			get
-			{
-				ThrowIfDisposed();
-				return _pageTurningDirection;
-			}
+			get { return _pageTurningDirection; }
 			set
 			{
-				ThrowIfDisposed();
 				if (_pageTurningDirection != value)
 				{
 					_pageTurningDirection = value;
@@ -516,6 +422,8 @@ namespace Comical.Core
 		public ImageReferenceCollection Images { get; private set; }
 
 		public BookmarkCollection Bookmarks { get; private set; }
+		
+		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
 	public enum ImageViewMode

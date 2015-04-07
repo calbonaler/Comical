@@ -17,7 +17,7 @@
 			{
 				if (components != null)
 					components.Dispose();
-				comic.Dispose();
+				comic.Clear();
 			}
 			base.Dispose(disposing);
 		}
