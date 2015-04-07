@@ -10,16 +10,10 @@ namespace Comical.Core
 {
 	public class Bookmark : INotifyPropertyChanged
 	{
-		public Bookmark(string name, int target)
-		{
-			_name = name;
-			_target = target;
-		}
-
-		string _name;
+		string _name = string.Empty;
 		int _target;
 		internal IReadOnlyList<ImageReference> imageReferences;
-		internal SynchronizationContext ownerContext;
+		internal SynchronizationContext OwnerContext;
 
 		public string Name
 		{
@@ -28,8 +22,8 @@ namespace Comical.Core
 			{
 				if (_name != value)
 				{
-					_name = value;
-					PropertyChanged.Raise(this, ownerContext);
+					_name = value ?? string.Empty;
+					PropertyChanged.Raise(this, OwnerContext);
 				}
 			}
 		}
@@ -42,8 +36,8 @@ namespace Comical.Core
 				if (_target != value)
 				{
 					_target = value;
-					PropertyChanged.Raise(this, ownerContext);
-					PropertyChanged.Raise(this, ownerContext, () => TargetImage);
+					PropertyChanged.Raise(this, OwnerContext);
+					PropertyChanged.Raise(this, OwnerContext, () => TargetImage);
 				}
 			}
 		}
@@ -80,7 +74,7 @@ namespace Comical.Core
 		{
 			foreach (var item in this)
 			{
-				item.ownerContext = null;
+				item.OwnerContext = null;
 				item.imageReferences = null;
 				item.PropertyChanged -= OnItemPropertyChanged;
 			}
@@ -91,7 +85,7 @@ namespace Comical.Core
 		{
 			if (item == null)
 				throw new ArgumentNullException("item");
-			item.ownerContext = _ownerContext;
+			item.OwnerContext = _ownerContext;
 			item.imageReferences = _imageReferences;
 			item.PropertyChanged += OnItemPropertyChanged;
 			base.InsertItem(index, item);
@@ -99,7 +93,7 @@ namespace Comical.Core
 
 		protected override void RemoveItem(int index)
 		{
-			this[index].ownerContext = null;
+			this[index].OwnerContext = null;
 			this[index].imageReferences = null;
 			this[index].PropertyChanged -= OnItemPropertyChanged;
 			base.RemoveItem(index);
@@ -109,10 +103,10 @@ namespace Comical.Core
 		{
 			if (item == null)
 				throw new ArgumentNullException("item");
-			this[index].ownerContext = null;
+			this[index].OwnerContext = null;
 			this[index].imageReferences = null;
 			this[index].PropertyChanged -= OnItemPropertyChanged;
-			item.ownerContext = _ownerContext;
+			item.OwnerContext = _ownerContext;
 			item.imageReferences = _imageReferences;
 			item.PropertyChanged += OnItemPropertyChanged;
 			base.SetItem(index, item);
@@ -123,7 +117,12 @@ namespace Comical.Core
 			BinaryReader reader = new BinaryReader(stream, Encoding.Unicode);
 			int count = reader.ReadInt32();
 			for (int i = 0; i < count; i++)
-				Add(new Bookmark(reader.ReadString(), reader.ReadInt32()));
+			{
+				var bookmark = new Bookmark();
+				bookmark.Name = reader.ReadString();
+				bookmark.Target = reader.ReadInt32();
+				Add(bookmark);
+			}
 		}
 
 		internal void SaveInto(Stream stream)

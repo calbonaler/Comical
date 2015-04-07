@@ -373,7 +373,7 @@ namespace Comical
 					{
 						for (int i = 0; i < dialog.Images.Count; i++)
 						{
-							try { comic.ImportBinaryImage(await client.DownloadDataTaskAsync(dialog.Images[i])); }
+							try { comic.Images.Add(new ImageReference(await client.DownloadDataTaskAsync(dialog.Images[i]))); }
 							catch (WebException) { }
 							await Task.Delay(100);
 							lblStatus.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.Downloading, dialog.Images.Count, i + 1);

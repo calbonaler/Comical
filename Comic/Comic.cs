@@ -15,11 +15,11 @@ namespace Comical.Core
 	{
 		public Comic()
 		{
-			_context = SynchronizationContext.Current;
-			Images = new ImageReferenceCollection();
+			var context = SynchronizationContext.Current;
+			Images = new ImageReferenceCollection(context);
 			Images.CollectionChanged += (s, ev) => IsDirty = true;
 			Images.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
-			Bookmarks = new BookmarkCollection(Images, _context);
+			Bookmarks = new BookmarkCollection(Images, context);
 			Bookmarks.CollectionChanged += (s, ev) => IsDirty = true;
 			Bookmarks.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
 			PropertyChanged += (s, ev) =>
@@ -34,9 +34,7 @@ namespace Comical.Core
 		}
 
 		string _password = "";
-		SynchronizationContext _context;
 		bool _canDirty = true;
-		readonly object _lockObject = new object();
 		static readonly Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 		public static readonly string DefaultPassword = null;
 		
@@ -60,19 +58,16 @@ namespace Comical.Core
 				int images = reader.ReadInt32(); // 画像数
 				for (int i = 0; i < images && !token.IsCancellationRequested; Interlocked.Increment(ref i))
 				{
-					lock (_lockObject)
+					if (cic.FileVersion < new Version(4, 4))
+						reader.ReadString(); // 名前
+					if (cic.FileVersion < new Version(4, 3))
+						reader.ReadString(); // フォーマット
+					ImageViewMode m = (ImageViewMode)reader.ReadByte(); // オプション
+					int len = reader.ReadInt32(); // サイズ
+					using (MemoryStream ms = new MemoryStream())
 					{
-						if (cic.FileVersion < new Version(4, 4))
-							reader.ReadString(); // 名前
-						if (cic.FileVersion < new Version(4, 3))
-							reader.ReadString(); // フォーマット
-						ImageViewMode m = (ImageViewMode)reader.ReadByte(); // オプション
-						int len = reader.ReadInt32(); // サイズ
-						using (MemoryStream ms = new MemoryStream())
-						{
-							Crypto.Decrypt(readStream, ms, password, System.Text.Encoding.Unicode, len);
-							addedImages.Add(new ImageReference(ms.ToArray(), m, _context));
-						}
+						Crypto.Decrypt(readStream, ms, password, System.Text.Encoding.Unicode, len);
+						addedImages.Add(new ImageReference(ms.ToArray()) { ViewMode = m });
 					}
 					if (progress != null)
 						progress.Report((i + 1) * 100 / images);
@@ -95,14 +90,11 @@ namespace Comical.Core
 				writer.Write(images.Count); // 画像数
 				for (int i = 0; i < images.Count; Interlocked.Increment(ref i))
 				{
-					lock (_lockObject)
-					{
-						ImageReference ir = images[i];
-						writer.Write((byte)ir.ViewMode); // 利用情報
-						writer.Write(ir.Length); // 画像データ大きさ
-						using (var binImage = ir.GetBinaryImageNoLock())
-							Crypto.Encrypt(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length); // 画像データ
-					}
+					ImageReference ir = images[i];
+					writer.Write((byte)ir.ViewMode); // 利用情報
+					writer.Write(ir.Length); // 画像データ大きさ
+					using (var binImage = ir.GetReadOnlyBinaryImage())
+						Crypto.Encrypt(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length); // 画像データ
 					if (progress != null)
 						progress.Report((i + 1) * 100 / images.Count);
 				}
@@ -122,16 +114,6 @@ namespace Comical.Core
 			Images.Clear();
 			Bookmarks.Clear();
 			IsDirty = false;
-		}
-
-		void ImportBinaryImageInternal(byte[] image) { Images.Add(new ImageReference(image, ImageViewMode.Default, _context)); }
-
-		public void ImportBinaryImage(byte[] image)
-		{
-			if (image == null)
-				throw new ArgumentNullException("image");
-			lock (_lockObject)
-				ImportBinaryImageInternal(image);
 		}
 
 		public async Task OpenAsync(string fileName, string password, CancellationToken token, IProgress<int> progress)
@@ -162,7 +144,7 @@ namespace Comical.Core
 			{
 				if (password == DefaultPassword)
 					password = _password;
-				await Task.Run(() => WriteFile(Images, new FileHeader(fileName, password, AssemblyVersion)
+				await Task.Run(() => WriteFile(Images.ToArray(), new FileHeader(fileName, password, AssemblyVersion)
 				{
 					Thumbnail = Thumbnail,
 					Title = Title,
@@ -194,8 +176,7 @@ namespace Comical.Core
 				{
 					for (int i = 0; i < fileNameList.Length; Interlocked.Increment(ref i))
 					{
-						lock (_lockObject)
-							ImportBinaryImageInternal(File.ReadAllBytes(fileNameList[i]));
+						Images.Add(new ImageReference(File.ReadAllBytes(fileNameList[i])));
 						if (progress != null)
 							progress.Report((i + 1) * 100 / fileNameList.Length);
 					}
@@ -213,13 +194,11 @@ namespace Comical.Core
 				{
 					for (int i = 0; i < imageList.Length; Interlocked.Increment(ref i))
 					{
-						lock (_lockObject)
-						using (var ms = imageList[i].GetBinaryImageNoLock())
+						using (var ms = imageList[i].GetReadOnlyBinaryImage())
+						using (Bitmap bmp = new Bitmap(ms))
 						{
-							Bitmap bmp = new Bitmap(ms);
-							File.WriteAllBytes(Path.Combine(baseDirectory, i.ToString(imageList.Length - 1) +
-								Array.Find(System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders(),
-								item => item.FormatID == bmp.RawFormat.Guid).FilenameExtension.Split(';')[0].Remove(0, 1)),
+							File.WriteAllBytes(Path.Combine(baseDirectory,
+								i.ToString(imageList.Length - 1) + Array.Find(System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders(), item => item.FormatID == bmp.RawFormat.Guid).FilenameExtension.Split(';')[0].Remove(0, 1)),
 								ms.ToArray());
 						}
 						if (progress != null)
@@ -299,7 +278,7 @@ namespace Comical.Core
 				if (_busy != value)
 				{
 					_busy = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this, null);
 				}
 			}
 		}
@@ -315,8 +294,8 @@ namespace Comical.Core
 				if (_savedFilePath != value)
 				{
 					_savedFilePath = value;
-					PropertyChanged.Raise(this, _context);
-					PropertyChanged.Raise(this, _context, () => HasSaved);
+					PropertyChanged.Raise(this, null);
+					PropertyChanged.Raise(this, null, () => HasSaved);
 				}
 			}
 		}
@@ -330,7 +309,7 @@ namespace Comical.Core
 				if (_dirty != value && (_canDirty || !value))
 				{
 					_dirty = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this, null);
 				}
 			}
 		}
@@ -344,7 +323,7 @@ namespace Comical.Core
 				if (_fileVersion != value)
 				{
 					_fileVersion = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this, null);
 				}
 			}
 		}
@@ -358,7 +337,7 @@ namespace Comical.Core
 				if (_thumbnail != value)
 				{
 					_thumbnail = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this, null);
 				}
 			}
 		}
@@ -372,7 +351,7 @@ namespace Comical.Core
 				if (_title != value)
 				{
 					_title = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this, null);
 				}
 			}
 		}
@@ -386,7 +365,7 @@ namespace Comical.Core
 				if (_author != value)
 				{
 					_author = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this, null);
 				}
 			}
 		}
@@ -400,7 +379,7 @@ namespace Comical.Core
 				if (_dateOfPublication != value)
 				{
 					_dateOfPublication = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this, null);
 				}
 			}
 		}
@@ -414,7 +393,7 @@ namespace Comical.Core
 				if (_pageTurningDirection != value)
 				{
 					_pageTurningDirection = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this, null);
 				}
 			}
 		}

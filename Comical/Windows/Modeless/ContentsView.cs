@@ -151,7 +151,7 @@ namespace Comical
 		public void BookmarkSelectedImages()
 		{
 			foreach (var index in SelectedIndicies.OrderBy(x => x))
-				_comic.Bookmarks.Insert(_comic.Bookmarks.Count, new Bookmark("ページ", index));
+				_comic.Bookmarks.Insert(_comic.Bookmarks.Count, new Bookmark() { Target = index });
 		}
 
 		private void dgvImages_SelectionChanged(object sender, System.EventArgs e)

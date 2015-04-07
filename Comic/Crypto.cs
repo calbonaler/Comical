@@ -10,7 +10,7 @@ namespace Comical.Core
 		{
 			if (src == null)
 				throw new ArgumentNullException("src");
-			using (MemoryStream sourceStream = new MemoryStream(src))
+			using (MemoryStream sourceStream = new MemoryStream(src, false))
 			using (MemoryStream targetStream = new MemoryStream())
 			{
 				Encrypt(sourceStream, targetStream, password, enc, src.Length);
@@ -44,7 +44,7 @@ namespace Comical.Core
 		{
 			if (src == null)
 				throw new ArgumentNullException("src");
-			using (MemoryStream srcStream = new MemoryStream(src))
+			using (MemoryStream srcStream = new MemoryStream(src, false))
 			using (MemoryStream targetStream = new MemoryStream())
 			{
 				Decrypt(srcStream, targetStream, password, enc, src.Length);

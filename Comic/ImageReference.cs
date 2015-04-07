@@ -11,15 +11,15 @@ namespace Comical.Core
 {
 	public class ImageReference : INotifyPropertyChanged
 	{
-		internal ImageReference(byte[] data, ImageViewMode mode, SynchronizationContext ownerContext)
+		public ImageReference(byte[] data)
 		{
+			if (data == null)
+				throw new ArgumentNullException("data");
 			_data = data;
-			_mode = mode;
-			_ownerContext = ownerContext;
 		}
 
 		byte[] _data;
-		SynchronizationContext _ownerContext;
+		internal SynchronizationContext OwnerContext;
 		ImageViewMode _mode;
 
 		public ImageViewMode ViewMode
@@ -30,7 +30,7 @@ namespace Comical.Core
 				if (value != _mode)
 				{
 					_mode = value;
-					PropertyChanged.Raise(this, _ownerContext);
+					PropertyChanged.Raise(this, OwnerContext);
 				}
 			}
 		}
@@ -41,18 +41,18 @@ namespace Comical.Core
 
 		public Image GetImage(Size size)
 		{
-			using (var ms = new MemoryStream(_data))
+			using (var ms = new MemoryStream(_data, false))
 			using (var image = Image.FromStream(ms))
 				return image.Resize(size);
 		}
 
-		internal MemoryStream GetBinaryImageNoLock()
+		internal MemoryStream GetReadOnlyBinaryImage()
 		{
 			MemoryStream ms = null;
 			MemoryStream temp = null;
 			try
 			{
-				temp = new MemoryStream(_data);
+				temp = new MemoryStream(_data, false);
 				ms = temp;
 				temp = null;
 			}
@@ -64,27 +64,27 @@ namespace Comical.Core
 			return ms;
 		}
 
-		internal void ReleaseContext() { _ownerContext = null; }
-
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
-	public class ImageReferenceCollection : IReadOnlyList<ImageReference>, INotifyCollectionChanged
+	public class ImageReferenceCollection : IList<ImageReference>, IReadOnlyList<ImageReference>, INotifyCollectionChanged
 	{
+		public ImageReferenceCollection(SynchronizationContext context) { _ownerContext = context; }
+
+		SynchronizationContext _ownerContext;
 		List<ImageReference> references = new List<ImageReference>();
-		readonly object lockObject = new object();
 		bool _notificationSuspended = false;
 		List<NotifyCollectionChangedEventArgs> collectionChanges = new List<NotifyCollectionChangedEventArgs>();
 		List<KeyValuePair<ImageReference, string>> itemChanges = new List<KeyValuePair<ImageReference, string>>();
 
 		protected void ClearItems()
 		{
-			lock (lockObject)
+			lock (references)
 			{
 				for (int i = references.Count - 1; i >= 0; i--)
 				{
 					references[i].PropertyChanged -= OnItemPropertyChanged;
-					references[i].ReleaseContext();
+					references[i].OwnerContext = null;
 					references.RemoveAt(i);
 				}
 			}
@@ -93,17 +93,21 @@ namespace Comical.Core
 
 		protected void InsertItem(int index, ImageReference item)
 		{
-			if (item == null)
-				throw new ArgumentNullException("item");
-			item.PropertyChanged += OnItemPropertyChanged;
-			references.Insert(index, item);
+			lock (references)
+			{
+				if (item == null)
+					throw new ArgumentNullException("item");
+				item.PropertyChanged += OnItemPropertyChanged;
+				item.OwnerContext = _ownerContext;
+				references.Insert(index, item);
+			}
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
 		}
 
 		protected void MoveItems(int oldIndex, int count, int newIndex)
 		{
 			ImageReference[] refes;
-			lock (lockObject)
+			lock (references)
 			{
 				refes = new ImageReference[count];
 				for (int i = 0; i < count; i++)
@@ -114,38 +118,70 @@ namespace Comical.Core
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, refes, newIndex, oldIndex));
 		}
 
-		protected void RemoveItem(int index)
+		protected void SetItem(int index, ImageReference item)
 		{
-			var item = this[index];
-			references.RemoveAt(index);
+			ImageReference oldItem;
+			lock (references)
+			{
+				if (item == null)
+					throw new ArgumentNullException("item");
+				oldItem = references[index];
+				oldItem.PropertyChanged -= OnItemPropertyChanged;
+				oldItem.OwnerContext = null;
+				references[index] = item;
+				item.PropertyChanged += OnItemPropertyChanged;
+				item.OwnerContext = _ownerContext;
+			}
+			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, item, oldItem, index));
+		}
+
+		protected bool RemoveItem(int index)
+		{
+			ImageReference item;
+			lock (references)
+			{
+				if (index < 0 || index >= references.Count)
+					return false;
+				item = references[index];
+				item.PropertyChanged -= OnItemPropertyChanged;
+				item.OwnerContext = null;
+				references.RemoveAt(index);
+			}
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+			return true;
 		}
 
 		public void Move(int oldIndex, int newIndex) { MoveItems(oldIndex, 1, newIndex); }
 
 		public void MoveRange(int oldIndex, int count, int newIndex) { MoveItems(oldIndex, count, newIndex); }
 
-		public int IndexOf(ImageReference item) { return references.IndexOf(item); }
+		public int IndexOf(ImageReference item) { lock (references) return references.IndexOf(item); }
 
 		public void RemoveAt(int index) { RemoveItem(index); }
 
-		public ImageReference this[int index] { get { return references[index]; } }
+		public ImageReference this[int index]
+		{
+			get { lock (references) return references[index]; }
+			set { SetItem(index, value); }
+		}
 
-		internal void Add(ImageReference item) { InsertItem(Count, item); }
-		
-		internal void Clear() { ClearItems(); }
+		public void Add(ImageReference item) { InsertItem(Count, item); }
 
-		public bool Contains(ImageReference item) { return references.Contains(item); }
+		public void Insert(int index, ImageReference item) { InsertItem(index, item); }
+
+		public void Clear() { ClearItems(); }
+
+		public bool Contains(ImageReference item) { lock (references) return references.Contains(item); }
 
 		public int Count { get { return references.Count; } }
 
-		public bool Remove(ImageReference item)
-		{
-			RemoveItem(IndexOf(item));
-			return true;
-		}
+		public bool Remove(ImageReference item) { return RemoveItem(references.IndexOf(item)); }
 
-		public IEnumerator<ImageReference> GetEnumerator() { return references.GetEnumerator(); }
+		public void CopyTo(ImageReference[] array, int arrayIndex) { lock (references) references.CopyTo(array, arrayIndex); }
+
+		public bool IsReadOnly { get { return false; } }
+
+		public IEnumerator<ImageReference> GetEnumerator() { lock (references) return references.GetEnumerator(); }
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return GetEnumerator(); }
 

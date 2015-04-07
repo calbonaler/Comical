@@ -133,7 +133,7 @@ namespace Comical
 			if (e.Source.Name == "dgvImages")
 			{
 				e.Cancel = true;
-				_bookmarks.Insert(e.Destination, new Bookmark("ページ", e.SourceRows[0].Index));
+				_bookmarks.Insert(e.Destination, new Bookmark() { Target = e.SourceRows[0].Index });
 			}
 			else if (e.Source == dgvBookmarks)
 				_bookmarks.Move(e.SourceRows[0].Index, e.Destination);
@@ -163,11 +163,11 @@ namespace Comical
 
 		private void itmSelectTarget_Click(object sender, EventArgs e) { OnBookmarkNavigated(new BookmarkNavigatedEventArgs(_bookmarks[dgvBookmarks.SelectedRows[0].Index])); }
 
-		private void itmAdd_Click(object sender, EventArgs e) { _bookmarks.Add(new Bookmark("ページ", 0)); }
+		private void itmAdd_Click(object sender, EventArgs e) { _bookmarks.Add(new Bookmark()); }
 
-		private void itmInsertAbove_Click(object sender, EventArgs e) { _bookmarks.Insert(dgvBookmarks.SelectedRows[0].Index, new Bookmark("ページ", 0)); }
+		private void itmInsertAbove_Click(object sender, EventArgs e) { _bookmarks.Insert(dgvBookmarks.SelectedRows[0].Index, new Bookmark()); }
 
-		private void itmInsertBelow_Click(object sender, EventArgs e) { _bookmarks.Insert(dgvBookmarks.SelectedRows[0].Index + 1, new Bookmark("ページ", 0)); }
+		private void itmInsertBelow_Click(object sender, EventArgs e) { _bookmarks.Insert(dgvBookmarks.SelectedRows[0].Index + 1, new Bookmark()); }
 
 		private void itmRemove_Click(object sender, EventArgs e)
 		{
