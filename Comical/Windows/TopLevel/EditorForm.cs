@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Comical.Core;
@@ -39,26 +39,7 @@ namespace Comical
 
 		void InitializeDockingWindows()
 		{
-			if (!string.IsNullOrEmpty(Properties.Settings.Default.DockPanelConfiguration))
-			{
-				using (var ms = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(Properties.Settings.Default.DockPanelConfiguration)))
-				{
-					dpMain.LoadFromXml(ms, ps =>
-					{
-						if (ps == "ImageList")
-							return imageList;
-						else if (ps == "BookmarkList")
-							return bookmarkList;
-						else if (ps == "Document")
-							return document;
-						else if (ps == "GoToIndex")
-							return goToIndex;
-						else if (ps == "ViewModeSettings")
-							return viewModeSettings;
-						return null;
-					});
-				}
-			}
+			dpMain.LoadFromXml(Properties.Settings.Default.DockPanelConfiguration, imageList, bookmarkList, document, goToIndex, viewModeSettings);
 
 			imageList.SetComic(comic);
 			imageList.FileDropped += async (s, ev) => await AddAnythingLocalAsync(!ev.Control, ev.FileNames.ToArray());
@@ -221,17 +202,14 @@ namespace Comical
 
 		async Task<bool> SaveAsync()
 		{
-			if (comic.HasSaved)
-			{
-				using (BeginAsyncWork())
-				{
-					await comic.SaveAsync(comic.SavedFilePath, Comic.DefaultPassword, defaultProgress);
-					AddAuthorToHistory(comic.Author);
-					return true;
-				}
-			}
-			else
+			if (!comic.HasSaved)
 				return await SaveAsAsync();
+			using (BeginAsyncWork())
+			{
+				await comic.SaveAsync(comic.SavedFilePath, Comic.DefaultPassword, defaultProgress);
+				AddAuthorToHistory(comic.Author);
+				return true;
+			}
 		}
 
 		async Task<bool> SaveAsAsync()
@@ -258,16 +236,14 @@ namespace Comical
 				dialog.Controls.Add(menTool);
 				if (Properties.Settings.Default.DefaultSavedFileName.Length > 0)
 					dialog.DefaultFileName = string.Format(CultureInfo.CurrentCulture, Properties.Settings.Default.DefaultSavedFileName, comic.Title, comic.Author, comic.DateOfPublication);
-				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
+				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
+					return false;
+				using (BeginAsyncWork())
 				{
-					using (BeginAsyncWork())
-					{
-						await comic.SaveAsync(dialog.FileName, password, defaultProgress);
-						AddAuthorToHistory(comic.Author);
-						return true;
-					}
+					await comic.SaveAsync(dialog.FileName, password, defaultProgress);
+					AddAuthorToHistory(comic.Author);
+					return true;
 				}
-				return false;
 			}
 		}
 
@@ -281,15 +257,14 @@ namespace Comical
 
 		async void itmOpen_Click(object sender, EventArgs e)
 		{
-			if (await QuerySaveAsync() != TaskDialogResult.Cancel)
+			if (await QuerySaveAsync() == TaskDialogResult.Cancel)
+				return;
+			using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
 			{
-				using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
-				{
-					dialog.DefaultExtension = ".cic";
-					dialog.Filters.Add(new CommonFileDialogFilter("Comicファイル", "*.cic"));
-					if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
-						await AddAnythingLocalAsync(true, dialog.FileName);
-				}
+				dialog.DefaultExtension = ".cic";
+				dialog.Filters.Add(new CommonFileDialogFilter("Comicファイル", "*.cic"));
+				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
+					await AddAnythingLocalAsync(true, dialog.FileName);
 			}
 		}
 
@@ -299,7 +274,7 @@ namespace Comical
 
 		void itmDocumentSettings_Click(object sender, EventArgs e) { document.Show(dpMain); }
 
-		void itmExit_Click(object sender, EventArgs e) { this.Close(); }
+		void itmExit_Click(object sender, EventArgs e) { Close(); }
 
 		#endregion
 
@@ -337,9 +312,10 @@ namespace Comical
 		{
 			using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
 			{
+				dialog.Multiselect = true;
 				dialog.IsFolderPicker = true;
 				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
-					await AddAnythingLocalAsync(false, dialog.FileName);
+					await AddAnythingLocalAsync(false, dialog.FileNames.ToArray());
 			}
 		}
 
@@ -349,20 +325,27 @@ namespace Comical
 			{
 				foreach (var item in imageExtensions)
 					dialog.AllowExtensions.Add(item);
-				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog(this) != System.Windows.Forms.DialogResult.OK)
+					return;
+				using (BeginAsyncWork())
 				{
-					using (BeginAsyncWork())
-					using (WebClient client = new WebClient())
+					ImageReference[] references = new ImageReference[dialog.Images.Count];
+					using (HttpClient client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate }))
+					{
+						Func<int, Task> action = async i =>
+						{
+							try { references[i] = new ImageReference(await client.GetByteArrayAsync(dialog.Images[i])); }
+							catch (HttpRequestException) { }
+						};
+						Task[] tasks = new Task[dialog.Images.Count];
+						for (int i = 0; i < dialog.Images.Count; i++)
+							tasks[i] = action(i);
+						await Task.WhenAll(tasks);
+					}
 					using (comic.Images.EnterUnnotifiedSection())
 					{
-						for (int i = 0; i < dialog.Images.Count; i++)
-						{
-							try { comic.Images.Add(new ImageReference(await client.DownloadDataTaskAsync(dialog.Images[i]))); }
-							catch (WebException) { }
-							await Task.Delay(100);
-							lblStatus.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.Downloading, dialog.Images.Count, i + 1);
-							prgStatus.Value = (i + 1) * 100 / dialog.Images.Count;
-						}
+						for (int i = 0; i < references.Length; i++)
+							comic.Images.Add(references[i]);
 					}
 				}
 			}
@@ -378,11 +361,10 @@ namespace Comical
 			{
 				dialog.IsFolderPicker = true;
 				dialog.Title = Properties.Resources.ExportImages;
-				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
-				{
-					using (BeginAsyncWork())
-						await comic.ExportAsync(dialog.FileName, imageList.SelectedIndicies.OrderBy(x => x).Select(x => comic.Images[x]), defaultProgress);
-				}
+				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
+					return;
+				using (BeginAsyncWork())
+					await comic.ExportAsync(dialog.FileName, imageList.SelectedIndicies.OrderBy(x => x).Select(x => comic.Images[x]), defaultProgress);
 			}
 		}
 
@@ -393,11 +375,10 @@ namespace Comical
 				dialog.DefaultExtension = ".cic";
 				dialog.Filters.Add(new CommonFileDialogFilter("Comicファイル", "*.cic"));
 				dialog.Title = Properties.Resources.ExtractImages;
-				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
-				{
-					using (BeginAsyncWork())
-						await comic.ExtractAsync(dialog.FileName, imageList.SelectedIndicies.OrderBy(x => x).Select(x => comic.Images[x]), defaultProgress);
-				}
+				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
+					return;
+				using (BeginAsyncWork())
+					await comic.ExtractAsync(dialog.FileName, imageList.SelectedIndicies.OrderBy(x => x).Select(x => comic.Images[x]), defaultProgress);
 			}
 		}
 
@@ -471,9 +452,9 @@ namespace Comical
 				dpMain.SaveAsXml(ms, System.Text.Encoding.UTF8);
 				Properties.Settings.Default.DockPanelConfiguration = System.Text.Encoding.UTF8.GetString(ms.ToArray());
 			}
-			Properties.Settings.Default.EditorWindowState = this.WindowState;
-			if (this.WindowState == FormWindowState.Normal)
-				Properties.Settings.Default.EditorWindowBounds = this.DesktopBounds;
+			Properties.Settings.Default.EditorWindowState = WindowState;
+			if (WindowState == FormWindowState.Normal)
+				Properties.Settings.Default.EditorWindowBounds = DesktopBounds;
 			Properties.Settings.Default.Save();
 		}
 

@@ -74,24 +74,29 @@ namespace Comical
 					}
 				}
 			}
-			Action<int> function = async i =>
+			using (var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
 			{
-				try
+				Func<int, Task> function = async i =>
 				{
-					using (var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
-					using (var stream = await client.GetStreamAsync(dgvResults["clmUrl", i].Value.ToString()))
-					using (var img = Image.FromStream(stream, false, false))
+					try
 					{
-						dgvResults["clmSize", i].Value =
-							string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, img.Width, img.Height) + "\r\n\r\n" +
-							string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageResolutionStringRepresentation, img.HorizontalResolution, img.VerticalResolution);
-						dgvResults["clmImage", i].Value = img.Resize(new Size(clmImage.Width, clmImage.Width));
+
+						using (var stream = await client.GetStreamAsync(dgvResults["clmUrl", i].Value.ToString()))
+						using (var img = Image.FromStream(stream, false, false))
+						{
+							dgvResults["clmSize", i].Value =
+								string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, img.Width, img.Height) + "\r\n\r\n" +
+								string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageResolutionStringRepresentation, img.HorizontalResolution, img.VerticalResolution);
+							dgvResults["clmImage", i].Value = img.Resize(new Size(clmImage.Width, clmImage.Width));
+						}
 					}
-				}
-				catch (ArgumentException) { }
-			};
-			for (int i = 0; i < dgvResults.Rows.Count; i++)
-				function(i);
+					catch (ArgumentException) { }
+				};
+				Task[] tasks = new Task[dgvResults.Rows.Count];
+				for (int i = 0; i < dgvResults.Rows.Count; i++)
+					tasks[i] = function(i);
+				await Task.WhenAll(tasks);
+			}
 			btnSearch.Enabled = lblUrl.Enabled = txtUrl.Enabled = lblAttributes.Enabled = txtAttributes.Enabled = true;
 		}
 

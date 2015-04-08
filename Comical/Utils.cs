@@ -146,6 +146,16 @@ namespace Comical
 				Array.Resize(ref infos, infosize);
 			return infos;
 		}
+
+		public static void LoadFromXml(this WeifenLuo.WinFormsUI.Docking.DockPanel panel, string xml, params WeifenLuo.WinFormsUI.Docking.IDockContent[] contents)
+		{
+			if (panel == null)
+				throw new ArgumentNullException("panel");
+			if (string.IsNullOrEmpty(xml))
+				return;
+			using (System.IO.MemoryStream ms = new System.IO.MemoryStream(Encoding.UTF8.GetBytes(xml)))
+				panel.LoadFromXml(ms, persistString => Array.Find(contents, x => string.Equals(persistString, x.DockHandler.GetPersistStringCallback(), StringComparison.Ordinal)));
+		}
 	}
 
 	/// <summary>エンコーディング判定の結果を格納します。</summary>
