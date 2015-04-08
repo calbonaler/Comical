@@ -207,29 +207,18 @@ namespace Comical.Core
 				if (simpleSpread || PageTurningDirection == PageTurningDirection.None || image.ViewMode == ImageViewMode.Default)
 				{
 					if (spread != null)
-					{
 						yield return spread;
-						spread = null;
-					}
-					yield return new Spread(image);
+					spread = new Spread();
+					spread.SetImage(image, ImageViewMode.Default);
+					yield return spread;
+					spread = null;
 				}
-				else if (image.ViewMode == ImageViewMode.Right)
+				else
 				{
 					if (spread == null)
 						spread = new Spread();
-					spread.Right = image;
-					if (PageTurningDirection == PageTurningDirection.ToLeft)
-					{
-						yield return spread;
-						spread = null;
-					}
-				}
-				else if (image.ViewMode == ImageViewMode.Left)
-				{
-					if (spread == null)
-						spread = new Spread();
-					spread.Left = image;
-					if (PageTurningDirection == PageTurningDirection.ToRight)
+					spread.SetImage(image, image.ViewMode);
+					if (PageTurningDirection == (PageTurningDirection)(3 - image.ViewMode))
 					{
 						yield return spread;
 						spread = null;
