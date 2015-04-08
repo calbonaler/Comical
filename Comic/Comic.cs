@@ -66,7 +66,7 @@ namespace Comical.Core
 					int len = reader.ReadInt32(); // サイズ
 					using (MemoryStream ms = new MemoryStream())
 					{
-						Crypto.Decrypt(readStream, ms, password, System.Text.Encoding.Unicode, len);
+						Crypto.Transform(readStream, ms, password, System.Text.Encoding.Unicode, len, true);
 						addedImages.Add(new ImageReference(ms.ToArray()) { ViewMode = m });
 					}
 					if (progress != null)
@@ -92,7 +92,7 @@ namespace Comical.Core
 					writer.Write((byte)ir.ViewMode); // 利用情報
 					writer.Write(ir.Length); // 画像データ大きさ
 					using (var binImage = ir.GetReadOnlyBinaryImage())
-						Crypto.Encrypt(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length); // 画像データ
+						Crypto.Transform(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length, false); // 画像データ
 					if (progress != null)
 						progress.Report((i + 1) * 100 / images.Count);
 				}

@@ -16,7 +16,7 @@ namespace Comical.Core
 			fileIdentifier = new byte[] { 0x43, 0x49, 0x43 };
 			FileVersionMajor = (byte)fileVersion.Major;
 			FileVersionMinor = (byte)fileVersion.Minor;
-			hashData = password.Length > 0 ? Crypto.Encrypt(Encoding.Unicode.GetBytes(sample), password, Encoding.Unicode) : new byte[0];
+			hashData = password.Length > 0 ? Crypto.Transform(Encoding.Unicode.GetBytes(sample), password, Encoding.Unicode, false) : new byte[0];
 			Password = password;
 		}
 
@@ -111,7 +111,7 @@ namespace Comical.Core
 
 		public bool IsProperPassword(string password)
 		{
-			return hashData.Length == 0 || Encoding.Unicode.GetString(Crypto.Decrypt(hashData, password, Encoding.Unicode)) == sample;
+			return hashData.Length == 0 || Encoding.Unicode.GetString(Crypto.Transform(hashData, password, Encoding.Unicode, true)) == sample;
 		}
 
 		public string Title
