@@ -220,26 +220,17 @@ namespace Comical
 		void picPreview_Paint(object sender, PaintEventArgs e)
 		{
 			Graphics g = e.Graphics;
-			if (focusMode == FocusMode.Next)
-			{
-				var img = Properties.Resources.Next;
-				var y = (prevMain.ClientSize.Height - img.Height) / 2 - prevMain.AutoScrollPosition.Y;
-				if (icd.PageTurningDirection == PageTurningDirection.ToLeft)
-					g.DrawImage(img, Math.Min(prevMain.ClientSize.Width, prevMain.ViewPane.ClientSize.Width) - img.Width - prevMain.AutoScrollPosition.X, y);
-				else
-					g.DrawImage(img, -prevMain.AutoScrollPosition.X, y);
-			}
-			else if (focusMode == FocusMode.Previous)
-			{
-				var img = Properties.Resources.Previous;
-				var y = (prevMain.ClientSize.Height - img.Height) / 2 - prevMain.AutoScrollPosition.Y;
-				if (icd.PageTurningDirection == PageTurningDirection.ToLeft)
-					g.DrawImage(img, -prevMain.AutoScrollPosition.X, y);
-				else
-					g.DrawImage(img, Math.Min(prevMain.ClientSize.Width, prevMain.ViewPane.ClientSize.Width) - img.Width - prevMain.AutoScrollPosition.X, y);
-			}
-			else if (focusMode == FocusMode.Close)
+			if (focusMode == FocusMode.Close)
 				g.FillRectangle(closeBrush, -prevMain.AutoScrollPosition.X, prevMain.ClientSize.Height - closeHeight - prevMain.AutoScrollPosition.Y, prevMain.ViewPane.ClientSize.Width, closeHeight);
+			else if (focusMode != FocusMode.None)
+			{
+				var img = (Bitmap)Properties.Resources.ResourceManager.GetObject(focusMode.ToString(), Properties.Resources.Culture);
+				var y = (prevMain.ClientSize.Height - img.Height) / 2 - prevMain.AutoScrollPosition.Y;
+				if (icd.PageTurningDirection == PageTurningDirection.ToLeft ^ focusMode == FocusMode.Next)
+					g.DrawImage(img, -prevMain.AutoScrollPosition.X, y);
+				else
+					g.DrawImage(img, Math.Min(prevMain.ClientSize.Width, prevMain.ViewPane.ClientSize.Width) - img.Width - prevMain.AutoScrollPosition.X, y);
+			}
 		}
 
 		void picPreview_KeyDown(object sender, KeyEventArgs e)
