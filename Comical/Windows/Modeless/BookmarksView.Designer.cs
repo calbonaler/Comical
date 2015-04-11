@@ -128,7 +128,7 @@
 			this.dgvBookmarks.RowMoving += new System.EventHandler<Comical.Controls.RowMovingEventArgs>(this.dgvBookmarks_RowMoving);
 			this.dgvBookmarks.QueryActualDestination += new System.EventHandler<Comical.Controls.QueryActualDestinationEventArgs>(this.dgvBookmarks_QueryActualDestination);
 			this.dgvBookmarks.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBookmarks_CellDoubleClick);
-			this.dgvBookmarks.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvBookmarks_CellValidating);
+			this.dgvBookmarks.CellErrorTextNeeded += new System.Windows.Forms.DataGridViewCellErrorTextNeededEventHandler(this.dgvBookmarks_CellErrorTextNeeded);
 			this.dgvBookmarks.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvBookmarks_CellValueNeeded);
 			this.dgvBookmarks.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvBookmarks_CellValuePushed);
 			this.dgvBookmarks.SelectionChanged += new System.EventHandler(this.dgvBookmarks_SelectionChanged);

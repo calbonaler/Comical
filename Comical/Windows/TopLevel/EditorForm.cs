@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Comical.Core;
@@ -33,15 +32,14 @@ namespace Comical
 		ContentsView imageList = new ContentsView();
 		BookmarksView bookmarkList = new BookmarksView();
 		DocumentView document = new DocumentView();
-		GoToIndexView goToIndex = new GoToIndexView();
 		ViewModeSettingsView viewModeSettings = new ViewModeSettingsView();
 		Progress<int> defaultProgress;
 
 		void InitializeDockingWindows()
 		{
-			dpMain.LoadFromXml(Properties.Settings.Default.DockPanelConfiguration, imageList, bookmarkList, document, goToIndex, viewModeSettings);
+			dpMain.LoadFromXml(Properties.Settings.Default.DockPanelConfiguration, imageList, bookmarkList, document, viewModeSettings);
 
-			imageList.SetComic(comic);
+			imageList.SetImages(comic.Images);
 			imageList.FileDropped += async (s, ev) => await AddAnythingLocalAsync(!ev.Control, ev.FileNames.ToArray());
 			imageList.ImageReferenceSelected += (s, ev) =>
 			{
@@ -54,6 +52,7 @@ namespace Comical
 			};
 			imageList.ExportRequested += itmExport_Click;
 			imageList.ExtractRequested += itmExtract_Click;
+			imageList.BookmarkRequested += itmAddBookmark_Click;
 
 			bookmarkList.SetImages(comic.Images);
 			bookmarkList.SetBookmarks(comic.Bookmarks);
@@ -61,9 +60,6 @@ namespace Comical
 			bookmarkList.BookmarkNavigated += (s, ev) => imageList.FirstSelectedRowIndex = ev.Bookmark.Target;
 
 			document.SetComic(comic);
-
-			goToIndex.SetImages(comic.Images);
-			goToIndex.Go += (s, ev) => imageList.FirstSelectedRowIndex = goToIndex.Index;
 
 			viewModeSettings.SetImages(comic.Images);
 		}
@@ -100,10 +96,14 @@ namespace Comical
 		IDisposable BeginAsyncWork()
 		{
 			prgStatus.Value = 0;
-			prgStatus.Visible = imageList.ReadOnly = bookmarkList.ReadOnly = !(menMain.Enabled = tsMain.Enabled = false);
+			prgStatus.Visible = !(menMain.Enabled = tsMain.Enabled = false);
+			var imageListWork = imageList.BeginAsyncWork();
+			var bookmarkListWork = bookmarkList.BeginAsyncWork();
 			return new DelegateDisposable(() =>
 			{
-				prgStatus.Visible = imageList.ReadOnly = bookmarkList.ReadOnly = !(menMain.Enabled = tsMain.Enabled = true);
+				bookmarkListWork.Dispose();
+				imageListWork.Dispose();
+				prgStatus.Visible = !(menMain.Enabled = tsMain.Enabled = true);
 				lblStatus.Text = string.Empty;
 			});
 		}
@@ -192,11 +192,7 @@ namespace Comical
 				}
 				lblStatus.Text = Properties.Resources.ImportingImages;
 				Application.DoEvents();
-				using (comic.Images.EnterUnnotifiedSection())
-				{
-					foreach (var image in images)
-						comic.Images.Add(image);
-				}
+				imageList.AddImages(images);
 			}
 		}
 
@@ -284,8 +280,6 @@ namespace Comical
 
 		void itmSelectAll_Click(object sender, EventArgs e) { imageList.SelectAll(); }
 
-		void itmGoToIndex_Click(object sender, EventArgs e) { goToIndex.Show(dpMain); }
-
 		#endregion
 
 		#region ViewMenu
@@ -319,38 +313,6 @@ namespace Comical
 			}
 		}
 
-		async void itmByBrowser_Click(object sender, EventArgs e)
-		{
-			using (AddImageFromWebPageDialog dialog = new AddImageFromWebPageDialog())
-			{
-				foreach (var item in imageExtensions)
-					dialog.AllowExtensions.Add(item);
-				if (dialog.ShowDialog(this) != System.Windows.Forms.DialogResult.OK)
-					return;
-				using (BeginAsyncWork())
-				{
-					ImageReference[] references = new ImageReference[dialog.Images.Count];
-					using (HttpClient client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate }))
-					{
-						Func<int, Task> action = async i =>
-						{
-							try { references[i] = new ImageReference(await client.GetByteArrayAsync(dialog.Images[i])); }
-							catch (HttpRequestException) { }
-						};
-						Task[] tasks = new Task[dialog.Images.Count];
-						for (int i = 0; i < dialog.Images.Count; i++)
-							tasks[i] = action(i);
-						await Task.WhenAll(tasks);
-					}
-					using (comic.Images.EnterUnnotifiedSection())
-					{
-						for (int i = 0; i < references.Length; i++)
-							comic.Images.Add(references[i]);
-					}
-				}
-			}
-		}
-
 		void itmOpenImage_Click(object sender, EventArgs e) { imageList.OpenFirstSelectedImage(); }
 
 		void itmDelete_Click(object sender, EventArgs e) { imageList.DeleteSelectedImages(); }
@@ -364,7 +326,7 @@ namespace Comical
 				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
 					return;
 				using (BeginAsyncWork())
-					await comic.ExportAsync(dialog.FileName, imageList.SelectedIndicies.OrderBy(x => x).Select(x => comic.Images[x]), defaultProgress);
+					await comic.ExportAsync(dialog.FileName, imageList.SortedSelectedImages, defaultProgress);
 			}
 		}
 
@@ -378,34 +340,21 @@ namespace Comical
 				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
 					return;
 				using (BeginAsyncWork())
-					await comic.ExtractAsync(dialog.FileName, imageList.SelectedIndicies.OrderBy(x => x).Select(x => comic.Images[x]), defaultProgress);
+					await comic.ExtractAsync(dialog.FileName, imageList.SortedSelectedImages, defaultProgress);
 			}
 		}
 
 		void itmSetViewMode_Click(object sender, EventArgs e) { viewModeSettings.Show(dpMain); }
 
-		void itmInvertViewMode_Click(object sender, EventArgs e)
-		{
-			foreach (var image in comic.Images)
-			{
-				if (image.ViewMode == ImageViewMode.Left)
-					image.ViewMode = ImageViewMode.Right;
-				else if (image.ViewMode == ImageViewMode.Right)
-					image.ViewMode = ImageViewMode.Left;
-			}
-		}
+		void itmInvertViewMode_Click(object sender, EventArgs e) { viewModeSettings.InvertViewMode(); }
 
 		#endregion
 
 		#region BookmarkMenu
 
-		void itmAddBookmark_Click(object sender, EventArgs e) { imageList.BookmarkSelectedImages(); }
+		void itmAddBookmark_Click(object sender, EventArgs e) { bookmarkList.AddBookmarks(imageList.SelectedIndicies.OrderBy(x => x)); }
 
-		void itmDeleteBookmark_Click(object sender, EventArgs e)
-		{
-			foreach (var bookmark in bookmarkList.SelectedBookmarks.ToArray())
-				comic.Bookmarks.Remove(bookmark);
-		}
+		void itmDeleteBookmark_Click(object sender, EventArgs e) { bookmarkList.DeleteSelectedBookmarks(); }
 
 		#endregion
 
@@ -464,7 +413,6 @@ namespace Comical
 
 		void Comic_CountChanged(object sender, EventArgs e)
 		{
-			itmSaveAs.Enabled = itmSave.Enabled = itmSelectAll.Enabled = itmInvertSelections.Enabled = itmInvertViewMode.Enabled = btnSave.Enabled = comic.Images.Count > 0;
 			lblImageCount.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageCountStringRepresentation, comic.Images.Count);
 		}
 

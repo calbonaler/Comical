@@ -94,7 +94,6 @@
 			// 
 			resources.ApplyResources(this.itmAddToBookmark, "itmAddToBookmark");
 			this.itmAddToBookmark.Name = "itmAddToBookmark";
-			this.itmAddToBookmark.Click += new System.EventHandler(this.itmBookmark_Click);
 			// 
 			// dgvImages
 			// 

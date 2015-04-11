@@ -30,7 +30,41 @@
 		/// </summary>
 		void InitializeComponent()
 		{
+			System.Windows.Forms.ToolStripMenuItem itmFile;
+			System.Windows.Forms.ToolStripMenuItem itmNew;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
+			System.Windows.Forms.ToolStripMenuItem itmOpen;
+			System.Windows.Forms.ToolStripSeparator sepFile1;
+			System.Windows.Forms.ToolStripMenuItem itmSave;
+			System.Windows.Forms.ToolStripMenuItem itmSaveAs;
+			System.Windows.Forms.ToolStripSeparator sepFile2;
+			System.Windows.Forms.ToolStripMenuItem itmDocumentSettings;
+			System.Windows.Forms.ToolStripSeparator sepFile3;
+			System.Windows.Forms.ToolStripMenuItem itmExit;
+			System.Windows.Forms.ToolStripMenuItem itmEdit;
+			System.Windows.Forms.ToolStripMenuItem itmSelectAll;
+			System.Windows.Forms.ToolStripMenuItem itmInvertSelections;
+			System.Windows.Forms.ToolStripMenuItem itmImage;
+			System.Windows.Forms.ToolStripMenuItem itmAdd;
+			System.Windows.Forms.ToolStripMenuItem itmFromFiles;
+			System.Windows.Forms.ToolStripMenuItem itmFromFolder;
+			System.Windows.Forms.ToolStripSeparator sepImage1;
+			System.Windows.Forms.ToolStripSeparator sepImage2;
+			System.Windows.Forms.ToolStripSeparator sepImage3;
+			System.Windows.Forms.ToolStripMenuItem itmSetViewMode;
+			System.Windows.Forms.ToolStripMenuItem itmInvertViewMode;
+			System.Windows.Forms.ToolStripMenuItem itmBookmark;
+			System.Windows.Forms.ToolStripMenuItem itmTool;
+			System.Windows.Forms.ToolStripMenuItem itmOption;
+			System.Windows.Forms.ToolStripMenuItem itmHelp;
+			System.Windows.Forms.ToolStripMenuItem itmAbout;
+			System.Windows.Forms.StatusStrip stsMain;
+			System.Windows.Forms.ToolStripMenuItem itmView;
+			System.Windows.Forms.ToolStripMenuItem itmContentsWindow;
+			System.Windows.Forms.ToolStripMenuItem itmBookmarksWindow;
+			System.Windows.Forms.ToolStripButton btnNew;
+			System.Windows.Forms.ToolStripButton btnOpen;
+			System.Windows.Forms.ToolStripButton btnSave;
 			WeifenLuo.WinFormsUI.Docking.DockPanelSkin dockPanelSkin1 = new WeifenLuo.WinFormsUI.Docking.DockPanelSkin();
 			WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin autoHideStripSkin1 = new WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin();
 			WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient1 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
@@ -46,213 +80,183 @@
 			WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient3 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
 			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient6 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
 			WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient7 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-			this.itmFile = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmNew = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmOpen = new System.Windows.Forms.ToolStripMenuItem();
-			this.sepFile1 = new System.Windows.Forms.ToolStripSeparator();
-			this.itmSave = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmSaveAs = new System.Windows.Forms.ToolStripMenuItem();
-			this.sepFile2 = new System.Windows.Forms.ToolStripSeparator();
-			this.itmDocumentSettings = new System.Windows.Forms.ToolStripMenuItem();
-			this.sepFile3 = new System.Windows.Forms.ToolStripSeparator();
-			this.itmExit = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmEdit = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmSelectAll = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmInvertSelections = new System.Windows.Forms.ToolStripMenuItem();
-			this.sepEdit = new System.Windows.Forms.ToolStripSeparator();
-			this.itmGoToIndex = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmImage = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmAdd = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmFromFiles = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmFromFolder = new System.Windows.Forms.ToolStripMenuItem();
-			this.sepAdd = new System.Windows.Forms.ToolStripSeparator();
-			this.itmFromWebPage = new System.Windows.Forms.ToolStripMenuItem();
-			this.sepImage1 = new System.Windows.Forms.ToolStripSeparator();
 			this.itmOpenImage = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmExclude = new System.Windows.Forms.ToolStripMenuItem();
-			this.sepImage2 = new System.Windows.Forms.ToolStripSeparator();
 			this.itmExport = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmExtract = new System.Windows.Forms.ToolStripMenuItem();
-			this.sepImage3 = new System.Windows.Forms.ToolStripSeparator();
-			this.itmSetViewMode = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmInvertViewMode = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmBookmark = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmAddBookmark = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmRemoveBookmark = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmTool = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmOption = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmHelp = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmAbout = new System.Windows.Forms.ToolStripMenuItem();
-			this.stsMain = new System.Windows.Forms.StatusStrip();
 			this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
 			this.prgStatus = new System.Windows.Forms.ToolStripProgressBar();
 			this.lblImageCount = new System.Windows.Forms.ToolStripStatusLabel();
 			this.menMain = new System.Windows.Forms.MenuStrip();
-			this.itmView = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmContentsWindow = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmBookmarksWindow = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsMain = new System.Windows.Forms.ToolStrip();
-			this.btnNew = new System.Windows.Forms.ToolStripButton();
-			this.btnOpen = new System.Windows.Forms.ToolStripButton();
-			this.btnSave = new System.Windows.Forms.ToolStripButton();
 			this.dpMain = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-			this.stsMain.SuspendLayout();
+			itmFile = new System.Windows.Forms.ToolStripMenuItem();
+			itmNew = new System.Windows.Forms.ToolStripMenuItem();
+			itmOpen = new System.Windows.Forms.ToolStripMenuItem();
+			sepFile1 = new System.Windows.Forms.ToolStripSeparator();
+			itmSave = new System.Windows.Forms.ToolStripMenuItem();
+			itmSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+			sepFile2 = new System.Windows.Forms.ToolStripSeparator();
+			itmDocumentSettings = new System.Windows.Forms.ToolStripMenuItem();
+			sepFile3 = new System.Windows.Forms.ToolStripSeparator();
+			itmExit = new System.Windows.Forms.ToolStripMenuItem();
+			itmEdit = new System.Windows.Forms.ToolStripMenuItem();
+			itmSelectAll = new System.Windows.Forms.ToolStripMenuItem();
+			itmInvertSelections = new System.Windows.Forms.ToolStripMenuItem();
+			itmImage = new System.Windows.Forms.ToolStripMenuItem();
+			itmAdd = new System.Windows.Forms.ToolStripMenuItem();
+			itmFromFiles = new System.Windows.Forms.ToolStripMenuItem();
+			itmFromFolder = new System.Windows.Forms.ToolStripMenuItem();
+			sepImage1 = new System.Windows.Forms.ToolStripSeparator();
+			sepImage2 = new System.Windows.Forms.ToolStripSeparator();
+			sepImage3 = new System.Windows.Forms.ToolStripSeparator();
+			itmSetViewMode = new System.Windows.Forms.ToolStripMenuItem();
+			itmInvertViewMode = new System.Windows.Forms.ToolStripMenuItem();
+			itmBookmark = new System.Windows.Forms.ToolStripMenuItem();
+			itmTool = new System.Windows.Forms.ToolStripMenuItem();
+			itmOption = new System.Windows.Forms.ToolStripMenuItem();
+			itmHelp = new System.Windows.Forms.ToolStripMenuItem();
+			itmAbout = new System.Windows.Forms.ToolStripMenuItem();
+			stsMain = new System.Windows.Forms.StatusStrip();
+			itmView = new System.Windows.Forms.ToolStripMenuItem();
+			itmContentsWindow = new System.Windows.Forms.ToolStripMenuItem();
+			itmBookmarksWindow = new System.Windows.Forms.ToolStripMenuItem();
+			btnNew = new System.Windows.Forms.ToolStripButton();
+			btnOpen = new System.Windows.Forms.ToolStripButton();
+			btnSave = new System.Windows.Forms.ToolStripButton();
+			stsMain.SuspendLayout();
 			this.menMain.SuspendLayout();
 			this.tsMain.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// itmFile
 			// 
-			this.itmFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmNew,
-            this.itmOpen,
-            this.sepFile1,
-            this.itmSave,
-            this.itmSaveAs,
-            this.sepFile2,
-            this.itmDocumentSettings,
-            this.sepFile3,
-            this.itmExit});
-			this.itmFile.Name = "itmFile";
-			resources.ApplyResources(this.itmFile, "itmFile");
+			itmFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            itmNew,
+            itmOpen,
+            sepFile1,
+            itmSave,
+            itmSaveAs,
+            sepFile2,
+            itmDocumentSettings,
+            sepFile3,
+            itmExit});
+			itmFile.Name = "itmFile";
+			resources.ApplyResources(itmFile, "itmFile");
 			// 
 			// itmNew
 			// 
-			resources.ApplyResources(this.itmNew, "itmNew");
-			this.itmNew.Name = "itmNew";
-			this.itmNew.Click += new System.EventHandler(this.itmNew_Click);
+			resources.ApplyResources(itmNew, "itmNew");
+			itmNew.Name = "itmNew";
+			itmNew.Click += new System.EventHandler(this.itmNew_Click);
 			// 
 			// itmOpen
 			// 
-			resources.ApplyResources(this.itmOpen, "itmOpen");
-			this.itmOpen.Name = "itmOpen";
-			this.itmOpen.Click += new System.EventHandler(this.itmOpen_Click);
+			resources.ApplyResources(itmOpen, "itmOpen");
+			itmOpen.Name = "itmOpen";
+			itmOpen.Click += new System.EventHandler(this.itmOpen_Click);
 			// 
 			// sepFile1
 			// 
-			this.sepFile1.Name = "sepFile1";
-			resources.ApplyResources(this.sepFile1, "sepFile1");
+			sepFile1.Name = "sepFile1";
+			resources.ApplyResources(sepFile1, "sepFile1");
 			// 
 			// itmSave
 			// 
-			resources.ApplyResources(this.itmSave, "itmSave");
-			this.itmSave.Name = "itmSave";
-			this.itmSave.Click += new System.EventHandler(this.itmSave_Click);
+			resources.ApplyResources(itmSave, "itmSave");
+			itmSave.Name = "itmSave";
+			itmSave.Click += new System.EventHandler(this.itmSave_Click);
 			// 
 			// itmSaveAs
 			// 
-			resources.ApplyResources(this.itmSaveAs, "itmSaveAs");
-			this.itmSaveAs.Name = "itmSaveAs";
-			this.itmSaveAs.Click += new System.EventHandler(this.itmSaveAs_Click);
+			itmSaveAs.Name = "itmSaveAs";
+			resources.ApplyResources(itmSaveAs, "itmSaveAs");
+			itmSaveAs.Click += new System.EventHandler(this.itmSaveAs_Click);
 			// 
 			// sepFile2
 			// 
-			this.sepFile2.Name = "sepFile2";
-			resources.ApplyResources(this.sepFile2, "sepFile2");
+			sepFile2.Name = "sepFile2";
+			resources.ApplyResources(sepFile2, "sepFile2");
 			// 
 			// itmDocumentSettings
 			// 
-			resources.ApplyResources(this.itmDocumentSettings, "itmDocumentSettings");
-			this.itmDocumentSettings.Name = "itmDocumentSettings";
-			this.itmDocumentSettings.Click += new System.EventHandler(this.itmDocumentSettings_Click);
+			resources.ApplyResources(itmDocumentSettings, "itmDocumentSettings");
+			itmDocumentSettings.Name = "itmDocumentSettings";
+			itmDocumentSettings.Click += new System.EventHandler(this.itmDocumentSettings_Click);
 			// 
 			// sepFile3
 			// 
-			this.sepFile3.Name = "sepFile3";
-			resources.ApplyResources(this.sepFile3, "sepFile3");
+			sepFile3.Name = "sepFile3";
+			resources.ApplyResources(sepFile3, "sepFile3");
 			// 
 			// itmExit
 			// 
-			this.itmExit.Name = "itmExit";
-			resources.ApplyResources(this.itmExit, "itmExit");
-			this.itmExit.Click += new System.EventHandler(this.itmExit_Click);
+			itmExit.Name = "itmExit";
+			resources.ApplyResources(itmExit, "itmExit");
+			itmExit.Click += new System.EventHandler(this.itmExit_Click);
 			// 
 			// itmEdit
 			// 
-			this.itmEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmSelectAll,
-            this.itmInvertSelections,
-            this.sepEdit,
-            this.itmGoToIndex});
-			this.itmEdit.Name = "itmEdit";
-			resources.ApplyResources(this.itmEdit, "itmEdit");
+			itmEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            itmSelectAll,
+            itmInvertSelections});
+			itmEdit.Name = "itmEdit";
+			resources.ApplyResources(itmEdit, "itmEdit");
 			// 
 			// itmSelectAll
 			// 
-			resources.ApplyResources(this.itmSelectAll, "itmSelectAll");
-			this.itmSelectAll.Name = "itmSelectAll";
-			this.itmSelectAll.Click += new System.EventHandler(this.itmSelectAll_Click);
+			itmSelectAll.Name = "itmSelectAll";
+			resources.ApplyResources(itmSelectAll, "itmSelectAll");
+			itmSelectAll.Click += new System.EventHandler(this.itmSelectAll_Click);
 			// 
 			// itmInvertSelections
 			// 
-			resources.ApplyResources(this.itmInvertSelections, "itmInvertSelections");
-			this.itmInvertSelections.Name = "itmInvertSelections";
-			this.itmInvertSelections.Click += new System.EventHandler(this.itmInvertSelections_Click);
-			// 
-			// sepEdit
-			// 
-			this.sepEdit.Name = "sepEdit";
-			resources.ApplyResources(this.sepEdit, "sepEdit");
-			// 
-			// itmGoToIndex
-			// 
-			resources.ApplyResources(this.itmGoToIndex, "itmGoToIndex");
-			this.itmGoToIndex.Name = "itmGoToIndex";
-			this.itmGoToIndex.Click += new System.EventHandler(this.itmGoToIndex_Click);
+			itmInvertSelections.Name = "itmInvertSelections";
+			resources.ApplyResources(itmInvertSelections, "itmInvertSelections");
+			itmInvertSelections.Click += new System.EventHandler(this.itmInvertSelections_Click);
 			// 
 			// itmImage
 			// 
-			this.itmImage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmAdd,
-            this.sepImage1,
+			itmImage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            itmAdd,
+            sepImage1,
             this.itmOpenImage,
             this.itmExclude,
-            this.sepImage2,
+            sepImage2,
             this.itmExport,
             this.itmExtract,
-            this.sepImage3,
-            this.itmSetViewMode,
-            this.itmInvertViewMode});
-			this.itmImage.Name = "itmImage";
-			resources.ApplyResources(this.itmImage, "itmImage");
+            sepImage3,
+            itmSetViewMode,
+            itmInvertViewMode});
+			itmImage.Name = "itmImage";
+			resources.ApplyResources(itmImage, "itmImage");
 			// 
 			// itmAdd
 			// 
-			this.itmAdd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmFromFiles,
-            this.itmFromFolder,
-            this.sepAdd,
-            this.itmFromWebPage});
-			this.itmAdd.Name = "itmAdd";
-			resources.ApplyResources(this.itmAdd, "itmAdd");
+			itmAdd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            itmFromFiles,
+            itmFromFolder});
+			itmAdd.Name = "itmAdd";
+			resources.ApplyResources(itmAdd, "itmAdd");
 			// 
 			// itmFromFiles
 			// 
-			resources.ApplyResources(this.itmFromFiles, "itmFromFiles");
-			this.itmFromFiles.Name = "itmFromFiles";
-			this.itmFromFiles.Click += new System.EventHandler(this.itmFromFile_Click);
+			resources.ApplyResources(itmFromFiles, "itmFromFiles");
+			itmFromFiles.Name = "itmFromFiles";
+			itmFromFiles.Click += new System.EventHandler(this.itmFromFile_Click);
 			// 
 			// itmFromFolder
 			// 
-			resources.ApplyResources(this.itmFromFolder, "itmFromFolder");
-			this.itmFromFolder.Name = "itmFromFolder";
-			this.itmFromFolder.Click += new System.EventHandler(this.itmFromFolder_Click);
-			// 
-			// sepAdd
-			// 
-			this.sepAdd.Name = "sepAdd";
-			resources.ApplyResources(this.sepAdd, "sepAdd");
-			// 
-			// itmFromWebPage
-			// 
-			resources.ApplyResources(this.itmFromWebPage, "itmFromWebPage");
-			this.itmFromWebPage.Name = "itmFromWebPage";
-			this.itmFromWebPage.Click += new System.EventHandler(this.itmByBrowser_Click);
+			resources.ApplyResources(itmFromFolder, "itmFromFolder");
+			itmFromFolder.Name = "itmFromFolder";
+			itmFromFolder.Click += new System.EventHandler(this.itmFromFolder_Click);
 			// 
 			// sepImage1
 			// 
-			this.sepImage1.Name = "sepImage1";
-			resources.ApplyResources(this.sepImage1, "sepImage1");
+			sepImage1.Name = "sepImage1";
+			resources.ApplyResources(sepImage1, "sepImage1");
 			// 
 			// itmOpenImage
 			// 
@@ -268,8 +272,8 @@
 			// 
 			// sepImage2
 			// 
-			this.sepImage2.Name = "sepImage2";
-			resources.ApplyResources(this.sepImage2, "sepImage2");
+			sepImage2.Name = "sepImage2";
+			resources.ApplyResources(sepImage2, "sepImage2");
 			// 
 			// itmExport
 			// 
@@ -285,28 +289,28 @@
 			// 
 			// sepImage3
 			// 
-			this.sepImage3.Name = "sepImage3";
-			resources.ApplyResources(this.sepImage3, "sepImage3");
+			sepImage3.Name = "sepImage3";
+			resources.ApplyResources(sepImage3, "sepImage3");
 			// 
 			// itmSetViewMode
 			// 
-			resources.ApplyResources(this.itmSetViewMode, "itmSetViewMode");
-			this.itmSetViewMode.Name = "itmSetViewMode";
-			this.itmSetViewMode.Click += new System.EventHandler(this.itmSetViewMode_Click);
+			resources.ApplyResources(itmSetViewMode, "itmSetViewMode");
+			itmSetViewMode.Name = "itmSetViewMode";
+			itmSetViewMode.Click += new System.EventHandler(this.itmSetViewMode_Click);
 			// 
 			// itmInvertViewMode
 			// 
-			resources.ApplyResources(this.itmInvertViewMode, "itmInvertViewMode");
-			this.itmInvertViewMode.Name = "itmInvertViewMode";
-			this.itmInvertViewMode.Click += new System.EventHandler(this.itmInvertViewMode_Click);
+			itmInvertViewMode.Name = "itmInvertViewMode";
+			resources.ApplyResources(itmInvertViewMode, "itmInvertViewMode");
+			itmInvertViewMode.Click += new System.EventHandler(this.itmInvertViewMode_Click);
 			// 
 			// itmBookmark
 			// 
-			this.itmBookmark.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			itmBookmark.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmAddBookmark,
             this.itmRemoveBookmark});
-			this.itmBookmark.Name = "itmBookmark";
-			resources.ApplyResources(this.itmBookmark, "itmBookmark");
+			itmBookmark.Name = "itmBookmark";
+			resources.ApplyResources(itmBookmark, "itmBookmark");
 			// 
 			// itmAddBookmark
 			// 
@@ -322,39 +326,39 @@
 			// 
 			// itmTool
 			// 
-			this.itmTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmOption});
-			this.itmTool.Name = "itmTool";
-			resources.ApplyResources(this.itmTool, "itmTool");
+			itmTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            itmOption});
+			itmTool.Name = "itmTool";
+			resources.ApplyResources(itmTool, "itmTool");
 			// 
 			// itmOption
 			// 
-			this.itmOption.Name = "itmOption";
-			resources.ApplyResources(this.itmOption, "itmOption");
-			this.itmOption.Click += new System.EventHandler(this.itmOption_Click);
+			itmOption.Name = "itmOption";
+			resources.ApplyResources(itmOption, "itmOption");
+			itmOption.Click += new System.EventHandler(this.itmOption_Click);
 			// 
 			// itmHelp
 			// 
-			this.itmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmAbout});
-			this.itmHelp.Name = "itmHelp";
-			resources.ApplyResources(this.itmHelp, "itmHelp");
+			itmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            itmAbout});
+			itmHelp.Name = "itmHelp";
+			resources.ApplyResources(itmHelp, "itmHelp");
 			// 
 			// itmAbout
 			// 
-			this.itmAbout.Name = "itmAbout";
-			resources.ApplyResources(this.itmAbout, "itmAbout");
-			this.itmAbout.Click += new System.EventHandler(this.itmAbout_Click);
+			itmAbout.Name = "itmAbout";
+			resources.ApplyResources(itmAbout, "itmAbout");
+			itmAbout.Click += new System.EventHandler(this.itmAbout_Click);
 			// 
 			// stsMain
 			// 
-			this.stsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			stsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus,
             this.prgStatus,
             this.lblImageCount});
-			resources.ApplyResources(this.stsMain, "stsMain");
-			this.stsMain.Name = "stsMain";
-			this.stsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+			resources.ApplyResources(stsMain, "stsMain");
+			stsMain.Name = "stsMain";
+			stsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			// 
 			// lblStatus
 			// 
@@ -372,70 +376,70 @@
 			resources.ApplyResources(this.lblImageCount, "lblImageCount");
 			this.lblImageCount.Name = "lblImageCount";
 			// 
+			// itmView
+			// 
+			itmView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            itmContentsWindow,
+            itmBookmarksWindow});
+			itmView.Name = "itmView";
+			resources.ApplyResources(itmView, "itmView");
+			// 
+			// itmContentsWindow
+			// 
+			resources.ApplyResources(itmContentsWindow, "itmContentsWindow");
+			itmContentsWindow.Name = "itmContentsWindow";
+			itmContentsWindow.Click += new System.EventHandler(this.itmContentsWindow_Click);
+			// 
+			// itmBookmarksWindow
+			// 
+			resources.ApplyResources(itmBookmarksWindow, "itmBookmarksWindow");
+			itmBookmarksWindow.Name = "itmBookmarksWindow";
+			itmBookmarksWindow.Click += new System.EventHandler(this.itmBookmarksWindow_Click);
+			// 
+			// btnNew
+			// 
+			btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			resources.ApplyResources(btnNew, "btnNew");
+			btnNew.Name = "btnNew";
+			btnNew.Click += new System.EventHandler(this.itmNew_Click);
+			// 
+			// btnOpen
+			// 
+			btnOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			resources.ApplyResources(btnOpen, "btnOpen");
+			btnOpen.Name = "btnOpen";
+			btnOpen.Click += new System.EventHandler(this.itmOpen_Click);
+			// 
+			// btnSave
+			// 
+			btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			resources.ApplyResources(btnSave, "btnSave");
+			btnSave.Name = "btnSave";
+			btnSave.Click += new System.EventHandler(this.itmSave_Click);
+			// 
 			// menMain
 			// 
 			this.menMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmFile,
-            this.itmEdit,
-            this.itmView,
-            this.itmImage,
-            this.itmBookmark,
-            this.itmTool,
-            this.itmHelp});
+            itmFile,
+            itmEdit,
+            itmView,
+            itmImage,
+            itmBookmark,
+            itmTool,
+            itmHelp});
 			resources.ApplyResources(this.menMain, "menMain");
 			this.menMain.Name = "menMain";
 			this.menMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			// 
-			// itmView
-			// 
-			this.itmView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmContentsWindow,
-            this.itmBookmarksWindow});
-			this.itmView.Name = "itmView";
-			resources.ApplyResources(this.itmView, "itmView");
-			// 
-			// itmContentsWindow
-			// 
-			resources.ApplyResources(this.itmContentsWindow, "itmContentsWindow");
-			this.itmContentsWindow.Name = "itmContentsWindow";
-			this.itmContentsWindow.Click += new System.EventHandler(this.itmContentsWindow_Click);
-			// 
-			// itmBookmarksWindow
-			// 
-			resources.ApplyResources(this.itmBookmarksWindow, "itmBookmarksWindow");
-			this.itmBookmarksWindow.Name = "itmBookmarksWindow";
-			this.itmBookmarksWindow.Click += new System.EventHandler(this.itmBookmarksWindow_Click);
-			// 
 			// tsMain
 			// 
 			this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnNew,
-            this.btnOpen,
-            this.btnSave});
+            btnNew,
+            btnOpen,
+            btnSave});
 			resources.ApplyResources(this.tsMain, "tsMain");
 			this.tsMain.Name = "tsMain";
 			this.tsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			// 
-			// btnNew
-			// 
-			this.btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			resources.ApplyResources(this.btnNew, "btnNew");
-			this.btnNew.Name = "btnNew";
-			this.btnNew.Click += new System.EventHandler(this.itmNew_Click);
-			// 
-			// btnOpen
-			// 
-			this.btnOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			resources.ApplyResources(this.btnOpen, "btnOpen");
-			this.btnOpen.Name = "btnOpen";
-			this.btnOpen.Click += new System.EventHandler(this.itmOpen_Click);
-			// 
-			// btnSave
-			// 
-			this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			resources.ApplyResources(this.btnSave, "btnSave");
-			this.btnSave.Name = "btnSave";
-			this.btnSave.Click += new System.EventHandler(this.itmSave_Click);
 			// 
 			// dpMain
 			// 
@@ -495,13 +499,13 @@
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.dpMain);
-			this.Controls.Add(this.stsMain);
+			this.Controls.Add(stsMain);
 			this.Controls.Add(this.tsMain);
 			this.Controls.Add(this.menMain);
 			this.MainMenuStrip = this.menMain;
 			this.Name = "EditorForm";
-			this.stsMain.ResumeLayout(false);
-			this.stsMain.PerformLayout();
+			stsMain.ResumeLayout(false);
+			stsMain.PerformLayout();
 			this.menMain.ResumeLayout(false);
 			this.menMain.PerformLayout();
 			this.tsMain.ResumeLayout(false);
@@ -516,52 +520,14 @@
 		System.Windows.Forms.ToolStripStatusLabel lblStatus;
 		System.Windows.Forms.ToolStripStatusLabel lblImageCount;
 		System.Windows.Forms.ToolStripProgressBar prgStatus;
-		System.Windows.Forms.ToolStripMenuItem itmGoToIndex;
 		System.Windows.Forms.ToolStripMenuItem itmExclude;
-		System.Windows.Forms.ToolStripMenuItem itmSetViewMode;
-		System.Windows.Forms.ToolStripMenuItem itmSave;
-		System.Windows.Forms.ToolStripMenuItem itmSaveAs;
-		System.Windows.Forms.ToolStripMenuItem itmInvertSelections;
-		System.Windows.Forms.ToolStripMenuItem itmSelectAll;
-		System.Windows.Forms.ToolStripMenuItem itmInvertViewMode;
 		System.Windows.Forms.ToolStripMenuItem itmRemoveBookmark;
 		System.Windows.Forms.ToolStripMenuItem itmAddBookmark;
 		private System.Windows.Forms.ToolStrip tsMain;
-		private System.Windows.Forms.ToolStripButton btnNew;
-		private System.Windows.Forms.ToolStripButton btnOpen;
-		private System.Windows.Forms.ToolStripButton btnSave;
 		private System.Windows.Forms.ToolStripMenuItem itmExport;
 		private System.Windows.Forms.ToolStripMenuItem itmExtract;
-		private System.Windows.Forms.ToolStripMenuItem itmDocumentSettings;
 		private System.Windows.Forms.MenuStrip menMain;
 		private WeifenLuo.WinFormsUI.Docking.DockPanel dpMain;
-		private System.Windows.Forms.ToolStripMenuItem itmFile;
-		private System.Windows.Forms.ToolStripMenuItem itmNew;
-		private System.Windows.Forms.ToolStripMenuItem itmOpen;
-		private System.Windows.Forms.ToolStripSeparator sepFile1;
-		private System.Windows.Forms.ToolStripSeparator sepFile2;
-		private System.Windows.Forms.ToolStripSeparator sepFile3;
-		private System.Windows.Forms.ToolStripMenuItem itmExit;
-		private System.Windows.Forms.ToolStripMenuItem itmEdit;
-		private System.Windows.Forms.ToolStripSeparator sepEdit;
-		private System.Windows.Forms.ToolStripMenuItem itmImage;
-		private System.Windows.Forms.ToolStripMenuItem itmAdd;
-		private System.Windows.Forms.ToolStripMenuItem itmFromFiles;
-		private System.Windows.Forms.ToolStripMenuItem itmFromFolder;
-		private System.Windows.Forms.ToolStripSeparator sepAdd;
-		private System.Windows.Forms.ToolStripMenuItem itmFromWebPage;
-		private System.Windows.Forms.ToolStripSeparator sepImage1;
-		private System.Windows.Forms.ToolStripSeparator sepImage2;
-		private System.Windows.Forms.ToolStripSeparator sepImage3;
-		private System.Windows.Forms.ToolStripMenuItem itmBookmark;
-		private System.Windows.Forms.ToolStripMenuItem itmTool;
-		private System.Windows.Forms.ToolStripMenuItem itmOption;
-		private System.Windows.Forms.ToolStripMenuItem itmHelp;
-		private System.Windows.Forms.ToolStripMenuItem itmAbout;
-		private System.Windows.Forms.StatusStrip stsMain;
-		private System.Windows.Forms.ToolStripMenuItem itmView;
-		private System.Windows.Forms.ToolStripMenuItem itmContentsWindow;
-		private System.Windows.Forms.ToolStripMenuItem itmBookmarksWindow;
 		private System.Windows.Forms.ToolStripMenuItem itmOpenImage;
 
 	}

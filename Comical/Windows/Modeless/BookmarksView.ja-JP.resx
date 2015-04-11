@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="itmSelectTarget.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
+    <value>155, 22</value>
   </data>
   <data name="itmSelectTarget.Text" xml:space="preserve">
     <value>対象を選択(&amp;S)</value>
@@ -129,13 +129,13 @@
     <value>False</value>
   </data>
   <data name="sepBookmark1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 6</value>
+    <value>152, 6</value>
   </data>
   <data name="sepBookmark1.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="itmAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
+    <value>155, 22</value>
   </data>
   <data name="itmAdd.Text" xml:space="preserve">
     <value>追加(&amp;A)</value>
@@ -144,7 +144,7 @@
     <value>False</value>
   </data>
   <data name="itmInsertAbove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
+    <value>155, 22</value>
   </data>
   <data name="itmInsertAbove.Text" xml:space="preserve">
     <value>上に挿入(&amp;O)</value>
@@ -153,7 +153,7 @@
     <value>False</value>
   </data>
   <data name="itmInsertBelow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
+    <value>155, 22</value>
   </data>
   <data name="itmInsertBelow.Text" xml:space="preserve">
     <value>下に挿入(&amp;B)</value>
@@ -162,13 +162,13 @@
     <value>False</value>
   </data>
   <data name="sepBookmark2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 6</value>
+    <value>152, 6</value>
   </data>
   <data name="sepBookmark2.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="itmRemove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
+    <value>155, 22</value>
   </data>
   <data name="itmRemove.Text" xml:space="preserve">
     <value>削除(&amp;R)</value>
@@ -177,7 +177,7 @@
     <value>False</value>
   </data>
   <data name="conBookmark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 148</value>
+    <value>156, 126</value>
   </data>
   <data name="clmName.HeaderText" xml:space="preserve">
     <value>名前</value>

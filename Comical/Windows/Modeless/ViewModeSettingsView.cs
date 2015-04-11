@@ -31,6 +31,17 @@ namespace Comical
 
 		public bool StartInLeft { get { return radLeftStart.Checked; } }
 
+		public void InvertViewMode()
+		{
+			foreach (var image in cic)
+			{
+				if (image.ViewMode == ImageViewMode.Left)
+					image.ViewMode = ImageViewMode.Right;
+				else if (image.ViewMode == ImageViewMode.Right)
+					image.ViewMode = ImageViewMode.Left;
+			}
+		}
+
 		ImageReferenceCollection cic;
 
 		public void SetImages(ImageReferenceCollection collection)

@@ -28,10 +28,10 @@ namespace Comical
 
 		public IEnumerable<Bookmark> SelectedBookmarks { get { return dgvBookmarks.SelectedRows.Cast<DataGridViewRow>().Select(row => _bookmarks[row.Index]); } }
 
-		public bool ReadOnly
+		public IDisposable BeginAsyncWork()
 		{
-			get { return dgvBookmarks.ReadOnly; }
-			set { dgvBookmarks.ReadOnly = value; }
+			dgvBookmarks.ReadOnly = true;
+			return new DelegateDisposable(() => dgvBookmarks.ReadOnly = false);
 		}
 
 		public void SetImages(ImageReferenceCollection images)
@@ -64,6 +64,18 @@ namespace Comical
 			}
 		}
 
+		public void AddBookmarks(IEnumerable<int> targetIndices)
+		{
+			foreach (var targetIndex in targetIndices)
+				_bookmarks.Add(new Bookmark() { Target = targetIndex });
+		}
+
+		public void DeleteSelectedBookmarks()
+		{
+			foreach (var bookmark in SelectedBookmarks.ToArray())
+				_bookmarks.Remove(bookmark);
+		}
+
 		protected override string GetPersistString() { return "BookmarkList"; }
 
 		protected virtual void OnBookmarkNavigated(BookmarkNavigatedEventArgs e)
@@ -84,18 +96,16 @@ namespace Comical
 			itmRemove.Visible = count > 0;
 		}
 
-		private void dgvBookmarks_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+		private void dgvBookmarks_CellErrorTextNeeded(object sender, DataGridViewCellErrorTextNeededEventArgs e)
 		{
+			e.ErrorText = string.Empty;
 			if (e.RowIndex < 0 || e.RowIndex >= _bookmarks.Count)
 				return;
-			if (string.IsNullOrEmpty(e.FormattedValue.ToString()))
-				e.Cancel = true;
-			else if (dgvBookmarks.Columns[e.ColumnIndex].Name == "clmTarget")
+			if (dgvBookmarks.Columns[e.ColumnIndex].Name == "clmTarget")
 			{
-				int ui = 0;
-				if (int.TryParse(e.FormattedValue.ToString(), out ui) && ui >= 0 && ui < _images.Count)
+				if (_bookmarks[e.RowIndex].Target < _images.Count)
 					return;
-				e.Cancel = true;
+				e.ErrorText = "ブックマークの対象インデックスは画像数未満である必要があります。";
 			}
 		}
 
@@ -109,12 +119,14 @@ namespace Comical
 		{
 			if (e.RowIndex >= 0 && e.RowIndex < _bookmarks.Count)
 			{
-				Bookmark it = _bookmarks[e.RowIndex];
 				if (dgvBookmarks.Columns[e.ColumnIndex].Name == "clmName")
-					it.Name = e.Value.ToString();
+					_bookmarks[e.RowIndex].Name = e.Value.ToString();
 				else
-					it.Target = int.Parse(e.Value.ToString(), System.Globalization.CultureInfo.CurrentCulture);
-				_bookmarks[e.RowIndex] = it;
+				{
+					int target;
+					if (int.TryParse(e.Value.ToString(), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.CurrentCulture, out target) && target >= 0)
+						_bookmarks[e.RowIndex].Target = target;
+				}
 			}
 		}
 
@@ -124,8 +136,6 @@ namespace Comical
 				e.Effect = DragDropEffects.Move;
 			else
 				e.Effect = DragDropEffects.Link;
-			if (e.Source.Name == "dgvTrashBox")
-				e.ActualDestination = -1;
 		}
 
 		private void dgvBookmarks_RowMoving(object sender, Controls.RowMovingEventArgs e)
@@ -139,7 +149,11 @@ namespace Comical
 				_bookmarks.Move(e.SourceRows[0].Index, e.Destination);
 		}
 
-		private void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) { RefreshMenuVisibility(); }
+		private void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			RefreshMenuVisibility();
+			dgvBookmarks.Invalidate();
+		}
 
 		private void dgvBookmarks_SelectionChanged(object sender, EventArgs e) { RefreshMenuVisibility(); }
 
@@ -169,11 +183,7 @@ namespace Comical
 
 		private void itmInsertBelow_Click(object sender, EventArgs e) { _bookmarks.Insert(dgvBookmarks.SelectedRows[0].Index + 1, new Bookmark()); }
 
-		private void itmRemove_Click(object sender, EventArgs e)
-		{
-			foreach (var bookmark in SelectedBookmarks.ToArray())
-				_bookmarks.Remove(bookmark);
-		}
+		private void itmRemove_Click(object sender, EventArgs e) { DeleteSelectedBookmarks(); }
 	}
 
 	public class BookmarkNavigatedEventArgs : EventArgs

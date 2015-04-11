@@ -139,13 +139,6 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="Window.cs" />
-    <Compile Include="Windows\Modal\AddImageFromWebPageDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\Modal\AddImageFromWebPageDialog.Designer.cs">
-      <DependentUpon>AddImageFromWebPageDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Windows\Modal\DialogBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,12 +162,6 @@
     </Compile>
     <Compile Include="Windows\TopLevel\ViewerForm.Designer.cs">
       <DependentUpon>ViewerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\Modeless\GoToIndexView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\Modeless\GoToIndexView.Designer.cs">
-      <DependentUpon>GoToIndexView.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\Modal\ImageEditingDialog.cs">
       <SubType>Form</SubType>
@@ -226,20 +213,8 @@
     <Compile Include="Windows\Modeless\ViewModeSettingsView.Designer.cs">
       <DependentUpon>ViewModeSettingsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Modal\WindowBrowseDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\Modal\WindowBrowseDialog.Designer.cs">
-      <DependentUpon>WindowBrowseDialog.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Controls\Previewer.resx">
       <DependentUpon>Previewer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modal\AddImageFromWebPageDialog.ja-JP.resx">
-      <DependentUpon>AddImageFromWebPageDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modal\AddImageFromWebPageDialog.resx">
-      <DependentUpon>AddImageFromWebPageDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modal\DialogBase.resx">
       <DependentUpon>DialogBase.cs</DependentUpon>
@@ -260,9 +235,6 @@
     <EmbeddedResource Include="Windows\Modal\AboutDialog.ja-JP.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modal\WindowBrowseDialog.ja-JP.resx">
-      <DependentUpon>WindowBrowseDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modeless\BookmarksView.ja-JP.resx">
       <DependentUpon>BookmarksView.cs</DependentUpon>
     </EmbeddedResource>
@@ -272,9 +244,6 @@
     <EmbeddedResource Include="Windows\Modeless\DocumentView.resx">
       <DependentUpon>DocumentView.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modeless\GoToIndexView.ja-JP.resx">
-      <DependentUpon>GoToIndexView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modeless\ContentsView.ja-JP.resx">
       <DependentUpon>ContentsView.cs</DependentUpon>
@@ -297,9 +266,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\TopLevel\ViewerForm.resx">
       <DependentUpon>ViewerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modeless\GoToIndexView.resx">
-      <DependentUpon>GoToIndexView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modal\ImageEditingDialog.resx">
       <DependentUpon>ImageEditingDialog.cs</DependentUpon>
@@ -335,9 +301,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modeless\ViewModeSettingsView.resx">
       <DependentUpon>ViewModeSettingsView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modal\WindowBrowseDialog.resx">
-      <DependentUpon>WindowBrowseDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />

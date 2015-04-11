@@ -17,7 +17,7 @@ namespace Comical
 			dgvImages.Font = new System.Drawing.Font("Meiryo", 9);
 		}
 
-		Comic _comic;
+		ImageReferenceCollection _images;
 		static readonly Size ThumbnailSize = new Size(118, 118);
 
 		Viewer DefaultViewer { get { return DockPanel != null ? DockPanel.Contents.OfType<Viewer>().FirstOrDefault(v => v.Pane.IsActiveDocumentPane) : null; } }
@@ -40,41 +40,55 @@ namespace Comical
 			remove { itmExport.Click -= value; }
 		}
 
+		public event EventHandler BookmarkRequested
+		{
+			add { itmAddToBookmark.Click += value; }
+			remove { itmAddToBookmark.Click -= value; }
+		}
+
 		public event EventHandler<FileDroppedEventArgs> FileDropped;
 
-		public bool ReadOnly
+		public IDisposable BeginAsyncWork()
 		{
-			get { return dgvImages.ReadOnly; }
-			set { dgvImages.ReadOnly = value; }
+			dgvImages.ReadOnly = true;
+			dgvImages.Refresh();
+			return new DelegateDisposable(() =>
+			{
+				dgvImages.ReadOnly = false;
+				dgvImages.Refresh();
+			});
 		}
 
 		public IEnumerable<int> SelectedIndicies { get { return dgvImages.SelectedRows.Cast<DataGridViewRow>().Select(r => r.Index); } }
 
-		public void SetComic(Comic comic)
+		public IEnumerable<ImageReference> SortedSelectedImages { get { return SelectedIndicies.OrderBy(x => x).Select(x => _images[x]); } }
+
+		public void SetImages(ImageReferenceCollection value)
 		{
-			if (this._comic != comic)
+			if (_images != value)
 			{
-				if (this._comic != null)
+				if (_images != null)
 				{
-					this._comic.Images.CollectionChanged -= Images_CollectionChanged;
-					this._comic.Images.CollectionItemPropertyChanged -= Images_CollectionItemPropertyChanged;
-					this._comic.PropertyChanged -= Comic_PropertyChanged;
+					_images.CollectionChanged -= Images_CollectionChanged;
+					_images.CollectionItemPropertyChanged -= Images_CollectionItemPropertyChanged;
 				}
-				this._comic = comic;
-				if (comic != null)
+				_images = value;
+				if (value != null)
 				{
-					comic.Images.CollectionChanged += Images_CollectionChanged;
-					comic.Images.CollectionItemPropertyChanged += Images_CollectionItemPropertyChanged;
-					comic.PropertyChanged += Comic_PropertyChanged;
-					Images_CollectionChanged(comic.Images, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+					value.CollectionChanged += Images_CollectionChanged;
+					value.CollectionItemPropertyChanged += Images_CollectionItemPropertyChanged;
+					Images_CollectionChanged(value, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 				}
 			}
 		}
 
-		private void Comic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		public void AddImages(IEnumerable<ImageReference> images)
 		{
-			if (e.PropertyName == "IsBusy")
-				dgvImages.Refresh();
+			using (_images.EnterUnnotifiedSection())
+			{
+				foreach (var image in images)
+					_images.Add(image);
+			}
 		}
 
 		public void SelectAll() { dgvImages.SelectAll(); }
@@ -87,8 +101,8 @@ namespace Comical
 
 		void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			dgvImages.RowCount = _comic.Images.Count;
-			if (_comic.Images.Count == 0 && DefaultViewer != null)
+			dgvImages.RowCount = _images.Count;
+			if (_images.Count == 0 && DefaultViewer != null)
 				DefaultViewer.Image = null;
 			dgvImages.Invalidate();
 		}
@@ -97,7 +111,7 @@ namespace Comical
 		{
 			foreach (var group in e.PropertyNames)
 			{
-				int index = _comic.Images.IndexOf(group.Key);
+				int index = _images.IndexOf(group.Key);
 				if (index >= 0)
 					dgvImages.UpdateCellValue(1, index);
 			}
@@ -124,9 +138,9 @@ namespace Comical
 			}
 			set
 			{
-				for (int i = 0; i < _comic.Images.Count; i++)
+				for (int i = 0; i < _images.Count; i++)
 					dgvImages.Rows[i].Selected = i == value;
-				if (value >= 0 && value < _comic.Images.Count)
+				if (value >= 0 && value < _images.Count)
 					dgvImages.FirstDisplayedScrollingRowIndex = value;
 			}
 		}
@@ -136,22 +150,16 @@ namespace Comical
 			if (FirstSelectedRowIndex >= 0)
 			{
 				Viewer viewer = new Viewer();
-				viewer.Text = FirstSelectedRowIndex.ToString(_comic.Images.Count);
-				viewer.Image = _comic.Images[FirstSelectedRowIndex].GetImage();
+				viewer.Text = FirstSelectedRowIndex.ToString(_images.Count);
+				viewer.Image = _images[FirstSelectedRowIndex].GetImage();
 				viewer.Show(DockPanel);
 			}
 		}
 
 		public void DeleteSelectedImages()
 		{
-			foreach (var x in SelectedIndicies.OrderBy(x => x).Select(x => _comic.Images[x]).ToArray())
-				_comic.Images.Remove(x);
-		}
-
-		public void BookmarkSelectedImages()
-		{
-			foreach (var index in SelectedIndicies.OrderBy(x => x))
-				_comic.Bookmarks.Insert(_comic.Bookmarks.Count, new Bookmark() { Target = index });
+			foreach (var x in SelectedIndicies.OrderBy(x => x).Select(x => _images[x]).ToArray())
+				_images.Remove(x);
 		}
 
 		private void dgvImages_SelectionChanged(object sender, System.EventArgs e)
@@ -163,8 +171,8 @@ namespace Comical
 					string.Format(CultureInfo.CurrentCulture, Properties.Resources.ViewerDescription_Selection, count);
 				if (count == 1)
 				{
-					DefaultViewer.Text = FirstSelectedRowIndex.ToString(_comic.Images.Count);
-					try { DefaultViewer.Image = _comic.Images[FirstSelectedRowIndex].GetImage(); }
+					DefaultViewer.Text = FirstSelectedRowIndex.ToString(_images.Count);
+					try { DefaultViewer.Image = _images[FirstSelectedRowIndex].GetImage(); }
 					catch (ArgumentException) { }
 				}
 			}
@@ -187,7 +195,7 @@ namespace Comical
 		private void dgvImages_RowMoving(object sender, Controls.RowMovingEventArgs e)
 		{
 			if (e.Source == dgvImages)
-				_comic.Images.MoveRange(e.SourceRows[0].Index, e.SourceRows.Count, e.Destination);
+				_images.MoveRange(e.SourceRows[0].Index, e.SourceRows.Count, e.Destination);
 		}
 
 		private void dgvImages_QueryActualDestination(object sender, Controls.QueryActualDestinationEventArgs e)
@@ -201,15 +209,15 @@ namespace Comical
 
 		private void dgvImages_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
 		{
-			if (e.RowIndex >= 0 && e.RowIndex < _comic.Images.Count)
+			if (e.RowIndex >= 0 && e.RowIndex < _images.Count)
 			{
 				switch (dgvImages.Columns[e.ColumnIndex].Name)
 				{
 					case "clmViewMode":
-						e.Value = _comic.Images[e.RowIndex].ViewMode.ToString();
+						e.Value = _images[e.RowIndex].ViewMode.ToString();
 						break;
 					case "clmImage":
-						e.Value = _comic.IsBusy ? null : _comic.Images[e.RowIndex].GetImage(ThumbnailSize);
+						e.Value = _images[e.RowIndex].GetImage(ThumbnailSize);
 						break;
 				}
 			}
@@ -217,11 +225,11 @@ namespace Comical
 
 		private void dgvImages_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
 		{
-			if (e.RowIndex >= 0 && e.RowIndex < _comic.Images.Count && dgvImages.Columns[e.ColumnIndex].Name == "clmViewMode" && e.Value != null)
+			if (e.RowIndex >= 0 && e.RowIndex < _images.Count && dgvImages.Columns[e.ColumnIndex].Name == "clmViewMode" && e.Value != null)
 			{
 				ImageViewMode mode;
 				if (Enum.TryParse(e.Value.ToString(), out mode))
-					_comic.Images[e.RowIndex].ViewMode = mode;
+					_images[e.RowIndex].ViewMode = mode;
 			}
 		}
 
@@ -233,7 +241,7 @@ namespace Comical
 		{
 			if (rowIndex >= 0)
 			{
-				_comic.Images.RemoveAt(rowIndex);
+				_images.RemoveAt(rowIndex);
 				rowIndex = -1;
 			}
 		}
@@ -241,8 +249,6 @@ namespace Comical
 		private void itmOpen_Click(object sender, EventArgs e) { OpenFirstSelectedImage(); }
 
 		private void itmDelete_Click(object sender, EventArgs e) { DeleteSelectedImages(); }
-
-		private void itmBookmark_Click(object sender, EventArgs e) { BookmarkSelectedImages(); }
 	}
 
 	public class FileDroppedEventArgs : EventArgs
