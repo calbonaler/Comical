@@ -208,6 +208,44 @@ namespace Comical.Properties {
         }
         
         /// <summary>
+        ///   ブックマーク に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string InconsistentData_DataTypes_Bookmarks {
+            get {
+                return ResourceManager.GetString("InconsistentData_DataTypes_Bookmarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   画像コレクション に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string InconsistentData_DataTypes_Images {
+            get {
+                return ResourceManager.GetString("InconsistentData_DataTypes_Images", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   矛盾の存在するデータを保存しようとしました に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string InconsistentData_Instruction {
+            get {
+                return ResourceManager.GetString("InconsistentData_Instruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   このデータは複数の項目の間で整合性が保持されていません。矛盾の無いようにデータを修正してください。
+        ///
+        ///矛盾が検出されたデータ: {0} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string InconsistentData_Text {
+            get {
+                return ResourceManager.GetString("InconsistentData_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   ファイルを復号化するパスワードを入力してください(&amp;P): に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string InputPasswordToDecrypt {

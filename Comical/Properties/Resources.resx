@@ -208,4 +208,18 @@
   <data name="ScanningFiles" xml:space="preserve">
     <value>ファイルを検査しています...</value>
   </data>
+  <data name="InconsistentData_Instruction" xml:space="preserve">
+    <value>矛盾の存在するデータを保存しようとしました</value>
+  </data>
+  <data name="InconsistentData_Text" xml:space="preserve">
+    <value>このデータは複数の項目の間で整合性が保持されていません。矛盾の無いようにデータを修正してください。
+
+矛盾が検出されたデータ: {0}</value>
+  </data>
+  <data name="InconsistentData_DataTypes_Bookmarks" xml:space="preserve">
+    <value>ブックマーク</value>
+  </data>
+  <data name="InconsistentData_DataTypes_Images" xml:space="preserve">
+    <value>画像コレクション</value>
+  </data>
 </root>

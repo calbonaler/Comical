@@ -46,5 +46,17 @@ namespace Comical
 			using (System.IO.MemoryStream ms = new System.IO.MemoryStream(Encoding.UTF8.GetBytes(xml)))
 				panel.LoadFromXml(ms, persistString => Array.Find(contents, x => string.Equals(persistString, x.DockHandler.GetPersistStringCallback(), StringComparison.Ordinal)));
 		}
+
+		public static IEnumerable<T> SplitEnumValue<T>(T value) where T : struct
+		{
+			if (!value.Equals(Enum.ToObject(typeof(T), 0)))
+			{
+				foreach (var item in (T[])Enum.GetValues(typeof(T)))
+				{
+					if (!item.Equals(Enum.ToObject(typeof(T), 0)) && ((Enum)(object)value).HasFlag((Enum)(object)item))
+						yield return item;
+				}
+			}
+		}
 	}
 }

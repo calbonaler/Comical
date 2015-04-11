@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InconsistentData" xml:space="preserve">
+    <value>データ内に矛盾が存在するため永続化に失敗しました。</value>
+  </data>
   <data name="InvalidFileFormat" xml:space="preserve">
     <value>有効なファイル形式ではありません。</value>
   </data>

@@ -61,6 +61,15 @@ namespace Comical.Core.Properties {
         }
         
         /// <summary>
+        ///   データ内に矛盾が存在するため永続化に失敗しました。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string InconsistentData {
+            get {
+                return ResourceManager.GetString("InconsistentData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   有効なファイル形式ではありません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string InvalidFileFormat {

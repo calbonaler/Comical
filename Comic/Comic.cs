@@ -114,6 +114,17 @@ namespace Comical.Core
 			IsDirty = false;
 		}
 
+		public ConsistencyValidatedDataTypes CheckInconsistency()
+		{
+			for (int i = 0; i < Bookmarks.Count; i++)
+			{
+				if (Bookmarks[i].Target < Images.Count && Bookmarks[i].Target >= 0)
+					continue;
+				return ConsistencyValidatedDataTypes.Images | ConsistencyValidatedDataTypes.Bookmarks;
+			}
+			return ConsistencyValidatedDataTypes.None;
+		}
+
 		public async Task OpenAsync(string fileName, string password, CancellationToken token, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
@@ -142,6 +153,9 @@ namespace Comical.Core
 			using (EnterSingleOperation())
 			using (EnterUndirtiableSection())
 			{
+				var inconsistency = CheckInconsistency();
+				if (inconsistency != ConsistencyValidatedDataTypes.None)
+					throw new InconsistentDataException(Properties.Resources.InconsistentData, inconsistency);
 				if (password == DefaultPassword)
 					password = _password;
 				await Task.Run(() => WriteFile(Images.ToArray(), new FileHeader(fileName, password, AssemblyVersion)
@@ -393,15 +407,35 @@ namespace Comical.Core
 		ToRight = 2,
 	}
 
+	[Flags]
+	public enum ConsistencyValidatedDataTypes
+	{
+		None = 0,
+		Images = 1,
+		Bookmarks = 2,
+	}
+
 	[Serializable]
 	public class WrongPasswordException : Exception
 	{
 		public WrongPasswordException() { }
-
 		public WrongPasswordException(string message) : base(message) { }
-
 		public WrongPasswordException(string message, Exception innerException) : base(message, innerException) { }
-
 		protected WrongPasswordException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+	}
+
+	[Serializable]
+	public class InconsistentDataException : Exception
+	{
+		public InconsistentDataException(ConsistencyValidatedDataTypes dataTypes) { DataTypes = dataTypes; }
+		public InconsistentDataException(string message, ConsistencyValidatedDataTypes dataTypes) : base(message) { DataTypes = dataTypes; }
+		public InconsistentDataException(string message, Exception inner) : base(message, inner) { }
+		protected InconsistentDataException(SerializationInfo info, StreamingContext context) : base(info, context) { DataTypes = (ConsistencyValidatedDataTypes)info.GetInt32("DataTypes"); }
+		public ConsistencyValidatedDataTypes DataTypes { get; private set; }
+		public override void GetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			base.GetObjectData(info, context);
+			info.AddValue("DataTypes", (int)DataTypes);
+		}
 	}
 }

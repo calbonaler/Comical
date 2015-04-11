@@ -196,16 +196,40 @@ namespace Comical
 			}
 		}
 
+		async Task<bool> SaveAsync(string fileName, string password)
+		{
+			try
+			{
+				using (BeginAsyncWork())
+				{
+					await comic.SaveAsync(fileName, password, defaultProgress);
+					AddAuthorToHistory(comic.Author);
+					return true;
+				}
+			}
+			catch (InconsistentDataException ex)
+			{
+				using (TaskDialog dialog = new TaskDialog())
+				{
+					dialog.Cancelable = true;
+					dialog.Caption = Application.ProductName;
+					dialog.Icon = TaskDialogStandardIcon.Error;
+					dialog.InstructionText = Properties.Resources.InconsistentData_Instruction;
+					dialog.OwnerWindowHandle = Handle;
+					dialog.StandardButtons = TaskDialogStandardButtons.Close;
+					dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
+					dialog.Text = string.Format(Properties.Resources.InconsistentData_Text, string.Join(", ", Utils.SplitEnumValue(ex.DataTypes).Select(x => Properties.Resources.ResourceManager.GetString("InconsistentData_DataTypes_" + x.ToString(), Properties.Resources.Culture))));
+					dialog.Show();
+				}
+				return false;
+			}
+		}
+
 		async Task<bool> SaveAsync()
 		{
 			if (!comic.HasSaved)
 				return await SaveAsAsync();
-			using (BeginAsyncWork())
-			{
-				await comic.SaveAsync(comic.SavedFilePath, Comic.DefaultPassword, defaultProgress);
-				AddAuthorToHistory(comic.Author);
-				return true;
-			}
+			return await SaveAsync(comic.SavedFilePath, Comic.DefaultPassword);
 		}
 
 		async Task<bool> SaveAsAsync()
@@ -234,12 +258,7 @@ namespace Comical
 					dialog.DefaultFileName = string.Format(CultureInfo.CurrentCulture, Properties.Settings.Default.DefaultSavedFileName, comic.Title, comic.Author, comic.DateOfPublication);
 				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
 					return false;
-				using (BeginAsyncWork())
-				{
-					await comic.SaveAsync(dialog.FileName, password, defaultProgress);
-					AddAuthorToHistory(comic.Author);
-					return true;
-				}
+				return await SaveAsync(dialog.FileName, password);
 			}
 		}
 
