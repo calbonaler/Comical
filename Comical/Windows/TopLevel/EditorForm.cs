@@ -108,21 +108,28 @@ namespace Comical
 			});
 		}
 
-		static void CollectFiles(IEnumerable<string> paths, List<FileHeader> comicFiles, List<ImageReference> images)
+		static async Task CollectFiles(IEnumerable<string> paths, List<FileHeader> comicFiles, List<ImageReference> images)
 		{
 			foreach (var path in paths)
 			{
 				try
 				{
 					if (System.IO.Directory.Exists(path))
-						CollectFiles(System.IO.Directory.EnumerateFileSystemEntries(path), comicFiles, images);
+						await CollectFiles(System.IO.Directory.EnumerateFileSystemEntries(path), comicFiles, images).ConfigureAwait(false);
 					else if (System.IO.File.Exists(path))
 					{
 						var fh = new FileHeader(path);
 						if (fh.CanOpen)
 							comicFiles.Add(fh);
 						else if (imageExtensions.Any(ex => string.Equals(System.IO.Path.GetExtension(path), "." + ex, StringComparison.OrdinalIgnoreCase)))
-							images.Add(new ImageReference(System.IO.File.ReadAllBytes(path)));
+						{
+							using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+							{
+								using (System.IO.FileStream fs = new System.IO.FileStream(path, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+									await fs.CopyToAsync(ms).ConfigureAwait(false);
+								images.Add(new ImageReference(ms.ToArray()));
+							}
+						}
 					}
 				}
 				catch (UnauthorizedAccessException) { }
@@ -147,7 +154,7 @@ namespace Comical
 			{
 				prgStatus.Style = ProgressBarStyle.Marquee;
 				lblStatus.Text = Properties.Resources.ScanningFiles;
-				await Task.Run(() => CollectFiles(paths, comicFiles, images));
+				await CollectFiles(paths, comicFiles, images);
 				prgStatus.Style = ProgressBarStyle.Blocks;
 				foreach (var fileHeader in comicFiles)
 				{

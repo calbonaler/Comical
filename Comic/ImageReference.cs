@@ -192,14 +192,14 @@ namespace Comical.Core
 				if (_notificationSuspended)
 					collectionChanges.Add(e);
 				else
-					CollectionChanged(this, e);
+					_ownerContext.SendIfNeeded(() => CollectionChanged(this, e));
 			}
 		}
 
 		protected virtual void OnCollectionItemPropertyChanged(CompositePropertyChangedEventArgs<ImageReference> e)
 		{
 			if (CollectionItemPropertyChanged != null)
-				CollectionItemPropertyChanged(this, e);
+				_ownerContext.SendIfNeeded(() => CollectionItemPropertyChanged(this, e));
 		}
 
 		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)

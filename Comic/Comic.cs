@@ -15,11 +15,11 @@ namespace Comical.Core
 	{
 		public Comic()
 		{
-			var context = SynchronizationContext.Current;
-			Images = new ImageReferenceCollection(context);
+			_context = SynchronizationContext.Current;
+			Images = new ImageReferenceCollection(_context);
 			Images.CollectionChanged += (s, ev) => IsDirty = true;
 			Images.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
-			Bookmarks = new BookmarkCollection(Images, context);
+			Bookmarks = new BookmarkCollection(Images, _context);
 			Bookmarks.CollectionChanged += (s, ev) => IsDirty = true;
 			Bookmarks.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
 			PropertyChanged += (s, ev) =>
@@ -33,12 +33,13 @@ namespace Comical.Core
 			};
 		}
 
+		SynchronizationContext _context;
 		string _password = "";
 		bool _canDirty = true;
 		static readonly Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 		public static readonly string DefaultPassword = null;
 		
-		static Tuple<FileHeader, ImageReference[]> ReadFile(string fileName, string password, BookmarkCollection bookmarks, CancellationToken token, IProgress<int> progress)
+		static async Task<Tuple<FileHeader, ImageReference[]>> ReadFile(string fileName, string password, BookmarkCollection bookmarks, CancellationToken token, IProgress<int> progress)
 		{
 			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
 			using (Stream readStream = FileStream.Synchronized(fs))
@@ -66,7 +67,7 @@ namespace Comical.Core
 					int len = reader.ReadInt32(); // サイズ
 					using (MemoryStream ms = new MemoryStream())
 					{
-						Crypto.Transform(readStream, ms, password, System.Text.Encoding.Unicode, len, true);
+						await Crypto.Transform(readStream, ms, password, System.Text.Encoding.Unicode, len, true).ConfigureAwait(false);
 						addedImages.Add(new ImageReference(ms.ToArray()) { ViewMode = m });
 					}
 					if (progress != null)
@@ -77,7 +78,7 @@ namespace Comical.Core
 			}
 		}
 
-		static void WriteFile(IReadOnlyList<ImageReference> images, FileHeader cic, BookmarkCollection bookmarks, IProgress<int> progress)
+		static async Task WriteFile(IReadOnlyList<ImageReference> images, FileHeader cic, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
 			using (FileStream fs = new FileStream(cic.Path, FileMode.Create, FileAccess.Write))
 			using (Stream writeStream = FileStream.Synchronized(fs))
@@ -92,7 +93,7 @@ namespace Comical.Core
 					writer.Write((byte)ir.ViewMode); // 利用情報
 					writer.Write(ir.Length); // 画像データ大きさ
 					using (var binImage = ir.GetReadOnlyBinaryImage())
-						Crypto.Transform(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length, false); // 画像データ
+						await Crypto.Transform(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length, false).ConfigureAwait(false); // 画像データ
 					if (progress != null)
 						progress.Report((i + 1) * 100 / images.Count);
 				}
@@ -133,7 +134,7 @@ namespace Comical.Core
 				using (EnterUndirtiableSection())
 				using (Images.EnterUnnotifiedSection())
 				{
-					var res = await Task.Run(() => ReadFile(fileName, password, Bookmarks, token, progress));
+					var res = await ReadFile(fileName, password, Bookmarks, token, progress).ConfigureAwait(false);
 					SavedFilePath = fileName;
 					_password = password;
 					Thumbnail = res.Item1.Thumbnail;
@@ -158,14 +159,14 @@ namespace Comical.Core
 					throw new InconsistentDataException(Properties.Resources.InconsistentData, inconsistency);
 				if (password == DefaultPassword)
 					password = _password;
-				await Task.Run(() => WriteFile(Images.ToArray(), new FileHeader(fileName, password, AssemblyVersion)
+				await WriteFile(Images.ToArray(), new FileHeader(fileName, password, AssemblyVersion)
 				{
 					Thumbnail = Thumbnail,
 					Title = Title,
 					Author = Author,
 					DateOfPublication = DateOfPublication,
 					PageTurningDirection = PageTurningDirection
-				}, Bookmarks, progress));
+				}, Bookmarks, progress).ConfigureAwait(false);
 				FileVersion = AssemblyVersion;
 				SavedFilePath = fileName;
 				_password = password;
@@ -178,7 +179,7 @@ namespace Comical.Core
 			using (EnterSingleOperation())
 			using (Images.EnterUnnotifiedSection())
 			{
-				foreach (var ir in (await Task.Run(() => ReadFile(fileName, password, new BookmarkCollection(null, null), token, progress))).Item2)
+				foreach (var ir in (await ReadFile(fileName, password, new BookmarkCollection(null, null), token, progress).ConfigureAwait(false)).Item2)
 					Images.Add(ir);
 			}
 		}
@@ -189,28 +190,26 @@ namespace Comical.Core
 			{
 				var imageList = images.ToArray();
 				Directory.CreateDirectory(baseDirectory);
-				await Task.Run(() =>
+				for (int i = 0; i < imageList.Length; Interlocked.Increment(ref i))
 				{
-					for (int i = 0; i < imageList.Length; Interlocked.Increment(ref i))
+					using (var ms = imageList[i].GetReadOnlyBinaryImage())
 					{
-						using (var ms = imageList[i].GetReadOnlyBinaryImage())
+						string ext;
 						using (Bitmap bmp = new Bitmap(ms))
-						{
-							File.WriteAllBytes(Path.Combine(baseDirectory,
-								i.ToString(imageList.Length - 1) + Array.Find(System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders(), item => item.FormatID == bmp.RawFormat.Guid).FilenameExtension.Split(';')[0].Remove(0, 1)),
-								ms.ToArray());
-						}
-						if (progress != null)
-							progress.Report((i + 1) * 100 / imageList.Length);
+							ext = Array.Find(System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders(), item => item.FormatID == bmp.RawFormat.Guid).FilenameExtension.Split(';')[0].Remove(0, 1);
+						using (FileStream fs = new FileStream(Path.Combine(baseDirectory, i.ToString(imageList.Length - 1) + ext), FileMode.Create, FileAccess.Write))
+							await ms.CopyToAsync(fs).ConfigureAwait(false);
 					}
-				});
+					if (progress != null)
+						progress.Report((i + 1) * 100 / imageList.Length);
+				}
 			}
 		}
 
 		public async Task ExtractAsync(string fileName, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
-				await Task.Run(() => WriteFile(images.ToArray(), new FileHeader(fileName, "", AssemblyVersion) { Author = Author, PageTurningDirection = PageTurningDirection }, new BookmarkCollection(null, null), progress));
+				await WriteFile(images.ToArray(), new FileHeader(fileName, "", AssemblyVersion) { Author = Author, PageTurningDirection = PageTurningDirection }, new BookmarkCollection(null, null), progress).ConfigureAwait(false);
 		}
 
 		public IEnumerable<Spread> ConstructSpreads(bool simpleSpread)
@@ -266,7 +265,7 @@ namespace Comical.Core
 				if (_busy != value)
 				{
 					_busy = value;
-					PropertyChanged.Raise(this, null);
+					PropertyChanged.Raise(this, _context);
 				}
 			}
 		}
@@ -282,8 +281,8 @@ namespace Comical.Core
 				if (_savedFilePath != value)
 				{
 					_savedFilePath = value;
-					PropertyChanged.Raise(this, null);
-					PropertyChanged.Raise(this, null, () => HasSaved);
+					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this, _context, () => HasSaved);
 				}
 			}
 		}
@@ -297,7 +296,7 @@ namespace Comical.Core
 				if (_dirty != value && (_canDirty || !value))
 				{
 					_dirty = value;
-					PropertyChanged.Raise(this, null);
+					PropertyChanged.Raise(this, _context);
 				}
 			}
 		}
@@ -311,7 +310,7 @@ namespace Comical.Core
 				if (_fileVersion != value)
 				{
 					_fileVersion = value;
-					PropertyChanged.Raise(this, null);
+					PropertyChanged.Raise(this, _context);
 				}
 			}
 		}
@@ -325,7 +324,7 @@ namespace Comical.Core
 				if (_thumbnail != value)
 				{
 					_thumbnail = value;
-					PropertyChanged.Raise(this, null);
+					PropertyChanged.Raise(this, _context);
 				}
 			}
 		}
@@ -339,7 +338,7 @@ namespace Comical.Core
 				if (_title != value)
 				{
 					_title = value;
-					PropertyChanged.Raise(this, null);
+					PropertyChanged.Raise(this, _context);
 				}
 			}
 		}
@@ -353,7 +352,7 @@ namespace Comical.Core
 				if (_author != value)
 				{
 					_author = value;
-					PropertyChanged.Raise(this, null);
+					PropertyChanged.Raise(this, _context);
 				}
 			}
 		}
@@ -367,7 +366,7 @@ namespace Comical.Core
 				if (_dateOfPublication != value)
 				{
 					_dateOfPublication = value;
-					PropertyChanged.Raise(this, null);
+					PropertyChanged.Raise(this, _context);
 				}
 			}
 		}
@@ -381,7 +380,7 @@ namespace Comical.Core
 				if (_pageTurningDirection != value)
 				{
 					_pageTurningDirection = value;
-					PropertyChanged.Raise(this, null);
+					PropertyChanged.Raise(this, _context);
 				}
 			}
 		}
@@ -427,7 +426,9 @@ namespace Comical.Core
 	[Serializable]
 	public class InconsistentDataException : Exception
 	{
+		public InconsistentDataException() : this(ConsistencyValidatedDataTypes.None) { }
 		public InconsistentDataException(ConsistencyValidatedDataTypes dataTypes) { DataTypes = dataTypes; }
+		public InconsistentDataException(string message) : this(message, ConsistencyValidatedDataTypes.None) { }
 		public InconsistentDataException(string message, ConsistencyValidatedDataTypes dataTypes) : base(message) { DataTypes = dataTypes; }
 		public InconsistentDataException(string message, Exception inner) : base(message, inner) { }
 		protected InconsistentDataException(SerializationInfo info, StreamingContext context) : base(info, context) { DataTypes = (ConsistencyValidatedDataTypes)info.GetInt32("DataTypes"); }

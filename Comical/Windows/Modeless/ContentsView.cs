@@ -84,6 +84,8 @@ namespace Comical
 
 		public void AddImages(IEnumerable<ImageReference> images)
 		{
+			if (images == null)
+				throw new ArgumentNullException("images");
 			using (_images.EnterUnnotifiedSection())
 			{
 				foreach (var image in images)

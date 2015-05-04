@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Comical.Core
 {
@@ -10,15 +11,14 @@ namespace Comical.Core
 		{
 			if (src == null)
 				throw new ArgumentNullException("src");
-			using (MemoryStream source = new MemoryStream(src, false))
-			using (MemoryStream destination = new MemoryStream())
-			{
-				Transform(source, destination, password, enc, src.Length, decrypt);
-				return destination.ToArray();
-			}
+			if (enc == null)
+				throw new ArgumentNullException("enc");
+			byte[] dest = new byte[src.Length];
+			TransformInternal(dest, src, enc.GetBytes(string.IsNullOrEmpty(password) ? "\0" : password), src.Length, decrypt);
+			return dest;
 		}
 
-		public static void Transform(Stream readStream, Stream writeStream, string password, Encoding enc, int length, bool decrypt)
+		public static async Task Transform(Stream readStream, Stream writeStream, string password, Encoding enc, int length, bool decrypt)
 		{
 			if (readStream == null)
 				throw new ArgumentNullException("readStream");
@@ -29,19 +29,24 @@ namespace Comical.Core
 			if (string.IsNullOrEmpty(password))
 				password = "\0";
 			byte[] pw = enc.GetBytes(password);
-			byte[] temp = new byte[4096 / (pw.Length - 1) * (pw.Length - 1)];
+			byte[] temp = new byte[65536 / (pw.Length - 1) * (pw.Length - 1)];
 			while (length > 0)
 			{
-				int bytesRead = readStream.Read(temp, 0, (int)Math.Min(temp.Length, length));
+				int bytesRead = await readStream.ReadAsync(temp, 0, (int)Math.Min(temp.Length, length)).ConfigureAwait(false);
 				if (bytesRead <= 0)
 					return;
-				for (int i = 0; i < bytesRead; i++)
-				{
-					byte p = pw[i % (pw.Length - 1)];
-					temp[i] = (byte)(unchecked(temp[i] + (decrypt ? -p : p)));
-				}
+				TransformInternal(temp, temp, pw, bytesRead, decrypt);
 				writeStream.Write(temp, 0, bytesRead);
 				length -= bytesRead;
+			}
+		}
+
+		static void TransformInternal(byte[] dest, byte[] src, byte[] password, int length, bool decrypt)
+		{
+			for (int i = 0; i < length; i++)
+			{
+				byte p = password[i % (password.Length - 1)];
+				dest[i] = (byte)(unchecked(src[i] + (decrypt ? -p : p)));
 			}
 		}
 	}

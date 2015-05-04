@@ -64,9 +64,11 @@ namespace Comical
 			}
 		}
 
-		public void AddBookmarks(IEnumerable<int> targetIndices)
+		public void AddBookmarks(IEnumerable<int> targetIndexes)
 		{
-			foreach (var targetIndex in targetIndices)
+			if (targetIndexes == null)
+				throw new ArgumentNullException("targetIndexes");
+			foreach (var targetIndex in targetIndexes)
 				_bookmarks.Add(new Bookmark() { Target = targetIndex });
 		}
 
