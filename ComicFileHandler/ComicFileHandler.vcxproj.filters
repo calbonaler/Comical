@@ -18,9 +18,6 @@
     <ClCompile Include="Dll.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="CClassFactory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="CComicPropertyHandler.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>

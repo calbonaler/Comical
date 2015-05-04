@@ -173,7 +173,6 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CClassFactory.cpp" />
     <ClCompile Include="CComicPropertyHandler.cpp" />
     <ClCompile Include="CComicThumbnailProvider.cpp" />
     <ClCompile Include="Dll.cpp">

@@ -25,19 +25,13 @@ _Check_return_ STDAPI DllGetClassObject(_In_ REFCLSID clsid, _In_ REFIID riid, _
 		CLSID_CREATOR(CComicThumbnailProvider),
 		CLSID_CREATOR(CComicPropertyHandler)
 	};
-	auto hr = CLASS_E_CLASSNOTAVAILABLE;
 	for (size_t i = 0; i < ARRAYSIZE(classObjectInit); i++)
 	{
-		if (clsid == *classObjectInit[i].pClsid)
-		{
-			CComPtr<IClassFactory> pClassFactory;
-			pClassFactory.Attach(new (std::nothrow) CClassFactory(classObjectInit[i].pfnCreate));
-			if (pClassFactory.p)
-				hr = pClassFactory->QueryInterface(riid, ppv);
-			else
-				hr = E_OUTOFMEMORY;
-			break;
-		}
+		if (clsid != *classObjectInit[i].pClsid)
+			continue;
+		CComPtr<IClassFactory> pClassFactory;
+		pClassFactory.Attach(new (std::nothrow) CClassFactory(classObjectInit[i].pfnCreate));
+		return pClassFactory ? pClassFactory->QueryInterface(riid, ppv) : E_OUTOFMEMORY;
 	}
-	return hr;
+	return CLASS_E_CLASSNOTAVAILABLE;
 }

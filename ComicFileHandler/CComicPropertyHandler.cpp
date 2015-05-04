@@ -159,44 +159,6 @@ HRESULT ReadBookmarks(IStream* pStream, PROPVARIANT* pvar, VERSION*)
 	return InitPropVariantFromStringAsVector(wstrStringAsVector.c_str(), pvar);
 }
 
-CComicPropertyHandler::CComicPropertyHandler() : m_cRef(1), m_pCache(nullptr) { DllAddRef(); }
-
-CComicPropertyHandler::~CComicPropertyHandler() { DllRelease(); }
-
-IFACEMETHODIMP CComicPropertyHandler::QueryInterface(REFIID riid, void** ppv)
-{
-	static const QITAB qit[] =
-	{
-		QITABENT(CComicPropertyHandler, IPropertyStore),
-		QITABENT(CComicPropertyHandler, IPropertyStoreCapabilities),
-		QITABENT(CComicPropertyHandler, IInitializeWithStream),
-		{ 0 },
-	};
-	return QISearch(this, qit, riid, ppv);
-}
-
-IFACEMETHODIMP_(ULONG) CComicPropertyHandler::AddRef() { return InterlockedIncrement(&m_cRef); }
-
-IFACEMETHODIMP_(ULONG) CComicPropertyHandler::Release()
-{
-	auto cRef = InterlockedDecrement(&m_cRef);
-	if (!cRef)
-		delete this;
-	return cRef;
-}
-
-IFACEMETHODIMP CComicPropertyHandler::GetCount(__RPC__out DWORD* pcProps) { return m_pCache.p ? m_pCache->GetCount(pcProps) : E_UNEXPECTED; }
-
-IFACEMETHODIMP CComicPropertyHandler::GetAt(DWORD iProp, __RPC__out PROPERTYKEY* pKey) { return m_pCache.p ? m_pCache->GetAt(iProp, pKey) : E_UNEXPECTED; }
-
-IFACEMETHODIMP CComicPropertyHandler::GetValue(__RPC__in REFPROPERTYKEY key, __RPC__out PROPVARIANT* pPropVar) { return m_pCache.p ? m_pCache->GetValue(key, pPropVar) : E_UNEXPECTED; }
-
-IFACEMETHODIMP CComicPropertyHandler::SetValue(__RPC__in REFPROPERTYKEY, __RPC__in REFPROPVARIANT) { return E_NOTIMPL; }
-
-IFACEMETHODIMP CComicPropertyHandler::Commit() { return E_NOTIMPL; }
-
-IFACEMETHODIMP CComicPropertyHandler::IsPropertyWritable(__RPC__in REFPROPERTYKEY) { return S_FALSE; }
-
 IFACEMETHODIMP CComicPropertyHandler::Initialize(_In_ IStream* pStream, _In_ DWORD)
 {
 	if (m_pCache.p)

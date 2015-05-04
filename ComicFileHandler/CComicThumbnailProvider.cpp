@@ -4,33 +4,6 @@
 
 #pragma comment(lib, "Shlwapi.lib")
 
-CComicThumbnailProvider::CComicThumbnailProvider() : m_cRef(1), m_pStream(nullptr) { DllAddRef(); }
-
-CComicThumbnailProvider::~CComicThumbnailProvider() { DllRelease(); }
-
-IFACEMETHODIMP CComicThumbnailProvider::QueryInterface(REFIID riid, void** ppv)
-{
-	static const QITAB qit[] =
-	{
-		QITABENT(CComicThumbnailProvider, IInitializeWithStream),
-		QITABENT(CComicThumbnailProvider, IThumbnailProvider),
-		{ 0 },
-	};
-	return QISearch(this, qit, riid, ppv);
-}
-
-IFACEMETHODIMP_(ULONG) CComicThumbnailProvider::AddRef() { return InterlockedIncrement(&m_cRef); }
-
-IFACEMETHODIMP_(ULONG) CComicThumbnailProvider::Release()
-{
-	auto cRef = InterlockedDecrement(&m_cRef);
-	if (!cRef)
-		delete this;
-	return cRef;
-}
-
-IFACEMETHODIMP CComicThumbnailProvider::Initialize(_In_ IStream* pStream, _In_ DWORD) { return m_pStream ? HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED) : pStream->QueryInterface(&m_pStream); }
-
 IFACEMETHODIMP CComicThumbnailProvider::GetThumbnail(UINT, __RPC__deref_out_opt HBITMAP* phbmp, __RPC__out WTS_ALPHATYPE* pdwAlpha)
 {
 	*phbmp = nullptr;

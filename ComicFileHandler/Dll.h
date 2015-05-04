@@ -8,14 +8,12 @@ template <typename T> inline T pointer_cast(void* pv) { return static_cast<T>(pv
 
 #define CLSID_CREATOR(type) { &__uuidof(type), CoInstanceCreator<type> }
 
-template <typename T> HRESULT CoInstanceCreator(IUnknown* punkOuter, REFIID riid, void** ppv)
+template <typename T> HRESULT CoInstanceCreator(REFIID riid, void** ppv)
 {
-	if (punkOuter)
-		return CLASS_E_NOAGGREGATION;
 	T* pNew = new (std::nothrow) T();
 	if (!pNew)
 		return E_OUTOFMEMORY;
-	HRESULT hr = pNew->QueryInterface(riid, ppv);
+	auto hr = pNew->QueryInterface(riid, ppv);
 	pNew->Release();
 	return hr;
 }
@@ -39,9 +37,7 @@ inline bool SUCCEEDED_DEBUG(HRESULT hr, LPSTR file, int line)
 #define TEST(x) do { auto hr = x; if (FAILED(hr)) return hr; } while (false)
 #endif
 
-#pragma warning (disable : 4127)
-
-typedef HRESULT (*PFNCREATEINSTANCE)(IUnknown* punkOuter, REFIID riid, void** ppv);
+typedef HRESULT(*PFNCREATEINSTANCE)(_In_ REFIID riid, _COM_Outptr_ void** ppv);
 
 struct CLASS_OBJECT_INIT
 {
@@ -51,3 +47,26 @@ struct CLASS_OBJECT_INIT
 
 void DllAddRef();
 void DllRelease();
+
+#define BEGIN_COM_INTERFACE_MAPPPING \
+IFACEMETHODIMP QueryInterface(REFIID riid, void** ppv) \
+{ \
+	static const QITAB qit[] = \
+	{ \
+
+#define END_COM_INTER_FACE_MAPPING \
+		{ 0 } \
+	}; \
+	return QISearch(this, qit, riid, ppv); \
+} \
+IFACEMETHODIMP_(ULONG) AddRef() { return InterlockedIncrement(&m_cRef); } \
+IFACEMETHODIMP_(ULONG) Release() \
+{ \
+	auto cRef = InterlockedDecrement(&m_cRef); \
+	if (cRef == 0) \
+		delete this; \
+	return cRef; \
+} \
+private: \
+	ULONG m_cRef = 1; \
+public:
