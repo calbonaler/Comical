@@ -47,18 +47,7 @@ namespace Comical
 			{
 				if (txtPassword.Text != txtConfirmationPassword.Text)
 				{
-					using (TaskDialog dialog = new TaskDialog())
-					{
-						dialog.Cancelable = true;
-						dialog.Caption = Text;
-						dialog.Icon = TaskDialogStandardIcon.Error;
-						dialog.InstructionText = Properties.Resources.PasswordsNotSame;
-						dialog.OwnerWindowHandle = Handle;
-						dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
-						dialog.StandardButtons = TaskDialogStandardButtons.Close;
-						dialog.Text = Properties.Resources.InputSamePasswordInBothBox;
-						dialog.Show();
-					}
+					TaskDialog.Show(Properties.Resources.PasswordsNotSame, Properties.Resources.InputSamePasswordInBothBox, Text, TaskDialogStandardButtons.Close, TaskDialogStandardIcon.Error, ownerWindowHandle: Handle);
 					txtConfirmationPassword.Focus();
 					txtConfirmationPassword.SelectAll();
 					return;

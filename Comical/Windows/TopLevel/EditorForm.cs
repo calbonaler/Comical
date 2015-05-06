@@ -17,9 +17,7 @@ namespace Comical
 			// メンバ変数の宣言と同時に初期化すると、Application.Run() 前であるため、
 			// SynchronizationContext.Current が null となり呼び出しがマーシャリングされない。
 			comic = new Comic();
-			comic.PropertyChanged += Comic_PropertyChanged;
 			comic.Images.CollectionChanged += Comic_CountChanged;
-			Comic_PropertyChanged(comic, new System.ComponentModel.PropertyChangedEventArgs("SavedFilePath"));
 			InitializeComponent();
 			InitializeDockingWindows();
 			defaultProgress = new Progress<int>(value => prgStatus.Value = value);
@@ -28,6 +26,7 @@ namespace Comical
 		}
 
 		Comic comic;
+		string savedFilePath = string.Empty;
 		static readonly IReadOnlyList<string> imageExtensions = new [] { "bmp", "dib", "gif", "jpeg", "jpe", "jpg", "jfif", "png", "tiff", "tif", };
 		ContentsView imageList = new ContentsView();
 		BookmarksView bookmarkList = new BookmarksView();
@@ -71,7 +70,7 @@ namespace Comical
 			using (TaskDialog dialog = new TaskDialog())
 			{
 				dialog.Caption = Application.ProductName;
-				dialog.InstructionText = string.Format(CultureInfo.CurrentCulture, Properties.Resources.DoYouSaveChanges, comic.HasSaved ? comic.SavedFilePath : Properties.Resources.Untitled);
+				dialog.InstructionText = string.Format(CultureInfo.CurrentCulture, Properties.Resources.DoYouSaveChanges, HumanReadableSavedFileName);
 				dialog.OwnerWindowHandle = Handle;
 				var SaveButton = new TaskDialogButton("SaveButton", Properties.Resources.Save);
 				SaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.Yes);
@@ -146,6 +145,33 @@ namespace Comical
 			Properties.Settings.Default.RecentAuthors.Insert(0, author);
 		}
 
+		async Task NewAsync()
+		{
+			if (await QuerySaveAsync() != TaskDialogResult.Cancel)
+			{
+				comic.Clear();
+				savedFilePath = string.Empty;
+				OnSavedFilePathChanged();
+			}
+		}
+
+		async Task OpenAsync()
+		{
+			if (await QuerySaveAsync() == TaskDialogResult.Cancel)
+				return;
+			using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+			{
+				dialog.DefaultExtension = ".cic";
+				dialog.Filters.Add(new CommonFileDialogFilter("Comicファイル", "*.cic"));
+				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
+				{
+					await AddAnythingLocalAsync(true, dialog.FileName);
+					savedFilePath = dialog.FileName;
+					OnSavedFilePathChanged();
+				}
+			}
+		}
+
 		async Task AddAnythingLocalAsync(bool canOpen, params string[] paths)
 		{
 			List<FileHeader> comicFiles = new List<FileHeader>();
@@ -169,17 +195,7 @@ namespace Comical
 							password = dialog.Password;
 							if (!fileHeader.IsProperPassword(password))
 							{
-								using (TaskDialog errorDialog = new TaskDialog())
-								{
-									errorDialog.Cancelable = true;
-									errorDialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
-									errorDialog.OwnerWindowHandle = Handle;
-									errorDialog.Caption = Application.ProductName;
-									errorDialog.InstructionText = Properties.Resources.CannotDecryptBecausePasswordNotProper;
-									errorDialog.Icon = TaskDialogStandardIcon.Error;
-									errorDialog.StandardButtons = TaskDialogStandardButtons.Close;
-									errorDialog.Show();
-								}
+								TaskDialog.Show(Properties.Resources.CannotDecryptBecausePasswordNotProper, null, Application.ProductName, TaskDialogStandardButtons.Close, TaskDialogStandardIcon.Error, ownerWindowHandle: Handle);
 								continue;
 							}
 						}
@@ -187,13 +203,13 @@ namespace Comical
 					if (canOpen)
 					{
 						lblStatus.Text = Properties.Resources.OpeningFile;
-						await comic.OpenAsync(fileHeader.Path, password, System.Threading.CancellationToken.None, defaultProgress);
+						await comic.OpenAsync(fileHeader.Path, password, defaultProgress);
 						AddAuthorToHistory(comic.Author);
 					}
 					else
 					{
 						lblStatus.Text = Properties.Resources.AppendingFile;
-						await comic.AppendAsync(fileHeader.Path, password, System.Threading.CancellationToken.None, defaultProgress);
+						await comic.AppendAsync(fileHeader.Path, password, defaultProgress);
 					}
 					canOpen = false;
 				}
@@ -216,27 +232,23 @@ namespace Comical
 			}
 			catch (InconsistentDataException ex)
 			{
-				using (TaskDialog dialog = new TaskDialog())
-				{
-					dialog.Cancelable = true;
-					dialog.Caption = Application.ProductName;
-					dialog.Icon = TaskDialogStandardIcon.Error;
-					dialog.InstructionText = Properties.Resources.InconsistentData_Instruction;
-					dialog.OwnerWindowHandle = Handle;
-					dialog.StandardButtons = TaskDialogStandardButtons.Close;
-					dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
-					dialog.Text = string.Format(Properties.Resources.InconsistentData_Text, string.Join(", ", Utils.SplitEnumValue(ex.DataTypes).Select(x => Properties.Resources.ResourceManager.GetString("InconsistentData_DataTypes_" + x.ToString(), Properties.Resources.Culture))));
-					dialog.Show();
-				}
+				TaskDialog.Show(
+					Properties.Resources.InconsistentData_Instruction,
+					string.Format(Properties.Resources.InconsistentData_Text, string.Join(", ", Utils.SplitEnumValue(ex.DataTypes).Select(x => Properties.Resources.ResourceManager.GetString("InconsistentData_DataTypes_" + x.ToString(), Properties.Resources.Culture)))),
+					Application.ProductName,
+					TaskDialogStandardButtons.Close,
+					TaskDialogStandardIcon.Error,
+					ownerWindowHandle: Handle
+				);
 				return false;
 			}
 		}
 
 		async Task<bool> SaveAsync()
 		{
-			if (!comic.HasSaved)
+			if (string.IsNullOrEmpty(savedFilePath))
 				return await SaveAsAsync();
-			return await SaveAsync(comic.SavedFilePath, Comic.DefaultPassword);
+			return await SaveAsync(savedFilePath, Comic.DefaultPassword);
 		}
 
 		async Task<bool> SaveAsAsync()
@@ -265,30 +277,22 @@ namespace Comical
 					dialog.DefaultFileName = string.Format(CultureInfo.CurrentCulture, Properties.Settings.Default.DefaultSavedFileName, comic.Title, comic.Author, comic.DateOfPublication);
 				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
 					return false;
-				return await SaveAsync(dialog.FileName, password);
+				var result = await SaveAsync(dialog.FileName, password);
+				savedFilePath = dialog.FileName;
+				OnSavedFilePathChanged();
+				return result;
 			}
 		}
+
+		void OnSavedFilePathChanged() { Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.TitleFormat, HumanReadableSavedFileName, Application.ProductName); }
+
+		string HumanReadableSavedFileName { get { return string.IsNullOrEmpty(savedFilePath) ? Properties.Resources.Untitled : System.IO.Path.GetFileName(savedFilePath); } }
 
 		#region FileMenu
 
-		async void itmNew_Click(object sender, EventArgs e)
-		{
-			if (await QuerySaveAsync() != TaskDialogResult.Cancel)
-				comic.Clear();
-		}
+		async void itmNew_Click(object sender, EventArgs e) { await NewAsync(); }
 
-		async void itmOpen_Click(object sender, EventArgs e)
-		{
-			if (await QuerySaveAsync() == TaskDialogResult.Cancel)
-				return;
-			using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
-			{
-				dialog.DefaultExtension = ".cic";
-				dialog.Filters.Add(new CommonFileDialogFilter("Comicファイル", "*.cic"));
-				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
-					await AddAnythingLocalAsync(true, dialog.FileName);
-			}
-		}
+		async void itmOpen_Click(object sender, EventArgs e) { await OpenAsync(); }
 
 		async void itmSave_Click(object sender, EventArgs e) { await SaveAsync(); }
 
@@ -401,6 +405,7 @@ namespace Comical
 		protected override async void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
+			OnSavedFilePathChanged();
 			var args = Environment.GetCommandLineArgs();
 			if (args.Length >= 2)
 				await AddAnythingLocalAsync(true, args[1]);
@@ -435,26 +440,9 @@ namespace Comical
 
 		#endregion
 
-		#region Comic EventHandlers
-
 		void Comic_CountChanged(object sender, EventArgs e)
 		{
 			lblImageCount.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageCountStringRepresentation, comic.Images.Count);
 		}
-
-		void Comic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-		{
-			switch (e.PropertyName)
-			{
-				case "SavedFilePath":
-					if (!string.IsNullOrEmpty(comic.SavedFilePath))
-						Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.TitleFormat, comic.SavedFilePath, Application.ProductName);
-					else
-						Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.TitleFormat, Properties.Resources.Untitled, Application.ProductName);
-					break;
-			}
-		}
-
-		#endregion
 	}
 }

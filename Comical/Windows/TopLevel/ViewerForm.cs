@@ -60,9 +60,8 @@ namespace Comical
 				prevMain.ViewPane.Select();
 				using (TaskDialog dialog = new TaskDialog())
 				{
-					CancellationTokenSource cts = new CancellationTokenSource();
-					dialog.Cancelable = true;
-					dialog.StandardButtons = TaskDialogStandardButtons.Cancel;
+					dialog.Cancelable = false;
+					dialog.Controls.Add(new TaskDialogButton("btnCancel", Properties.Resources.Cancel));
 					dialog.Caption = Application.ProductName;
 					dialog.Icon = TaskDialogStandardIcon.None;
 					dialog.InstructionText = Properties.Resources.OpeningFile;
@@ -70,9 +69,10 @@ namespace Comical
 					dialog.ProgressBar = new TaskDialogProgressBar(0, 100, 0);
 					dialog.Opened += async (s, ev) =>
 					{
+						((TaskDialogButtonBase)dialog.Controls["btnCancel"]).Enabled = false;
 						try
 						{
-							await icd.OpenAsync(fileName, pass, cts.Token, new Progress<int>(value => dialog.ProgressBar.Value = value));
+							await icd.OpenAsync(fileName, pass, new Progress<int>(value => dialog.ProgressBar.Value = value));
 							dialog.Close(TaskDialogResult.Ok);
 						}
 						catch (OperationCanceledException)
@@ -81,78 +81,53 @@ namespace Comical
 						}
 						catch (WrongPasswordException ex)
 						{
-							using (TaskDialog td = new TaskDialog())
-							{
-								td.Caption = Application.ProductName;
-								td.Icon = TaskDialogStandardIcon.Error;
-								td.InstructionText = ex.Message;
-								td.OwnerWindowHandle = this.Handle;
-								td.StandardButtons = TaskDialogStandardButtons.Retry | TaskDialogStandardButtons.Cancel;
-								td.StartupLocation = TaskDialogStartupLocation.CenterOwner;
-								if (td.Show() == TaskDialogResult.Retry)
-									dialog.Close(TaskDialogResult.Retry);
-								else
-									dialog.Close(TaskDialogResult.Close);
-							}
-						}
-					};
-					dialog.Closing += (s, ev) =>
-					{
-						if (ev.TaskDialogResult == TaskDialogResult.Cancel)
-						{
-							cts.Cancel();
-							ev.Cancel = true;
+							if (TaskDialog.Show(ex.Message, null, Application.ProductName, TaskDialogStandardButtons.Retry | TaskDialogStandardButtons.Cancel, TaskDialogStandardIcon.Error, ownerWindowHandle: Handle) == TaskDialogResult.Retry)
+								dialog.Close(TaskDialogResult.Retry);
+							else
+								dialog.Close(TaskDialogResult.Close);
 						}
 					};
 					dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
 					result = dialog.Show();
 				}
 			} while (result == TaskDialogResult.Retry);
-			if (result == TaskDialogResult.Ok)
+			if (result == TaskDialogResult.Close)
 			{
-				conBookmarks.Items.AddRange(icd.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (sen, eve) =>
-				{
-					current = spreads.FindIndex(sp => sp.Left == b.TargetImage || sp.Right == b.TargetImage);
-					ViewCurrentPage();
-				})).ToArray());
-				spreads = new List<Spread>(icd.ConstructSpreads(!Properties.Settings.Default.UsePageView));
-				openingFileName = "";
-				ViewCurrentPage();
-			}
-			else if (result == TaskDialogResult.Close)
 				Close();
+				return;
+			}
+			conBookmarks.Items.AddRange(icd.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (sen, eve) =>
+			{
+				current = spreads.FindIndex(sp => sp.Left == b.TargetImage || sp.Right == b.TargetImage);
+				ViewCurrentPage();
+			})).ToArray());
+			spreads = new List<Spread>(icd.ConstructSpreads(!Properties.Settings.Default.UsePageView));
+			openingFileName = "";
+			ViewCurrentPage();
 		}
 
 		void ViewCurrentPage()
 		{
-			Image im;
-			if (spreads[current].Left != null)
+			if (spreads[current].Left == null)
 			{
-				im = spreads[current].Left.GetImage();
-				if (spreads[current].Right != null)
+				prevMain.Image = spreads[current].Right.GetImage();
+				return;
+			}
+			if (spreads[current].Right == null)
+			{
+				prevMain.Image = spreads[current].Left.GetImage();
+				return;
+			}
+			using (var left = spreads[current].Left.GetImage())
+			using (var right = spreads[current].Right.GetImage())
+			{
+				prevMain.Image = new Bitmap(left.Width + right.Width, Math.Max(left.Height, right.Height));
+				using (Graphics g = Graphics.FromImage(prevMain.Image))
 				{
-					Image other = spreads[current].Right.GetImage();
-					Bitmap bmp = new Bitmap(im.Width + other.Width, Math.Max(im.Height, other.Height));
-					try
-					{
-						using (Graphics g = Graphics.FromImage(bmp))
-						{
-							g.DrawImage(im, new Point(0, 0));
-							g.DrawImage(other, new Point(im.Width, 0));
-						}
-						im = bmp;
-						bmp = null;
-					}
-					finally
-					{
-						if (bmp != null)
-							bmp.Dispose();
-					}
+					g.DrawImage(left, new Point(0, 0));
+					g.DrawImage(right, new Point(left.Width, 0));
 				}
 			}
-			else
-				im = spreads[current].Right.GetImage();
-			prevMain.Image = im;
 		}
 
 		void ViewPrevious()

@@ -151,10 +151,12 @@ namespace Comical
 		{
 			if (FirstSelectedRowIndex >= 0)
 			{
+				var content = DockPanel.ActiveContent;
 				Viewer viewer = new Viewer();
 				viewer.Text = FirstSelectedRowIndex.ToString(_images.Count);
 				viewer.Image = _images[FirstSelectedRowIndex].GetImage();
 				viewer.Show(DockPanel);
+				content.DockHandler.Activate();
 			}
 		}
 

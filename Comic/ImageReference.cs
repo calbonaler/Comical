@@ -72,20 +72,20 @@ namespace Comical.Core
 		public ImageReferenceCollection(SynchronizationContext context) { _ownerContext = context; }
 
 		SynchronizationContext _ownerContext;
-		List<ImageReference> references = new List<ImageReference>();
+		List<ImageReference> _references = new List<ImageReference>();
 		bool _notificationSuspended = false;
-		List<NotifyCollectionChangedEventArgs> collectionChanges = new List<NotifyCollectionChangedEventArgs>();
-		List<KeyValuePair<ImageReference, string>> itemChanges = new List<KeyValuePair<ImageReference, string>>();
+		bool _collectionChanged = false;
+		List<KeyValuePair<ImageReference, string>> _itemChanges = new List<KeyValuePair<ImageReference, string>>();
 
 		protected void ClearItems()
 		{
-			lock (references)
+			lock (_references)
 			{
-				for (int i = references.Count - 1; i >= 0; i--)
+				for (int i = _references.Count - 1; i >= 0; i--)
 				{
-					references[i].PropertyChanged -= OnItemPropertyChanged;
-					references[i].OwnerContext = null;
-					references.RemoveAt(i);
+					_references[i].PropertyChanged -= OnItemPropertyChanged;
+					_references[i].OwnerContext = null;
+					_references.RemoveAt(i);
 				}
 			}
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
@@ -93,13 +93,13 @@ namespace Comical.Core
 
 		protected void InsertItem(int index, ImageReference item)
 		{
-			lock (references)
+			lock (_references)
 			{
 				if (item == null)
 					throw new ArgumentNullException("item");
 				item.PropertyChanged += OnItemPropertyChanged;
 				item.OwnerContext = _ownerContext;
-				references.Insert(index, item);
+				_references.Insert(index, item);
 			}
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
 		}
@@ -107,13 +107,13 @@ namespace Comical.Core
 		protected void MoveItems(int oldIndex, int count, int newIndex)
 		{
 			ImageReference[] refes;
-			lock (references)
+			lock (_references)
 			{
 				refes = new ImageReference[count];
 				for (int i = 0; i < count; i++)
-					refes[i] = references[oldIndex + i];
-				references.RemoveRange(oldIndex, count);
-				references.InsertRange(newIndex, refes);
+					refes[i] = _references[oldIndex + i];
+				_references.RemoveRange(oldIndex, count);
+				_references.InsertRange(newIndex, refes);
 			}
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, refes, newIndex, oldIndex));
 		}
@@ -121,14 +121,14 @@ namespace Comical.Core
 		protected void SetItem(int index, ImageReference item)
 		{
 			ImageReference oldItem;
-			lock (references)
+			lock (_references)
 			{
 				if (item == null)
 					throw new ArgumentNullException("item");
-				oldItem = references[index];
+				oldItem = _references[index];
 				oldItem.PropertyChanged -= OnItemPropertyChanged;
 				oldItem.OwnerContext = null;
-				references[index] = item;
+				_references[index] = item;
 				item.PropertyChanged += OnItemPropertyChanged;
 				item.OwnerContext = _ownerContext;
 			}
@@ -138,14 +138,14 @@ namespace Comical.Core
 		protected bool RemoveItem(int index)
 		{
 			ImageReference item;
-			lock (references)
+			lock (_references)
 			{
-				if (index < 0 || index >= references.Count)
+				if (index < 0 || index >= _references.Count)
 					return false;
-				item = references[index];
+				item = _references[index];
 				item.PropertyChanged -= OnItemPropertyChanged;
 				item.OwnerContext = null;
-				references.RemoveAt(index);
+				_references.RemoveAt(index);
 			}
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
 			return true;
@@ -155,13 +155,13 @@ namespace Comical.Core
 
 		public void MoveRange(int oldIndex, int count, int newIndex) { MoveItems(oldIndex, count, newIndex); }
 
-		public int IndexOf(ImageReference item) { lock (references) return references.IndexOf(item); }
+		public int IndexOf(ImageReference item) { lock (_references) return _references.IndexOf(item); }
 
 		public void RemoveAt(int index) { RemoveItem(index); }
 
 		public ImageReference this[int index]
 		{
-			get { lock (references) return references[index]; }
+			get { lock (_references) return _references[index]; }
 			set { SetItem(index, value); }
 		}
 
@@ -171,17 +171,17 @@ namespace Comical.Core
 
 		public void Clear() { ClearItems(); }
 
-		public bool Contains(ImageReference item) { lock (references) return references.Contains(item); }
+		public bool Contains(ImageReference item) { lock (_references) return _references.Contains(item); }
 
-		public int Count { get { return references.Count; } }
+		public int Count { get { return _references.Count; } }
 
-		public bool Remove(ImageReference item) { return RemoveItem(references.IndexOf(item)); }
+		public bool Remove(ImageReference item) { return RemoveItem(_references.IndexOf(item)); }
 
-		public void CopyTo(ImageReference[] array, int arrayIndex) { lock (references) references.CopyTo(array, arrayIndex); }
+		public void CopyTo(ImageReference[] array, int arrayIndex) { lock (_references) _references.CopyTo(array, arrayIndex); }
 
 		public bool IsReadOnly { get { return false; } }
 
-		public IEnumerator<ImageReference> GetEnumerator() { lock (references) return references.GetEnumerator(); }
+		public IEnumerator<ImageReference> GetEnumerator() { lock (_references) return _references.GetEnumerator(); }
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return GetEnumerator(); }
 
@@ -190,7 +190,7 @@ namespace Comical.Core
 			if (CollectionChanged != null)
 			{
 				if (_notificationSuspended)
-					collectionChanges.Add(e);
+					_collectionChanged = true;
 				else
 					_ownerContext.SendIfNeeded(() => CollectionChanged(this, e));
 			}
@@ -206,7 +206,7 @@ namespace Comical.Core
 		{
 			var castedSender = (ImageReference)sender;
 			if (_notificationSuspended)
-				itemChanges.Add(new KeyValuePair<ImageReference, string>(castedSender, e.PropertyName));
+				_itemChanges.Add(new KeyValuePair<ImageReference, string>(castedSender, e.PropertyName));
 			else
 				OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<ImageReference>(new[] { new KeyValuePair<ImageReference, string>(castedSender, e.PropertyName) }));
 		}
@@ -214,23 +214,16 @@ namespace Comical.Core
 		public IDisposable EnterUnnotifiedSection()
 		{
 			_notificationSuspended = true;
-			return new DelegateDisposable(ResumeNotification);
-		}
-
-		void ResumeNotification()
-		{
-			_notificationSuspended = false;
-			if (collectionChanges.Any(x => x.Action == NotifyCollectionChangedAction.Reset) || collectionChanges.Count > 20)
-				OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-			else if (collectionChanges.Count > 0)
+			return new DelegateDisposable(() =>
 			{
-				foreach (var ch in collectionChanges)
-					OnCollectionChanged(ch);
-			}
-			collectionChanges.Clear();
-			if (itemChanges.Count > 0)
-				OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<ImageReference>(itemChanges));
-			itemChanges.Clear();
+				_notificationSuspended = false;
+				if (_collectionChanged)
+					OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+				_collectionChanged = false;
+				if (_itemChanges.Count > 0)
+					OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<ImageReference>(_itemChanges));
+				_itemChanges.Clear();
+			});
 		}
 
 		public event NotifyCollectionChangedEventHandler CollectionChanged;

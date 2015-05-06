@@ -39,7 +39,7 @@ namespace Comical.Core
 		static readonly Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 		public static readonly string DefaultPassword = null;
 		
-		static async Task<Tuple<FileHeader, ImageReference[]>> ReadFile(string fileName, string password, BookmarkCollection bookmarks, CancellationToken token, IProgress<int> progress)
+		async Task<FileHeader> ReadFile(string fileName, string password, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
 			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
 			using (Stream readStream = FileStream.Synchronized(fs))
@@ -53,11 +53,10 @@ namespace Comical.Core
 				// 復号化済みマーク
 				if (!cic.IsProperPassword(password))
 					throw new WrongPasswordException(Properties.Resources.PasswordIsNotProper);
-				var addedImages = new List<ImageReference>();
 				bookmarks.Load(readStream); // 目次
 				BinaryReader reader = new BinaryReader(readStream, System.Text.Encoding.Unicode);
 				int images = reader.ReadInt32(); // 画像数
-				for (int i = 0; i < images && !token.IsCancellationRequested; Interlocked.Increment(ref i))
+				for (int i = 0; i < images; Interlocked.Increment(ref i))
 				{
 					if (cic.FileVersion < new Version(4, 4))
 						reader.ReadString(); // 名前
@@ -68,13 +67,12 @@ namespace Comical.Core
 					using (MemoryStream ms = new MemoryStream())
 					{
 						await Crypto.Transform(readStream, ms, password, System.Text.Encoding.Unicode, len, true).ConfigureAwait(false);
-						addedImages.Add(new ImageReference(ms.ToArray()) { ViewMode = m });
+						Images.Add(new ImageReference(ms.ToArray()) { ViewMode = m });
 					}
 					if (progress != null)
 						progress.Report((i + 1) * 100 / images);
 				}
-				token.ThrowIfCancellationRequested();
-				return new Tuple<FileHeader, ImageReference[]>(cic, addedImages.ToArray());
+				return cic;
 			}
 		}
 
@@ -102,17 +100,19 @@ namespace Comical.Core
 
 		public void Clear()
 		{
-			SavedFilePath = "";
-			if (Thumbnail != null)
+			using (EnterUndirtiableSection())
 			{
-				Thumbnail.Dispose();
-				Thumbnail = null;
+				if (Thumbnail != null)
+				{
+					Thumbnail.Dispose();
+					Thumbnail = null;
+				}
+				DateOfPublication = null;
+				Title = Author = "";
+				Images.Clear();
+				Bookmarks.Clear();
+				IsDirty = false;
 			}
-			DateOfPublication = null;
-			Title = Author = "";
-			Images.Clear();
-			Bookmarks.Clear();
-			IsDirty = false;
 		}
 
 		public ConsistencyValidatedDataTypes CheckInconsistency()
@@ -126,26 +126,25 @@ namespace Comical.Core
 			return ConsistencyValidatedDataTypes.None;
 		}
 
-		public async Task OpenAsync(string fileName, string password, CancellationToken token, IProgress<int> progress)
+		public async Task OpenAsync(string fileName, string password, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
+			using (EnterUndirtiableSection())
+			using (Images.EnterUnnotifiedSection())
 			{
-				Clear();
-				using (EnterUndirtiableSection())
-				using (Images.EnterUnnotifiedSection())
-				{
-					var res = await ReadFile(fileName, password, Bookmarks, token, progress).ConfigureAwait(false);
-					SavedFilePath = fileName;
-					_password = password;
-					Thumbnail = res.Item1.Thumbnail;
-					FileVersion = res.Item1.FileVersion;
-					Title = res.Item1.Title;
-					Author = res.Item1.Author;
-					DateOfPublication = res.Item1.DateOfPublication;
-					PageTurningDirection = res.Item1.PageTurningDirection;
-					foreach (var ir in res.Item2)
-						Images.Add(ir);
-				}
+				Images.Clear();
+				Bookmarks.Clear();
+				IsDirty = false;
+				var res = await ReadFile(fileName, password, Bookmarks, progress).ConfigureAwait(false);
+				_password = password;
+				if (Thumbnail != null)
+					Thumbnail.Dispose();
+				Thumbnail = res.Thumbnail;
+				FileVersion = res.FileVersion;
+				Title = res.Title;
+				Author = res.Author;
+				DateOfPublication = res.DateOfPublication;
+				PageTurningDirection = res.PageTurningDirection;
 			}
 		}
 
@@ -168,20 +167,16 @@ namespace Comical.Core
 					PageTurningDirection = PageTurningDirection
 				}, Bookmarks, progress).ConfigureAwait(false);
 				FileVersion = AssemblyVersion;
-				SavedFilePath = fileName;
 				_password = password;
 				IsDirty = false;
 			}
 		}
 
-		public async Task AppendAsync(string fileName, string password, CancellationToken token, IProgress<int> progress)
+		public async Task AppendAsync(string fileName, string password, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
 			using (Images.EnterUnnotifiedSection())
-			{
-				foreach (var ir in (await ReadFile(fileName, password, new BookmarkCollection(null, null), token, progress).ConfigureAwait(false)).Item2)
-					Images.Add(ir);
-			}
+				await ReadFile(fileName, password, new BookmarkCollection(null, null), progress).ConfigureAwait(false);
 		}
 
 		public async Task ExportAsync(string baseDirectory, IEnumerable<ImageReference> images, IProgress<int> progress)
@@ -244,6 +239,8 @@ namespace Comical.Core
 		
 		public IDisposable EnterUndirtiableSection()
 		{
+			if (!_canDirty)
+				return new DelegateDisposable(() => { });
 			_canDirty = false;
 			return new DelegateDisposable(() => _canDirty = true);
 		}
@@ -266,23 +263,6 @@ namespace Comical.Core
 				{
 					_busy = value;
 					PropertyChanged.Raise(this, _context);
-				}
-			}
-		}
-
-		public bool HasSaved { get { return !string.IsNullOrEmpty(SavedFilePath); } }
-
-		string _savedFilePath = "";
-		public string SavedFilePath
-		{
-			get { return _savedFilePath; }
-			private set
-			{
-				if (_savedFilePath != value)
-				{
-					_savedFilePath = value;
-					PropertyChanged.Raise(this, _context);
-					PropertyChanged.Raise(this, _context, () => HasSaved);
 				}
 			}
 		}
