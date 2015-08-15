@@ -222,4 +222,7 @@
   <data name="InconsistentData_DataTypes_Images" xml:space="preserve">
     <value>画像コレクション</value>
   </data>
+  <data name="AboutDialog_CopyrightFormat" xml:space="preserve">
+    <value>{0} All rights reserved.</value>
+  </data>
 </root>

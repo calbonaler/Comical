@@ -36,7 +36,10 @@ namespace Comical
 			base.OnLoad(e);
 			var ca = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).FirstOrDefault() as AssemblyCopyrightAttribute;
 			lblVersionHeader.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
-			lblCopyright.Text = (ca != null ? ca.Copyright + " " : "") + "All rights reserved.";
+			if (ca != null)
+				lblCopyright.Text = string.Format(System.Globalization.CultureInfo.CurrentCulture, Properties.Resources.AboutDialog_CopyrightFormat, ca.Copyright);
+			else
+				lblCopyright.Text = string.Empty;
 			txtLibraries.Select(0, 0);
 		}
 
