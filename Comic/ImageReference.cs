@@ -43,7 +43,28 @@ namespace Comical.Core
 		{
 			using (var ms = new MemoryStream(_data, false))
 			using (var image = Image.FromStream(ms))
-				return image.Resize(size);
+			{
+				Bitmap bitmap = null;
+				Bitmap tmp = null;
+				try
+				{
+					if (size.IsEmpty)
+						tmp = new Bitmap(image);
+					else
+					{
+						var x = Math.Min(image.Width * size.Height, size.Width * image.Height);
+						tmp = new Bitmap(image, x / image.Height, x / image.Width);
+					}
+					bitmap = tmp;
+					tmp = null;
+				}
+				finally
+				{
+					if (tmp != null)
+						tmp.Dispose();
+				}
+				return bitmap;
+			}
 		}
 
 		internal MemoryStream GetReadOnlyBinaryImage()

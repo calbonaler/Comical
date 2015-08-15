@@ -118,9 +118,9 @@ namespace Comical.Properties {
         /// <summary>
         ///   保存しない(&amp;N) に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string DontSave {
+        internal static string DoNotSave {
             get {
-                return ResourceManager.GetString("DontSave", resourceCulture);
+                return ResourceManager.GetString("DoNotSave", resourceCulture);
             }
         }
         

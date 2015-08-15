@@ -192,7 +192,7 @@ namespace Comical.Core
 						string ext;
 						using (Bitmap bmp = new Bitmap(ms))
 							ext = Array.Find(System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders(), item => item.FormatID == bmp.RawFormat.Guid).FilenameExtension.Split(';')[0].Remove(0, 1);
-						using (FileStream fs = new FileStream(Path.Combine(baseDirectory, i.ToString(imageList.Length - 1) + ext), FileMode.Create, FileAccess.Write))
+						using (FileStream fs = new FileStream(Path.Combine(baseDirectory, i.ToString(imageList.Length - 1, System.Globalization.CultureInfo.CurrentCulture) + ext), FileMode.Create, FileAccess.Write))
 							await ms.CopyToAsync(fs).ConfigureAwait(false);
 					}
 					if (progress != null)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="{A6D113B7-635F-49EC-9B20-C256B532B3CD}" Codepage="932" Language="!(loc.Language)" Manufacturer="takumi" Name="Comical" UpgradeCode="{2E73E334-4D49-4BBF-8BEC-E210EF49DD6E}" Version="4.4.15">
+	<Product Id="{006D24BD-3EA3-49FF-BF25-364181CAFCC1}" Codepage="932" Language="!(loc.Language)" Manufacturer="takumi" Name="Comical" UpgradeCode="{2E73E334-4D49-4BBF-8BEC-E210EF49DD6E}" Version="4.4.16">
 		<Package Compressed="yes" InstallerVersion="400" Languages="1041" Manufacturer="takumi" SummaryCodepage="932" Platform="x64" InstallScope="perMachine" />
 		<Media Id="1" Cabinet="components" EmbedCab="yes" />
 		<PropertyRef Id="NETFRAMEWORK45"/>

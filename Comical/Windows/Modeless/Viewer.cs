@@ -31,12 +31,5 @@ namespace Comical
 		public void SetImageAsync(Uri url) { preMain.LoadImageAsync(url); }
 
 		void itmFitToWindow_CheckedChanged(object sender, EventArgs e) { preMain.StretchMode = itmFitToWindow.Checked ? Comical.Controls.PreviewerStretchMode.Uniform : Comical.Controls.PreviewerStretchMode.None; }
-
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad(e);
-			if (this.DockPanel == null)
-				this.ExtendFrameIntoClientArea(true);
-		}
 	}
 }

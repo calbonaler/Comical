@@ -12,7 +12,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("takumi")]
 [assembly: AssemblyProduct("ComicalCore")]
-[assembly: AssemblyCopyright("Copyright © takumi 2012-2013")]
+[assembly: AssemblyCopyright("Copyright © takumi 2012-2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,8 +34,8 @@ using System.Resources;
 // すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.4.12.0")]
-[assembly: AssemblyFileVersion("4.4.12.0")]
+[assembly: AssemblyVersion("4.4.13.0")]
+[assembly: AssemblyFileVersion("4.4.13.0")]
 
 [assembly: CLSCompliant(true)]
 [assembly: NeutralResourcesLanguageAttribute("")]

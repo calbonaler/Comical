@@ -36,7 +36,7 @@ namespace Comical
 
 		void InitializeDockingWindows()
 		{
-			dpMain.LoadFromXml(Properties.Settings.Default.DockPanelConfiguration, imageList, bookmarkList, document, viewModeSettings);
+			LoadFromXml(dpMain, Properties.Settings.Default.DockPanelConfiguration, imageList, bookmarkList, document, viewModeSettings);
 
 			imageList.SetImages(comic.Images);
 			imageList.FileDropped += async (s, ev) => await AddAnythingLocalAsync(!ev.Control, ev.FileNames.ToArray());
@@ -74,12 +74,12 @@ namespace Comical
 				dialog.OwnerWindowHandle = Handle;
 				var SaveButton = new TaskDialogButton("SaveButton", Properties.Resources.Save);
 				SaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.Yes);
-				var DontSaveButton = new TaskDialogButton("DontSaveButton", Properties.Resources.DontSave);
-				DontSaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.No);
+				var DoNotSaveButton = new TaskDialogButton("DoNotSaveButton", Properties.Resources.DoNotSave);
+				DoNotSaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.No);
 				var CancelButton = new TaskDialogButton("CancelButton", Properties.Resources.Cancel);
 				CancelButton.Click += (s, ev) => dialog.Close(TaskDialogResult.Cancel);
 				dialog.Controls.Add(SaveButton);
-				dialog.Controls.Add(DontSaveButton);
+				dialog.Controls.Add(DoNotSaveButton);
 				dialog.Controls.Add(CancelButton);
 				dialog.Cancelable = true;
 				dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
@@ -114,21 +114,25 @@ namespace Comical
 				try
 				{
 					if (System.IO.Directory.Exists(path))
-						await CollectFiles(System.IO.Directory.EnumerateFileSystemEntries(path), comicFiles, images).ConfigureAwait(false);
-					else if (System.IO.File.Exists(path))
 					{
-						var fh = new FileHeader(path);
-						if (fh.CanOpen)
-							comicFiles.Add(fh);
-						else if (imageExtensions.Any(ex => string.Equals(System.IO.Path.GetExtension(path), "." + ex, StringComparison.OrdinalIgnoreCase)))
-						{
-							using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
-							{
-								using (System.IO.FileStream fs = new System.IO.FileStream(path, System.IO.FileMode.Open, System.IO.FileAccess.Read))
-									await fs.CopyToAsync(ms).ConfigureAwait(false);
-								images.Add(new ImageReference(ms.ToArray()));
-							}
-						}
+						await CollectFiles(System.IO.Directory.EnumerateFileSystemEntries(path), comicFiles, images).ConfigureAwait(false);
+						continue;
+					}
+					if (!System.IO.File.Exists(path))
+						continue;
+					var fh = new FileHeader(path);
+					if (fh.CanOpen)
+					{
+						comicFiles.Add(fh);
+						continue;
+					}
+					if (!imageExtensions.Any(ex => string.Equals(System.IO.Path.GetExtension(path), "." + ex, StringComparison.OrdinalIgnoreCase)))
+						continue;
+					using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+					{
+						using (System.IO.FileStream fs = new System.IO.FileStream(path, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+							await fs.CopyToAsync(ms).ConfigureAwait(false);
+						images.Add(new ImageReference(ms.ToArray()));
 					}
 				}
 				catch (UnauthorizedAccessException) { }
@@ -174,12 +178,12 @@ namespace Comical
 
 		async Task AddAnythingLocalAsync(bool canOpen, params string[] paths)
 		{
-			List<FileHeader> comicFiles = new List<FileHeader>();
-			List<ImageReference> images = new List<ImageReference>();
 			using (BeginAsyncWork())
 			{
 				prgStatus.Style = ProgressBarStyle.Marquee;
 				lblStatus.Text = Properties.Resources.ScanningFiles;
+				List<FileHeader> comicFiles = new List<FileHeader>();
+				List<ImageReference> images = new List<ImageReference>();
 				await CollectFiles(paths, comicFiles, images);
 				prgStatus.Style = ProgressBarStyle.Blocks;
 				foreach (var fileHeader in comicFiles)
@@ -214,7 +218,6 @@ namespace Comical
 					canOpen = false;
 				}
 				lblStatus.Text = Properties.Resources.ImportingImages;
-				Application.DoEvents();
 				imageList.AddImages(images);
 			}
 		}
@@ -234,7 +237,7 @@ namespace Comical
 			{
 				TaskDialog.Show(
 					Properties.Resources.InconsistentData_Instruction,
-					string.Format(Properties.Resources.InconsistentData_Text, string.Join(", ", Utils.SplitEnumValue(ex.DataTypes).Select(x => Properties.Resources.ResourceManager.GetString("InconsistentData_DataTypes_" + x.ToString(), Properties.Resources.Culture)))),
+					string.Format(Properties.Resources.InconsistentData_Text, string.Join(", ", SplitEnumValue(ex.DataTypes).Select(x => Properties.Resources.ResourceManager.GetString("InconsistentData_DataTypes_" + x.ToString(), Properties.Resources.Culture)))),
 					Application.ProductName,
 					TaskDialogStandardButtons.Close,
 					TaskDialogStandardIcon.Error,
@@ -287,6 +290,21 @@ namespace Comical
 		void OnSavedFilePathChanged() { Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.TitleFormat, HumanReadableSavedFileName, Application.ProductName); }
 
 		string HumanReadableSavedFileName { get { return string.IsNullOrEmpty(savedFilePath) ? Properties.Resources.Untitled : System.IO.Path.GetFileName(savedFilePath); } }
+
+		static void LoadFromXml(WeifenLuo.WinFormsUI.Docking.DockPanel panel, string xml, params WeifenLuo.WinFormsUI.Docking.IDockContent[] contents)
+		{
+			if (string.IsNullOrEmpty(xml))
+				return;
+			using (System.IO.MemoryStream ms = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(xml)))
+				panel.LoadFromXml(ms, persistString => Array.Find(contents, x => string.Equals(persistString, x.DockHandler.GetPersistStringCallback(), StringComparison.Ordinal)));
+		}
+
+		static IEnumerable<T> SplitEnumValue<T>(T value) where T : struct
+		{
+			if (value.Equals(Enum.ToObject(typeof(T), 0)))
+				return Enumerable.Empty<T>();
+			return Enum.GetValues(typeof(T)).Cast<T>().Where(x => !x.Equals(Enum.ToObject(typeof(T), 0)) && ((Enum)(object)value).HasFlag((Enum)(object)x));
+		}
 
 		#region FileMenu
 

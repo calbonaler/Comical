@@ -10,7 +10,7 @@ public:
 	BEGIN_COM_INTERFACE_MAPPPING
 		QITABENT(CComicPropertyHandler, IPropertyStore),
 		QITABENT(CComicPropertyHandler, IPropertyStoreCapabilities),
-		QITABENT(CComicPropertyHandler, IInitializeWithStream),
+		QITABENT(CComicPropertyHandler, IInitializeWithStream)
 	END_COM_INTER_FACE_MAPPING
 
 	IFACEMETHODIMP Initialize(_In_ IStream*, _In_ DWORD);

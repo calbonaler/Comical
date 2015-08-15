@@ -153,7 +153,7 @@ namespace Comical
 			{
 				var content = DockPanel.ActiveContent;
 				Viewer viewer = new Viewer();
-				viewer.Text = FirstSelectedRowIndex.ToString(_images.Count);
+				viewer.Text = FirstSelectedRowIndex.ToString(_images.Count, CultureInfo.CurrentCulture);
 				viewer.Image = _images[FirstSelectedRowIndex].GetImage();
 				viewer.Show(DockPanel);
 				content.DockHandler.Activate();
@@ -175,7 +175,7 @@ namespace Comical
 					string.Format(CultureInfo.CurrentCulture, Properties.Resources.ViewerDescription_Selection, count);
 				if (count == 1)
 				{
-					DefaultViewer.Text = FirstSelectedRowIndex.ToString(_images.Count);
+					DefaultViewer.Text = FirstSelectedRowIndex.ToString(_images.Count, CultureInfo.CurrentCulture);
 					try { DefaultViewer.Image = _images[FirstSelectedRowIndex].GetImage(); }
 					catch (ArgumentException) { }
 				}

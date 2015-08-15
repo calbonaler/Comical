@@ -157,7 +157,7 @@
   <data name="Downloading" xml:space="preserve">
     <value>ダウンロードしています {0} 個中 {1} 個完了</value>
   </data>
-  <data name="DontSave" xml:space="preserve">
+  <data name="DoNotSave" xml:space="preserve">
     <value>保存しない(&amp;N)</value>
   </data>
   <data name="Save" xml:space="preserve">

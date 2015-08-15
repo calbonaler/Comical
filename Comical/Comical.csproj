@@ -140,7 +140,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Utils.cs" />
     <Compile Include="Windows\Modal\DialogBase.cs">
       <SubType>Form</SubType>
     </Compile>
