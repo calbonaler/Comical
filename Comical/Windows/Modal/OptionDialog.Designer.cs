@@ -30,13 +30,8 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionDialog));
-			this.lblPageViewDesc = new System.Windows.Forms.Label();
 			this.btnOK = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
-			this.tcContents = new System.Windows.Forms.TabControl();
-			this.tpCommon = new System.Windows.Forms.TabPage();
-			this.chkUsePageView = new System.Windows.Forms.CheckBox();
-			this.tpEditor = new System.Windows.Forms.TabPage();
 			this.btnInsertMask = new System.Windows.Forms.Button();
 			this.txtDefaultSavedFileName = new System.Windows.Forms.TextBox();
 			this.lblDefaultSavedFileName = new System.Windows.Forms.Label();
@@ -44,16 +39,8 @@
 			this.itmTitle = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmAuthor = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmFormattedDate = new System.Windows.Forms.ToolStripMenuItem();
-			this.tcContents.SuspendLayout();
-			this.tpCommon.SuspendLayout();
-			this.tpEditor.SuspendLayout();
 			this.conInsertMask.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// lblPageViewDesc
-			// 
-			resources.ApplyResources(this.lblPageViewDesc, "lblPageViewDesc");
-			this.lblPageViewDesc.Name = "lblPageViewDesc";
 			// 
 			// btnOK
 			// 
@@ -69,37 +56,6 @@
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
-			// 
-			// tcContents
-			// 
-			resources.ApplyResources(this.tcContents, "tcContents");
-			this.tcContents.Controls.Add(this.tpCommon);
-			this.tcContents.Controls.Add(this.tpEditor);
-			this.tcContents.Name = "tcContents";
-			this.tcContents.SelectedIndex = 0;
-			// 
-			// tpCommon
-			// 
-			this.tpCommon.BackColor = System.Drawing.SystemColors.Window;
-			this.tpCommon.Controls.Add(this.lblPageViewDesc);
-			this.tpCommon.Controls.Add(this.chkUsePageView);
-			resources.ApplyResources(this.tpCommon, "tpCommon");
-			this.tpCommon.Name = "tpCommon";
-			// 
-			// chkUsePageView
-			// 
-			resources.ApplyResources(this.chkUsePageView, "chkUsePageView");
-			this.chkUsePageView.Name = "chkUsePageView";
-			this.chkUsePageView.UseVisualStyleBackColor = true;
-			// 
-			// tpEditor
-			// 
-			this.tpEditor.BackColor = System.Drawing.SystemColors.Window;
-			this.tpEditor.Controls.Add(this.btnInsertMask);
-			this.tpEditor.Controls.Add(this.txtDefaultSavedFileName);
-			this.tpEditor.Controls.Add(this.lblDefaultSavedFileName);
-			resources.ApplyResources(this.tpEditor, "tpEditor");
-			this.tpEditor.Name = "tpEditor";
 			// 
 			// btnInsertMask
 			// 
@@ -155,7 +111,9 @@
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnCancel;
-			this.Controls.Add(this.tcContents);
+			this.Controls.Add(this.btnInsertMask);
+			this.Controls.Add(this.txtDefaultSavedFileName);
+			this.Controls.Add(this.lblDefaultSavedFileName);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnOK);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -164,22 +122,14 @@
 			this.Name = "OptionDialog";
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
-			this.tcContents.ResumeLayout(false);
-			this.tpCommon.ResumeLayout(false);
-			this.tpCommon.PerformLayout();
-			this.tpEditor.ResumeLayout(false);
-			this.tpEditor.PerformLayout();
 			this.conInsertMask.ResumeLayout(false);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
 
-		System.Windows.Forms.CheckBox chkUsePageView;
-		System.Windows.Forms.TabControl tcContents;
-		System.Windows.Forms.TabPage tpCommon;
-		System.Windows.Forms.TabPage tpEditor;
 		System.Windows.Forms.TextBox txtDefaultSavedFileName;
 		System.Windows.Forms.Label lblDefaultSavedFileName;
 		System.Windows.Forms.Button btnInsertMask;
@@ -187,7 +137,6 @@
 		System.Windows.Forms.ToolStripMenuItem itmTitle;
 		System.Windows.Forms.ToolStripMenuItem itmAuthor;
 		System.Windows.Forms.ToolStripMenuItem itmFormattedDate;
-		private System.Windows.Forms.Label lblPageViewDesc;
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.Button btnCancel;
 	}

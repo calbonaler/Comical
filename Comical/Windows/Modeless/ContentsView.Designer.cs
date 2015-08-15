@@ -47,7 +47,6 @@
 			// 
 			// conImage
 			// 
-			resources.ApplyResources(this.conImage, "conImage");
 			this.conImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmOpen,
             this.itmDelete,
@@ -57,6 +56,7 @@
             this.sepImage2,
             this.itmAddToBookmark});
 			this.conImage.Name = "conImage";
+			resources.ApplyResources(this.conImage, "conImage");
 			// 
 			// itmOpen
 			// 
@@ -72,32 +72,31 @@
 			// 
 			// sepImage1
 			// 
-			resources.ApplyResources(this.sepImage1, "sepImage1");
 			this.sepImage1.Name = "sepImage1";
+			resources.ApplyResources(this.sepImage1, "sepImage1");
 			// 
 			// itmExport
 			// 
-			resources.ApplyResources(this.itmExport, "itmExport");
 			this.itmExport.Name = "itmExport";
+			resources.ApplyResources(this.itmExport, "itmExport");
 			// 
 			// itmExtract
 			// 
-			resources.ApplyResources(this.itmExtract, "itmExtract");
 			this.itmExtract.Name = "itmExtract";
+			resources.ApplyResources(this.itmExtract, "itmExtract");
 			// 
 			// sepImage2
 			// 
-			resources.ApplyResources(this.sepImage2, "sepImage2");
 			this.sepImage2.Name = "sepImage2";
+			resources.ApplyResources(this.sepImage2, "sepImage2");
 			// 
 			// itmAddToBookmark
 			// 
-			resources.ApplyResources(this.itmAddToBookmark, "itmAddToBookmark");
 			this.itmAddToBookmark.Name = "itmAddToBookmark";
+			resources.ApplyResources(this.itmAddToBookmark, "itmAddToBookmark");
 			// 
 			// dgvImages
 			// 
-			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.AllowDrop = true;
 			this.dgvImages.AllowUserToAddRows = false;
 			this.dgvImages.AllowUserToMoveRows = true;
@@ -113,6 +112,7 @@
             this.clmImage,
             this.clmViewMode});
 			this.dgvImages.ContextMenuStrip = this.conImage;
+			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
 			this.dgvImages.GridColor = System.Drawing.SystemColors.Control;
 			this.dgvImages.MultiDrag = true;
@@ -149,8 +149,8 @@
 			// 
 			// ContentsView
 			// 
-			resources.ApplyResources(this, "$this");
 			this.AllowDrop = true;
+			resources.ApplyResources(this, "$this");
 			this.Controls.Add(this.dgvImages);
 			this.HideOnClose = true;
 			this.Name = "ContentsView";

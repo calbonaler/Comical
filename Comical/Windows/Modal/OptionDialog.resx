@@ -118,45 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lblPageViewDesc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lblPageViewDesc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>33, 41</value>
-  </data>
-  <data name="lblPageViewDesc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>505, 59</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lblPageViewDesc.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="lblPageViewDesc.Text" xml:space="preserve">
-    <value>In Page View mode, images in the collection are shown like each pages of the book.
-You can modify view mode of images and turning direction of "Book" in Editor.</value>
-  </data>
-  <data name="&gt;&gt;lblPageViewDesc.Name" xml:space="preserve">
-    <value>lblPageViewDesc</value>
-  </data>
-  <data name="&gt;&gt;lblPageViewDesc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblPageViewDesc.Parent" xml:space="preserve">
-    <value>tpCommon</value>
-  </data>
-  <data name="&gt;&gt;lblPageViewDesc.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="btnOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>362, 387</value>
+    <value>153, 66</value>
   </data>
   <data name="btnOK.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 26</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnOK.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
@@ -173,13 +145,13 @@ You can modify view mode of images and turning direction of "Book" in Editor.</v
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnOK.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="btnCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>466, 387</value>
+    <value>257, 66</value>
   </data>
   <data name="btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 1, 0</value>
@@ -203,190 +175,13 @@ You can modify view mode of images and turning direction of "Book" in Editor.</v
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tcContents.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;tpCommon.Name" xml:space="preserve">
-    <value>tpCommon</value>
-  </data>
-  <data name="&gt;&gt;tpCommon.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tpCommon.Parent" xml:space="preserve">
-    <value>tcContents</value>
-  </data>
-  <data name="&gt;&gt;tpCommon.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tpEditor.Name" xml:space="preserve">
-    <value>tpEditor</value>
-  </data>
-  <data name="&gt;&gt;tpEditor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tpEditor.Parent" xml:space="preserve">
-    <value>tcContents</value>
-  </data>
-  <data name="&gt;&gt;tpEditor.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tcContents.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
-  </data>
-  <data name="tcContents.Size" type="System.Drawing.Size, System.Drawing">
-    <value>552, 369</value>
-  </data>
-  <data name="tcContents.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tcContents.Name" xml:space="preserve">
-    <value>tcContents</value>
-  </data>
-  <data name="&gt;&gt;tcContents.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tcContents.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tcContents.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;chkUsePageView.Name" xml:space="preserve">
-    <value>chkUsePageView</value>
-  </data>
-  <data name="&gt;&gt;chkUsePageView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkUsePageView.Parent" xml:space="preserve">
-    <value>tpCommon</value>
-  </data>
-  <data name="&gt;&gt;chkUsePageView.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tpCommon.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 27</value>
-  </data>
-  <data name="tpCommon.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tpCommon.Size" type="System.Drawing.Size, System.Drawing">
-    <value>544, 338</value>
-  </data>
-  <data name="tpCommon.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tpCommon.Text" xml:space="preserve">
-    <value>Common</value>
-  </data>
-  <data name="&gt;&gt;tpCommon.Name" xml:space="preserve">
-    <value>tpCommon</value>
-  </data>
-  <data name="&gt;&gt;tpCommon.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tpCommon.Parent" xml:space="preserve">
-    <value>tcContents</value>
-  </data>
-  <data name="&gt;&gt;tpCommon.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="chkUsePageView.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkUsePageView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 16</value>
-  </data>
-  <data name="chkUsePageView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 22</value>
-  </data>
-  <data name="chkUsePageView.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="chkUsePageView.Text" xml:space="preserve">
-    <value>Use &amp;Page View</value>
-  </data>
-  <data name="&gt;&gt;chkUsePageView.Name" xml:space="preserve">
-    <value>chkUsePageView</value>
-  </data>
-  <data name="&gt;&gt;chkUsePageView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkUsePageView.Parent" xml:space="preserve">
-    <value>tpCommon</value>
-  </data>
-  <data name="&gt;&gt;chkUsePageView.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;btnInsertMask.Name" xml:space="preserve">
-    <value>btnInsertMask</value>
-  </data>
-  <data name="&gt;&gt;btnInsertMask.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnInsertMask.Parent" xml:space="preserve">
-    <value>tpEditor</value>
-  </data>
-  <data name="&gt;&gt;btnInsertMask.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;txtDefaultSavedFileName.Name" xml:space="preserve">
-    <value>txtDefaultSavedFileName</value>
-  </data>
-  <data name="&gt;&gt;txtDefaultSavedFileName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtDefaultSavedFileName.Parent" xml:space="preserve">
-    <value>tpEditor</value>
-  </data>
-  <data name="&gt;&gt;txtDefaultSavedFileName.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;lblDefaultSavedFileName.Name" xml:space="preserve">
-    <value>lblDefaultSavedFileName</value>
-  </data>
-  <data name="&gt;&gt;lblDefaultSavedFileName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblDefaultSavedFileName.Parent" xml:space="preserve">
-    <value>tpEditor</value>
-  </data>
-  <data name="&gt;&gt;lblDefaultSavedFileName.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tpEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 27</value>
-  </data>
-  <data name="tpEditor.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tpEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>544, 338</value>
-  </data>
-  <data name="tpEditor.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tpEditor.Text" xml:space="preserve">
-    <value>Editor</value>
-  </data>
-  <data name="&gt;&gt;tpEditor.Name" xml:space="preserve">
-    <value>tpEditor</value>
-  </data>
-  <data name="&gt;&gt;tpEditor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tpEditor.Parent" xml:space="preserve">
-    <value>tcContents</value>
-  </data>
-  <data name="&gt;&gt;tpEditor.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="btnInsertMask.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
   <data name="btnInsertMask.Location" type="System.Drawing.Point, System.Drawing">
-    <value>498, 38</value>
+    <value>327, 29</value>
   </data>
   <data name="btnInsertMask.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 26</value>
@@ -404,7 +199,7 @@ You can modify view mode of images and turning direction of "Book" in Editor.</v
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnInsertMask.Parent" xml:space="preserve">
-    <value>tpEditor</value>
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;btnInsertMask.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -413,10 +208,10 @@ You can modify view mode of images and turning direction of "Book" in Editor.</v
     <value>Top, Left, Right</value>
   </data>
   <data name="txtDefaultSavedFileName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 39</value>
+    <value>12, 30</value>
   </data>
   <data name="txtDefaultSavedFileName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>479, 25</value>
+    <value>309, 25</value>
   </data>
   <data name="txtDefaultSavedFileName.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -428,7 +223,7 @@ You can modify view mode of images and turning direction of "Book" in Editor.</v
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;txtDefaultSavedFileName.Parent" xml:space="preserve">
-    <value>tpEditor</value>
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;txtDefaultSavedFileName.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -437,7 +232,7 @@ You can modify view mode of images and turning direction of "Book" in Editor.</v
     <value>True</value>
   </data>
   <data name="lblDefaultSavedFileName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 18</value>
+    <value>9, 9</value>
   </data>
   <data name="lblDefaultSavedFileName.Size" type="System.Drawing.Size, System.Drawing">
     <value>128, 18</value>
@@ -455,7 +250,7 @@ You can modify view mode of images and turning direction of "Book" in Editor.</v
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lblDefaultSavedFileName.Parent" xml:space="preserve">
-    <value>tpEditor</value>
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;lblDefaultSavedFileName.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -463,15 +258,6 @@ You can modify view mode of images and turning direction of "Book" in Editor.</v
   <metadata name="conInsertMask.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="conInsertMask.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 70</value>
-  </data>
-  <data name="&gt;&gt;conInsertMask.Name" xml:space="preserve">
-    <value>conInsertMask</value>
-  </data>
-  <data name="&gt;&gt;conInsertMask.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="itmTitle.Size" type="System.Drawing.Size, System.Drawing">
     <value>168, 22</value>
   </data>
@@ -490,6 +276,15 @@ You can modify view mode of images and turning direction of "Book" in Editor.</v
   <data name="itmFormattedDate.Text" xml:space="preserve">
     <value>{2} Formatted Date</value>
   </data>
+  <data name="conInsertMask.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 70</value>
+  </data>
+  <data name="&gt;&gt;conInsertMask.Name" xml:space="preserve">
+    <value>conInsertMask</value>
+  </data>
+  <data name="&gt;&gt;conInsertMask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -497,7 +292,7 @@ You can modify view mode of images and turning direction of "Book" in Editor.</v
     <value>7, 18</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>574, 422</value>
+    <value>365, 101</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>メイリオ, 9pt</value>

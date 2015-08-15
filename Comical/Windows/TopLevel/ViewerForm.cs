@@ -101,7 +101,7 @@ namespace Comical
 				current = spreads.FindIndex(sp => sp.Left == b.TargetImage || sp.Right == b.TargetImage);
 				ViewCurrentPage();
 			})).ToArray());
-			spreads = new List<Spread>(icd.ConstructSpreads(!Properties.Settings.Default.UsePageView));
+			spreads = new List<Spread>(icd.ConstructSpreads(false));
 			openingFileName = "";
 			ViewCurrentPage();
 		}

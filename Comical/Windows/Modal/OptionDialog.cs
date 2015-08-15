@@ -10,13 +10,11 @@ namespace Comical
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			chkUsePageView.Checked = Properties.Settings.Default.UsePageView;
 			txtDefaultSavedFileName.Text = Properties.Settings.Default.DefaultSavedFileName;
 		}
 
 		void btnOK_Click(object sender, EventArgs e)
 		{
-			Properties.Settings.Default.UsePageView = chkUsePageView.Checked;
 			Properties.Settings.Default.DefaultSavedFileName = txtDefaultSavedFileName.Text;
 			Properties.Settings.Default.Save();
 		}
