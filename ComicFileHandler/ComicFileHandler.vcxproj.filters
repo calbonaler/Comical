@@ -18,14 +18,8 @@
     <ClCompile Include="Dll.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="CComicPropertyHandler.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CClassFactory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Dll.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

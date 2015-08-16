@@ -6,18 +6,6 @@
 
 template <typename T> inline T pointer_cast(void* pv) { return static_cast<T>(pv); }
 
-#define CLSID_CREATOR(type) { &__uuidof(type), CoInstanceCreator<type> }
-
-template <typename T> HRESULT CoInstanceCreator(REFIID riid, void** ppv)
-{
-	T* pNew = new (std::nothrow) T();
-	if (!pNew)
-		return E_OUTOFMEMORY;
-	auto hr = pNew->QueryInterface(riid, ppv);
-	pNew->Release();
-	return hr;
-}
-
 #ifdef _DEBUG
 inline bool SUCCEEDED_DEBUG(HRESULT hr, LPSTR file, int line)
 {
@@ -36,14 +24,6 @@ inline bool SUCCEEDED_DEBUG(HRESULT hr, LPSTR file, int line)
 #else
 #define TEST(x) do { auto hr = x; if (FAILED(hr)) return hr; } while (false)
 #endif
-
-typedef HRESULT(*PFNCREATEINSTANCE)(_In_ REFIID riid, _COM_Outptr_ void** ppv);
-
-struct CLASS_OBJECT_INIT
-{
-	const CLSID* pClsid;
-	PFNCREATEINSTANCE pfnCreate;
-};
 
 void DllAddRef();
 void DllRelease();

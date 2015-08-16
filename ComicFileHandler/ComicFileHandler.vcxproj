@@ -173,7 +173,6 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CComicPropertyHandler.cpp" />
     <ClCompile Include="Dll.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
@@ -190,7 +189,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CClassFactory.h" />
     <ClInclude Include="CComicPropertyHandler.h" />
     <ClInclude Include="CComicThumbnailProvider.h" />
     <ClInclude Include="Dll.h" />
