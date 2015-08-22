@@ -15,7 +15,7 @@ namespace Comical.Controls
 		Cursor currentCursor = Cursors.Default;
 		bool cursorOverride = false;
 
-		public PictureBox ViewPane { get { return picPreview; } }
+		public PictureBox ViewPane => picPreview;
 
 		public Image Image
 		{
@@ -84,7 +84,7 @@ namespace Comical.Controls
 		public void LoadImageAsync(Uri url)
 		{
 			if (url == null)
-				throw new ArgumentNullException("url");
+				throw new ArgumentNullException(nameof(url));
 			picPreview.LoadAsync(url.AbsoluteUri);
 		}
 
@@ -97,15 +97,14 @@ namespace Comical.Controls
 
 		void picPreview_Paint(object sender, PaintEventArgs e)
 		{
-			if (picPreview.Image == null)
+			if (picPreview.Image != null)
+				return;
+			using (SolidBrush sb = new SolidBrush(ForeColor))
+			using (StringFormat sf = new StringFormat())
 			{
-				using (SolidBrush sb = new SolidBrush(ForeColor))
-				using (StringFormat sf = new StringFormat())
-				{
-					sf.Alignment = StringAlignment.Center;
-					sf.LineAlignment = StringAlignment.Center;
-					e.Graphics.DrawString(Description, Font, sb, ClientRectangle, sf);
-				}
+				sf.Alignment = StringAlignment.Center;
+				sf.LineAlignment = StringAlignment.Center;
+				e.Graphics.DrawString(Description, Font, sb, ClientRectangle, sf);
 			}
 		}
 

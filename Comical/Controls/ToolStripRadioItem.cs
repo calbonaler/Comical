@@ -30,9 +30,9 @@ namespace Comical.Controls
 			base.OnCheckedChanged(e);
 			if (!Checked || Owner == null)
 				return;
-			foreach (ToolStripItem item in Owner.Items)
+			foreach (var item in Owner.Items)
 			{
-				ToolStripRadioMenuItem it = item as ToolStripRadioMenuItem;
+				var it = item as ToolStripRadioMenuItem;
 				if (it != null && it != this && it.Group == Group)
 					it.Checked = false;
 			}

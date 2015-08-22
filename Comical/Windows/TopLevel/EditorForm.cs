@@ -72,11 +72,11 @@ namespace Comical
 				dialog.Caption = Application.ProductName;
 				dialog.InstructionText = string.Format(CultureInfo.CurrentCulture, Properties.Resources.DoYouSaveChanges, HumanReadableSavedFileName);
 				dialog.OwnerWindowHandle = Handle;
-				var SaveButton = new TaskDialogButton("SaveButton", Properties.Resources.Save);
+				TaskDialogButton SaveButton = new TaskDialogButton(nameof(SaveButton), Properties.Resources.Save);
 				SaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.Yes);
-				var DoNotSaveButton = new TaskDialogButton("DoNotSaveButton", Properties.Resources.DoNotSave);
+				TaskDialogButton DoNotSaveButton = new TaskDialogButton(nameof(DoNotSaveButton), Properties.Resources.DoNotSave);
 				DoNotSaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.No);
-				var CancelButton = new TaskDialogButton("CancelButton", Properties.Resources.Cancel);
+				TaskDialogButton CancelButton = new TaskDialogButton(nameof(CancelButton), Properties.Resources.Cancel);
 				CancelButton.Click += (s, ev) => dialog.Close(TaskDialogResult.Cancel);
 				dialog.Controls.Add(SaveButton);
 				dialog.Controls.Add(DoNotSaveButton);
@@ -194,7 +194,7 @@ namespace Comical
 						using (PasswordDialog dialog = new PasswordDialog())
 						{
 							dialog.Creating = false;
-							if (dialog.ShowDialog(this) != System.Windows.Forms.DialogResult.OK)
+							if (dialog.ShowDialog(this) != DialogResult.OK)
 								continue;
 							password = dialog.Password;
 							if (!fileHeader.IsProperPassword(password))
@@ -269,7 +269,7 @@ namespace Comical
 					{
 						passDialog.Password = password;
 						passDialog.Creating = true;
-						if (passDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+						if (passDialog.ShowDialog(this) == DialogResult.OK)
 							password = passDialog.Password;
 					}
 				};
@@ -289,7 +289,7 @@ namespace Comical
 
 		void OnSavedFilePathChanged() { Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.TitleFormat, HumanReadableSavedFileName, Application.ProductName); }
 
-		string HumanReadableSavedFileName { get { return string.IsNullOrEmpty(savedFilePath) ? Properties.Resources.Untitled : System.IO.Path.GetFileName(savedFilePath); } }
+		string HumanReadableSavedFileName => string.IsNullOrEmpty(savedFilePath) ? Properties.Resources.Untitled : System.IO.Path.GetFileName(savedFilePath);
 
 		static void LoadFromXml(WeifenLuo.WinFormsUI.Docking.DockPanel panel, string xml, params WeifenLuo.WinFormsUI.Docking.IDockContent[] contents)
 		{
@@ -458,9 +458,6 @@ namespace Comical
 
 		#endregion
 
-		void Comic_CountChanged(object sender, EventArgs e)
-		{
-			lblImageCount.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageCountStringRepresentation, comic.Images.Count);
-		}
+		void Comic_CountChanged(object sender, EventArgs e) { lblImageCount.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageCountStringRepresentation, comic.Images.Count); }
 	}
 }

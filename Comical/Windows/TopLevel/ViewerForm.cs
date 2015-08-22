@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Comical.Core;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -47,7 +46,7 @@ namespace Comical
 					using (PasswordDialog dialog = new PasswordDialog())
 					{
 						dialog.Creating = false;
-						if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+						if (dialog.ShowDialog(this) == DialogResult.OK)
 							pass = dialog.Password;
 						else
 						{
@@ -65,7 +64,7 @@ namespace Comical
 					dialog.Caption = Application.ProductName;
 					dialog.Icon = TaskDialogStandardIcon.None;
 					dialog.InstructionText = Properties.Resources.OpeningFile;
-					dialog.OwnerWindowHandle = this.Handle;
+					dialog.OwnerWindowHandle = Handle;
 					dialog.ProgressBar = new TaskDialogProgressBar(0, 100, 0);
 					dialog.Opened += async (s, ev) =>
 					{
@@ -150,17 +149,17 @@ namespace Comical
 
 		void picPreview_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.None && (icd.PageTurningDirection == PageTurningDirection.ToLeft ? e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - prevMain.AutoScrollPosition.X))
+			if (e.Button == MouseButtons.None && (icd.PageTurningDirection == PageTurningDirection.ToLeft ? e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - prevMain.AutoScrollPosition.X))
 			{
 				focusMode = FocusMode.Next;
 				prevMain.Cursor = Cursors.Default;
 			}
-			else if (e.Button == System.Windows.Forms.MouseButtons.None && (icd.PageTurningDirection == PageTurningDirection.ToLeft ? e.X <= Properties.Resources.Previous.Width - prevMain.AutoScrollPosition.X : e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Previous.Width))
+			else if (e.Button == MouseButtons.None && (icd.PageTurningDirection == PageTurningDirection.ToLeft ? e.X <= Properties.Resources.Previous.Width - prevMain.AutoScrollPosition.X : e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Previous.Width))
 			{
 				focusMode = FocusMode.Previous;
 				prevMain.Cursor = Cursors.Default;
 			}
-			else if (e.Button == System.Windows.Forms.MouseButtons.None && e.Y >= prevMain.ClientSize.Height - closeHeight - prevMain.AutoScrollPosition.Y)
+			else if (e.Button == MouseButtons.None && e.Y >= prevMain.ClientSize.Height - closeHeight - prevMain.AutoScrollPosition.Y)
 			{
 				focusMode = FocusMode.Close;
 				prevMain.Cursor = Cursors.Default;
@@ -175,20 +174,20 @@ namespace Comical
 
 		void picPreview_MouseUp(object sender, MouseEventArgs e)
 		{
-			if ((e.Button & System.Windows.Forms.MouseButtons.Left) != 0)
+			if ((e.Button & MouseButtons.Left) != 0)
 			{
 				if (focusMode == FocusMode.Previous)
 					ViewPrevious();
 				else if (focusMode == FocusMode.Next)
 					ViewNext();
 				else if (focusMode == FocusMode.Close)
-					this.Close();
+					Close();
 			}
-			if (e.Button == System.Windows.Forms.MouseButtons.XButton2)
+			if (e.Button == MouseButtons.XButton2)
 				ViewPrevious();
-			else if (e.Button == System.Windows.Forms.MouseButtons.XButton1)
+			else if (e.Button == MouseButtons.XButton1)
 				ViewNext();
-			else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
+			else if (e.Button == MouseButtons.Middle)
 				prevMain.StretchMode = prevMain.StretchMode == Comical.Controls.PreviewerStretchMode.Uniform ? Comical.Controls.PreviewerStretchMode.None : Comical.Controls.PreviewerStretchMode.Uniform;
 		}
 
@@ -211,7 +210,7 @@ namespace Comical
 		void picPreview_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Escape)
-				this.Close();
+				Close();
 			else if (e.KeyCode == (icd.PageTurningDirection == PageTurningDirection.ToLeft ? Keys.Left : Keys.Right))
 				ViewPrevious();
 			else if (e.KeyCode == (icd.PageTurningDirection == PageTurningDirection.ToLeft ? Keys.Right : Keys.Left))

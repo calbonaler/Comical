@@ -7,7 +7,7 @@ namespace Comical
 	{
 		public Viewer() { InitializeComponent(); }
 
-		protected override string GetPersistString() { return "Viewer"; }
+		protected override string GetPersistString() => "Viewer";
 
 		public string Description
 		{

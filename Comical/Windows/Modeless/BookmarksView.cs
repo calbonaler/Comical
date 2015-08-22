@@ -26,7 +26,7 @@ namespace Comical
 
 		public event EventHandler<BookmarkNavigatedEventArgs> BookmarkNavigated;
 
-		public IEnumerable<Bookmark> SelectedBookmarks { get { return dgvBookmarks.SelectedRows.Cast<DataGridViewRow>().Select(row => _bookmarks[row.Index]); } }
+		public IEnumerable<Bookmark> SelectedBookmarks => dgvBookmarks.SelectedRows.Cast<DataGridViewRow>().Select(row => _bookmarks[row.Index]);
 
 		public IDisposable BeginAsyncWork()
 		{
@@ -40,7 +40,7 @@ namespace Comical
 			{
 				if (_images != null)
 					_images.CollectionChanged -= Images_CollectionChanged;
-				this._images = images;
+				_images = images;
 				if (images != null)
 				{
 					images.CollectionChanged += Images_CollectionChanged;
@@ -51,11 +51,11 @@ namespace Comical
 
 		public void SetBookmarks(BookmarkCollection bookmarks)
 		{
-			if (this._bookmarks != bookmarks)
+			if (_bookmarks != bookmarks)
 			{
-				if (this._bookmarks != null)
-					this._bookmarks.CollectionChanged -= Bookmarks_CollectionChanged;
-				this._bookmarks = bookmarks;
+				if (_bookmarks != null)
+					_bookmarks.CollectionChanged -= Bookmarks_CollectionChanged;
+				_bookmarks = bookmarks;
 				if (bookmarks != null)
 				{
 					bookmarks.CollectionChanged += Bookmarks_CollectionChanged;
@@ -67,7 +67,7 @@ namespace Comical
 		public void AddBookmarks(IEnumerable<int> targetIndexes)
 		{
 			if (targetIndexes == null)
-				throw new ArgumentNullException("targetIndexes");
+				throw new ArgumentNullException(nameof(targetIndexes));
 			foreach (var targetIndex in targetIndexes)
 				_bookmarks.Add(new Bookmark() { Target = targetIndex });
 		}
@@ -78,13 +78,9 @@ namespace Comical
 				_bookmarks.Remove(bookmark);
 		}
 
-		protected override string GetPersistString() { return "BookmarkList"; }
+		protected override string GetPersistString() => "BookmarkList";
 
-		protected virtual void OnBookmarkNavigated(BookmarkNavigatedEventArgs e)
-		{
-			if (BookmarkNavigated != null)
-				BookmarkNavigated(this, e);
-		}
+		protected virtual void OnBookmarkNavigated(BookmarkNavigatedEventArgs e) { BookmarkNavigated?.Invoke(this, e); }
 
 		private void RefreshMenuVisibility()
 		{
@@ -103,7 +99,7 @@ namespace Comical
 			e.ErrorText = string.Empty;
 			if (e.RowIndex < 0 || e.RowIndex >= _bookmarks.Count)
 				return;
-			if (dgvBookmarks.Columns[e.ColumnIndex].Name == "clmTarget")
+			if (dgvBookmarks.Columns[e.ColumnIndex] == clmTarget)
 			{
 				if (_bookmarks[e.RowIndex].Target < _images.Count)
 					return;
@@ -114,31 +110,24 @@ namespace Comical
 		private void dgvBookmarks_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
 		{
 			if (e.RowIndex >= 0 && e.RowIndex < _bookmarks.Count)
-				e.Value = dgvBookmarks.Columns[e.ColumnIndex].Name == "clmName" ? (object)_bookmarks[e.RowIndex].Name : (object)_bookmarks[e.RowIndex].Target;
+				e.Value = dgvBookmarks.Columns[e.ColumnIndex] == clmName ? _bookmarks[e.RowIndex].Name : (object)_bookmarks[e.RowIndex].Target;
 		}
 
 		private void dgvBookmarks_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
 		{
-			if (e.RowIndex >= 0 && e.RowIndex < _bookmarks.Count)
+			if (e.RowIndex < 0 || e.RowIndex >= _bookmarks.Count)
+				return;
+			if (dgvBookmarks.Columns[e.ColumnIndex] == clmName)
 			{
-				if (dgvBookmarks.Columns[e.ColumnIndex].Name == "clmName")
-					_bookmarks[e.RowIndex].Name = e.Value.ToString();
-				else
-				{
-					int target;
-					if (int.TryParse(e.Value.ToString(), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.CurrentCulture, out target) && target >= 0)
-						_bookmarks[e.RowIndex].Target = target;
-				}
+				_bookmarks[e.RowIndex].Name = e.Value.ToString();
+				return;
 			}
+			int target;
+			if (int.TryParse(e.Value.ToString(), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.CurrentCulture, out target) && target >= 0)
+				_bookmarks[e.RowIndex].Target = target;
 		}
 
-		private void dgvBookmarks_QueryActualDestination(object sender, Controls.QueryActualDestinationEventArgs e)
-		{
-			if (e.Source == dgvBookmarks)
-				e.Effect = DragDropEffects.Move;
-			else
-				e.Effect = DragDropEffects.Link;
-		}
+		private void dgvBookmarks_QueryActualDestination(object sender, Controls.QueryActualDestinationEventArgs e) { e.Effect = e.Source == dgvBookmarks ? DragDropEffects.Move : DragDropEffects.Link; }
 
 		private void dgvBookmarks_RowMoving(object sender, Controls.RowMovingEventArgs e)
 		{
@@ -190,8 +179,8 @@ namespace Comical
 
 	public class BookmarkNavigatedEventArgs : EventArgs
 	{
-		public BookmarkNavigatedEventArgs(Bookmark bookmark) { this.Bookmark = bookmark; }
+		public BookmarkNavigatedEventArgs(Bookmark bookmark) { Bookmark = bookmark; }
 
-		public Bookmark Bookmark { get; private set; }
+		public Bookmark Bookmark { get; }
 	}
 }

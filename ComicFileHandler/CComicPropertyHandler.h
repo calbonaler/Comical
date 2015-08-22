@@ -11,11 +11,14 @@ class _declspec(uuid("001823E8-247E-4685-BD84-350347B0460C")) CComicPropertyHand
 public:
 	CComicPropertyHandler() { DllAddRef(); }
 
+#pragma warning (push)
+#pragma warning (disable: 4838)
 	BEGIN_COM_INTERFACE_MAPPPING
 		QITABENT(CComicPropertyHandler, IPropertyStore),
 		QITABENT(CComicPropertyHandler, IPropertyStoreCapabilities),
 		QITABENT(CComicPropertyHandler, IInitializeWithStream)
 	END_COM_INTER_FACE_MAPPING
+#pragma warning (pop)
 
 	IFACEMETHODIMP Initialize(_In_ IStream* pStream, _In_ DWORD)
 	{

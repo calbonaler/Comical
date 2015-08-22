@@ -149,14 +149,14 @@ namespace Comical
 
 		void picPreview_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Left)
+			if (e.Button == MouseButtons.Left)
 				rectangle.BottomRight = GetVerifiedLocation(new Point(e.X + hsPreview.Value, e.Y + vsPreview.Value));
 			picPreview.Invalidate();
 		}
 
 		void picPreview_MouseUp(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Left)
+			if (e.Button == MouseButtons.Left)
 			{
 				rectangle.BottomRight = GetVerifiedLocation(new Point(e.X + hsPreview.Value, e.Y + vsPreview.Value));
 				picPreview.Invalidate();
@@ -260,15 +260,15 @@ namespace Comical
 				if (image != null)
 					image.Dispose();
 			}
-			this.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
 			using (System.IO.MemoryStream ms = new System.IO.MemoryStream(Properties.Resources.Cross))
-				picPreview.Cursor = new System.Windows.Forms.Cursor(ms);
+				picPreview.Cursor = new Cursor(ms);
 			RecalculateRequested(null, null);
 			picPreview.Select();
 		}

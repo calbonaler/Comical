@@ -24,11 +24,11 @@ namespace Comical.Core
 			Bookmarks.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
 			PropertyChanged += (s, ev) =>
 			{
-				if (ev.PropertyName == "Thumbnail" ||
-					ev.PropertyName == "Title" ||
-					ev.PropertyName == "Author" ||
-					ev.PropertyName == "DateOfPublication" ||
-					ev.PropertyName == "PageTurningDirection")
+				if (ev.PropertyName == nameof(Thumbnail) ||
+					ev.PropertyName == nameof(Title) ||
+					ev.PropertyName == nameof(Author) ||
+					ev.PropertyName == nameof(DateOfPublication) ||
+					ev.PropertyName == nameof(PageTurningDirection))
 					IsDirty = true;
 			};
 		}
@@ -39,10 +39,10 @@ namespace Comical.Core
 		static readonly Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 		public static readonly string DefaultPassword = null;
 		
-		async Task<FileHeader> ReadFile(string fileName, string password, BookmarkCollection bookmarks, IProgress<int> progress)
+		async Task<FileHeader> ReadFileAsync(string fileName, string password, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
 			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
-			using (Stream readStream = FileStream.Synchronized(fs))
+			using (Stream readStream = Stream.Synchronized(fs))
 			{
 				var cic = new FileHeader(fileName, readStream);
 				// ID確認
@@ -66,7 +66,7 @@ namespace Comical.Core
 					int len = reader.ReadInt32(); // サイズ
 					using (MemoryStream ms = new MemoryStream())
 					{
-						await Crypto.Transform(readStream, ms, password, System.Text.Encoding.Unicode, len, true).ConfigureAwait(false);
+						await Crypto.TransformAsync(readStream, ms, password, System.Text.Encoding.Unicode, len, true).ConfigureAwait(false);
 						Images.Add(new ImageReference(ms.ToArray()) { ViewMode = m });
 					}
 					if (progress != null)
@@ -76,10 +76,10 @@ namespace Comical.Core
 			}
 		}
 
-		static async Task WriteFile(IReadOnlyList<ImageReference> images, FileHeader cic, BookmarkCollection bookmarks, IProgress<int> progress)
+		static async Task WriteFileAsync(IReadOnlyList<ImageReference> images, FileHeader cic, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
 			using (FileStream fs = new FileStream(cic.Path, FileMode.Create, FileAccess.Write))
-			using (Stream writeStream = FileStream.Synchronized(fs))
+			using (Stream writeStream = Stream.Synchronized(fs))
 			{
 				cic.SaveInto(writeStream);
 				bookmarks.SaveInto(writeStream);
@@ -91,7 +91,7 @@ namespace Comical.Core
 					writer.Write((byte)ir.ViewMode); // 利用情報
 					writer.Write(ir.Length); // 画像データ大きさ
 					using (var binImage = ir.GetReadOnlyBinaryImage())
-						await Crypto.Transform(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length, false).ConfigureAwait(false); // 画像データ
+						await Crypto.TransformAsync(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length, false).ConfigureAwait(false); // 画像データ
 					if (progress != null)
 						progress.Report((i + 1) * 100 / images.Count);
 				}
@@ -135,7 +135,7 @@ namespace Comical.Core
 				Images.Clear();
 				Bookmarks.Clear();
 				IsDirty = false;
-				var res = await ReadFile(fileName, password, Bookmarks, progress).ConfigureAwait(false);
+				var res = await ReadFileAsync(fileName, password, Bookmarks, progress).ConfigureAwait(false);
 				_password = password;
 				if (Thumbnail != null)
 					Thumbnail.Dispose();
@@ -158,7 +158,7 @@ namespace Comical.Core
 					throw new InconsistentDataException(Properties.Resources.InconsistentData, inconsistency);
 				if (password == DefaultPassword)
 					password = _password;
-				await WriteFile(Images.ToArray(), new FileHeader(fileName, password, AssemblyVersion)
+				await WriteFileAsync(Images.ToArray(), new FileHeader(fileName, password, AssemblyVersion)
 				{
 					Thumbnail = Thumbnail,
 					Title = Title,
@@ -176,7 +176,7 @@ namespace Comical.Core
 		{
 			using (EnterSingleOperation())
 			using (Images.EnterUnnotifiedSection())
-				await ReadFile(fileName, password, new BookmarkCollection(null, null), progress).ConfigureAwait(false);
+				await ReadFileAsync(fileName, password, new BookmarkCollection(null, null), progress).ConfigureAwait(false);
 		}
 
 		public async Task ExportAsync(string baseDirectory, IEnumerable<ImageReference> images, IProgress<int> progress)
@@ -204,7 +204,7 @@ namespace Comical.Core
 		public async Task ExtractAsync(string fileName, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
-				await WriteFile(images.ToArray(), new FileHeader(fileName, "", AssemblyVersion) { Author = Author, PageTurningDirection = PageTurningDirection }, new BookmarkCollection(null, null), progress).ConfigureAwait(false);
+				await WriteFileAsync(images.ToArray(), new FileHeader(fileName, "", AssemblyVersion) { Author = Author, PageTurningDirection = PageTurningDirection }, new BookmarkCollection(null, null), progress).ConfigureAwait(false);
 		}
 
 		public IEnumerable<Spread> ConstructSpreads(bool simpleSpread)
@@ -365,9 +365,9 @@ namespace Comical.Core
 			}
 		}
 
-		public ImageReferenceCollection Images { get; private set; }
+		public ImageReferenceCollection Images { get; }
 
-		public BookmarkCollection Bookmarks { get; private set; }
+		public BookmarkCollection Bookmarks { get; }
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
@@ -411,12 +411,12 @@ namespace Comical.Core
 		public InconsistentDataException(string message) : this(message, ConsistencyValidatedDataTypes.None) { }
 		public InconsistentDataException(string message, ConsistencyValidatedDataTypes dataTypes) : base(message) { DataTypes = dataTypes; }
 		public InconsistentDataException(string message, Exception inner) : base(message, inner) { }
-		protected InconsistentDataException(SerializationInfo info, StreamingContext context) : base(info, context) { DataTypes = (ConsistencyValidatedDataTypes)info.GetInt32("DataTypes"); }
+		protected InconsistentDataException(SerializationInfo info, StreamingContext context) : base(info, context) { DataTypes = (ConsistencyValidatedDataTypes)info.GetInt32(nameof(DataTypes)); }
 		public ConsistencyValidatedDataTypes DataTypes { get; private set; }
 		public override void GetObjectData(SerializationInfo info, StreamingContext context)
 		{
 			base.GetObjectData(info, context);
-			info.AddValue("DataTypes", (int)DataTypes);
+			info.AddValue(nameof(DataTypes), (int)DataTypes);
 		}
 	}
 }

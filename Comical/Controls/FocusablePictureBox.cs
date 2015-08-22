@@ -37,7 +37,7 @@ namespace Comical.Controls
 		protected override void OnClick(EventArgs e)
 		{
 			base.OnClick(e);
-			this.Focus();
+			Focus();
 		}
 
 		[System.ComponentModel.Browsable(true)]

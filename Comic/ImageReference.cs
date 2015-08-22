@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Threading;
 
 namespace Comical.Core
@@ -14,7 +13,7 @@ namespace Comical.Core
 		public ImageReference(byte[] data)
 		{
 			if (data == null)
-				throw new ArgumentNullException("data");
+				throw new ArgumentNullException(nameof(data));
 			_data = data;
 		}
 
@@ -35,9 +34,9 @@ namespace Comical.Core
 			}
 		}
 
-		public int Length { get { return _data.Length; } }
+		public int Length => _data.Length;
 
-		public Image GetImage() { return GetImage(Size.Empty); }
+		public Image GetImage() => GetImage(Size.Empty);
 
 		public Image GetImage(Size size)
 		{
@@ -117,7 +116,7 @@ namespace Comical.Core
 			lock (_references)
 			{
 				if (item == null)
-					throw new ArgumentNullException("item");
+					throw new ArgumentNullException(nameof(item));
 				item.PropertyChanged += OnItemPropertyChanged;
 				item.OwnerContext = _ownerContext;
 				_references.Insert(index, item);
@@ -145,7 +144,7 @@ namespace Comical.Core
 			lock (_references)
 			{
 				if (item == null)
-					throw new ArgumentNullException("item");
+					throw new ArgumentNullException(nameof(item));
 				oldItem = _references[index];
 				oldItem.PropertyChanged -= OnItemPropertyChanged;
 				oldItem.OwnerContext = null;
@@ -194,17 +193,17 @@ namespace Comical.Core
 
 		public bool Contains(ImageReference item) { lock (_references) return _references.Contains(item); }
 
-		public int Count { get { return _references.Count; } }
+		public int Count => _references.Count;
 
 		public bool Remove(ImageReference item) { return RemoveItem(_references.IndexOf(item)); }
 
 		public void CopyTo(ImageReference[] array, int arrayIndex) { lock (_references) _references.CopyTo(array, arrayIndex); }
 
-		public bool IsReadOnly { get { return false; } }
+		public bool IsReadOnly => false;
 
 		public IEnumerator<ImageReference> GetEnumerator() { lock (_references) return _references.GetEnumerator(); }
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return GetEnumerator(); }
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
 		{

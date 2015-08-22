@@ -10,22 +10,22 @@ namespace Comical.Core
 		public static byte[] Transform(byte[] src, string password, Encoding enc, bool decrypt)
 		{
 			if (src == null)
-				throw new ArgumentNullException("src");
+				throw new ArgumentNullException(nameof(src));
 			if (enc == null)
-				throw new ArgumentNullException("enc");
+				throw new ArgumentNullException(nameof(enc));
 			byte[] dest = new byte[src.Length];
 			TransformInternal(dest, src, enc.GetBytes(string.IsNullOrEmpty(password) ? "\0" : password), src.Length, decrypt);
 			return dest;
 		}
 
-		public static async Task Transform(Stream readStream, Stream writeStream, string password, Encoding enc, int length, bool decrypt)
+		public static async Task TransformAsync(Stream readStream, Stream writeStream, string password, Encoding enc, int length, bool decrypt)
 		{
 			if (readStream == null)
-				throw new ArgumentNullException("readStream");
+				throw new ArgumentNullException(nameof(readStream));
 			if (writeStream == null)
-				throw new ArgumentNullException("writeStream");
+				throw new ArgumentNullException(nameof(writeStream));
 			if (enc == null)
-				throw new ArgumentNullException("enc");
+				throw new ArgumentNullException(nameof(enc));
 			if (string.IsNullOrEmpty(password))
 				password = "\0";
 			byte[] pw = enc.GetBytes(password);

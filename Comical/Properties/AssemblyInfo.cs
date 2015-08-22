@@ -39,4 +39,3 @@ using System;
 [assembly: NeutralResourcesLanguageAttribute("")]
 
 [assembly: CLSCompliant(true)]
-[assembly: InternalsVisibleTo("ArchiversManager")]

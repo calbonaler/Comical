@@ -43,24 +43,21 @@ namespace Comical
 
 		void btnOK_Click(object sender, EventArgs e)
 		{
-			if (Creating)
+			if (Creating && txtPassword.Text != txtConfirmationPassword.Text)
 			{
-				if (txtPassword.Text != txtConfirmationPassword.Text)
-				{
-					TaskDialog.Show(Properties.Resources.PasswordsNotSame, Properties.Resources.InputSamePasswordInBothBox, Text, TaskDialogStandardButtons.Close, TaskDialogStandardIcon.Error, ownerWindowHandle: Handle);
-					txtConfirmationPassword.Focus();
-					txtConfirmationPassword.SelectAll();
-					return;
-				}
+				TaskDialog.Show(Properties.Resources.PasswordsNotSame, Properties.Resources.InputSamePasswordInBothBox, Text, TaskDialogStandardButtons.Close, TaskDialogStandardIcon.Error, ownerWindowHandle: Handle);
+				txtConfirmationPassword.Focus();
+				txtConfirmationPassword.SelectAll();
+				return;
 			}
-			this.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 
 		void btnCancel_Click(object sender, EventArgs e)
 		{
-			this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.Close();
+			DialogResult = DialogResult.Cancel;
+			Close();
 		}
 	}
 }

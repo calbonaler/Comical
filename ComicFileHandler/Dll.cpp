@@ -37,9 +37,12 @@ _Check_return_ STDAPI DllGetClassObject(_In_ REFCLSID clsid, _In_ REFIID riid, _
 	public:
 		CClassFactory(PFNCREATEINSTANCE pfnCreate) : m_pfnCreate(pfnCreate) { DllAddRef(); }
 
+#pragma warning (push)
+#pragma warning (disable: 4838)
 		BEGIN_COM_INTERFACE_MAPPPING
 			QITABENT(CClassFactory, IClassFactory)
 		END_COM_INTER_FACE_MAPPING
+#pragma warning (pop)
 
 		IFACEMETHODIMP CreateInstance(_In_opt_ IUnknown* punkOuter, _In_ REFIID riid, _COM_Outptr_ void** ppv)
 		{

@@ -13,7 +13,7 @@ namespace Comical.Controls
 		bool mouseDownOnSelectedCell = false;
 		bool _allowUserToMoveRows = false;
 		Point origin;
-		int dragOver_called = 0;
+		int dragOverCalled = 0;
 		int _hitRowIndex = -1;
 		Pen insertionPen = new Pen(Color.Black, 2.0F);
 
@@ -27,15 +27,7 @@ namespace Comical.Controls
 			base.Dispose(disposing);
 		}
 
-		int ScrollArea
-		{
-			get
-			{
-				if (FirstDisplayedScrollingRowIndex >= 0)
-					return Rows[FirstDisplayedScrollingRowIndex].Height / 2;
-				return 48;
-			}
-		}
+		int ScrollArea => FirstDisplayedScrollingRowIndex >= 0 ? Rows[FirstDisplayedScrollingRowIndex].Height / 2 : 48;
 
 		/// <summary>ユーザーによってドラッグされた行を受け入れる直前に発生します。</summary>
 		[Category("アクション")]
@@ -53,18 +45,8 @@ namespace Comical.Controls
 		public event EventHandler<QueryActualDestinationEventArgs> QueryActualDestination;
 
 		/// <summary>選択された項目の個数を取得します。</summary>
-		protected int SelectedItemCount
-		{
-			get
-			{
-				if (SelectionMode == DataGridViewSelectionMode.FullColumnSelect)
-					return SelectedColumns.Count;
-				else if (SelectionMode == DataGridViewSelectionMode.FullRowSelect)
-					return SelectedRows.Count;
-				else
-					return SelectedCells.Count;
-			}
-		}
+		protected int SelectedItemCount => SelectionMode == DataGridViewSelectionMode.FullColumnSelect ? SelectedColumns.Count :
+			(SelectionMode == DataGridViewSelectionMode.FullRowSelect ? SelectedRows.Count : SelectedCells.Count);
 
 		/// <summary>ユーザーが行をドラッグで移動できるかどうかを示す値を取得または設定します。</summary>
 		[Category("動作")]
@@ -145,29 +127,29 @@ namespace Comical.Controls
 				de.Effect = DragDropEffects.None;
 			else
 				de.Effect = ev.Effect;
-			return new DragHitTestInfo() { ActualDestination = ev.ActualDestination, HitIndex = index };
+			return new DragHitTestInfo(index, ev.ActualDestination);
 		}
 
 		int IncrementDragOverCalled(int value)
 		{
-			int CallMax = ScrollArea / 2;
-			dragOver_called += value;
-			int c = dragOver_called / CallMax;
-			dragOver_called = dragOver_called % CallMax;
+			int callMax = ScrollArea / 2;
+			dragOverCalled += value;
+			int c = dragOverCalled / callMax;
+			dragOverCalled = dragOverCalled % callMax;
 			return c;
 		}
 
 		protected override void OnCellMouseDown(DataGridViewCellMouseEventArgs e)
 		{
-			if (e == null || e.ColumnIndex < 0 || e.RowIndex < 0 || !this[e.ColumnIndex, e.RowIndex].Selected)
+			if (e != null && e.ColumnIndex >= 0 && e.RowIndex >= 0 && this[e.ColumnIndex, e.RowIndex].Selected)
 			{
-				if (e != null && e.ColumnIndex >= 0 && e.RowIndex >= 0 && e.Button == System.Windows.Forms.MouseButtons.Right)
-					this.ClearSelection(e.ColumnIndex, e.RowIndex, true);
-				else
-					base.OnCellMouseDown(e);
-			}
-			else
 				mouseDownOnSelectedCell = true;
+				return;
+			}
+			if (e != null && e.ColumnIndex >= 0 && e.RowIndex >= 0 && e.Button == MouseButtons.Right)
+				ClearSelection(e.ColumnIndex, e.RowIndex, true);
+			else
+				base.OnCellMouseDown(e);
 		}
 
 		protected override void OnCellMouseUp(DataGridViewCellMouseEventArgs e)
@@ -175,7 +157,7 @@ namespace Comical.Controls
 			if (e != null && e.ColumnIndex >= 0 && e.RowIndex >= 0 && this[e.ColumnIndex, e.RowIndex].Selected && mouseDownOnSelectedCell)
 			{
 				mouseDownOnSelectedCell = false;
-				if (e.Button == System.Windows.Forms.MouseButtons.Left)
+				if (e.Button == MouseButtons.Left)
 				{
 					ClearSelection(e.ColumnIndex, e.RowIndex, true);
 					if (!IsCurrentCellDirty)
@@ -195,7 +177,7 @@ namespace Comical.Controls
 
 		protected override void OnMouseMove(MouseEventArgs e)
 		{
-			if (e != null && AllowUserToMoveRows && e.Button == System.Windows.Forms.MouseButtons.Left &&
+			if (e != null && AllowUserToMoveRows && e.Button == MouseButtons.Left &&
 				SelectionMode == DataGridViewSelectionMode.FullRowSelect &&
 				(MultiDrag && SelectedItemCount > 0 || !MultiDrag && SelectedItemCount == 1) &&
 				(Math.Abs(origin.X - e.X) > SystemInformation.DragSize.Width / 2 ||
@@ -215,23 +197,23 @@ namespace Comical.Controls
 
 		protected override void OnDragOver(DragEventArgs drgevent)
 		{
-			if (drgevent != null && drgevent.Data.GetDataPresent(typeof(DataGridViewMovedRows)))
+			if (drgevent == null || !drgevent.Data.GetDataPresent(typeof(DataGridViewMovedRows)))
 			{
-				Point pt = PointToClient(new Point(drgevent.X, drgevent.Y));
-				int diffTop = ScrollArea - pt.Y;
-				int diffBottom = pt.Y - Height + ScrollArea;
-				if (diffTop >= 0)
-					FirstDisplayedScrollingRowIndexUnchecked -= IncrementDragOverCalled(diffTop);
-				else if (diffBottom >= 0)
-					FirstDisplayedScrollingRowIndexUnchecked += IncrementDragOverCalled(diffBottom);
-				else
-				{
-					var info = GetDragHitTestInfo(drgevent);
-					HitRowIndex = info.ActualDestination >= 0 ? info.HitIndex : -1;
-				}
-			}
-			else
 				base.OnDragOver(drgevent);
+				return;
+			}
+			var pt = PointToClient(new Point(drgevent.X, drgevent.Y));
+			int diffTop = ScrollArea - pt.Y;
+			int diffBottom = pt.Y - Height + ScrollArea;
+			if (diffTop >= 0)
+				FirstDisplayedScrollingRowIndexUnchecked -= IncrementDragOverCalled(diffTop);
+			else if (diffBottom >= 0)
+				FirstDisplayedScrollingRowIndexUnchecked += IncrementDragOverCalled(diffBottom);
+			else
+			{
+				var info = GetDragHitTestInfo(drgevent);
+				HitRowIndex = info.ActualDestination >= 0 ? info.HitIndex : -1;
+			}
 		}
 
 		protected override void OnDragLeave(EventArgs e)
@@ -242,29 +224,28 @@ namespace Comical.Controls
 
 		protected override void OnDragDrop(DragEventArgs drgevent)
 		{
-			if (drgevent != null && drgevent.Data.GetDataPresent(typeof(DataGridViewMovedRows)) && HitRowIndex >= 0)
+			if (drgevent == null || !drgevent.Data.GetDataPresent(typeof(DataGridViewMovedRows)) || HitRowIndex < 0)
 			{
-				int newIndex = GetDragHitTestInfo(drgevent).ActualDestination;
-				var dgdo = drgevent.Data.GetData(typeof(DataGridViewMovedRows)) as DataGridViewMovedRows;
-				if (newIndex >= 0)
-				{
-					RowMovingEventArgs ev = new RowMovingEventArgs(dgdo.Source, dgdo.SourceRows, dgdo.SetRow, newIndex);
-					OnRowMoving(ev);
-					if (!ev.Cancel)
-					{
-						foreach (var row in dgdo.SourceRows)
-							dgdo.Source.Rows.Remove(row);
-						Rows.InsertRange(newIndex, dgdo.GetModifiedRows());
-						ClearSelection();
-						for (int i = newIndex; i < newIndex + dgdo.SourceRows.Count; i++)
-							SetSelectedRowCore(i, true);
-						OnRowMoved(EventArgs.Empty);
-					}
-					HitRowIndex = -1;
-				}
-			}
-			else
 				base.OnDragDrop(drgevent);
+				return;
+			}
+			int newIndex = GetDragHitTestInfo(drgevent).ActualDestination;
+			if (newIndex < 0)
+				return;
+			var dgdo = (DataGridViewMovedRows)drgevent.Data.GetData(typeof(DataGridViewMovedRows));
+			RowMovingEventArgs ev = new RowMovingEventArgs(dgdo.Source, dgdo.SourceRows, dgdo.SetRow, newIndex);
+			OnRowMoving(ev);
+			if (!ev.Cancel)
+			{
+				foreach (var row in dgdo.SourceRows)
+					dgdo.Source.Rows.Remove(row);
+				Rows.InsertRange(newIndex, dgdo.GetModifiedRows());
+				ClearSelection();
+				for (int i = newIndex; i < newIndex + dgdo.SourceRows.Count; i++)
+					SetSelectedRowCore(i, true);
+				OnRowMoved(EventArgs.Empty);
+			}
+			HitRowIndex = -1;
 		}
 
 		protected override void OnQueryContinueDrag(QueryContinueDragEventArgs qcdevent)
@@ -282,31 +263,25 @@ namespace Comical.Controls
 		}
 
 		/// <summary><see cref="RowMoving"/> イベントを発生させます。</summary>
-		protected virtual void OnRowMoving(RowMovingEventArgs e)
-		{
-			if (RowMoving != null)
-				RowMoving(this, e);
-		}
+		protected virtual void OnRowMoving(RowMovingEventArgs e) { RowMoving?.Invoke(this, e); }
 
 		/// <summary><see cref="RowMoved"/> イベントを発生させます。</summary>
-		protected virtual void OnRowMoved(EventArgs e)
-		{
-			if (RowMoved != null)
-				RowMoved(this, e);
-		}
+		protected virtual void OnRowMoved(EventArgs e) { RowMoved?.Invoke(this, e); }
 
 		/// <summary><see cref="QueryActualDestination"/> イベントを発生させます。</summary>
-		protected virtual void OnQueryActualDestination(QueryActualDestinationEventArgs e)
-		{
-			if (QueryActualDestination != null)
-				QueryActualDestination(this, e);
-		}
+		protected virtual void OnQueryActualDestination(QueryActualDestinationEventArgs e) { QueryActualDestination?.Invoke(this, e); }
 
 		struct DragHitTestInfo
 		{
-			public int HitIndex { get; set; }
+			public DragHitTestInfo(int hitIndex, int actualDestination)
+			{
+				HitIndex = hitIndex;
+				ActualDestination = actualDestination;
+			}
 
-			public int ActualDestination { get; set; }
+			public int HitIndex { get; }
+
+			public int ActualDestination { get; }
 		}
 
 		class DataGridViewMovedRows
@@ -314,30 +289,21 @@ namespace Comical.Controls
 			public DataGridViewMovedRows(DataGridViewSelectedRowCollection rows, DataGridView source)
 			{
 				if (rows == null)
-					throw new ArgumentNullException("rows");
-				List<DataGridViewRow> sourceRows = new List<DataGridViewRow>(rows.Count);
-				for (int i = 0; i < rows.Count; i++)
-					sourceRows.Add(rows[i]);
-				sourceRows.Sort((x, y) => x.Index - y.Index);
-				SourceRows = new ReadOnlyCollection<DataGridViewRow>(sourceRows);
-				modifiedRows = sourceRows.ToArray();
+					throw new ArgumentNullException(nameof(rows));
+				modifiedRows = rows.Cast<DataGridViewRow>().OrderBy(x => x.Index).ToArray();
+				SourceRows = new ReadOnlyCollection<DataGridViewRow>((DataGridViewRow[])modifiedRows.Clone());
 				Source = source;
 			}
 
 			DataGridViewRow[] modifiedRows;
 
-			public ReadOnlyCollection<DataGridViewRow> SourceRows { get; private set; }
+			public ReadOnlyCollection<DataGridViewRow> SourceRows { get; }
 
 			public void SetRow(int index, DataGridViewRow row) { modifiedRows[index] = row; }
 
-			public DataGridViewRow[] GetModifiedRows()
-			{
-				var rowCopy = new DataGridViewRow[modifiedRows.Length];
-				Array.Copy(modifiedRows, rowCopy, modifiedRows.Length);
-				return rowCopy;
-			}
+			public DataGridViewRow[] GetModifiedRows() => (DataGridViewRow[])modifiedRows.Clone();
 
-			public DataGridView Source { get; private set; }
+			public DataGridView Source { get; }
 		}
 	}
 
@@ -353,11 +319,11 @@ namespace Comical.Controls
 
 		Action<int, DataGridViewRow> setRow = (a, b) => { };
 
-		public int Destination { get; private set; }
+		public int Destination { get; }
 
-		public DataGridView Source { get; private set; }
+		public DataGridView Source { get; }
 
-		public ReadOnlyCollection<DataGridViewRow> SourceRows { get; private set; }
+		public ReadOnlyCollection<DataGridViewRow> SourceRows { get; }
 
 		public void SetRow(int index, DataGridViewRow row) { setRow(index, row); }
 	}
@@ -375,6 +341,6 @@ namespace Comical.Controls
 
 		public DragDropEffects Effect { get; set; }
 
-		public DataGridView Source { get; private set; }
+		public DataGridView Source { get; }
 	}
 }

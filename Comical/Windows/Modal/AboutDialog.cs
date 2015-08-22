@@ -23,7 +23,7 @@ namespace Comical
 				path.AddArc(0, Height - round, round, round, 90, 90);
 				path.AddLine(0, Height - round, 0, round);
 				path.CloseFigure();
-				this.Region = new Region(path);
+				Region = new Region(path);
 			}
 		}
 

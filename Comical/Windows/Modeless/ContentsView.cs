@@ -14,13 +14,13 @@ namespace Comical
 		public ContentsView()
 		{
 			InitializeComponent();
-			dgvImages.Font = new System.Drawing.Font("Meiryo", 9);
+			dgvImages.Font = new Font("Meiryo", 9);
 		}
 
 		ImageReferenceCollection _images;
 		static readonly Size ThumbnailSize = new Size(118, 118);
 
-		Viewer DefaultViewer { get { return DockPanel != null ? DockPanel.Contents.OfType<Viewer>().FirstOrDefault(v => v.Pane.IsActiveDocumentPane) : null; } }
+		Viewer DefaultViewer => DockPanel?.Contents?.OfType<Viewer>()?.FirstOrDefault(v => v.Pane.IsActiveDocumentPane);
 
 		public event EventHandler ImageReferenceSelected
 		{
@@ -59,33 +59,32 @@ namespace Comical
 			});
 		}
 
-		public IEnumerable<int> SelectedIndicies { get { return dgvImages.SelectedRows.Cast<DataGridViewRow>().Select(r => r.Index); } }
+		public IEnumerable<int> SelectedIndicies => dgvImages.SelectedRows.Cast<DataGridViewRow>().Select(r => r.Index);
 
-		public IEnumerable<ImageReference> SortedSelectedImages { get { return SelectedIndicies.OrderBy(x => x).Select(x => _images[x]); } }
+		public IEnumerable<ImageReference> SortedSelectedImages => SelectedIndicies.OrderBy(x => x).Select(x => _images[x]);
 
 		public void SetImages(ImageReferenceCollection value)
 		{
-			if (_images != value)
+			if (_images == value)
+				return;
+			if (_images != null)
 			{
-				if (_images != null)
-				{
-					_images.CollectionChanged -= Images_CollectionChanged;
-					_images.CollectionItemPropertyChanged -= Images_CollectionItemPropertyChanged;
-				}
-				_images = value;
-				if (value != null)
-				{
-					value.CollectionChanged += Images_CollectionChanged;
-					value.CollectionItemPropertyChanged += Images_CollectionItemPropertyChanged;
-					Images_CollectionChanged(value, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-				}
+				_images.CollectionChanged -= Images_CollectionChanged;
+				_images.CollectionItemPropertyChanged -= Images_CollectionItemPropertyChanged;
+			}
+			_images = value;
+			if (value != null)
+			{
+				value.CollectionChanged += Images_CollectionChanged;
+				value.CollectionItemPropertyChanged += Images_CollectionItemPropertyChanged;
+				Images_CollectionChanged(value, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 			}
 		}
 
 		public void AddImages(IEnumerable<ImageReference> images)
 		{
 			if (images == null)
-				throw new ArgumentNullException("images");
+				throw new ArgumentNullException(nameof(images));
 			using (_images.EnterUnnotifiedSection())
 			{
 				foreach (var image in images)
@@ -123,11 +122,11 @@ namespace Comical
 		{
 			base.OnLoad(e);
 			dgvImages.RowTemplate.Height = ThumbnailSize.Height;
-			dgvImages.Columns["clmImage"].Width = ThumbnailSize.Width;
-			(dgvImages.Columns["clmViewMode"] as DataGridViewComboBoxColumn).DataSource = Enum.GetNames(typeof(ImageViewMode));
+			clmImage.Width = ThumbnailSize.Width;
+			clmViewMode.DataSource = Enum.GetNames(typeof(ImageViewMode));
 		}
 
-		protected override string GetPersistString() { return "ImageList"; }
+		protected override string GetPersistString() => "ImageList";
 
 		public int FirstSelectedRowIndex
 		{
@@ -166,7 +165,7 @@ namespace Comical
 				_images.Remove(x);
 		}
 
-		private void dgvImages_SelectionChanged(object sender, System.EventArgs e)
+		private void dgvImages_SelectionChanged(object sender, EventArgs e)
 		{
 			int count = dgvImages.SelectedRows.Count;
 			if (DefaultViewer != null)
@@ -184,13 +183,13 @@ namespace Comical
 			itmAddToBookmark.Visible = itmDelete.Visible = itmExport.Visible = itmExtract.Visible = sepImage1.Visible = sepImage2.Visible = count > 0;
 		}
 
-		private void dgvImages_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
+		private void dgvImages_DragEnter(object sender, DragEventArgs e)
 		{
 			if (e.Data.GetDataPresent(DataFormats.FileDrop))
 				e.Effect = DragDropEffects.Copy;
 		}
 
-		private void dgvImages_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
+		private void dgvImages_DragDrop(object sender, DragEventArgs e)
 		{
 			if (e.Data.GetDataPresent(DataFormats.FileDrop) && FileDropped != null)
 				FileDropped(this, new FileDroppedEventArgs(e.Data.GetData(DataFormats.FileDrop) as string[], e.KeyState, e.X, e.Y));
@@ -209,27 +208,21 @@ namespace Comical
 				e.ActualDestination = -1;
 		}
 
-		private void dgvImages_CellDoubleClick(object sender, System.Windows.Forms.DataGridViewCellEventArgs e) { OpenFirstSelectedImage(); }
+		private void dgvImages_CellDoubleClick(object sender, DataGridViewCellEventArgs e) { OpenFirstSelectedImage(); }
 
 		private void dgvImages_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
 		{
-			if (e.RowIndex >= 0 && e.RowIndex < _images.Count)
-			{
-				switch (dgvImages.Columns[e.ColumnIndex].Name)
-				{
-					case "clmViewMode":
-						e.Value = _images[e.RowIndex].ViewMode.ToString();
-						break;
-					case "clmImage":
-						e.Value = _images[e.RowIndex].GetImage(ThumbnailSize);
-						break;
-				}
-			}
+			if (e.RowIndex < 0 || e.RowIndex >= _images.Count)
+				return;
+			if (dgvImages.Columns[e.ColumnIndex] == clmViewMode)
+				e.Value = _images[e.RowIndex].ViewMode.ToString();
+			else if (dgvImages.Columns[e.ColumnIndex] == clmImage)
+				e.Value = _images[e.RowIndex].GetImage(ThumbnailSize);
 		}
 
 		private void dgvImages_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
 		{
-			if (e.RowIndex >= 0 && e.RowIndex < _images.Count && dgvImages.Columns[e.ColumnIndex].Name == "clmViewMode" && e.Value != null)
+			if (e.RowIndex >= 0 && e.RowIndex < _images.Count && dgvImages.Columns[e.ColumnIndex] == clmViewMode && e.Value != null)
 			{
 				ImageViewMode mode;
 				if (Enum.TryParse(e.Value.ToString(), out mode))
@@ -267,22 +260,22 @@ namespace Comical
 
 		int _keyState;
 
-		public IEnumerable<string> FileNames { get; private set; }
+		public IEnumerable<string> FileNames { get; }
 
-		public bool MouseLeft { get { return (_keyState & 1) != 0; } }
+		public bool MouseLeft => (_keyState & 1) != 0;
 
-		public bool MouseRight { get { return (_keyState & 2) != 0; } }
+		public bool MouseRight => (_keyState & 2) != 0;
 
-		public bool MouseMiddle { get { return (_keyState & 16) != 0; } }
+		public bool MouseMiddle =>  (_keyState & 16) != 0;
 
-		public bool Shift { get { return (_keyState & 4) != 0; } }
+		public bool Shift => (_keyState & 4) != 0;
 
-		public bool Control { get { return (_keyState & 8) != 0; } }
+		public bool Control => (_keyState & 8) != 0;
 
-		public bool Alt { get { return (_keyState & 32) != 0; } }
+		public bool Alt => (_keyState & 32) != 0;
 
-		public int X { get; private set; }
+		public int X { get; }
 
-		public int Y { get; private set; }
+		public int Y { get; }
 	}
 }

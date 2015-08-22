@@ -97,7 +97,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>ComicFileHandler.def</ModuleDefinitionFile>
-      <AdditionalDependencies>propsys.lib;comsupp.lib;Shlwapi.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>propsys.lib;comsupp.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OptimizeReferences>
       </OptimizeReferences>
     </Link>
@@ -116,7 +116,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>ComicFileHandler.def</ModuleDefinitionFile>
-      <AdditionalDependencies>propsys.lib;comsupp.lib;Shlwapi.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>propsys.lib;comsupp.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OptimizeReferences>
       </OptimizeReferences>
     </Link>
@@ -141,7 +141,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>propsys.lib;comsupp.lib;Shlwapi.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>propsys.lib;comsupp.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>ComicFileHandler.def</ModuleDefinitionFile>
     </Link>
     <Bscmake>
@@ -165,7 +165,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>propsys.lib;comsupp.lib;Shlwapi.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>propsys.lib;comsupp.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>ComicFileHandler.def</ModuleDefinitionFile>
     </Link>
     <Bscmake>

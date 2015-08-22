@@ -11,7 +11,7 @@ namespace Comical.Core
 		{
 			password = password ?? string.Empty;
 			if (fileVersion == null)
-				throw new ArgumentNullException("fileVersion");
+				throw new ArgumentNullException(nameof(fileVersion));
 			Path = fileName;
 			fileIdentifier = new byte[] { 0x43, 0x49, 0x43 };
 			FileVersionMajor = (byte)fileVersion.Major;
@@ -24,7 +24,7 @@ namespace Comical.Core
 		{
 			Path = fileName;
 			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
-			using (Stream stream = FileStream.Synchronized(fs))
+			using (Stream stream = Stream.Synchronized(fs))
 				InitializeWithStream(stream);
 		}
 
@@ -89,7 +89,7 @@ namespace Comical.Core
 			byte[] bs = new byte[2];
 			stream.Read(bs, 0, bs.Length);
 			uint size;
-			if (System.Text.Encoding.ASCII.GetString(bs) == "BM")
+			if (Encoding.ASCII.GetString(bs) == "BM")
 			{
 				size = (uint)stream.ReadByte() + (uint)(stream.ReadByte() << 8) +
 					(uint)(stream.ReadByte() << 16) + (uint)(stream.ReadByte() << 24);
@@ -101,18 +101,15 @@ namespace Comical.Core
 			return size;
 		}
 
-		public bool CanOpen { get { return Encoding.ASCII.GetString(fileIdentifier) == "CIC"; } }
+		public bool CanOpen => Encoding.ASCII.GetString(fileIdentifier) == "CIC";
 
 		public byte FileVersionMajor { get; private set; }
 
 		public byte FileVersionMinor { get; private set; }
 
-		public Version FileVersion { get { return new Version(FileVersionMajor, FileVersionMinor); } }
+		public Version FileVersion => new Version(FileVersionMajor, FileVersionMinor);
 
-		public bool IsProperPassword(string password)
-		{
-			return hashData.Length == 0 || Encoding.Unicode.GetString(Crypto.Transform(hashData, password, Encoding.Unicode, true)) == sample;
-		}
+		public bool IsProperPassword(string password) => hashData.Length == 0 || Encoding.Unicode.GetString(Crypto.Transform(hashData, password, Encoding.Unicode, true)) == sample;
 
 		public string Title
 		{
@@ -130,11 +127,11 @@ namespace Comical.Core
 
 		public PageTurningDirection PageTurningDirection { get; set; }
 
-		public string Password { get; private set; }
+		public string Password { get; }
 
-		public string Path { get; private set; }
+		public string Path { get; }
 
-		public bool PathExists { get { return File.Exists(Path); } }
+		public bool PathExists => File.Exists(Path);
 
 		internal void SaveInto(Stream stream)
 		{

@@ -37,12 +37,12 @@ namespace Comical.Core
 				{
 					_target = value;
 					PropertyChanged.Raise(this, OwnerContext);
-					PropertyChanged.Raise(this, OwnerContext, () => TargetImage);
+					PropertyChanged.Raise(this, OwnerContext, nameof(TargetImage));
 				}
 			}
 		}
 
-		public ImageReference TargetImage { get { return imageReferences == null ? null : imageReferences[Target]; } }
+		public ImageReference TargetImage => imageReferences?[Target];
 
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
@@ -84,7 +84,7 @@ namespace Comical.Core
 		protected override void InsertItem(int index, Bookmark item)
 		{
 			if (item == null)
-				throw new ArgumentNullException("item");
+				throw new ArgumentNullException(nameof(item));
 			item.OwnerContext = _ownerContext;
 			item.imageReferences = _imageReferences;
 			item.PropertyChanged += OnItemPropertyChanged;
@@ -102,7 +102,7 @@ namespace Comical.Core
 		protected override void SetItem(int index, Bookmark item)
 		{
 			if (item == null)
-				throw new ArgumentNullException("item");
+				throw new ArgumentNullException(nameof(item));
 			this[index].OwnerContext = null;
 			this[index].imageReferences = null;
 			this[index].PropertyChanged -= OnItemPropertyChanged;

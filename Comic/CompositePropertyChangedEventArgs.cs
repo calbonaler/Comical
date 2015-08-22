@@ -8,6 +8,6 @@ namespace Comical.Core
 	{
 		public CompositePropertyChangedEventArgs(IEnumerable<KeyValuePair<T, string>> propertyNames) { PropertyNames = propertyNames.ToLookup(x => x.Key, x => x.Value); }
 
-		public ILookup<T, string> PropertyNames { get; private set; }
+		public ILookup<T, string> PropertyNames { get; }
 	}
 }

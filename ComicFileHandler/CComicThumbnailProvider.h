@@ -9,10 +9,13 @@ class _declspec(uuid("{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}")) CComicThumbnailP
 public:
 	CComicThumbnailProvider() { DllAddRef(); }
 
+#pragma warning (push)
+#pragma warning (disable: 4838)
 	BEGIN_COM_INTERFACE_MAPPPING
 		QITABENT(CComicThumbnailProvider, IInitializeWithStream),
 		QITABENT(CComicThumbnailProvider, IThumbnailProvider)
 	END_COM_INTER_FACE_MAPPING
+#pragma warning (pop)
 
 	IFACEMETHODIMP Initialize(_In_ IStream* pStream, _In_ DWORD) { return m_pStream ? HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED) : pStream->QueryInterface(&m_pStream); }
 

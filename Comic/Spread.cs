@@ -3,16 +3,14 @@
 	public class Spread
 	{
 		public Spread() { }
-
-		bool _fillSpread;
-
+		
 		public ImageReference Left { get; private set; }
 
 		public ImageReference Right { get; private set; }
 
-		public ImageReference Fill { get { return _fillSpread ? Left : null; } }
+		public ImageReference Fill => FillSpread ? Left : null;
 
-		public bool FillSpread { get { return _fillSpread; } }
+		public bool FillSpread { get; private set; }
 
 		public ImageReference GetImage(ImageViewMode mode)
 		{
@@ -28,17 +26,17 @@
 			{
 				Left = value;
 				Right = null;
-				_fillSpread = true;
+				FillSpread = true;
 			}
 			else if (mode == ImageViewMode.Left)
 			{
 				Left = value;
-				_fillSpread = false;
+				FillSpread = false;
 			}
 			else if (mode == ImageViewMode.Right)
 			{
 				Right = value;
-				_fillSpread = false;
+				FillSpread = false;
 			}
 		}
 	}

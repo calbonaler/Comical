@@ -8,7 +8,7 @@ namespace Comical
 	{
 		public ViewModeSettingsView() { InitializeComponent(); }
 
-		protected override string GetPersistString() { return "ViewModeSettings"; }
+		protected override string GetPersistString() => "ViewModeSettings";
 
 		public int SelectionStart
 		{
@@ -29,7 +29,7 @@ namespace Comical
 			}
 		}
 
-		public bool StartInLeft { get { return radLeftStart.Checked; } }
+		public bool StartInLeft => radLeftStart.Checked;
 
 		public void InvertViewMode()
 		{
@@ -46,16 +46,15 @@ namespace Comical
 
 		public void SetImages(ImageReferenceCollection collection)
 		{
-			if (cic != collection)
+			if (cic == collection)
+				return;
+			if (cic != null)
+				cic.CollectionChanged -= ComicImageCollection_CollectionChanged;
+			cic = collection;
+			if (cic != null)
 			{
-				if (cic != null)
-					cic.CollectionChanged -= ComicImageCollection_CollectionChanged;
-				cic = collection;
-				if (cic != null)
-				{
-					cic.CollectionChanged += ComicImageCollection_CollectionChanged;
-					ComicImageCollection_CollectionChanged(cic, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
-				}
+				cic.CollectionChanged += ComicImageCollection_CollectionChanged;
+				ComicImageCollection_CollectionChanged(cic, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
 			}
 		}
 

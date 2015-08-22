@@ -35,7 +35,7 @@ IFACEMETHODIMP QueryInterface(REFIID riid, void** ppv) \
 	{ \
 
 #define END_COM_INTER_FACE_MAPPING \
-		,{ 0 } \
+		,{ nullptr } \
 	}; \
 	return QISearch(this, qit, riid, ppv); \
 } \
