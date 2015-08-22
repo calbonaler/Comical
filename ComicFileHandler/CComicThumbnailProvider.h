@@ -1,11 +1,8 @@
 #pragma once
 
-#include <Shlwapi.h>
 #include <thumbcache.h>
 #include <wincodec.h>
 #include "Dll.h"
-
-#pragma comment(lib, "Shlwapi.lib")
 
 class _declspec(uuid("{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}")) CComicThumbnailProvider final : public IInitializeWithStream, public IThumbnailProvider
 {
@@ -51,8 +48,8 @@ public:
 		auto hbmp = CreateDIBSection(nullptr, &bmi, DIB_RGB_COLORS, pointer_cast<void**>(&pBits), nullptr, 0);
 		if (!hbmp)
 			return E_OUTOFMEMORY;
-		HRESULT hr;
-		if (SUCCEEDED(hr = pBitmapSourceConverted->CopyPixels(nullptr, nWidth * 4, nWidth * nHeight * 4, pBits)))
+		auto hr = pBitmapSourceConverted->CopyPixels(nullptr, nWidth * 4, nWidth * nHeight * 4, pBits);
+		if (SUCCEEDED(hr))
 		{
 			*pdwAlpha = WTSAT_ARGB;
 			*phbmp = hbmp;

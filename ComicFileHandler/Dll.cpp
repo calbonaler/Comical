@@ -65,17 +65,17 @@ _Check_return_ STDAPI DllGetClassObject(_In_ REFCLSID clsid, _In_ REFIID riid, _
 
 	static const struct
 	{
-		const CLSID* pClsid;
+		const CLSID& pClsid;
 		PFNCREATEINSTANCE pfnCreate;
 	}
 	classObjectInit[] =
 	{
-		{ &__uuidof(CComicThumbnailProvider), CreateInstance<CComicThumbnailProvider> },
-		{ &__uuidof(CComicPropertyHandler), CreateInstance<CComicPropertyHandler> },
+		{ __uuidof(CComicThumbnailProvider), CreateInstance<CComicThumbnailProvider> },
+		{ __uuidof(CComicPropertyHandler), CreateInstance<CComicPropertyHandler> },
 	};
 	for (size_t i = 0; i < ARRAYSIZE(classObjectInit); i++)
 	{
-		if (clsid != *classObjectInit[i].pClsid)
+		if (clsid != classObjectInit[i].pClsid)
 			continue;
 		CComPtr<IClassFactory> pClassFactory;
 		pClassFactory.Attach(new (std::nothrow) CClassFactory(classObjectInit[i].pfnCreate));
