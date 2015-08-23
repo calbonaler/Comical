@@ -15,11 +15,10 @@ namespace Comical.Core
 	{
 		public Comic()
 		{
-			_context = SynchronizationContext.Current;
-			Images = new ImageReferenceCollection(_context);
+			Images = new ImageReferenceCollection();
 			Images.CollectionChanged += (s, ev) => IsDirty = true;
 			Images.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
-			Bookmarks = new BookmarkCollection(Images, _context);
+			Bookmarks = new BookmarkCollection();
 			Bookmarks.CollectionChanged += (s, ev) => IsDirty = true;
 			Bookmarks.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
 			PropertyChanged += (s, ev) =>
@@ -32,8 +31,7 @@ namespace Comical.Core
 					IsDirty = true;
 			};
 		}
-
-		SynchronizationContext _context;
+		
 		string _password = "";
 		bool _canDirty = true;
 		static readonly Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
@@ -176,7 +174,7 @@ namespace Comical.Core
 		{
 			using (EnterSingleOperation())
 			using (Images.EnterUnnotifiedSection())
-				await ReadFileAsync(fileName, password, new BookmarkCollection(null, null), progress).ConfigureAwait(false);
+				await ReadFileAsync(fileName, password, new BookmarkCollection(), progress).ConfigureAwait(false);
 		}
 
 		public async Task ExportAsync(string baseDirectory, IEnumerable<ImageReference> images, IProgress<int> progress)
@@ -192,7 +190,7 @@ namespace Comical.Core
 						string ext;
 						using (Bitmap bmp = new Bitmap(ms))
 							ext = Array.Find(System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders(), item => item.FormatID == bmp.RawFormat.Guid).FilenameExtension.Split(';')[0].Remove(0, 1);
-						using (FileStream fs = new FileStream(Path.Combine(baseDirectory, i.ToString(imageList.Length - 1, System.Globalization.CultureInfo.CurrentCulture) + ext), FileMode.Create, FileAccess.Write))
+						using (FileStream fs = new FileStream(Path.Combine(baseDirectory, i.ToString(System.Globalization.CultureInfo.CurrentCulture) + ext), FileMode.Create, FileAccess.Write))
 							await ms.CopyToAsync(fs).ConfigureAwait(false);
 					}
 					if (progress != null)
@@ -204,37 +202,44 @@ namespace Comical.Core
 		public async Task ExtractAsync(string fileName, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
-				await WriteFileAsync(images.ToArray(), new FileHeader(fileName, "", AssemblyVersion) { Author = Author, PageTurningDirection = PageTurningDirection }, new BookmarkCollection(null, null), progress).ConfigureAwait(false);
+				await WriteFileAsync(images.ToArray(), new FileHeader(fileName, "", AssemblyVersion) { Author = Author, PageTurningDirection = PageTurningDirection }, new BookmarkCollection(), progress).ConfigureAwait(false);
 		}
 
 		public IEnumerable<Spread> ConstructSpreads(bool simpleSpread)
 		{
-			Spread spread = null;
-			foreach (var image in Images)
+			int? left = null;
+			int? right = null;
+			for (int i = 0; i < Images.Count; i++)
 			{
-				if (simpleSpread || PageTurningDirection == PageTurningDirection.None || image.ViewMode == ImageViewMode.Default)
+				if (simpleSpread || PageTurningDirection == PageTurningDirection.None || Images[i].ViewMode == ImageViewMode.Default)
 				{
-					if (spread != null)
-						yield return spread;
-					spread = new Spread();
-					spread.SetImage(image, ImageViewMode.Default);
-					yield return spread;
-					spread = null;
+					if (left != null || right != null)
+					{
+						yield return new Spread(left, right, false);
+						left = right = null;
+					}
+					yield return new Spread(i, null, true);
 				}
 				else
 				{
-					if (spread == null)
-						spread = new Spread();
-					spread.SetImage(image, image.ViewMode);
-					if (PageTurningDirection == (PageTurningDirection)(3 - image.ViewMode))
+					if (left != null && Images[i].ViewMode == ImageViewMode.Left || right != null && Images[i].ViewMode == ImageViewMode.Right)
 					{
-						yield return spread;
-						spread = null;
+						yield return new Spread(left, right, false);
+						left = right = null;
+					}
+					if (Images[i].ViewMode == ImageViewMode.Left)
+						left = i;
+					else
+						right = i;
+					if (PageTurningDirection == (PageTurningDirection)(3 - Images[i].ViewMode))
+					{
+						yield return new Spread(left, right, false);
+						left = right = null;
 					}
 				}
 			}
-			if (spread != null)
-				yield return spread;
+			if (left != null || right != null)
+				yield return new Spread(left, right, false);
 		}
 		
 		public IDisposable EnterUndirtiableSection()
@@ -262,7 +267,7 @@ namespace Comical.Core
 				if (_busy != value)
 				{
 					_busy = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this);
 				}
 			}
 		}
@@ -276,7 +281,7 @@ namespace Comical.Core
 				if (_dirty != value && (_canDirty || !value))
 				{
 					_dirty = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this);
 				}
 			}
 		}
@@ -290,7 +295,7 @@ namespace Comical.Core
 				if (_fileVersion != value)
 				{
 					_fileVersion = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this);
 				}
 			}
 		}
@@ -304,7 +309,7 @@ namespace Comical.Core
 				if (_thumbnail != value)
 				{
 					_thumbnail = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this);
 				}
 			}
 		}
@@ -318,7 +323,7 @@ namespace Comical.Core
 				if (_title != value)
 				{
 					_title = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this);
 				}
 			}
 		}
@@ -332,7 +337,7 @@ namespace Comical.Core
 				if (_author != value)
 				{
 					_author = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this);
 				}
 			}
 		}
@@ -346,7 +351,7 @@ namespace Comical.Core
 				if (_dateOfPublication != value)
 				{
 					_dateOfPublication = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this);
 				}
 			}
 		}
@@ -360,7 +365,7 @@ namespace Comical.Core
 				if (_pageTurningDirection != value)
 				{
 					_pageTurningDirection = value;
-					PropertyChanged.Raise(this, _context);
+					PropertyChanged.Raise(this);
 				}
 			}
 		}
@@ -370,6 +375,22 @@ namespace Comical.Core
 		public BookmarkCollection Bookmarks { get; }
 		
 		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class Spread
+	{
+		public Spread(int? left, int? right, bool fillSpread)
+		{
+			Left = left;
+			Right = right;
+			FillSpread = fillSpread;
+		}
+
+		public int? Left { get; }
+
+		public int? Right { get; }
+
+		public bool FillSpread { get; }
 	}
 
 	public enum ImageViewMode

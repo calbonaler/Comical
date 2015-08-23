@@ -29,33 +29,39 @@
 		void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.Windows.Forms.Button btnOK;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionDialog));
-			this.btnOK = new System.Windows.Forms.Button();
-			this.btnCancel = new System.Windows.Forms.Button();
+			System.Windows.Forms.Button btnCancel;
+			System.Windows.Forms.Label lblDefaultSavedFileName;
+			System.Windows.Forms.ToolStripMenuItem itmTitle;
+			System.Windows.Forms.ToolStripMenuItem itmAuthor;
+			System.Windows.Forms.ToolStripMenuItem itmFormattedDate;
 			this.btnInsertMask = new System.Windows.Forms.Button();
 			this.txtDefaultSavedFileName = new System.Windows.Forms.TextBox();
-			this.lblDefaultSavedFileName = new System.Windows.Forms.Label();
 			this.conInsertMask = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.itmTitle = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmAuthor = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmFormattedDate = new System.Windows.Forms.ToolStripMenuItem();
+			btnOK = new System.Windows.Forms.Button();
+			btnCancel = new System.Windows.Forms.Button();
+			lblDefaultSavedFileName = new System.Windows.Forms.Label();
+			itmTitle = new System.Windows.Forms.ToolStripMenuItem();
+			itmAuthor = new System.Windows.Forms.ToolStripMenuItem();
+			itmFormattedDate = new System.Windows.Forms.ToolStripMenuItem();
 			this.conInsertMask.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// btnOK
 			// 
-			resources.ApplyResources(this.btnOK, "btnOK");
-			this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnOK.Name = "btnOK";
-			this.btnOK.UseVisualStyleBackColor = true;
-			this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+			resources.ApplyResources(btnOK, "btnOK");
+			btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+			btnOK.Name = "btnOK";
+			btnOK.UseVisualStyleBackColor = true;
+			btnOK.Click += new System.EventHandler(this.btnOK_Click);
 			// 
 			// btnCancel
 			// 
-			resources.ApplyResources(this.btnCancel, "btnCancel");
-			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.UseVisualStyleBackColor = true;
+			resources.ApplyResources(btnCancel, "btnCancel");
+			btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			btnCancel.Name = "btnCancel";
+			btnCancel.UseVisualStyleBackColor = true;
 			// 
 			// btnInsertMask
 			// 
@@ -71,51 +77,51 @@
 			// 
 			// lblDefaultSavedFileName
 			// 
-			resources.ApplyResources(this.lblDefaultSavedFileName, "lblDefaultSavedFileName");
-			this.lblDefaultSavedFileName.Name = "lblDefaultSavedFileName";
+			resources.ApplyResources(lblDefaultSavedFileName, "lblDefaultSavedFileName");
+			lblDefaultSavedFileName.Name = "lblDefaultSavedFileName";
 			// 
 			// conInsertMask
 			// 
 			this.conInsertMask.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmTitle,
-            this.itmAuthor,
-            this.itmFormattedDate});
+            itmTitle,
+            itmAuthor,
+            itmFormattedDate});
 			this.conInsertMask.Name = "conInsertMask";
 			this.conInsertMask.ShowImageMargin = false;
 			resources.ApplyResources(this.conInsertMask, "conInsertMask");
 			// 
 			// itmTitle
 			// 
-			this.itmTitle.Name = "itmTitle";
-			resources.ApplyResources(this.itmTitle, "itmTitle");
-			this.itmTitle.Tag = "";
-			this.itmTitle.Click += new System.EventHandler(this.InsertMaskItem_Click);
+			itmTitle.Name = "itmTitle";
+			resources.ApplyResources(itmTitle, "itmTitle");
+			itmTitle.Tag = "";
+			itmTitle.Click += new System.EventHandler(this.InsertMaskItem_Click);
 			// 
 			// itmAuthor
 			// 
-			this.itmAuthor.Name = "itmAuthor";
-			resources.ApplyResources(this.itmAuthor, "itmAuthor");
-			this.itmAuthor.Tag = "";
-			this.itmAuthor.Click += new System.EventHandler(this.InsertMaskItem_Click);
+			itmAuthor.Name = "itmAuthor";
+			resources.ApplyResources(itmAuthor, "itmAuthor");
+			itmAuthor.Tag = "";
+			itmAuthor.Click += new System.EventHandler(this.InsertMaskItem_Click);
 			// 
 			// itmFormattedDate
 			// 
-			this.itmFormattedDate.Name = "itmFormattedDate";
-			resources.ApplyResources(this.itmFormattedDate, "itmFormattedDate");
-			this.itmFormattedDate.Tag = "";
-			this.itmFormattedDate.Click += new System.EventHandler(this.InsertMaskItem_Click);
+			itmFormattedDate.Name = "itmFormattedDate";
+			resources.ApplyResources(itmFormattedDate, "itmFormattedDate");
+			itmFormattedDate.Tag = "";
+			itmFormattedDate.Click += new System.EventHandler(this.InsertMaskItem_Click);
 			// 
 			// OptionDialog
 			// 
-			this.AcceptButton = this.btnOK;
+			this.AcceptButton = btnOK;
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.CancelButton = this.btnCancel;
+			this.CancelButton = btnCancel;
 			this.Controls.Add(this.btnInsertMask);
 			this.Controls.Add(this.txtDefaultSavedFileName);
-			this.Controls.Add(this.lblDefaultSavedFileName);
-			this.Controls.Add(this.btnCancel);
-			this.Controls.Add(this.btnOK);
+			this.Controls.Add(lblDefaultSavedFileName);
+			this.Controls.Add(btnCancel);
+			this.Controls.Add(btnOK);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
@@ -131,13 +137,7 @@
 		#endregion
 
 		System.Windows.Forms.TextBox txtDefaultSavedFileName;
-		System.Windows.Forms.Label lblDefaultSavedFileName;
 		System.Windows.Forms.Button btnInsertMask;
 		System.Windows.Forms.ContextMenuStrip conInsertMask;
-		System.Windows.Forms.ToolStripMenuItem itmTitle;
-		System.Windows.Forms.ToolStripMenuItem itmAuthor;
-		System.Windows.Forms.ToolStripMenuItem itmFormattedDate;
-		private System.Windows.Forms.Button btnOK;
-		private System.Windows.Forms.Button btnCancel;
 	}
 }

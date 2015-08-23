@@ -73,33 +73,39 @@ namespace Comical
 		
 		void Comic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
-			switch (e.PropertyName)
+			this.InvokeIfNeeded(() =>
 			{
-				case nameof(_comic.Title):
-					txtTitle.Text = _comic.Title;
-					break;
-				case nameof(_comic.Author):
-					cmbAuthor.Text = _comic.Author;
-					break;
-				case nameof(_comic.DateOfPublication):
-					dtpDateOfPublication.Checked = _comic.DateOfPublication != null;
-					if (_comic.DateOfPublication != null && _comic.DateOfPublication >= dtpDateOfPublication.MinDate && _comic.DateOfPublication <= dtpDateOfPublication.MaxDate)
-						dtpDateOfPublication.Value = (DateTime)_comic.DateOfPublication;
-					break;
-				case nameof(_comic.PageTurningDirection):
-					cmbPageTurningDirection.SelectedIndex = (int)_comic.PageTurningDirection - 1;
-					break;
-				case nameof(_comic.Thumbnail):
-					LoadImage(_comic.Thumbnail);
-					break;
-			}
+				switch (e.PropertyName)
+				{
+					case nameof(_comic.Title):
+						txtTitle.Text = _comic.Title;
+						break;
+					case nameof(_comic.Author):
+						cmbAuthor.Text = _comic.Author;
+						break;
+					case nameof(_comic.DateOfPublication):
+						dtpDateOfPublication.Checked = _comic.DateOfPublication != null;
+						if (_comic.DateOfPublication != null && _comic.DateOfPublication >= dtpDateOfPublication.MinDate && _comic.DateOfPublication <= dtpDateOfPublication.MaxDate)
+							dtpDateOfPublication.Value = (DateTime)_comic.DateOfPublication;
+						break;
+					case nameof(_comic.PageTurningDirection):
+						cmbPageTurningDirection.SelectedIndex = (int)_comic.PageTurningDirection - 1;
+						break;
+					case nameof(_comic.Thumbnail):
+						LoadImage(_comic.Thumbnail);
+						break;
+				}
+			});
 		}
 
 		void ComicImageCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			lblThumbnail.Enabled = numThumbnailIndex.Enabled = btnUpdate.Enabled = _comic != null && _comic.Images.Count > 0;
-			if (_comic != null && _comic.Images.Count > 0)
-				numThumbnailIndex.Maximum = _comic.Images.Count - 1;
+			this.InvokeIfNeeded(() =>
+			{
+				lblThumbnail.Enabled = numThumbnailIndex.Enabled = btnUpdate.Enabled = _comic != null && _comic.Images.Count > 0;
+				if (_comic != null && _comic.Images.Count > 0)
+					numThumbnailIndex.Maximum = _comic.Images.Count - 1;
+			});
 		}
 
 		void btnEdit_Click(object sender, EventArgs e)

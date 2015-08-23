@@ -97,7 +97,7 @@ namespace Comical
 			}
 			conBookmarks.Items.AddRange(icd.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (sen, eve) =>
 			{
-				current = spreads.FindIndex(sp => sp.Left == b.TargetImage || sp.Right == b.TargetImage);
+				current = spreads.FindIndex(sp => sp.Left == b.Target || sp.Right == b.Target);
 				ViewCurrentPage();
 			})).ToArray());
 			spreads = new List<Spread>(icd.ConstructSpreads(false));
@@ -107,18 +107,23 @@ namespace Comical
 
 		void ViewCurrentPage()
 		{
+			if (prevMain.Image != null)
+			{
+				prevMain.Image.Dispose();
+				prevMain.Image = null;
+			}
 			if (spreads[current].Left == null)
 			{
-				prevMain.Image = spreads[current].Right.GetImage();
+				prevMain.Image = icd.Images[(int)spreads[current].Right].GetImage();
 				return;
 			}
 			if (spreads[current].Right == null)
 			{
-				prevMain.Image = spreads[current].Left.GetImage();
+				prevMain.Image = icd.Images[(int)spreads[current].Left].GetImage();
 				return;
 			}
-			using (var left = spreads[current].Left.GetImage())
-			using (var right = spreads[current].Right.GetImage())
+			using (var left = icd.Images[(int)spreads[current].Left].GetImage())
+			using (var right = icd.Images[(int)spreads[current].Right].GetImage())
 			{
 				prevMain.Image = new Bitmap(left.Width + right.Width, Math.Max(left.Height, right.Height));
 				using (Graphics g = Graphics.FromImage(prevMain.Image))

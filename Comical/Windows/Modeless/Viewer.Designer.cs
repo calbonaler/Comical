@@ -30,11 +30,13 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Viewer));
+			System.Windows.Forms.ContextMenuStrip conOption;
+			Comical.Controls.ToolStripRadioMenuItem itmOriginalSize;
 			this.itmFitToWindow = new Comical.Controls.ToolStripRadioMenuItem();
-			this.conOption = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.itmOriginalSize = new Comical.Controls.ToolStripRadioMenuItem();
 			this.preMain = new Comical.Controls.Previewer();
-			this.conOption.SuspendLayout();
+			conOption = new System.Windows.Forms.ContextMenuStrip(this.components);
+			itmOriginalSize = new Comical.Controls.ToolStripRadioMenuItem();
+			conOption.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// itmFitToWindow
@@ -49,19 +51,19 @@
 			// 
 			// conOption
 			// 
-			this.conOption.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			conOption.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmFitToWindow,
-            this.itmOriginalSize});
-			this.conOption.Name = "conOption";
-			resources.ApplyResources(this.conOption, "conOption");
+            itmOriginalSize});
+			conOption.Name = "conOption";
+			resources.ApplyResources(conOption, "conOption");
 			// 
 			// itmOriginalSize
 			// 
-			this.itmOriginalSize.CheckOnClick = true;
-			this.itmOriginalSize.Group = 0;
-			this.itmOriginalSize.Name = "itmOriginalSize";
-			resources.ApplyResources(this.itmOriginalSize, "itmOriginalSize");
-			this.itmOriginalSize.CheckedChanged += new System.EventHandler(this.itmFitToWindow_CheckedChanged);
+			itmOriginalSize.CheckOnClick = true;
+			itmOriginalSize.Group = 0;
+			itmOriginalSize.Name = "itmOriginalSize";
+			resources.ApplyResources(itmOriginalSize, "itmOriginalSize");
+			itmOriginalSize.CheckedChanged += new System.EventHandler(this.itmFitToWindow_CheckedChanged);
 			// 
 			// preMain
 			// 
@@ -77,23 +79,20 @@
 			// 
 			resources.ApplyResources(this, "$this");
 			this.BackColor = System.Drawing.Color.Black;
-			this.ContextMenuStrip = this.conOption;
+			this.ContextMenuStrip = conOption;
 			this.Controls.Add(this.preMain);
 			this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.Document)));
 			this.MinimizeBox = false;
 			this.Name = "Viewer";
 			this.ShowHint = WeifenLuo.WinFormsUI.Docking.DockState.Document;
 			this.ShowInTaskbar = false;
-			this.TabPageContextMenuStrip = this.conOption;
-			this.conOption.ResumeLayout(false);
+			this.TabPageContextMenuStrip = conOption;
+			conOption.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.ContextMenuStrip conOption;
-		private Controls.ToolStripRadioMenuItem itmOriginalSize;
 		private Controls.ToolStripRadioMenuItem itmFitToWindow;
 		private Controls.Previewer preMain;
 	}

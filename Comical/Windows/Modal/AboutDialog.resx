@@ -121,12 +121,12 @@
   <data name="lblCopyright.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
+  <data name="&gt;&gt;lblCopyright.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="txtLibraries.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
     <value>Both</value>
-  </data>
-  <data name="lblVersionHeader.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="&gt;&gt;lblVersionHeader.Name" xml:space="preserve">
     <value>lblVersionHeader</value>
@@ -162,20 +162,17 @@
   <data name="&gt;&gt;txtLibraries.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="txtLibraries.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="&gt;&gt;lblLibraries.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtLibraries.Name" xml:space="preserve">
-    <value>txtLibraries</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
   </data>
-  <data name="&gt;&gt;lblLibraries.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+  <data name="lblVersionHeader.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="&gt;&gt;lblCopyright.Name" xml:space="preserve">
     <value>lblCopyright</value>
@@ -194,9 +191,6 @@
 Html Agility Pack (Simon Mourier)
 DockPanel Suite (Weifen Luo)</value>
   </data>
-  <data name="lblLibraries.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 148</value>
-  </data>
   <data name="&gt;&gt;lblCopyright.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
@@ -206,8 +200,8 @@ DockPanel Suite (Weifen Luo)</value>
   <data name="&gt;&gt;txtLibraries.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblLibraries.Name" xml:space="preserve">
-    <value>lblLibraries</value>
+  <data name="&gt;&gt;txtLibraries.Name" xml:space="preserve">
+    <value>txtLibraries</value>
   </data>
   <data name="lblVersionHeader.Location" type="System.Drawing.Point, System.Drawing">
     <value>243, 52</value>
@@ -230,13 +224,16 @@ DockPanel Suite (Weifen Luo)</value>
   <data name="lblLibraries.Text" xml:space="preserve">
     <value>Using Libaries:</value>
   </data>
+  <data name="&gt;&gt;lblLibraries.Name" xml:space="preserve">
+    <value>lblLibraries</value>
+  </data>
   <data name="lblVersionHeader.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="txtLibraries.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
-  <data name="&gt;&gt;lblCopyright.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lblLibraries.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -570,6 +567,9 @@ DockPanel Suite (Weifen Luo)</value>
         xWKxWEMSGwiLxWKxhqCp+P98hLTvucJLoQAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="lblLibraries.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 148</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>400, 300</value>
   </data>
@@ -587,6 +587,9 @@ DockPanel Suite (Weifen Luo)</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="lblLibraries.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
   </metadata>
   <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>ja-JP</value>

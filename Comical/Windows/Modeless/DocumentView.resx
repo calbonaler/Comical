@@ -117,131 +117,602 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="splMain.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dtpDateOfPublication.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lblPageTurningDirection.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;splMain.Panel2.Parent" xml:space="preserve">
-    <value>splMain</value>
-  </data>
-  <data name="btnEdit.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 1, 0</value>
+  <data name="splMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lblPageTurningDirection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 18</value>
-  </data>
-  <data name="btnUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;lblDateOfPublication.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblAuthor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
-  <data name="&gt;&gt;btnUpdate.Name" xml:space="preserve">
-    <value>btnUpdate</value>
-  </data>
-  <data name="btnSearchOnBrowser.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;preThumbnail.Parent" xml:space="preserve">
-    <value>splMain.Panel2</value>
-  </data>
-  <data name="lblAuthor.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblCultureDependingDateOfPublication.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;lblSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblCultureDependingDateOfPublication.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="splMain.Font" type="System.Drawing.Font, System.Drawing">
+    <value>メイリオ, 9pt</value>
   </data>
   <data name="splMain.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="&gt;&gt;lblCultureDependingDateOfPublication.Name" xml:space="preserve">
-    <value>lblCultureDependingDateOfPublication</value>
-  </data>
-  <data name="lblPageTurningDirection.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;splMain.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="lblDateOfPublication.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="txtTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 28</value>
-  </data>
-  <data name="&gt;&gt;numThumbnailIndex.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lblDateOfPublication.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 18</value>
-  </data>
-  <data name="lblTitle.AutoSize" type="System.Boolean, mscorlib">
+  <metadata name="lblCultureDependingDateOfPublication.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblCultureDependingDateOfPublication.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="preThumbnail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 318</value>
-  </data>
-  <data name="lblPageTurningDirection.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>メイリオ, 9pt</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Configure Document</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.Name" xml:space="preserve">
-    <value>lblTitle</value>
-  </data>
-  <data name="dtpDateOfPublication.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>Disable</value>
-  </data>
-  <data name="&gt;&gt;splMain.Panel2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;txtTitle.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <data name="lblCultureDependingDateOfPublication.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="txtCultureDependingDateOfPublication.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="cmbAuthor.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;dtpDateOfPublication.Parent" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="lblThumbnail.Text" xml:space="preserve">
-    <value>Thu&amp;mbnail:</value>
+  <data name="lblCultureDependingDateOfPublication.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 165</value>
   </data>
   <data name="lblCultureDependingDateOfPublication.Size" type="System.Drawing.Size, System.Drawing">
     <value>240, 18</value>
   </data>
+  <data name="lblCultureDependingDateOfPublication.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="lblCultureDependingDateOfPublication.Text" xml:space="preserve">
+    <value>Date of publication (&amp;culture-depending):</value>
+  </data>
+  <data name="&gt;&gt;lblCultureDependingDateOfPublication.Name" xml:space="preserve">
+    <value>lblCultureDependingDateOfPublication</value>
+  </data>
+  <data name="&gt;&gt;lblCultureDependingDateOfPublication.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblCultureDependingDateOfPublication.Parent" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;lblCultureDependingDateOfPublication.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="txtCultureDependingDateOfPublication.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="txtCultureDependingDateOfPublication.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 187</value>
+  </data>
+  <data name="txtCultureDependingDateOfPublication.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 25</value>
+  </data>
+  <data name="txtCultureDependingDateOfPublication.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;txtCultureDependingDateOfPublication.Name" xml:space="preserve">
+    <value>txtCultureDependingDateOfPublication</value>
+  </data>
+  <data name="&gt;&gt;txtCultureDependingDateOfPublication.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtCultureDependingDateOfPublication.Parent" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;txtCultureDependingDateOfPublication.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="lblTitle.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="lblTitle.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblTitle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblTitle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 5</value>
+  </data>
+  <data name="lblTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 18</value>
+  </data>
+  <data name="lblTitle.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblTitle.Text" xml:space="preserve">
+    <value>&amp;Title:</value>
+  </data>
+  <data name="&gt;&gt;lblTitle.Name" xml:space="preserve">
+    <value>lblTitle</value>
+  </data>
+  <data name="&gt;&gt;lblTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblTitle.Parent" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;lblTitle.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="txtTitle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="txtTitle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 28</value>
+  </data>
+  <data name="txtTitle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="txtTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>285, 25</value>
+  </data>
+  <data name="txtTitle.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;txtTitle.Name" xml:space="preserve">
+    <value>txtTitle</value>
+  </data>
+  <data name="&gt;&gt;txtTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtTitle.Parent" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;txtTitle.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <metadata name="lblAuthor.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="lblAuthor.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblAuthor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblAuthor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 57</value>
+  </data>
+  <data name="lblAuthor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 18</value>
+  </data>
+  <data name="lblAuthor.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
   <data name="lblAuthor.Text" xml:space="preserve">
     <value>&amp;Author:</value>
   </data>
+  <data name="&gt;&gt;lblAuthor.Name" xml:space="preserve">
+    <value>lblAuthor</value>
+  </data>
+  <data name="&gt;&gt;lblAuthor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblAuthor.Parent" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;lblAuthor.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <metadata name="lblDateOfPublication.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="lblDateOfPublication.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblDateOfPublication.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblDateOfPublication.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 112</value>
+  </data>
+  <data name="lblDateOfPublication.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 18</value>
+  </data>
+  <data name="lblDateOfPublication.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="lblDateOfPublication.Text" xml:space="preserve">
+    <value>Date of &amp;publication:</value>
+  </data>
+  <data name="&gt;&gt;lblDateOfPublication.Name" xml:space="preserve">
+    <value>lblDateOfPublication</value>
+  </data>
+  <data name="&gt;&gt;lblDateOfPublication.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblDateOfPublication.Parent" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;lblDateOfPublication.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <metadata name="lblPageTurningDirection.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="lblPageTurningDirection.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblPageTurningDirection.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblPageTurningDirection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 217</value>
+  </data>
+  <data name="lblPageTurningDirection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 18</value>
+  </data>
+  <data name="lblPageTurningDirection.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="lblPageTurningDirection.Text" xml:space="preserve">
+    <value>Page turning &amp;direction:</value>
+  </data>
+  <data name="&gt;&gt;lblPageTurningDirection.Name" xml:space="preserve">
+    <value>lblPageTurningDirection</value>
+  </data>
+  <data name="&gt;&gt;lblPageTurningDirection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPageTurningDirection.Parent" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;lblPageTurningDirection.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="cmbAuthor.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="cmbAuthor.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="cmbAuthor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 80</value>
+  </data>
+  <data name="cmbAuthor.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="cmbAuthor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>285, 26</value>
+  </data>
+  <data name="cmbAuthor.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;cmbAuthor.Name" xml:space="preserve">
+    <value>cmbAuthor</value>
+  </data>
+  <data name="&gt;&gt;cmbAuthor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbAuthor.Parent" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;cmbAuthor.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="cmbPageTurningDirection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="cmbPageTurningDirection.Items" xml:space="preserve">
+    <value>ToLeft</value>
+  </data>
+  <data name="cmbPageTurningDirection.Items1" xml:space="preserve">
+    <value>ToRight</value>
+  </data>
+  <data name="cmbPageTurningDirection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 240</value>
+  </data>
+  <data name="cmbPageTurningDirection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>285, 26</value>
+  </data>
+  <data name="cmbPageTurningDirection.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;cmbPageTurningDirection.Name" xml:space="preserve">
+    <value>cmbPageTurningDirection</value>
+  </data>
+  <data name="&gt;&gt;cmbPageTurningDirection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbPageTurningDirection.Parent" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;cmbPageTurningDirection.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <metadata name="btnSearchOnBrowser.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="btnSearchOnBrowser.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="btnSearchOnBrowser.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnSearchOnBrowser.Location" type="System.Drawing.Point, System.Drawing">
+    <value>198, 136</value>
+  </data>
+  <data name="btnSearchOnBrowser.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="btnSearchOnBrowser.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 26</value>
+  </data>
+  <data name="btnSearchOnBrowser.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="btnSearchOnBrowser.Text" xml:space="preserve">
+    <value>&amp;Search</value>
+  </data>
+  <data name="&gt;&gt;btnSearchOnBrowser.Name" xml:space="preserve">
+    <value>btnSearchOnBrowser</value>
+  </data>
+  <data name="&gt;&gt;btnSearchOnBrowser.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnSearchOnBrowser.Parent" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;btnSearchOnBrowser.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="dtpDateOfPublication.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="dtpDateOfPublication.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Disable</value>
+  </data>
+  <data name="dtpDateOfPublication.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 135</value>
+  </data>
+  <data name="dtpDateOfPublication.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 25</value>
+  </data>
+  <data name="dtpDateOfPublication.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;dtpDateOfPublication.Name" xml:space="preserve">
+    <value>dtpDateOfPublication</value>
+  </data>
+  <data name="&gt;&gt;dtpDateOfPublication.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dtpDateOfPublication.Parent" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;dtpDateOfPublication.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;splMain.Panel1.Name" xml:space="preserve">
+    <value>splMain.Panel1</value>
+  </data>
+  <data name="&gt;&gt;splMain.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splMain.Panel1.Parent" xml:space="preserve">
+    <value>splMain</value>
+  </data>
+  <data name="&gt;&gt;splMain.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="splMain.Panel1MinSize" type="System.Int32, mscorlib">
+    <value>240</value>
+  </data>
+  <data name="btnUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="btnUpdate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>146, 27</value>
+  </data>
+  <data name="btnUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 26</value>
+  </data>
+  <data name="btnUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="btnUpdate.Text" xml:space="preserve">
+    <value>&amp;Update</value>
+  </data>
+  <data name="&gt;&gt;btnUpdate.Name" xml:space="preserve">
+    <value>btnUpdate</value>
+  </data>
+  <data name="&gt;&gt;btnUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnUpdate.Parent" xml:space="preserve">
+    <value>splMain.Panel2</value>
+  </data>
+  <data name="&gt;&gt;btnUpdate.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="numThumbnailIndex.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="numThumbnailIndex.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 29</value>
+  </data>
+  <data name="numThumbnailIndex.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 25</value>
+  </data>
+  <data name="numThumbnailIndex.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;numThumbnailIndex.Name" xml:space="preserve">
+    <value>numThumbnailIndex</value>
+  </data>
+  <data name="&gt;&gt;numThumbnailIndex.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numThumbnailIndex.Parent" xml:space="preserve">
+    <value>splMain.Panel2</value>
+  </data>
+  <data name="&gt;&gt;numThumbnailIndex.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="preThumbnail.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="preThumbnail.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="preThumbnail.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 57</value>
+  </data>
+  <data name="preThumbnail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 318</value>
+  </data>
+  <data name="preThumbnail.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;preThumbnail.Name" xml:space="preserve">
+    <value>preThumbnail</value>
+  </data>
+  <data name="&gt;&gt;preThumbnail.Type" xml:space="preserve">
+    <value>Comical.Controls.Previewer, Comical, Version=4.4.16.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;preThumbnail.Parent" xml:space="preserve">
+    <value>splMain.Panel2</value>
+  </data>
   <data name="&gt;&gt;preThumbnail.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="lblThumbnail.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblThumbnail.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblThumbnail.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-3, 5</value>
+  </data>
+  <data name="lblThumbnail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 18</value>
+  </data>
+  <data name="lblThumbnail.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblThumbnail.Text" xml:space="preserve">
+    <value>Thu&amp;mbnail:</value>
+  </data>
+  <data name="&gt;&gt;lblThumbnail.Name" xml:space="preserve">
+    <value>lblThumbnail</value>
+  </data>
+  <data name="&gt;&gt;lblThumbnail.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblThumbnail.Parent" xml:space="preserve">
+    <value>splMain.Panel2</value>
+  </data>
+  <data name="&gt;&gt;lblThumbnail.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lblSize.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="lblSize.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblSize.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-3, 385</value>
+  </data>
+  <data name="lblSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 18</value>
+  </data>
+  <data name="lblSize.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="lblSize.Text" xml:space="preserve">
+    <value>0 x 0</value>
+  </data>
+  <data name="&gt;&gt;lblSize.Name" xml:space="preserve">
+    <value>lblSize</value>
+  </data>
+  <data name="&gt;&gt;lblSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblSize.Parent" xml:space="preserve">
+    <value>splMain.Panel2</value>
+  </data>
+  <data name="&gt;&gt;lblSize.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <metadata name="btnEdit.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="btnEdit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="btnEdit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnEdit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>146, 381</value>
+  </data>
+  <data name="btnEdit.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 1, 0</value>
+  </data>
+  <data name="btnEdit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 26</value>
+  </data>
+  <data name="btnEdit.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="btnEdit.Text" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="&gt;&gt;btnEdit.Name" xml:space="preserve">
+    <value>btnEdit</value>
+  </data>
+  <data name="&gt;&gt;btnEdit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnEdit.Parent" xml:space="preserve">
+    <value>splMain.Panel2</value>
+  </data>
+  <data name="&gt;&gt;btnEdit.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;splMain.Panel2.Name" xml:space="preserve">
+    <value>splMain.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splMain.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splMain.Panel2.Parent" xml:space="preserve">
+    <value>splMain</value>
+  </data>
+  <data name="&gt;&gt;splMain.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="splMain.Panel2MinSize" type="System.Int32, mscorlib">
+    <value>180</value>
+  </data>
+  <data name="splMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>572, 416</value>
+  </data>
+  <data name="splMain.SplitterDistance" type="System.Int32, mscorlib">
+    <value>296</value>
+  </data>
+  <data name="splMain.SplitterWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="splMain.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splMain.Name" xml:space="preserve">
+    <value>splMain</value>
+  </data>
+  <data name="&gt;&gt;splMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;splMain.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>572, 416</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>メイリオ, 9pt</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -267,466 +738,16 @@
         AACABwAAgA8AAA==
 </value>
   </data>
-  <data name="btnEdit.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="lblPageTurningDirection.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 217</value>
-  </data>
-  <data name="lblDateOfPublication.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblThumbnail.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-3, 5</value>
-  </data>
-  <data name="&gt;&gt;btnUpdate.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;btnSearchOnBrowser.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="cmbPageTurningDirection.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;txtTitle.Parent" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="txtCultureDependingDateOfPublication.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 187</value>
-  </data>
-  <data name="btnEdit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>148, 381</value>
-  </data>
-  <data name="&gt;&gt;btnSearchOnBrowser.Parent" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="&gt;&gt;lblDateOfPublication.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="splMain.SplitterDistance" type="System.Int32, mscorlib">
-    <value>296</value>
-  </data>
-  <data name="splMain.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>240</value>
-  </data>
-  <data name="btnSearchOnBrowser.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
-  <data name="btnSearchOnBrowser.Location" type="System.Drawing.Point, System.Drawing">
-    <value>198, 136</value>
-  </data>
-  <data name="btnSearchOnBrowser.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;btnSearchOnBrowser.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lblAuthor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 57</value>
-  </data>
-  <data name="splMain.SplitterWidth" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;preThumbnail.Name" xml:space="preserve">
-    <value>preThumbnail</value>
-  </data>
-  <data name="&gt;&gt;splMain.Panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnUpdate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblPageTurningDirection.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="numThumbnailIndex.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 29</value>
-  </data>
-  <data name="preThumbnail.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="cmbPageTurningDirection.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 240</value>
-  </data>
-  <data name="&gt;&gt;cmbPageTurningDirection.Name" xml:space="preserve">
-    <value>cmbPageTurningDirection</value>
-  </data>
-  <data name="btnSearchOnBrowser.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;lblDateOfPublication.Parent" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="lblSize.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="splMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="numThumbnailIndex.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Configure Document</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DocumentView</value>
   </data>
-  <data name="lblTitle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 18</value>
-  </data>
-  <data name="&gt;&gt;lblThumbnail.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lblCultureDependingDateOfPublication.Text" xml:space="preserve">
-    <value>Date of publication (&amp;culture-depending):</value>
-  </data>
-  <data name="lblTitle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cmbPageTurningDirection.Items" xml:space="preserve">
-    <value>ToLeft</value>
-  </data>
-  <data name="btnEdit.Text" xml:space="preserve">
-    <value>&amp;Edit</value>
-  </data>
-  <data name="lblPageTurningDirection.Text" xml:space="preserve">
-    <value>Page turning &amp;direction:</value>
-  </data>
-  <data name="&gt;&gt;cmbPageTurningDirection.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="btnUpdate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="btnUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;lblAuthor.Name" xml:space="preserve">
-    <value>lblAuthor</value>
-  </data>
-  <data name="btnUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 26</value>
-  </data>
-  <data name="lblAuthor.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="txtTitle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>285, 25</value>
-  </data>
-  <data name="&gt;&gt;splMain.Name" xml:space="preserve">
-    <value>splMain</value>
-  </data>
-  <data name="dtpDateOfPublication.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 25</value>
-  </data>
-  <data name="&gt;&gt;numThumbnailIndex.Parent" xml:space="preserve">
-    <value>splMain.Panel2</value>
-  </data>
-  <data name="&gt;&gt;lblCultureDependingDateOfPublication.Parent" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="&gt;&gt;lblThumbnail.Name" xml:space="preserve">
-    <value>lblThumbnail</value>
-  </data>
-  <data name="txtCultureDependingDateOfPublication.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="lblAuthor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="txtTitle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="lblTitle.Text" xml:space="preserve">
-    <value>&amp;Title:</value>
-  </data>
-  <data name="btnEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 26</value>
-  </data>
-  <data name="lblCultureDependingDateOfPublication.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 165</value>
-  </data>
-  <data name="numThumbnailIndex.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 25</value>
-  </data>
-  <data name="&gt;&gt;lblAuthor.Parent" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="preThumbnail.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 57</value>
-  </data>
-  <data name="&gt;&gt;cmbAuthor.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="btnUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>148, 27</value>
-  </data>
-  <data name="lblThumbnail.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="lblSize.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;dtpDateOfPublication.Name" xml:space="preserve">
-    <value>dtpDateOfPublication</value>
-  </data>
-  <data name="btnUpdate.Text" xml:space="preserve">
-    <value>&amp;Update</value>
-  </data>
-  <data name="&gt;&gt;btnEdit.Name" xml:space="preserve">
-    <value>btnEdit</value>
-  </data>
-  <data name="&gt;&gt;cmbAuthor.Name" xml:space="preserve">
-    <value>cmbAuthor</value>
-  </data>
-  <data name="txtCultureDependingDateOfPublication.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 25</value>
-  </data>
-  <data name="cmbPageTurningDirection.Items1" xml:space="preserve">
-    <value>ToRight</value>
-  </data>
-  <data name="&gt;&gt;cmbPageTurningDirection.Parent" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmbAuthor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnEdit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblThumbnail.Parent" xml:space="preserve">
-    <value>splMain.Panel2</value>
-  </data>
-  <data name="btnEdit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;btnSearchOnBrowser.Name" xml:space="preserve">
-    <value>btnSearchOnBrowser</value>
-  </data>
-  <data name="lblAuthor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 18</value>
-  </data>
-  <data name="btnSearchOnBrowser.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 26</value>
-  </data>
-  <data name="&gt;&gt;cmbAuthor.Parent" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="lblDateOfPublication.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 112</value>
-  </data>
-  <data name="lblSize.Text" xml:space="preserve">
-    <value>0 x 0</value>
-  </data>
-  <data name="&gt;&gt;txtTitle.Name" xml:space="preserve">
-    <value>txtTitle</value>
-  </data>
-  <data name="&gt;&gt;txtCultureDependingDateOfPublication.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cmbAuthor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 80</value>
-  </data>
-  <data name="&gt;&gt;dtpDateOfPublication.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splMain.Panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dtpDateOfPublication.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Version=2.7.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
+    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Version=2.9.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
   </data>
-  <data name="&gt;&gt;dtpDateOfPublication.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;btnUpdate.Parent" xml:space="preserve">
-    <value>splMain.Panel2</value>
-  </data>
-  <data name="lblSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 18</value>
-  </data>
-  <data name="lblCultureDependingDateOfPublication.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="lblThumbnail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 18</value>
-  </data>
-  <data name="preThumbnail.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="cmbAuthor.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;splMain.Panel1.Parent" xml:space="preserve">
-    <value>splMain</value>
-  </data>
-  <data name="lblDateOfPublication.Text" xml:space="preserve">
-    <value>Date of &amp;publication:</value>
-  </data>
-  <data name="&gt;&gt;splMain.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;txtCultureDependingDateOfPublication.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="btnEdit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-3, 385</value>
-  </data>
-  <data name="dtpDateOfPublication.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 135</value>
-  </data>
-  <data name="&gt;&gt;lblSize.Name" xml:space="preserve">
-    <value>lblSize</value>
-  </data>
-  <data name="cmbPageTurningDirection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>285, 26</value>
-  </data>
-  <data name="splMain.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;btnEdit.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;txtTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splMain.Panel1.Name" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;lblCultureDependingDateOfPublication.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.Parent" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="cmbAuthor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>285, 26</value>
-  </data>
-  <data name="&gt;&gt;lblAuthor.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="txtTitle.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;preThumbnail.Type" xml:space="preserve">
-    <value>Comical.Controls.Previewer, Comical, Version=4.4.10.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;splMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lblTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 5</value>
-  </data>
-  <data name="&gt;&gt;lblPageTurningDirection.Parent" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="&gt;&gt;splMain.Panel2.Name" xml:space="preserve">
-    <value>splMain.Panel2</value>
-  </data>
-  <data name="&gt;&gt;numThumbnailIndex.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="splMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>572, 416</value>
-  </data>
-  <data name="&gt;&gt;lblDateOfPublication.Name" xml:space="preserve">
-    <value>lblDateOfPublication</value>
-  </data>
-  <data name="cmbPageTurningDirection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>572, 416</value>
-  </data>
-  <data name="lblTitle.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;txtCultureDependingDateOfPublication.Name" xml:space="preserve">
-    <value>txtCultureDependingDateOfPublication</value>
-  </data>
-  <data name="&gt;&gt;txtCultureDependingDateOfPublication.Parent" xml:space="preserve">
-    <value>splMain.Panel1</value>
-  </data>
-  <data name="&gt;&gt;lblPageTurningDirection.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;lblPageTurningDirection.Name" xml:space="preserve">
-    <value>lblPageTurningDirection</value>
-  </data>
-  <data name="&gt;&gt;splMain.Panel1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="numThumbnailIndex.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;lblThumbnail.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="lblThumbnail.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblDateOfPublication.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblSize.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="cmbAuthor.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
-  <data name="splMain.Font" type="System.Drawing.Font, System.Drawing">
-    <value>メイリオ, 9pt</value>
-  </data>
-  <data name="cmbAuthor.IntegralHeight" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;lblSize.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;btnEdit.Parent" xml:space="preserve">
-    <value>splMain.Panel2</value>
-  </data>
-  <data name="txtTitle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
-  <data name="&gt;&gt;numThumbnailIndex.Name" xml:space="preserve">
-    <value>numThumbnailIndex</value>
-  </data>
-  <data name="preThumbnail.AutoScroll" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;lblSize.Parent" xml:space="preserve">
-    <value>splMain.Panel2</value>
-  </data>
-  <data name="lblSize.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="btnSearchOnBrowser.Text" xml:space="preserve">
-    <value>&amp;Search</value>
-  </data>
-  <data name="lblThumbnail.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="splMain.Panel2MinSize" type="System.Int32, mscorlib">
-    <value>180</value>
-  </data>
-  <data name="&gt;&gt;cmbPageTurningDirection.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>ja-JP</value>
-  </metadata>
 </root>

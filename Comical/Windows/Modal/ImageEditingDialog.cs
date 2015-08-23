@@ -104,7 +104,8 @@ namespace Comical
 		static void DrawCross(Graphics g, Point center)
 		{
 			using (System.IO.MemoryStream ms = new System.IO.MemoryStream(Properties.Resources.Cross))
-				new Cursor(ms).Draw(g, new Rectangle(center.X - 15, center.Y - 15, 32, 32));
+			using (Cursor cursor = new Cursor(ms))
+				cursor.Draw(g, new Rectangle(center.X - 15, center.Y - 15, 32, 32));
 		}
 
 		Point GetVerifiedLocation(Point loc)
@@ -247,9 +248,10 @@ namespace Comical
 
 		void btnOK_Click(object sender, EventArgs e)
 		{
-			Image image = new Bitmap(ImageBounds.Width, ImageBounds.Height);
+			Image image = null;
 			try
 			{
+				image = new Bitmap(ImageBounds.Width, ImageBounds.Height);
 				using (Graphics g = Graphics.FromImage(image))
 					g.DrawImage(original, new Rectangle(0, 0, image.Width, image.Height), UnmagnifyRectangle(ImageBounds, (int)numMagnifyRatio.Value), GraphicsUnit.Pixel);
 				original = image;

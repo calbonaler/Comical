@@ -1,29 +1,15 @@
-﻿using System;
-using System.ComponentModel;
-using System.Threading;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Comical.Core
 {
-	public static class Extensions
+	/// <summary>既存のクラスを拡張するユーティリティ メソッドを提供します。</summary>
+	static class Extensions
 	{
-		internal static void SendIfNeeded(this SynchronizationContext context, Action action)
-		{
-			if (context == SynchronizationContext.Current || context == null)
-				action();
-			else
-				context.Send(_ => action(), null);
-		}
-
-		public static string ToString<T>(this T value, T exclusiveMax, IFormatProvider provider) where T : IFormattable
-		{
-			var exMax = Convert.ToDouble(exclusiveMax, provider);
-			return value.ToString(new string('0', exMax > 1 ? (int)Math.Log10(exMax - 1) + 1 : 1), provider);
-		}
-		
-		internal static void Raise(this PropertyChangedEventHandler handler, object @this, SynchronizationContext context, [System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
-		{
-			if (handler != null)
-				context.SendIfNeeded(() => handler(@this, new PropertyChangedEventArgs(propertyName)));
-		}
+		/// <summary>指定されたインスタンスおよびプロパティ名を使用して、<see cref="INotifyPropertyChanged.PropertyChanged"/> イベントを発生させます。</summary>
+		/// <param name="handler"><see cref="INotifyPropertyChanged.PropertyChanged"/> イベントを発生させるデリゲートを指定します。</param>
+		/// <param name="this"><see cref="INotifyPropertyChanged.PropertyChanged"/> イベントを発生させるインスタンスを指定します。</param>
+		/// <param name="propertyName">変更されたプロパティの名前を指定します。省略した場合はこのメソッドが呼び出されたプロパティの名前が使用されます。</param>
+		public static void Raise(this PropertyChangedEventHandler handler, object @this, [CallerMemberName]string propertyName = "") { handler?.Invoke(@this, new PropertyChangedEventArgs(propertyName)); }
 	}
 }

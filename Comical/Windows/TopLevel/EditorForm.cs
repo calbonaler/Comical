@@ -13,10 +13,6 @@ namespace Comical
 	{
 		public EditorForm()
 		{
-			// Comic オブジェクトは必ずコンストラクタ内で初期化しなければならない。
-			// メンバ変数の宣言と同時に初期化すると、Application.Run() 前であるため、
-			// SynchronizationContext.Current が null となり呼び出しがマーシャリングされない。
-			comic = new Comic();
 			comic.Images.CollectionChanged += Comic_CountChanged;
 			InitializeComponent();
 			InitializeDockingWindows();
@@ -25,7 +21,7 @@ namespace Comical
 			DesktopBounds = Properties.Settings.Default.EditorWindowBounds;
 		}
 
-		Comic comic;
+		Comic comic = new Comic();
 		string savedFilePath = string.Empty;
 		static readonly IReadOnlyList<string> imageExtensions = new [] { "bmp", "dib", "gif", "jpeg", "jpe", "jpg", "jfif", "png", "tiff", "tif", };
 		ContentsView imageList = new ContentsView();
@@ -458,6 +454,6 @@ namespace Comical
 
 		#endregion
 
-		void Comic_CountChanged(object sender, EventArgs e) { lblImageCount.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageCountStringRepresentation, comic.Images.Count); }
+		void Comic_CountChanged(object sender, EventArgs e) { this.InvokeIfNeeded(() => lblImageCount.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageCountStringRepresentation, comic.Images.Count)); }
 	}
 }

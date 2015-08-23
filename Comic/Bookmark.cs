@@ -12,8 +12,6 @@ namespace Comical.Core
 	{
 		string _name = string.Empty;
 		int _target;
-		internal IReadOnlyList<ImageReference> imageReferences;
-		internal SynchronizationContext OwnerContext;
 
 		public string Name
 		{
@@ -23,7 +21,7 @@ namespace Comical.Core
 				if (_name != value)
 				{
 					_name = value ?? string.Empty;
-					PropertyChanged.Raise(this, OwnerContext);
+					PropertyChanged.Raise(this);
 				}
 			}
 		}
@@ -36,48 +34,26 @@ namespace Comical.Core
 				if (_target != value)
 				{
 					_target = value;
-					PropertyChanged.Raise(this, OwnerContext);
-					PropertyChanged.Raise(this, OwnerContext, nameof(TargetImage));
+					PropertyChanged.Raise(this);
 				}
 			}
 		}
-
-		public ImageReference TargetImage => imageReferences?[Target];
-
+		
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
 	public class BookmarkCollection : System.Collections.ObjectModel.ObservableCollection<Bookmark>
 	{
-		public BookmarkCollection(IReadOnlyList<ImageReference> imageReferences, SynchronizationContext context)
-		{
-			_imageReferences = imageReferences;
-			_ownerContext = context;
-		}
-
-		IReadOnlyList<ImageReference> _imageReferences;
-		SynchronizationContext _ownerContext;
-
 		public event EventHandler<CompositePropertyChangedEventArgs<Bookmark>> CollectionItemPropertyChanged;
-
-		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e) { _ownerContext.SendIfNeeded(() => base.OnCollectionChanged(e)); }
-
-		protected virtual void OnCollectionItemPropertyChanged(CompositePropertyChangedEventArgs<Bookmark> e)
-		{
-			if (CollectionItemPropertyChanged != null)
-				_ownerContext.SendIfNeeded(() => CollectionItemPropertyChanged(this, e));
-		}
+		
+		protected virtual void OnCollectionItemPropertyChanged(CompositePropertyChangedEventArgs<Bookmark> e) { CollectionItemPropertyChanged?.Invoke(this, e); }
 
 		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e) { OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<Bookmark>(new[] { new KeyValuePair<Bookmark, string>((Bookmark)sender, e.PropertyName) })); }
 
 		protected override void ClearItems()
 		{
 			foreach (var item in this)
-			{
-				item.OwnerContext = null;
-				item.imageReferences = null;
 				item.PropertyChanged -= OnItemPropertyChanged;
-			}
 			base.ClearItems();
 		}
 
@@ -85,16 +61,12 @@ namespace Comical.Core
 		{
 			if (item == null)
 				throw new ArgumentNullException(nameof(item));
-			item.OwnerContext = _ownerContext;
-			item.imageReferences = _imageReferences;
 			item.PropertyChanged += OnItemPropertyChanged;
 			base.InsertItem(index, item);
 		}
 
 		protected override void RemoveItem(int index)
 		{
-			this[index].OwnerContext = null;
-			this[index].imageReferences = null;
 			this[index].PropertyChanged -= OnItemPropertyChanged;
 			base.RemoveItem(index);
 		}
@@ -103,11 +75,7 @@ namespace Comical.Core
 		{
 			if (item == null)
 				throw new ArgumentNullException(nameof(item));
-			this[index].OwnerContext = null;
-			this[index].imageReferences = null;
 			this[index].PropertyChanged -= OnItemPropertyChanged;
-			item.OwnerContext = _ownerContext;
-			item.imageReferences = _imageReferences;
 			item.PropertyChanged += OnItemPropertyChanged;
 			base.SetItem(index, item);
 		}

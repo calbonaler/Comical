@@ -60,12 +60,15 @@ namespace Comical
 
 		void ComicImageCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			lblStartIndex.Enabled = lblSelectionCount.Enabled = numStartIndex.Enabled = numSelectionCount.Enabled = btnSet.Enabled = cic != null && cic.Count > 0;
-			if (cic != null && cic.Count > 0)
+			this.InvokeIfNeeded(() =>
 			{
-				numStartIndex.Maximum = cic.Count - 1;
-				numSelectionCount.Maximum = cic.Count - numStartIndex.Value;
-			}
+				lblStartIndex.Enabled = lblSelectionCount.Enabled = numStartIndex.Enabled = numSelectionCount.Enabled = btnSet.Enabled = cic != null && cic.Count > 0;
+				if (cic != null && cic.Count > 0)
+				{
+					numStartIndex.Maximum = cic.Count - 1;
+					numSelectionCount.Maximum = cic.Count - numStartIndex.Value;
+				}
+			});
 		}
 
 		void numStartIndex_ValueChanged(object sender, EventArgs e) { numSelectionCount.Maximum = numStartIndex.Maximum - numStartIndex.Value + 1; }

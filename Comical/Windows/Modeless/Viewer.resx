@@ -119,22 +119,28 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="itmFitToWindow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="itmFitToWindow.Text" xml:space="preserve">
     <value>Fit to &amp;Window</value>
   </data>
+  <metadata name="conOption.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
   <metadata name="conOption.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="itmOriginalSize.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
   <data name="itmOriginalSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="itmOriginalSize.Text" xml:space="preserve">
     <value>&amp;Original Size</value>
   </data>
   <data name="conOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 48</value>
+    <value>153, 70</value>
   </data>
   <data name="&gt;&gt;conOption.Name" xml:space="preserve">
     <value>conOption</value>
@@ -169,7 +175,7 @@
     <value>preMain</value>
   </data>
   <data name="&gt;&gt;preMain.Type" xml:space="preserve">
-    <value>Comical.Controls.Previewer, Comical, Version=4.4.7.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Comical.Controls.Previewer, Comical, Version=4.4.16.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;preMain.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1596,18 +1602,18 @@
     <value>itmFitToWindow</value>
   </data>
   <data name="&gt;&gt;itmFitToWindow.Type" xml:space="preserve">
-    <value>Comical.Controls.ToolStripRadioMenuItem, Comical, Version=4.4.7.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Comical.Controls.ToolStripRadioMenuItem, Comical, Version=4.4.16.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;itmOriginalSize.Name" xml:space="preserve">
     <value>itmOriginalSize</value>
   </data>
   <data name="&gt;&gt;itmOriginalSize.Type" xml:space="preserve">
-    <value>Comical.Controls.ToolStripRadioMenuItem, Comical, Version=4.4.7.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Comical.Controls.ToolStripRadioMenuItem, Comical, Version=4.4.16.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Viewer</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Version=2.7.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
+    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Version=2.9.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
   </data>
 </root>

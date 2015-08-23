@@ -117,13 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="numSelectionCount.Font" type="System.Drawing.Font, System.Drawing">
-    <value>メイリオ, 9pt</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>284, 262</value>
-  </data>
   <data name="&gt;&gt;radRightStart.Name" xml:space="preserve">
     <value>radRightStart</value>
   </data>
@@ -143,6 +136,7 @@
   <data name="btnSet.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="numStartIndex.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 25</value>
   </data>
@@ -152,21 +146,24 @@
   <data name="&gt;&gt;lblSelectionCount.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btnSet.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 1, 3</value>
+  <data name="&gt;&gt;numStartIndex.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>ViewModeSettingsView</value>
+  </data>
+  <data name="numStartIndex.Location" type="System.Drawing.Point, System.Drawing">
+    <value>122, 12</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnSet.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 1, 3</value>
   </data>
   <data name="&gt;&gt;numStartIndex.Name" xml:space="preserve">
     <value>numStartIndex</value>
   </data>
   <data name="lblStartIndex.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>メイリオ, 9pt</value>
   </data>
   <data name="radRightStart.Location" type="System.Drawing.Point, System.Drawing">
     <value>116, 86</value>
@@ -195,9 +192,6 @@
   <data name="&gt;&gt;numSelectionCount.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnSet.Name" xml:space="preserve">
-    <value>btnSet</value>
-  </data>
   <data name="&gt;&gt;lblStartIndex.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
@@ -222,6 +216,9 @@
   <data name="&gt;&gt;lblSelectionCount.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="&gt;&gt;radLeftStart.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="numSelectionCount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -231,8 +228,8 @@
   <data name="btnSet.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 26</value>
   </data>
-  <data name="&gt;&gt;numSelectionCount.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>メイリオ, 9pt</value>
   </data>
   <data name="&gt;&gt;btnSet.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -243,9 +240,6 @@
   <data name="&gt;&gt;radLeftStart.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="radRightStart.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
   <data name="lblSelectionCount.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 45</value>
   </data>
@@ -255,8 +249,11 @@
   <data name="lblSelectionCount.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="numStartIndex.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 12</value>
+  <data name="radRightStart.Font" type="System.Drawing.Font, System.Drawing">
+    <value>メイリオ, 9pt</value>
+  </data>
+  <data name="numSelectionCount.Font" type="System.Drawing.Font, System.Drawing">
+    <value>メイリオ, 9pt</value>
   </data>
   <data name="&gt;&gt;btnSet.Parent" xml:space="preserve">
     <value>$this</value>
@@ -298,20 +295,23 @@
   <data name="btnSet.Font" type="System.Drawing.Font, System.Drawing">
     <value>メイリオ, 9pt</value>
   </data>
+  <data name="&gt;&gt;lblStartIndex.Name" xml:space="preserve">
+    <value>lblStartIndex</value>
+  </data>
   <data name="&gt;&gt;lblSelectionCount.Name" xml:space="preserve">
     <value>lblSelectionCount</value>
   </data>
   <data name="&gt;&gt;radLeftStart.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;numStartIndex.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;btnSet.Name" xml:space="preserve">
+    <value>btnSet</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Configure View Mode Automatically</value>
   </data>
-  <data name="btnSet.Text" xml:space="preserve">
-    <value>Set</value>
+  <data name="&gt;&gt;numSelectionCount.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="numSelectionCount.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 25</value>
@@ -331,14 +331,14 @@
   <data name="&gt;&gt;numSelectionCount.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;radLeftStart.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="radRightStart.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
   <data name="numStartIndex.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="&gt;&gt;lblStartIndex.Name" xml:space="preserve">
-    <value>lblStartIndex</value>
+  <data name="btnSet.Text" xml:space="preserve">
+    <value>Set</value>
   </data>
   <data name="&gt;&gt;numSelectionCount.Name" xml:space="preserve">
     <value>numSelectionCount</value>
@@ -352,11 +352,11 @@
   <data name="radRightStart.Text" xml:space="preserve">
     <value>Start at &amp;right</value>
   </data>
-  <data name="radRightStart.Font" type="System.Drawing.Font, System.Drawing">
-    <value>メイリオ, 9pt</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>284, 262</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Version=2.7.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
+    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Version=2.9.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
@@ -369,5 +369,8 @@
   </metadata>
   <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>ja-JP</value>
+  </metadata>
+  <metadata name="radRightStart.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
   </metadata>
 </root>

@@ -28,19 +28,20 @@
 		/// </summary>
 		void InitializeComponent()
 		{
+			System.Windows.Forms.Label lblLibraries;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
-			this.lblLibraries = new System.Windows.Forms.Label();
 			this.lblVersionHeader = new System.Windows.Forms.Label();
 			this.lblCopyright = new System.Windows.Forms.Label();
 			this.txtLibraries = new System.Windows.Forms.TextBox();
+			lblLibraries = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// lblLibraries
 			// 
-			resources.ApplyResources(this.lblLibraries, "lblLibraries");
-			this.lblLibraries.BackColor = System.Drawing.Color.Transparent;
-			this.lblLibraries.Name = "lblLibraries";
-			this.lblLibraries.Click += new System.EventHandler(this.SplashScreen_Click);
+			resources.ApplyResources(lblLibraries, "lblLibraries");
+			lblLibraries.BackColor = System.Drawing.Color.Transparent;
+			lblLibraries.Name = "lblLibraries";
+			lblLibraries.Click += new System.EventHandler(this.SplashScreen_Click);
 			// 
 			// lblVersionHeader
 			// 
@@ -69,7 +70,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.txtLibraries);
 			this.Controls.Add(this.lblCopyright);
-			this.Controls.Add(this.lblLibraries);
+			this.Controls.Add(lblLibraries);
 			this.Controls.Add(this.lblVersionHeader);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.MaximizeBox = false;
@@ -86,7 +87,6 @@
 		#endregion
 
 		System.Windows.Forms.Label lblVersionHeader;
-		private System.Windows.Forms.Label lblLibraries;
 		private System.Windows.Forms.Label lblCopyright;
 		private System.Windows.Forms.TextBox txtLibraries;
 	}

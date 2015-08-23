@@ -29,8 +29,8 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.Windows.Forms.ContextMenuStrip conBookmark;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookmarksView));
-			this.conBookmark = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.itmSelectTarget = new System.Windows.Forms.ToolStripMenuItem();
 			this.sepBookmark1 = new System.Windows.Forms.ToolStripSeparator();
 			this.itmAdd = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,14 +41,15 @@
 			this.dgvBookmarks = new Comical.Controls.DraggableDataGridView();
 			this.clmName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.clmTarget = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.conBookmark.SuspendLayout();
+			conBookmark = new System.Windows.Forms.ContextMenuStrip(this.components);
+			conBookmark.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvBookmarks)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// conBookmark
 			// 
-			resources.ApplyResources(this.conBookmark, "conBookmark");
-			this.conBookmark.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			resources.ApplyResources(conBookmark, "conBookmark");
+			conBookmark.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmSelectTarget,
             this.sepBookmark1,
             this.itmAdd,
@@ -56,7 +57,7 @@
             this.itmInsertBelow,
             this.sepBookmark2,
             this.itmRemove});
-			this.conBookmark.Name = "conBookmark";
+			conBookmark.Name = "conBookmark";
 			// 
 			// itmSelectTarget
 			// 
@@ -115,7 +116,7 @@
 			this.dgvBookmarks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmName,
             this.clmTarget});
-			this.dgvBookmarks.ContextMenuStrip = this.conBookmark;
+			this.dgvBookmarks.ContextMenuStrip = conBookmark;
 			this.dgvBookmarks.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
 			this.dgvBookmarks.GridColor = System.Drawing.SystemColors.Control;
 			this.dgvBookmarks.Name = "dgvBookmarks";
@@ -159,7 +160,7 @@
 			this.Controls.Add(this.dgvBookmarks);
 			this.HideOnClose = true;
 			this.Name = "BookmarksView";
-			this.conBookmark.ResumeLayout(false);
+			conBookmark.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgvBookmarks)).EndInit();
 			this.ResumeLayout(false);
 
@@ -170,7 +171,6 @@
 		private Controls.DraggableDataGridView dgvBookmarks;
 		private System.Windows.Forms.DataGridViewTextBoxColumn clmName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn clmTarget;
-		private System.Windows.Forms.ContextMenuStrip conBookmark;
 		private System.Windows.Forms.ToolStripMenuItem itmSelectTarget;
 		private System.Windows.Forms.ToolStripSeparator sepBookmark1;
 		private System.Windows.Forms.ToolStripMenuItem itmAdd;

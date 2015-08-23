@@ -29,8 +29,8 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.Windows.Forms.ContextMenuStrip conImage;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContentsView));
-			this.conImage = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.itmOpen = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmDelete = new System.Windows.Forms.ToolStripMenuItem();
 			this.sepImage1 = new System.Windows.Forms.ToolStripSeparator();
@@ -41,13 +41,14 @@
 			this.dgvImages = new Comical.Controls.DraggableDataGridView();
 			this.clmImage = new System.Windows.Forms.DataGridViewImageColumn();
 			this.clmViewMode = new System.Windows.Forms.DataGridViewComboBoxColumn();
-			this.conImage.SuspendLayout();
+			conImage = new System.Windows.Forms.ContextMenuStrip(this.components);
+			conImage.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvImages)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// conImage
 			// 
-			this.conImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			conImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmOpen,
             this.itmDelete,
             this.sepImage1,
@@ -55,8 +56,8 @@
             this.itmExtract,
             this.sepImage2,
             this.itmAddToBookmark});
-			this.conImage.Name = "conImage";
-			resources.ApplyResources(this.conImage, "conImage");
+			conImage.Name = "conImage";
+			resources.ApplyResources(conImage, "conImage");
 			// 
 			// itmOpen
 			// 
@@ -111,7 +112,7 @@
 			this.dgvImages.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmImage,
             this.clmViewMode});
-			this.dgvImages.ContextMenuStrip = this.conImage;
+			this.dgvImages.ContextMenuStrip = conImage;
 			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
 			this.dgvImages.GridColor = System.Drawing.SystemColors.Control;
@@ -154,7 +155,7 @@
 			this.Controls.Add(this.dgvImages);
 			this.HideOnClose = true;
 			this.Name = "ContentsView";
-			this.conImage.ResumeLayout(false);
+			conImage.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgvImages)).EndInit();
 			this.ResumeLayout(false);
 
@@ -165,7 +166,6 @@
 		private System.Windows.Forms.DataGridViewImageColumn clmImage;
 		private System.Windows.Forms.DataGridViewComboBoxColumn clmViewMode;
 		private Controls.DraggableDataGridView dgvImages;
-		private System.Windows.Forms.ContextMenuStrip conImage;
 		private System.Windows.Forms.ToolStripMenuItem itmOpen;
 		private System.Windows.Forms.ToolStripMenuItem itmDelete;
 		private System.Windows.Forms.ToolStripSeparator sepImage1;

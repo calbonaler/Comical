@@ -142,16 +142,22 @@ namespace Comical
 
 		private void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			RefreshMenuVisibility();
-			dgvBookmarks.Invalidate();
+			this.InvokeIfNeeded(() =>
+            {
+				RefreshMenuVisibility();
+				dgvBookmarks.Invalidate();
+			});
 		}
 
 		private void dgvBookmarks_SelectionChanged(object sender, EventArgs e) { RefreshMenuVisibility(); }
 
 		private void Bookmarks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			dgvBookmarks.RowCount = _bookmarks.Count;
-			dgvBookmarks.Invalidate();
+			this.InvokeIfNeeded(() =>
+			{
+				dgvBookmarks.RowCount = _bookmarks.Count;
+				dgvBookmarks.Invalidate();
+			});
 		}
 
 		private void dgvBookmarks_CellDoubleClick(object sender, DataGridViewCellEventArgs e) { OnBookmarkNavigated(new BookmarkNavigatedEventArgs(_bookmarks[e.RowIndex])); }

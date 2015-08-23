@@ -28,22 +28,24 @@
 		/// </summary>
 		void InitializeComponent()
 		{
+			System.Windows.Forms.Button btnCancel;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PasswordDialog));
-			this.btnCancel = new System.Windows.Forms.Button();
+			System.Windows.Forms.Button btnOK;
 			this.txtPassword = new System.Windows.Forms.TextBox();
 			this.lblConfirmationPassword = new System.Windows.Forms.Label();
 			this.txtConfirmationPassword = new System.Windows.Forms.TextBox();
-			this.btnOK = new System.Windows.Forms.Button();
 			this.lblPassword = new System.Windows.Forms.Label();
+			btnCancel = new System.Windows.Forms.Button();
+			btnOK = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// btnCancel
 			// 
-			resources.ApplyResources(this.btnCancel, "btnCancel");
-			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.UseVisualStyleBackColor = true;
-			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			resources.ApplyResources(btnCancel, "btnCancel");
+			btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			btnCancel.Name = "btnCancel";
+			btnCancel.UseVisualStyleBackColor = true;
+			btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
 			// txtPassword
 			// 
@@ -65,10 +67,10 @@
 			// 
 			// btnOK
 			// 
-			resources.ApplyResources(this.btnOK, "btnOK");
-			this.btnOK.Name = "btnOK";
-			this.btnOK.UseVisualStyleBackColor = true;
-			this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+			resources.ApplyResources(btnOK, "btnOK");
+			btnOK.Name = "btnOK";
+			btnOK.UseVisualStyleBackColor = true;
+			btnOK.Click += new System.EventHandler(this.btnOK_Click);
 			// 
 			// lblPassword
 			// 
@@ -78,12 +80,12 @@
 			// 
 			// PasswordDialog
 			// 
-			this.AcceptButton = this.btnOK;
+			this.AcceptButton = btnOK;
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.CancelButton = this.btnCancel;
-			this.Controls.Add(this.btnOK);
-			this.Controls.Add(this.btnCancel);
+			this.CancelButton = btnCancel;
+			this.Controls.Add(btnOK);
+			this.Controls.Add(btnCancel);
 			this.Controls.Add(this.lblPassword);
 			this.Controls.Add(this.txtPassword);
 			this.Controls.Add(this.txtConfirmationPassword);
@@ -94,8 +96,8 @@
 			this.Controls.SetChildIndex(this.txtConfirmationPassword, 0);
 			this.Controls.SetChildIndex(this.txtPassword, 0);
 			this.Controls.SetChildIndex(this.lblPassword, 0);
-			this.Controls.SetChildIndex(this.btnCancel, 0);
-			this.Controls.SetChildIndex(this.btnOK, 0);
+			this.Controls.SetChildIndex(btnCancel, 0);
+			this.Controls.SetChildIndex(btnOK, 0);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -106,8 +108,6 @@
 		System.Windows.Forms.TextBox txtPassword;
 		System.Windows.Forms.TextBox txtConfirmationPassword;
 		System.Windows.Forms.Label lblConfirmationPassword;
-		System.Windows.Forms.Button btnOK;
-		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Label lblPassword;
 
 	}

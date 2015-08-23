@@ -28,66 +28,72 @@
 		/// </summary>
 		void InitializeComponent()
 		{
+			System.Windows.Forms.SplitContainer splMain;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentView));
-			this.splMain = new System.Windows.Forms.SplitContainer();
-			this.lblCultureDependingDateOfPublication = new System.Windows.Forms.Label();
+			System.Windows.Forms.Label lblCultureDependingDateOfPublication;
+			System.Windows.Forms.Label lblTitle;
+			System.Windows.Forms.Label lblAuthor;
+			System.Windows.Forms.Label lblDateOfPublication;
+			System.Windows.Forms.Label lblPageTurningDirection;
+			System.Windows.Forms.Button btnSearchOnBrowser;
+			System.Windows.Forms.Button btnEdit;
 			this.txtCultureDependingDateOfPublication = new System.Windows.Forms.TextBox();
-			this.lblTitle = new System.Windows.Forms.Label();
 			this.txtTitle = new System.Windows.Forms.TextBox();
-			this.lblAuthor = new System.Windows.Forms.Label();
-			this.lblDateOfPublication = new System.Windows.Forms.Label();
-			this.lblPageTurningDirection = new System.Windows.Forms.Label();
 			this.cmbAuthor = new System.Windows.Forms.ComboBox();
 			this.cmbPageTurningDirection = new System.Windows.Forms.ComboBox();
-			this.btnSearchOnBrowser = new System.Windows.Forms.Button();
 			this.dtpDateOfPublication = new System.Windows.Forms.DateTimePicker();
 			this.btnUpdate = new System.Windows.Forms.Button();
 			this.numThumbnailIndex = new System.Windows.Forms.NumericUpDown();
 			this.preThumbnail = new Comical.Controls.Previewer();
 			this.lblThumbnail = new System.Windows.Forms.Label();
 			this.lblSize = new System.Windows.Forms.Label();
-			this.btnEdit = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this.splMain)).BeginInit();
-			this.splMain.Panel1.SuspendLayout();
-			this.splMain.Panel2.SuspendLayout();
-			this.splMain.SuspendLayout();
+			splMain = new System.Windows.Forms.SplitContainer();
+			lblCultureDependingDateOfPublication = new System.Windows.Forms.Label();
+			lblTitle = new System.Windows.Forms.Label();
+			lblAuthor = new System.Windows.Forms.Label();
+			lblDateOfPublication = new System.Windows.Forms.Label();
+			lblPageTurningDirection = new System.Windows.Forms.Label();
+			btnSearchOnBrowser = new System.Windows.Forms.Button();
+			btnEdit = new System.Windows.Forms.Button();
+			((System.ComponentModel.ISupportInitialize)(splMain)).BeginInit();
+			splMain.Panel1.SuspendLayout();
+			splMain.Panel2.SuspendLayout();
+			splMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numThumbnailIndex)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// splMain
 			// 
-			resources.ApplyResources(this.splMain, "splMain");
-			this.splMain.Name = "splMain";
+			resources.ApplyResources(splMain, "splMain");
+			splMain.Name = "splMain";
 			// 
 			// splMain.Panel1
 			// 
-			resources.ApplyResources(this.splMain.Panel1, "splMain.Panel1");
-			this.splMain.Panel1.Controls.Add(this.lblCultureDependingDateOfPublication);
-			this.splMain.Panel1.Controls.Add(this.txtCultureDependingDateOfPublication);
-			this.splMain.Panel1.Controls.Add(this.lblTitle);
-			this.splMain.Panel1.Controls.Add(this.txtTitle);
-			this.splMain.Panel1.Controls.Add(this.lblAuthor);
-			this.splMain.Panel1.Controls.Add(this.lblDateOfPublication);
-			this.splMain.Panel1.Controls.Add(this.lblPageTurningDirection);
-			this.splMain.Panel1.Controls.Add(this.cmbAuthor);
-			this.splMain.Panel1.Controls.Add(this.cmbPageTurningDirection);
-			this.splMain.Panel1.Controls.Add(this.btnSearchOnBrowser);
-			this.splMain.Panel1.Controls.Add(this.dtpDateOfPublication);
+			splMain.Panel1.Controls.Add(lblCultureDependingDateOfPublication);
+			splMain.Panel1.Controls.Add(this.txtCultureDependingDateOfPublication);
+			splMain.Panel1.Controls.Add(lblTitle);
+			splMain.Panel1.Controls.Add(this.txtTitle);
+			splMain.Panel1.Controls.Add(lblAuthor);
+			splMain.Panel1.Controls.Add(lblDateOfPublication);
+			splMain.Panel1.Controls.Add(lblPageTurningDirection);
+			splMain.Panel1.Controls.Add(this.cmbAuthor);
+			splMain.Panel1.Controls.Add(this.cmbPageTurningDirection);
+			splMain.Panel1.Controls.Add(btnSearchOnBrowser);
+			splMain.Panel1.Controls.Add(this.dtpDateOfPublication);
 			// 
 			// splMain.Panel2
 			// 
-			resources.ApplyResources(this.splMain.Panel2, "splMain.Panel2");
-			this.splMain.Panel2.Controls.Add(this.btnUpdate);
-			this.splMain.Panel2.Controls.Add(this.numThumbnailIndex);
-			this.splMain.Panel2.Controls.Add(this.preThumbnail);
-			this.splMain.Panel2.Controls.Add(this.lblThumbnail);
-			this.splMain.Panel2.Controls.Add(this.lblSize);
-			this.splMain.Panel2.Controls.Add(this.btnEdit);
+			splMain.Panel2.Controls.Add(this.btnUpdate);
+			splMain.Panel2.Controls.Add(this.numThumbnailIndex);
+			splMain.Panel2.Controls.Add(this.preThumbnail);
+			splMain.Panel2.Controls.Add(this.lblThumbnail);
+			splMain.Panel2.Controls.Add(this.lblSize);
+			splMain.Panel2.Controls.Add(btnEdit);
 			// 
 			// lblCultureDependingDateOfPublication
 			// 
-			resources.ApplyResources(this.lblCultureDependingDateOfPublication, "lblCultureDependingDateOfPublication");
-			this.lblCultureDependingDateOfPublication.Name = "lblCultureDependingDateOfPublication";
+			resources.ApplyResources(lblCultureDependingDateOfPublication, "lblCultureDependingDateOfPublication");
+			lblCultureDependingDateOfPublication.Name = "lblCultureDependingDateOfPublication";
 			// 
 			// txtCultureDependingDateOfPublication
 			// 
@@ -97,8 +103,8 @@
 			// 
 			// lblTitle
 			// 
-			resources.ApplyResources(this.lblTitle, "lblTitle");
-			this.lblTitle.Name = "lblTitle";
+			resources.ApplyResources(lblTitle, "lblTitle");
+			lblTitle.Name = "lblTitle";
 			// 
 			// txtTitle
 			// 
@@ -108,18 +114,18 @@
 			// 
 			// lblAuthor
 			// 
-			resources.ApplyResources(this.lblAuthor, "lblAuthor");
-			this.lblAuthor.Name = "lblAuthor";
+			resources.ApplyResources(lblAuthor, "lblAuthor");
+			lblAuthor.Name = "lblAuthor";
 			// 
 			// lblDateOfPublication
 			// 
-			resources.ApplyResources(this.lblDateOfPublication, "lblDateOfPublication");
-			this.lblDateOfPublication.Name = "lblDateOfPublication";
+			resources.ApplyResources(lblDateOfPublication, "lblDateOfPublication");
+			lblDateOfPublication.Name = "lblDateOfPublication";
 			// 
 			// lblPageTurningDirection
 			// 
-			resources.ApplyResources(this.lblPageTurningDirection, "lblPageTurningDirection");
-			this.lblPageTurningDirection.Name = "lblPageTurningDirection";
+			resources.ApplyResources(lblPageTurningDirection, "lblPageTurningDirection");
+			lblPageTurningDirection.Name = "lblPageTurningDirection";
 			// 
 			// cmbAuthor
 			// 
@@ -142,10 +148,10 @@
 			// 
 			// btnSearchOnBrowser
 			// 
-			resources.ApplyResources(this.btnSearchOnBrowser, "btnSearchOnBrowser");
-			this.btnSearchOnBrowser.Name = "btnSearchOnBrowser";
-			this.btnSearchOnBrowser.UseVisualStyleBackColor = true;
-			this.btnSearchOnBrowser.Click += new System.EventHandler(this.btnSearchOnBrowser_Click);
+			resources.ApplyResources(btnSearchOnBrowser, "btnSearchOnBrowser");
+			btnSearchOnBrowser.Name = "btnSearchOnBrowser";
+			btnSearchOnBrowser.UseVisualStyleBackColor = true;
+			btnSearchOnBrowser.Click += new System.EventHandler(this.btnSearchOnBrowser_Click);
 			// 
 			// dtpDateOfPublication
 			// 
@@ -187,23 +193,23 @@
 			// 
 			// btnEdit
 			// 
-			resources.ApplyResources(this.btnEdit, "btnEdit");
-			this.btnEdit.Name = "btnEdit";
-			this.btnEdit.UseVisualStyleBackColor = true;
-			this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+			resources.ApplyResources(btnEdit, "btnEdit");
+			btnEdit.Name = "btnEdit";
+			btnEdit.UseVisualStyleBackColor = true;
+			btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
 			// 
 			// DocumentView
 			// 
 			resources.ApplyResources(this, "$this");
-			this.Controls.Add(this.splMain);
+			this.Controls.Add(splMain);
 			this.HideOnClose = true;
 			this.Name = "DocumentView";
-			this.splMain.Panel1.ResumeLayout(false);
-			this.splMain.Panel1.PerformLayout();
-			this.splMain.Panel2.ResumeLayout(false);
-			this.splMain.Panel2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.splMain)).EndInit();
-			this.splMain.ResumeLayout(false);
+			splMain.Panel1.ResumeLayout(false);
+			splMain.Panel1.PerformLayout();
+			splMain.Panel2.ResumeLayout(false);
+			splMain.Panel2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(splMain)).EndInit();
+			splMain.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.numThumbnailIndex)).EndInit();
 			this.ResumeLayout(false);
 
@@ -216,18 +222,10 @@
 		System.Windows.Forms.DateTimePicker dtpDateOfPublication;
 		System.Windows.Forms.Label lblSize;
 		private System.Windows.Forms.ComboBox cmbPageTurningDirection;
-		private System.Windows.Forms.SplitContainer splMain;
 		private System.Windows.Forms.Label lblThumbnail;
 		private Controls.Previewer preThumbnail;
-		private System.Windows.Forms.Label lblTitle;
-		private System.Windows.Forms.Label lblAuthor;
-		private System.Windows.Forms.Label lblDateOfPublication;
-		private System.Windows.Forms.Button btnEdit;
-		private System.Windows.Forms.Button btnSearchOnBrowser;
-		private System.Windows.Forms.Label lblPageTurningDirection;
 		private System.Windows.Forms.NumericUpDown numThumbnailIndex;
 		private System.Windows.Forms.Button btnUpdate;
-		private System.Windows.Forms.Label lblCultureDependingDateOfPublication;
 		private System.Windows.Forms.TextBox txtCultureDependingDateOfPublication;
 	}
 }

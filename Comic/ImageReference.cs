@@ -18,7 +18,6 @@ namespace Comical.Core
 		}
 
 		byte[] _data;
-		internal SynchronizationContext OwnerContext;
 		ImageViewMode _mode;
 
 		public ImageViewMode ViewMode
@@ -29,7 +28,7 @@ namespace Comical.Core
 				if (value != _mode)
 				{
 					_mode = value;
-					PropertyChanged.Raise(this, OwnerContext);
+					PropertyChanged.Raise(this);
 				}
 			}
 		}
@@ -89,9 +88,6 @@ namespace Comical.Core
 
 	public class ImageReferenceCollection : IList<ImageReference>, IReadOnlyList<ImageReference>, INotifyCollectionChanged
 	{
-		public ImageReferenceCollection(SynchronizationContext context) { _ownerContext = context; }
-
-		SynchronizationContext _ownerContext;
 		List<ImageReference> _references = new List<ImageReference>();
 		bool _notificationSuspended = false;
 		bool _collectionChanged = false;
@@ -104,7 +100,6 @@ namespace Comical.Core
 				for (int i = _references.Count - 1; i >= 0; i--)
 				{
 					_references[i].PropertyChanged -= OnItemPropertyChanged;
-					_references[i].OwnerContext = null;
 					_references.RemoveAt(i);
 				}
 			}
@@ -118,7 +113,6 @@ namespace Comical.Core
 				if (item == null)
 					throw new ArgumentNullException(nameof(item));
 				item.PropertyChanged += OnItemPropertyChanged;
-				item.OwnerContext = _ownerContext;
 				_references.Insert(index, item);
 			}
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
@@ -147,10 +141,8 @@ namespace Comical.Core
 					throw new ArgumentNullException(nameof(item));
 				oldItem = _references[index];
 				oldItem.PropertyChanged -= OnItemPropertyChanged;
-				oldItem.OwnerContext = null;
 				_references[index] = item;
 				item.PropertyChanged += OnItemPropertyChanged;
-				item.OwnerContext = _ownerContext;
 			}
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, item, oldItem, index));
 		}
@@ -164,7 +156,6 @@ namespace Comical.Core
 					return false;
 				item = _references[index];
 				item.PropertyChanged -= OnItemPropertyChanged;
-				item.OwnerContext = null;
 				_references.RemoveAt(index);
 			}
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
@@ -207,20 +198,13 @@ namespace Comical.Core
 
 		protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
 		{
-			if (CollectionChanged != null)
-			{
-				if (_notificationSuspended)
-					_collectionChanged = true;
-				else
-					_ownerContext.SendIfNeeded(() => CollectionChanged(this, e));
-			}
+			if (_notificationSuspended)
+				_collectionChanged = true;
+			else if (CollectionChanged != null)
+				CollectionChanged(this, e);
 		}
 
-		protected virtual void OnCollectionItemPropertyChanged(CompositePropertyChangedEventArgs<ImageReference> e)
-		{
-			if (CollectionItemPropertyChanged != null)
-				_ownerContext.SendIfNeeded(() => CollectionItemPropertyChanged(this, e));
-		}
+		protected virtual void OnCollectionItemPropertyChanged(CompositePropertyChangedEventArgs<ImageReference> e) { CollectionItemPropertyChanged?.Invoke(this, e); }
 
 		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{

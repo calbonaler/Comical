@@ -29,13 +29,14 @@
 		void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewModeSettingsView));
+			System.Windows.Forms.RadioButton radRightStart;
 			this.lblStartIndex = new System.Windows.Forms.Label();
 			this.lblSelectionCount = new System.Windows.Forms.Label();
 			this.btnSet = new System.Windows.Forms.Button();
 			this.numStartIndex = new System.Windows.Forms.NumericUpDown();
 			this.numSelectionCount = new System.Windows.Forms.NumericUpDown();
 			this.radLeftStart = new System.Windows.Forms.RadioButton();
-			this.radRightStart = new System.Windows.Forms.RadioButton();
+			radRightStart = new System.Windows.Forms.RadioButton();
 			((System.ComponentModel.ISupportInitialize)(this.numStartIndex)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numSelectionCount)).BeginInit();
 			this.SuspendLayout();
@@ -79,16 +80,16 @@
 			// 
 			// radRightStart
 			// 
-			resources.ApplyResources(this.radRightStart, "radRightStart");
-			this.radRightStart.Name = "radRightStart";
-			this.radRightStart.UseVisualStyleBackColor = true;
+			resources.ApplyResources(radRightStart, "radRightStart");
+			radRightStart.Name = "radRightStart";
+			radRightStart.UseVisualStyleBackColor = true;
 			// 
 			// ViewModeSettingsView
 			// 
 			this.AcceptButton = this.btnSet;
 			resources.ApplyResources(this, "$this");
 			this.Controls.Add(this.btnSet);
-			this.Controls.Add(this.radRightStart);
+			this.Controls.Add(radRightStart);
 			this.Controls.Add(this.radLeftStart);
 			this.Controls.Add(this.numSelectionCount);
 			this.Controls.Add(this.lblSelectionCount);
@@ -108,7 +109,6 @@
 		System.Windows.Forms.NumericUpDown numStartIndex;
 		System.Windows.Forms.NumericUpDown numSelectionCount;
 		System.Windows.Forms.RadioButton radLeftStart;
-		System.Windows.Forms.RadioButton radRightStart;
 		private System.Windows.Forms.Button btnSet;
 		private System.Windows.Forms.Label lblStartIndex;
 		private System.Windows.Forms.Label lblSelectionCount;

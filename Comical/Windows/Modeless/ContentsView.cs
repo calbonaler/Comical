@@ -102,20 +102,26 @@ namespace Comical
 
 		void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			dgvImages.RowCount = _images.Count;
-			if (_images.Count == 0 && DefaultViewer != null)
-				DefaultViewer.Image = null;
-			dgvImages.Invalidate();
+			this.InvokeIfNeeded(() =>
+			{
+				dgvImages.RowCount = _images.Count;
+				if (_images.Count == 0 && DefaultViewer != null)
+					DefaultViewer.Image = null;
+				dgvImages.Invalidate();
+			});
 		}
 
 		void Images_CollectionItemPropertyChanged(object sender, CompositePropertyChangedEventArgs<ImageReference> e)
 		{
-			foreach (var group in e.PropertyNames)
+			this.InvokeIfNeeded(() =>
 			{
-				int index = _images.IndexOf(group.Key);
-				if (index >= 0)
-					dgvImages.UpdateCellValue(1, index);
-			}
+				foreach (var group in e.PropertyNames)
+				{
+					int index = _images.IndexOf(group.Key);
+					if (index >= 0)
+						dgvImages.UpdateCellValue(1, index);
+				}
+			});
 		}
 
 		protected override void OnLoad(EventArgs e)
@@ -152,7 +158,7 @@ namespace Comical
 			{
 				var content = DockPanel.ActiveContent;
 				Viewer viewer = new Viewer();
-				viewer.Text = FirstSelectedRowIndex.ToString(_images.Count, CultureInfo.CurrentCulture);
+				viewer.Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture);
 				viewer.Image = _images[FirstSelectedRowIndex].GetImage();
 				viewer.Show(DockPanel);
 				content.DockHandler.Activate();
@@ -174,7 +180,7 @@ namespace Comical
 					string.Format(CultureInfo.CurrentCulture, Properties.Resources.ViewerDescription_Selection, count);
 				if (count == 1)
 				{
-					DefaultViewer.Text = FirstSelectedRowIndex.ToString(_images.Count, CultureInfo.CurrentCulture);
+					DefaultViewer.Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture);
 					try { DefaultViewer.Image = _images[FirstSelectedRowIndex].GetImage(); }
 					catch (ArgumentException) { }
 				}
