@@ -4,16 +4,13 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Forms;
 using Comical.Core;
+using Comical.Infrastructures;
 
 namespace Comical
 {
 	public partial class BookmarksView : WeifenLuo.WinFormsUI.Docking.DockContent
 	{
-		public BookmarksView()
-		{
-			InitializeComponent();
-			dgvBookmarks.Font = new System.Drawing.Font("Meiryo", 9);
-		}
+		public BookmarksView() { InitializeComponent(); }
 
 		ImageReferenceCollection _images;
 		BookmarkCollection _bookmarks;

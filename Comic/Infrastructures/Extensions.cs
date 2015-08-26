@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Comical.Core
+namespace Comical.Infrastructures
 {
 	/// <summary>既存のクラスを拡張するユーティリティ メソッドを提供します。</summary>
 	static class Extensions

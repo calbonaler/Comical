@@ -39,20 +39,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bookmark.cs" />
-    <Compile Include="DelegateDisposable.cs" />
+    <Compile Include="Infrastructures\DelegateDisposable.cs" />
     <Compile Include="FileHeader.cs" />
-    <Compile Include="CompositePropertyChangedEventArgs.cs" />
     <Compile Include="Comic.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ImageReference.cs" />
     <Compile Include="Crypto.cs" />
+    <Compile Include="Infrastructures\INotifyCollectionItemPropertyChanged.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Extensions.cs" />
+    <Compile Include="Infrastructures\Extensions.cs" />
+    <Compile Include="Infrastructures\SynchronizedObservableCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

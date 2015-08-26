@@ -115,6 +115,7 @@
 			this.dgvImages.ContextMenuStrip = conImage;
 			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+			this.dgvImages.Font = System.Drawing.SystemFonts.MessageBoxFont;
 			this.dgvImages.GridColor = System.Drawing.SystemColors.Control;
 			this.dgvImages.MultiDrag = true;
 			this.dgvImages.Name = "dgvImages";
@@ -151,6 +152,7 @@
 			// ContentsView
 			// 
 			this.AllowDrop = true;
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			resources.ApplyResources(this, "$this");
 			this.Controls.Add(this.dgvImages);
 			this.HideOnClose = true;

@@ -6,16 +6,13 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Comical.Core;
+using Comical.Infrastructures;
 
 namespace Comical
 {
 	public partial class ContentsView : WeifenLuo.WinFormsUI.Docking.DockContent
 	{
-		public ContentsView()
-		{
-			InitializeComponent();
-			dgvImages.Font = new Font("Meiryo", 9);
-		}
+		public ContentsView() { InitializeComponent(); }
 
 		ImageReferenceCollection _images;
 		static readonly Size ThumbnailSize = new Size(118, 118);
@@ -111,13 +108,13 @@ namespace Comical
 			});
 		}
 
-		void Images_CollectionItemPropertyChanged(object sender, CompositePropertyChangedEventArgs<ImageReference> e)
+		void Images_CollectionItemPropertyChanged(object sender, CollectionItemPropertyChangedEventArgs e)
 		{
 			this.InvokeIfNeeded(() =>
 			{
 				foreach (var group in e.PropertyNames)
 				{
-					int index = _images.IndexOf(group.Key);
+					int index = _images.IndexOf((ImageReference)group.Key);
 					if (index >= 0)
 						dgvImages.UpdateCellValue(1, index);
 				}

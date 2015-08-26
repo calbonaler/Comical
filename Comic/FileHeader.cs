@@ -24,23 +24,23 @@ namespace Comical.Core
 		{
 			Path = fileName;
 			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
-			using (Stream stream = Stream.Synchronized(fs))
-				InitializeWithStream(stream);
+				InitializeWithStream(fs);
 		}
 
-		internal FileHeader(string fileName, Stream stream)
+		internal FileHeader(FileStream stream)
 		{
-			Path = fileName;
+			Path = stream.Name;
 			InitializeWithStream(stream);
 		}
 
 		void InitializeWithStream(Stream stream)
 		{
-			var l = GetThumbnailSize(stream, true);
+			var l = GetThumbnailSize(stream);
 			if (l > 0)
 			{
+				var pos = stream.Position;
 				Thumbnail = new Bitmap(Image.FromStream(stream, false, false));
-				stream.Seek(l, SeekOrigin.Begin);
+				stream.Seek(pos + l, SeekOrigin.Begin);
 			}
 			byte[] bs = new byte[3];
 			stream.Read(bs, 0, bs.Length);
@@ -59,17 +59,19 @@ namespace Comical.Core
 				}
 				else
 					hashData = new byte[0];
-				BinaryReader reader = new BinaryReader(stream, Encoding.Unicode);
-				Title = reader.ReadString();
-				Author = reader.ReadString();
-				int year = reader.ReadUInt16();
-				int month = reader.ReadByte();
-				int day = reader.ReadByte();
-				if (year > 1 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= DateTime.DaysInMonth(year, month))
-					DateOfPublication = new DateTime(year, month, day);
-				else
-					DateOfPublication = null;
-				PageTurningDirection = FileVersion.Major >= 4 ? (PageTurningDirection)reader.ReadByte() : PageTurningDirection.ToRight;
+				using (BinaryReader reader = new BinaryReader(stream, Encoding.Unicode, true))
+				{
+					Title = reader.ReadString();
+					Author = reader.ReadString();
+					int year = reader.ReadUInt16();
+					int month = reader.ReadByte();
+					int day = reader.ReadByte();
+					if (year > 1 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= DateTime.DaysInMonth(year, month))
+						DateOfPublication = new DateTime(year, month, day);
+					else
+						DateOfPublication = null;
+					PageTurningDirection = FileVersion.Major >= 4 ? (PageTurningDirection)reader.ReadByte() : PageTurningDirection.ToRight;
+				}
 			}
 		}
 
@@ -81,7 +83,7 @@ namespace Comical.Core
 
 		public Image Thumbnail { get; set; }
 
-		static uint GetThumbnailSize(Stream stream, bool reset)
+		static uint GetThumbnailSize(Stream stream)
 		{
 			long pos = stream.Position;
 			if (pos != 0)
@@ -96,7 +98,7 @@ namespace Comical.Core
 			}
 			else
 				size = 0;
-			if (reset && pos != stream.Position)
+			if (pos != stream.Position)
 				stream.Seek(pos, SeekOrigin.Begin);
 			return size;
 		}
@@ -143,14 +145,16 @@ namespace Comical.Core
 				stream.WriteByte(FileVersionMinor);
 			stream.WriteByte((byte)hashData.Length);
 			stream.Write(hashData, 0, hashData.Length);
-			BinaryWriter writer = new BinaryWriter(stream, Encoding.Unicode);
-			writer.Write(Title);
-			writer.Write(Author);
-			writer.Write((ushort)(DateOfPublication ?? new DateTime(1, 1, 1)).Year);
-			writer.Write((byte)(DateOfPublication ?? new DateTime(1, 1, 1)).Month);
-			writer.Write((byte)(DateOfPublication ?? new DateTime(1, 1, 1)).Day);
-			if (FileVersion.Major >= 4)
-				writer.Write((byte)PageTurningDirection);
+			using (BinaryWriter writer = new BinaryWriter(stream, Encoding.Unicode, true))
+			{
+				writer.Write(Title);
+				writer.Write(Author);
+				writer.Write((ushort)(DateOfPublication ?? new DateTime(1, 1, 1)).Year);
+				writer.Write((byte)(DateOfPublication ?? new DateTime(1, 1, 1)).Month);
+				writer.Write((byte)(DateOfPublication ?? new DateTime(1, 1, 1)).Day);
+				if (FileVersion.Major >= 4)
+					writer.Write((byte)PageTurningDirection);
+			}
 		}
 	}
 }

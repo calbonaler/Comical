@@ -32,7 +32,7 @@ namespace Comical.Core
 			byte[] temp = new byte[65536 / (pw.Length - 1) * (pw.Length - 1)];
 			while (length > 0)
 			{
-				int bytesRead = await readStream.ReadAsync(temp, 0, (int)Math.Min(temp.Length, length)).ConfigureAwait(false);
+				int bytesRead = await readStream.ReadAsync(temp, 0, Math.Min(temp.Length, length)).ConfigureAwait(false);
 				if (bytesRead <= 0)
 					return;
 				TransformInternal(temp, temp, pw, bytesRead, decrypt);

@@ -29,16 +29,18 @@
 		void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewModeSettingsView));
-			System.Windows.Forms.RadioButton radRightStart;
 			this.lblStartIndex = new System.Windows.Forms.Label();
 			this.lblSelectionCount = new System.Windows.Forms.Label();
-			this.btnSet = new System.Windows.Forms.Button();
+			this.btnSetStartedAtLeft = new System.Windows.Forms.Button();
 			this.numStartIndex = new System.Windows.Forms.NumericUpDown();
 			this.numSelectionCount = new System.Windows.Forms.NumericUpDown();
-			this.radLeftStart = new System.Windows.Forms.RadioButton();
-			radRightStart = new System.Windows.Forms.RadioButton();
+			this.tplMain = new System.Windows.Forms.TableLayoutPanel();
+			this.tplAcceptButtons = new System.Windows.Forms.TableLayoutPanel();
+			this.btnSetStartedAtRight = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.numStartIndex)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numSelectionCount)).BeginInit();
+			this.tplMain.SuspendLayout();
+			this.tplAcceptButtons.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// lblStartIndex
@@ -51,13 +53,13 @@
 			resources.ApplyResources(this.lblSelectionCount, "lblSelectionCount");
 			this.lblSelectionCount.Name = "lblSelectionCount";
 			// 
-			// btnSet
+			// btnSetStartedAtLeft
 			// 
-			resources.ApplyResources(this.btnSet, "btnSet");
-			this.btnSet.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnSet.Name = "btnSet";
-			this.btnSet.UseVisualStyleBackColor = true;
-			this.btnSet.Click += new System.EventHandler(this.btnSet_Click);
+			resources.ApplyResources(this.btnSetStartedAtLeft, "btnSetStartedAtLeft");
+			this.btnSetStartedAtLeft.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.btnSetStartedAtLeft.Name = "btnSetStartedAtLeft";
+			this.btnSetStartedAtLeft.UseVisualStyleBackColor = true;
+			this.btnSetStartedAtLeft.Click += new System.EventHandler(this.btnSetStartedAtLeft_Click);
 			// 
 			// numStartIndex
 			// 
@@ -70,37 +72,45 @@
 			resources.ApplyResources(this.numSelectionCount, "numSelectionCount");
 			this.numSelectionCount.Name = "numSelectionCount";
 			// 
-			// radLeftStart
+			// tplMain
 			// 
-			resources.ApplyResources(this.radLeftStart, "radLeftStart");
-			this.radLeftStart.Checked = true;
-			this.radLeftStart.Name = "radLeftStart";
-			this.radLeftStart.TabStop = true;
-			this.radLeftStart.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.tplMain, "tplMain");
+			this.tplMain.Controls.Add(this.numStartIndex, 1, 0);
+			this.tplMain.Controls.Add(this.lblSelectionCount, 0, 1);
+			this.tplMain.Controls.Add(this.numSelectionCount, 1, 1);
+			this.tplMain.Controls.Add(this.lblStartIndex, 0, 0);
+			this.tplMain.Controls.Add(this.tplAcceptButtons, 0, 2);
+			this.tplMain.Name = "tplMain";
 			// 
-			// radRightStart
+			// tplAcceptButtons
 			// 
-			resources.ApplyResources(radRightStart, "radRightStart");
-			radRightStart.Name = "radRightStart";
-			radRightStart.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.tplAcceptButtons, "tplAcceptButtons");
+			this.tplMain.SetColumnSpan(this.tplAcceptButtons, 2);
+			this.tplAcceptButtons.Controls.Add(this.btnSetStartedAtLeft, 0, 0);
+			this.tplAcceptButtons.Controls.Add(this.btnSetStartedAtRight, 1, 0);
+			this.tplAcceptButtons.Name = "tplAcceptButtons";
+			// 
+			// btnSetStartedAtRight
+			// 
+			resources.ApplyResources(this.btnSetStartedAtRight, "btnSetStartedAtRight");
+			this.btnSetStartedAtRight.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.btnSetStartedAtRight.Name = "btnSetStartedAtRight";
+			this.btnSetStartedAtRight.UseVisualStyleBackColor = true;
+			this.btnSetStartedAtRight.Click += new System.EventHandler(this.btnSetStartedAtRight_Click);
 			// 
 			// ViewModeSettingsView
 			// 
-			this.AcceptButton = this.btnSet;
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			resources.ApplyResources(this, "$this");
-			this.Controls.Add(this.btnSet);
-			this.Controls.Add(radRightStart);
-			this.Controls.Add(this.radLeftStart);
-			this.Controls.Add(this.numSelectionCount);
-			this.Controls.Add(this.lblSelectionCount);
-			this.Controls.Add(this.numStartIndex);
-			this.Controls.Add(this.lblStartIndex);
+			this.Controls.Add(this.tplMain);
 			this.HideOnClose = true;
 			this.Name = "ViewModeSettingsView";
 			((System.ComponentModel.ISupportInitialize)(this.numStartIndex)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numSelectionCount)).EndInit();
+			this.tplMain.ResumeLayout(false);
+			this.tplMain.PerformLayout();
+			this.tplAcceptButtons.ResumeLayout(false);
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -108,9 +118,11 @@
 
 		System.Windows.Forms.NumericUpDown numStartIndex;
 		System.Windows.Forms.NumericUpDown numSelectionCount;
-		System.Windows.Forms.RadioButton radLeftStart;
-		private System.Windows.Forms.Button btnSet;
+		private System.Windows.Forms.Button btnSetStartedAtLeft;
 		private System.Windows.Forms.Label lblStartIndex;
 		private System.Windows.Forms.Label lblSelectionCount;
+		private System.Windows.Forms.TableLayoutPanel tplMain;
+		private System.Windows.Forms.TableLayoutPanel tplAcceptButtons;
+		private System.Windows.Forms.Button btnSetStartedAtRight;
 	}
 }

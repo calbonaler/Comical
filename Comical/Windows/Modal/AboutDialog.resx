@@ -117,125 +117,137 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="lblLibraries.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lblCopyright.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="lblLibraries.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;lblCopyright.Parent" xml:space="preserve">
-    <value>$this</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblLibraries.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 138</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="txtLibraries.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Both</value>
-  </data>
-  <data name="&gt;&gt;lblVersionHeader.Name" xml:space="preserve">
-    <value>lblVersionHeader</value>
-  </data>
-  <data name="&gt;&gt;lblLibraries.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;lblVersionHeader.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="lblLibraries.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 15</value>
   </data>
   <data name="lblLibraries.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>AboutDialog</value>
+  <data name="lblLibraries.Text" xml:space="preserve">
+    <value>Using libaries:</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lblVersionHeader.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="lblCopyright.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 117</value>
-  </data>
-  <data name="lblCopyright.Text" xml:space="preserve">
-    <value>All rights reserved.</value>
-  </data>
-  <data name="lblCopyright.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 18</value>
-  </data>
-  <data name="&gt;&gt;txtLibraries.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="txtLibraries.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;lblLibraries.Name" xml:space="preserve">
+    <value>lblLibraries</value>
   </data>
   <data name="&gt;&gt;lblLibraries.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
+  <data name="&gt;&gt;lblLibraries.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblLibraries.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblVersionHeader.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="lblVersionHeader.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="lblVersionHeader.Location" type="System.Drawing.Point, System.Drawing">
+    <value>264, 53</value>
+  </data>
+  <data name="lblVersionHeader.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 18</value>
+  </data>
+  <data name="lblVersionHeader.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblVersionHeader.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lblVersionHeader.Name" xml:space="preserve">
+    <value>lblVersionHeader</value>
+  </data>
+  <data name="&gt;&gt;lblVersionHeader.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblVersionHeader.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblVersionHeader.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lblCopyright.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lblCopyright.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblCopyright.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 114</value>
+  </data>
+  <data name="lblCopyright.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 15</value>
+  </data>
+  <data name="lblCopyright.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="lblCopyright.Text" xml:space="preserve">
+    <value>All rights reserved.</value>
+  </data>
   <data name="&gt;&gt;lblCopyright.Name" xml:space="preserve">
     <value>lblCopyright</value>
   </data>
-  <data name="lblVersionHeader.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 18</value>
+  <data name="&gt;&gt;lblCopyright.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;txtLibraries.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;lblCopyright.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblCopyright.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="txtLibraries.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="txtLibraries.Location" type="System.Drawing.Point, System.Drawing">
+    <value>39, 156</value>
+  </data>
+  <data name="txtLibraries.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="txtLibraries.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Both</value>
   </data>
   <data name="txtLibraries.Size" type="System.Drawing.Size, System.Drawing">
-    <value>334, 93</value>
+    <value>323, 102</value>
+  </data>
+  <data name="txtLibraries.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
   </data>
   <data name="txtLibraries.Text" xml:space="preserve">
     <value>Windows API Code Pack (Microsoft)
 Html Agility Pack (Simon Mourier)
 DockPanel Suite (Weifen Luo)</value>
   </data>
-  <data name="&gt;&gt;lblCopyright.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="txtLibraries.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 169</value>
+  <data name="&gt;&gt;txtLibraries.Name" xml:space="preserve">
+    <value>txtLibraries</value>
   </data>
   <data name="&gt;&gt;txtLibraries.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;txtLibraries.Name" xml:space="preserve">
-    <value>txtLibraries</value>
-  </data>
-  <data name="lblVersionHeader.Location" type="System.Drawing.Point, System.Drawing">
-    <value>243, 52</value>
-  </data>
-  <data name="lblLibraries.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;lblCopyright.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblVersionHeader.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="lblLibraries.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 18</value>
-  </data>
-  <data name="lblLibraries.Text" xml:space="preserve">
-    <value>Using Libaries:</value>
-  </data>
-  <data name="&gt;&gt;lblLibraries.Name" xml:space="preserve">
-    <value>lblLibraries</value>
-  </data>
-  <data name="lblVersionHeader.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
-  <data name="&gt;&gt;lblLibraries.Parent" xml:space="preserve">
+  <data name="&gt;&gt;txtLibraries.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="&gt;&gt;txtLibraries.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAZAAAAEsCAYAAADtt+XCAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAN
@@ -567,31 +579,22 @@ DockPanel Suite (Weifen Luo)</value>
         xWKxWEMSGwiLxWKxhqCp+P98hLTvucJLoQAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="lblLibraries.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 148</value>
+  <data name="$this.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>400, 300</value>
   </data>
-  <data name="txtLibraries.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 18</value>
-  </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>メイリオ, 9pt</value>
+    <value>Yu Gothic UI, 9pt</value>
   </data>
-  <data name="&gt;&gt;lblVersionHeader.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="lblLibraries.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>ja-JP</value>
-  </metadata>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>AboutDialog</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

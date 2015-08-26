@@ -63,32 +63,10 @@
 			btnCancel.Name = "btnCancel";
 			btnCancel.UseVisualStyleBackColor = true;
 			// 
-			// btnInsertMask
-			// 
-			resources.ApplyResources(this.btnInsertMask, "btnInsertMask");
-			this.btnInsertMask.Name = "btnInsertMask";
-			this.btnInsertMask.UseVisualStyleBackColor = true;
-			this.btnInsertMask.Click += new System.EventHandler(this.btnInsertMask_Click);
-			// 
-			// txtDefaultSavedFileName
-			// 
-			resources.ApplyResources(this.txtDefaultSavedFileName, "txtDefaultSavedFileName");
-			this.txtDefaultSavedFileName.Name = "txtDefaultSavedFileName";
-			// 
 			// lblDefaultSavedFileName
 			// 
 			resources.ApplyResources(lblDefaultSavedFileName, "lblDefaultSavedFileName");
 			lblDefaultSavedFileName.Name = "lblDefaultSavedFileName";
-			// 
-			// conInsertMask
-			// 
-			this.conInsertMask.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            itmTitle,
-            itmAuthor,
-            itmFormattedDate});
-			this.conInsertMask.Name = "conInsertMask";
-			this.conInsertMask.ShowImageMargin = false;
-			resources.ApplyResources(this.conInsertMask, "conInsertMask");
 			// 
 			// itmTitle
 			// 
@@ -111,12 +89,35 @@
 			itmFormattedDate.Tag = "";
 			itmFormattedDate.Click += new System.EventHandler(this.InsertMaskItem_Click);
 			// 
+			// btnInsertMask
+			// 
+			resources.ApplyResources(this.btnInsertMask, "btnInsertMask");
+			this.btnInsertMask.Name = "btnInsertMask";
+			this.btnInsertMask.UseVisualStyleBackColor = true;
+			this.btnInsertMask.Click += new System.EventHandler(this.btnInsertMask_Click);
+			// 
+			// txtDefaultSavedFileName
+			// 
+			resources.ApplyResources(this.txtDefaultSavedFileName, "txtDefaultSavedFileName");
+			this.txtDefaultSavedFileName.Name = "txtDefaultSavedFileName";
+			// 
+			// conInsertMask
+			// 
+			this.conInsertMask.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            itmTitle,
+            itmAuthor,
+            itmFormattedDate});
+			this.conInsertMask.Name = "conInsertMask";
+			this.conInsertMask.ShowImageMargin = false;
+			resources.ApplyResources(this.conInsertMask, "conInsertMask");
+			// 
 			// OptionDialog
 			// 
 			this.AcceptButton = btnOK;
-			resources.ApplyResources(this, "$this");
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+			this.Font = System.Drawing.SystemFonts.MessageBoxFont;
 			this.CancelButton = btnCancel;
+			resources.ApplyResources(this, "$this");
 			this.Controls.Add(this.btnInsertMask);
 			this.Controls.Add(this.txtDefaultSavedFileName);
 			this.Controls.Add(lblDefaultSavedFileName);

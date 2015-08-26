@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using System.Text;
-using System.Threading;
+using Comical.Infrastructures;
 
 namespace Comical.Core
 {
@@ -42,65 +39,33 @@ namespace Comical.Core
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
-	public class BookmarkCollection : System.Collections.ObjectModel.ObservableCollection<Bookmark>
+	public class BookmarkCollection : SynchronizedObservableCollection<Bookmark>
 	{
-		public event EventHandler<CompositePropertyChangedEventArgs<Bookmark>> CollectionItemPropertyChanged;
-		
-		protected virtual void OnCollectionItemPropertyChanged(CompositePropertyChangedEventArgs<Bookmark> e) { CollectionItemPropertyChanged?.Invoke(this, e); }
-
-		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e) { OnCollectionItemPropertyChanged(new CompositePropertyChangedEventArgs<Bookmark>(new[] { new KeyValuePair<Bookmark, string>((Bookmark)sender, e.PropertyName) })); }
-
-		protected override void ClearItems()
-		{
-			foreach (var item in this)
-				item.PropertyChanged -= OnItemPropertyChanged;
-			base.ClearItems();
-		}
-
-		protected override void InsertItem(int index, Bookmark item)
-		{
-			if (item == null)
-				throw new ArgumentNullException(nameof(item));
-			item.PropertyChanged += OnItemPropertyChanged;
-			base.InsertItem(index, item);
-		}
-
-		protected override void RemoveItem(int index)
-		{
-			this[index].PropertyChanged -= OnItemPropertyChanged;
-			base.RemoveItem(index);
-		}
-
-		protected override void SetItem(int index, Bookmark item)
-		{
-			if (item == null)
-				throw new ArgumentNullException(nameof(item));
-			this[index].PropertyChanged -= OnItemPropertyChanged;
-			item.PropertyChanged += OnItemPropertyChanged;
-			base.SetItem(index, item);
-		}
-
 		internal void Load(Stream stream)
 		{
-			BinaryReader reader = new BinaryReader(stream, Encoding.Unicode);
-			int count = reader.ReadInt32();
-			for (int i = 0; i < count; i++)
+			using (var reader = new BinaryReader(stream, Encoding.Unicode, true))
 			{
-				var bookmark = new Bookmark();
-				bookmark.Name = reader.ReadString();
-				bookmark.Target = reader.ReadInt32();
-				Add(bookmark);
+				int count = reader.ReadInt32();
+				for (int i = 0; i < count; i++)
+				{
+					var bookmark = new Bookmark();
+					bookmark.Name = reader.ReadString();
+					bookmark.Target = reader.ReadInt32();
+					Add(bookmark);
+				}
 			}
 		}
 
 		internal void SaveInto(Stream stream)
 		{
-			BinaryWriter writer = new BinaryWriter(stream, Encoding.Unicode);
-			writer.Write(Count);
-			for (int i = 0; i < Count; i++)
+			using (var writer = new BinaryWriter(stream, Encoding.Unicode, true))
 			{
-				writer.Write(this[i].Name);
-				writer.Write(this[i].Target);
+				writer.Write(Count);
+				for (int i = 0; i < Count; i++)
+				{
+					writer.Write(this[i].Name);
+					writer.Write(this[i].Target);
+				}
 			}
 		}
 	}

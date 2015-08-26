@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Comical.Infrastructures;
 
 namespace Comical.Core
 {
@@ -15,10 +16,8 @@ namespace Comical.Core
 	{
 		public Comic()
 		{
-			Images = new ImageReferenceCollection();
 			Images.CollectionChanged += (s, ev) => IsDirty = true;
 			Images.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
-			Bookmarks = new BookmarkCollection();
 			Bookmarks.CollectionChanged += (s, ev) => IsDirty = true;
 			Bookmarks.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
 			PropertyChanged += (s, ev) =>
@@ -36,13 +35,16 @@ namespace Comical.Core
 		bool _canDirty = true;
 		static readonly Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 		public static readonly string DefaultPassword = null;
-		
+
+		public ImageReferenceCollection Images { get; } = new ImageReferenceCollection();
+
+		public BookmarkCollection Bookmarks { get; } = new BookmarkCollection();
+
 		async Task<FileHeader> ReadFileAsync(string fileName, string password, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
-			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
-			using (Stream readStream = Stream.Synchronized(fs))
+			using (FileStream readStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
 			{
-				var cic = new FileHeader(fileName, readStream);
+				var cic = new FileHeader(readStream);
 				// ID確認
 				if (!cic.CanOpen)
 					throw new ArgumentException(Properties.Resources.InvalidFileFormat);
@@ -52,23 +54,24 @@ namespace Comical.Core
 				if (!cic.IsProperPassword(password))
 					throw new WrongPasswordException(Properties.Resources.PasswordIsNotProper);
 				bookmarks.Load(readStream); // 目次
-				BinaryReader reader = new BinaryReader(readStream, System.Text.Encoding.Unicode);
-				int images = reader.ReadInt32(); // 画像数
-				for (int i = 0; i < images; Interlocked.Increment(ref i))
+				using (BinaryReader reader = new BinaryReader(readStream, System.Text.Encoding.Unicode, true))
 				{
-					if (cic.FileVersion < new Version(4, 4))
-						reader.ReadString(); // 名前
-					if (cic.FileVersion < new Version(4, 3))
-						reader.ReadString(); // フォーマット
-					ImageViewMode m = (ImageViewMode)reader.ReadByte(); // オプション
-					int len = reader.ReadInt32(); // サイズ
-					using (MemoryStream ms = new MemoryStream())
+					int images = reader.ReadInt32(); // 画像数
+					for (int i = 0; i < images; i++)
 					{
-						await Crypto.TransformAsync(readStream, ms, password, System.Text.Encoding.Unicode, len, true).ConfigureAwait(false);
-						Images.Add(new ImageReference(ms.ToArray()) { ViewMode = m });
+						if (cic.FileVersion < new Version(4, 4))
+							reader.ReadString(); // 名前
+						if (cic.FileVersion < new Version(4, 3))
+							reader.ReadString(); // フォーマット
+						ImageViewMode m = (ImageViewMode)reader.ReadByte(); // オプション
+						int len = reader.ReadInt32(); // サイズ
+						using (MemoryStream ms = new MemoryStream())
+						{
+							await Crypto.TransformAsync(readStream, ms, password, System.Text.Encoding.Unicode, len, true).ConfigureAwait(false);
+							Images.Add(new ImageReference(ms.ToArray()) { ViewMode = m });
+						}
+						progress?.Report((i + 1) * 100 / images);
 					}
-					if (progress != null)
-						progress.Report((i + 1) * 100 / images);
 				}
 				return cic;
 			}
@@ -76,22 +79,22 @@ namespace Comical.Core
 
 		static async Task WriteFileAsync(IReadOnlyList<ImageReference> images, FileHeader cic, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
-			using (FileStream fs = new FileStream(cic.Path, FileMode.Create, FileAccess.Write))
-			using (Stream writeStream = Stream.Synchronized(fs))
+			using (FileStream writeStream = new FileStream(cic.Path, FileMode.Create, FileAccess.Write))
 			{
 				cic.SaveInto(writeStream);
 				bookmarks.SaveInto(writeStream);
-				BinaryWriter writer = new BinaryWriter(writeStream, System.Text.Encoding.Unicode);
-				writer.Write(images.Count); // 画像数
-				for (int i = 0; i < images.Count; Interlocked.Increment(ref i))
+				using (BinaryWriter writer = new BinaryWriter(writeStream, System.Text.Encoding.Unicode, true))
 				{
-					ImageReference ir = images[i];
-					writer.Write((byte)ir.ViewMode); // 利用情報
-					writer.Write(ir.Length); // 画像データ大きさ
-					using (var binImage = ir.GetReadOnlyBinaryImage())
-						await Crypto.TransformAsync(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length, false).ConfigureAwait(false); // 画像データ
-					if (progress != null)
-						progress.Report((i + 1) * 100 / images.Count);
+					writer.Write(images.Count); // 画像数
+					for (int i = 0; i < images.Count; i++)
+					{
+						ImageReference ir = images[i];
+						writer.Write((byte)ir.ViewMode); // 利用情報
+						writer.Write(ir.Length); // 画像データ大きさ
+						using (var binImage = ir.GetReadOnlyBinaryImage())
+							await Crypto.TransformAsync(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length, false).ConfigureAwait(false); // 画像データ
+						progress?.Report((i + 1) * 100 / images.Count);
+					}
 				}
 			}
 		}
@@ -193,8 +196,7 @@ namespace Comical.Core
 						using (FileStream fs = new FileStream(Path.Combine(baseDirectory, i.ToString(System.Globalization.CultureInfo.CurrentCulture) + ext), FileMode.Create, FileAccess.Write))
 							await ms.CopyToAsync(fs).ConfigureAwait(false);
 					}
-					if (progress != null)
-						progress.Report((i + 1) * 100 / imageList.Length);
+					progress?.Report((i + 1) * 100 / imageList.Length);
 				}
 			}
 		}
@@ -369,10 +371,6 @@ namespace Comical.Core
 				}
 			}
 		}
-
-		public ImageReferenceCollection Images { get; }
-
-		public BookmarkCollection Bookmarks { get; }
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 	}

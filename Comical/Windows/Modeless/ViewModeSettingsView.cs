@@ -28,9 +28,7 @@ namespace Comical
 				numSelectionCount.Value = value;
 			}
 		}
-
-		public bool StartInLeft => radLeftStart.Checked;
-
+		
 		public void InvertViewMode()
 		{
 			foreach (var image in cic)
@@ -62,7 +60,7 @@ namespace Comical
 		{
 			this.InvokeIfNeeded(() =>
 			{
-				lblStartIndex.Enabled = lblSelectionCount.Enabled = numStartIndex.Enabled = numSelectionCount.Enabled = btnSet.Enabled = cic != null && cic.Count > 0;
+				lblStartIndex.Enabled = lblSelectionCount.Enabled = numStartIndex.Enabled = numSelectionCount.Enabled = btnSetStartedAtLeft.Enabled = btnSetStartedAtRight.Enabled = cic != null && cic.Count > 0;
 				if (cic != null && cic.Count > 0)
 				{
 					numStartIndex.Maximum = cic.Count - 1;
@@ -73,11 +71,15 @@ namespace Comical
 
 		void numStartIndex_ValueChanged(object sender, EventArgs e) { numSelectionCount.Maximum = numStartIndex.Maximum - numStartIndex.Value + 1; }
 
-		void btnSet_Click(object sender, EventArgs e)
+		void btnSetStartedAtLeft_Click(object sender, EventArgs e) { SetViewModes(true); }
+
+		void btnSetStartedAtRight_Click(object sender, EventArgs e) { SetViewModes(false); }
+
+		void SetViewModes(bool startAtLeft)
 		{
 			for (int i = 0; i < SelectionLength; i++)
 			{
-				if (i % 2 == (StartInLeft ? 0 : 1))
+				if (i % 2 == (startAtLeft ? 0 : 1))
 					cic[i + SelectionStart].ViewMode = ImageViewMode.Left;
 				else
 					cic[i + SelectionStart].ViewMode = ImageViewMode.Right;

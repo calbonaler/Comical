@@ -48,7 +48,6 @@
 			// 
 			// conBookmark
 			// 
-			resources.ApplyResources(conBookmark, "conBookmark");
 			conBookmark.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmSelectTarget,
             this.sepBookmark1,
@@ -58,6 +57,7 @@
             this.sepBookmark2,
             this.itmRemove});
 			conBookmark.Name = "conBookmark";
+			resources.ApplyResources(conBookmark, "conBookmark");
 			// 
 			// itmSelectTarget
 			// 
@@ -67,41 +67,40 @@
 			// 
 			// sepBookmark1
 			// 
-			resources.ApplyResources(this.sepBookmark1, "sepBookmark1");
 			this.sepBookmark1.Name = "sepBookmark1";
+			resources.ApplyResources(this.sepBookmark1, "sepBookmark1");
 			// 
 			// itmAdd
 			// 
-			resources.ApplyResources(this.itmAdd, "itmAdd");
 			this.itmAdd.Name = "itmAdd";
+			resources.ApplyResources(this.itmAdd, "itmAdd");
 			this.itmAdd.Click += new System.EventHandler(this.itmAdd_Click);
 			// 
 			// itmInsertAbove
 			// 
-			resources.ApplyResources(this.itmInsertAbove, "itmInsertAbove");
 			this.itmInsertAbove.Name = "itmInsertAbove";
+			resources.ApplyResources(this.itmInsertAbove, "itmInsertAbove");
 			this.itmInsertAbove.Click += new System.EventHandler(this.itmInsertAbove_Click);
 			// 
 			// itmInsertBelow
 			// 
-			resources.ApplyResources(this.itmInsertBelow, "itmInsertBelow");
 			this.itmInsertBelow.Name = "itmInsertBelow";
+			resources.ApplyResources(this.itmInsertBelow, "itmInsertBelow");
 			this.itmInsertBelow.Click += new System.EventHandler(this.itmInsertBelow_Click);
 			// 
 			// sepBookmark2
 			// 
-			resources.ApplyResources(this.sepBookmark2, "sepBookmark2");
 			this.sepBookmark2.Name = "sepBookmark2";
+			resources.ApplyResources(this.sepBookmark2, "sepBookmark2");
 			// 
 			// itmRemove
 			// 
-			resources.ApplyResources(this.itmRemove, "itmRemove");
 			this.itmRemove.Name = "itmRemove";
+			resources.ApplyResources(this.itmRemove, "itmRemove");
 			this.itmRemove.Click += new System.EventHandler(this.itmRemove_Click);
 			// 
 			// dgvBookmarks
 			// 
-			resources.ApplyResources(this.dgvBookmarks, "dgvBookmarks");
 			this.dgvBookmarks.AllowDrop = true;
 			this.dgvBookmarks.AllowUserToAddRows = false;
 			this.dgvBookmarks.AllowUserToMoveRows = true;
@@ -117,7 +116,9 @@
             this.clmName,
             this.clmTarget});
 			this.dgvBookmarks.ContextMenuStrip = conBookmark;
+			resources.ApplyResources(this.dgvBookmarks, "dgvBookmarks");
 			this.dgvBookmarks.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
+			this.dgvBookmarks.Font = System.Drawing.SystemFonts.MessageBoxFont;
 			this.dgvBookmarks.GridColor = System.Drawing.SystemColors.Control;
 			this.dgvBookmarks.Name = "dgvBookmarks";
 			this.dgvBookmarks.RowHeadersVisible = false;
@@ -156,6 +157,7 @@
 			// 
 			// BookmarksView
 			// 
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			resources.ApplyResources(this, "$this");
 			this.Controls.Add(this.dgvBookmarks);
 			this.HideOnClose = true;

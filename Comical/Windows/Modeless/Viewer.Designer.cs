@@ -29,8 +29,8 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Viewer));
 			System.Windows.Forms.ContextMenuStrip conOption;
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Viewer));
 			Comical.Controls.ToolStripRadioMenuItem itmOriginalSize;
 			this.itmFitToWindow = new Comical.Controls.ToolStripRadioMenuItem();
 			this.preMain = new Comical.Controls.Previewer();
@@ -38,6 +38,14 @@
 			itmOriginalSize = new Comical.Controls.ToolStripRadioMenuItem();
 			conOption.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// conOption
+			// 
+			conOption.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itmFitToWindow,
+            itmOriginalSize});
+			conOption.Name = "conOption";
+			resources.ApplyResources(conOption, "conOption");
 			// 
 			// itmFitToWindow
 			// 
@@ -48,14 +56,6 @@
 			this.itmFitToWindow.Name = "itmFitToWindow";
 			resources.ApplyResources(this.itmFitToWindow, "itmFitToWindow");
 			this.itmFitToWindow.CheckedChanged += new System.EventHandler(this.itmFitToWindow_CheckedChanged);
-			// 
-			// conOption
-			// 
-			conOption.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmFitToWindow,
-            itmOriginalSize});
-			conOption.Name = "conOption";
-			resources.ApplyResources(conOption, "conOption");
 			// 
 			// itmOriginalSize
 			// 
@@ -70,6 +70,7 @@
 			resources.ApplyResources(this.preMain, "preMain");
 			this.preMain.BackColor = System.Drawing.Color.Transparent;
 			this.preMain.Description = null;
+			this.preMain.Font = System.Drawing.SystemFonts.MessageBoxFont;
 			this.preMain.ForeColor = System.Drawing.Color.White;
 			this.preMain.Image = null;
 			this.preMain.Name = "preMain";
@@ -77,6 +78,7 @@
 			// 
 			// Viewer
 			// 
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			resources.ApplyResources(this, "$this");
 			this.BackColor = System.Drawing.Color.Black;
 			this.ContextMenuStrip = conOption;

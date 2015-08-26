@@ -496,8 +496,9 @@
 			// 
 			// EditorForm
 			// 
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+			this.Font = System.Drawing.SystemFonts.MessageBoxFont;
 			resources.ApplyResources(this, "$this");
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.dpMain);
 			this.Controls.Add(stsMain);
 			this.Controls.Add(this.tsMain);
