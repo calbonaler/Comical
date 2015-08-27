@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using Comical.Core;
 using WeifenLuo.WinFormsUI.Docking;
@@ -36,17 +37,34 @@ namespace Comical
 
 		void LoadImage(Image image)
 		{
-			preThumbnail.LoadImage(image);
 			if (_comic != null)
-				_comic.Thumbnail = preThumbnail.Image;
-			int width = 0;
-			int height = 0;
-			if (image != null)
 			{
-				width = image.Width;
-				height = image.Height;
+				using (var stream = new MemoryStream())
+				{
+					image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+					_comic.Thumbnail = stream.ToArray();
+				}
 			}
-			lblSize.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, width, height);
+			Size size = image?.Size ?? new Size(0, 0);
+			preThumbnail.LoadImage(image);
+			lblSize.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, size.Width, size.Height);
+		}
+
+		void LoadImage(byte[] binaryImage)
+		{
+			if (_comic != null)
+				_comic.Thumbnail = binaryImage;
+			Size size = new Size(0, 0);
+			if (binaryImage != null)
+			{
+				using (MemoryStream ms = new MemoryStream(binaryImage))
+				using (Image img = Image.FromStream(ms))
+				{
+					preThumbnail.LoadImage(new Bitmap(img));
+					size = img.Size;
+				}
+			}
+			lblSize.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, size.Width, size.Height);
 		}
 
 		public void SetComic(Comic comic)

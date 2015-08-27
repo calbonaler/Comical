@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -371,7 +372,11 @@ namespace Comical
 				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
 					return;
 				using (BeginAsyncWork())
-					await comic.ExportAsync(dialog.FileName, imageList.SortedSelectedImages, defaultProgress);
+					await comic.ExportAsync(dialog.FileName, imageList.SortedSelectedImages, stream =>
+					{
+						using (Bitmap bmp = new Bitmap(stream))
+							return bmp.GetImageCodecInfo().FilenameExtension.Split(';')[0].Remove(0, 1);
+					}, defaultProgress);
 			}
 		}
 

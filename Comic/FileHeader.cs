@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
 using System.Text;
 
@@ -38,9 +37,8 @@ namespace Comical.Core
 			var l = GetThumbnailSize(stream);
 			if (l > 0)
 			{
-				var pos = stream.Position;
-				Thumbnail = new Bitmap(Image.FromStream(stream, false, false));
-				stream.Seek(pos + l, SeekOrigin.Begin);
+				Thumbnail = new byte[l];
+				stream.Read(Thumbnail, 0, (int)l);
 			}
 			byte[] bs = new byte[3];
 			stream.Read(bs, 0, bs.Length);
@@ -81,7 +79,7 @@ namespace Comical.Core
 		string title = string.Empty;
 		string author = string.Empty;
 
-		public Image Thumbnail { get; set; }
+		public byte[] Thumbnail { get; set; }
 
 		static uint GetThumbnailSize(Stream stream)
 		{
@@ -137,8 +135,7 @@ namespace Comical.Core
 
 		internal void SaveInto(Stream stream)
 		{
-			if (Thumbnail != null)
-				Thumbnail.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+			stream.Write(Thumbnail, 0, Thumbnail.Length);
 			stream.Write(fileIdentifier, 0, fileIdentifier.Length);
 			stream.WriteByte(FileVersionMajor);
 			if (FileVersion.Major >= 4)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using Comical.Infrastructures;
 
@@ -35,37 +34,7 @@ namespace Comical.Core
 
 		public int Length => _data.Length;
 
-		public Image GetImage() => GetImage(Size.Empty);
-
-		public Image GetImage(Size size)
-		{
-			using (var ms = new MemoryStream(_data, false))
-			using (var image = Image.FromStream(ms))
-			{
-				Bitmap bitmap = null;
-				Bitmap tmp = null;
-				try
-				{
-					if (size.IsEmpty)
-						tmp = new Bitmap(image);
-					else
-					{
-						var x = Math.Min(image.Width * size.Height, size.Width * image.Height);
-						tmp = new Bitmap(image, x / image.Height, x / image.Width);
-					}
-					bitmap = tmp;
-					tmp = null;
-				}
-				finally
-				{
-					if (tmp != null)
-						tmp.Dispose();
-				}
-				return bitmap;
-			}
-		}
-
-		internal MemoryStream GetReadOnlyBinaryImage()
+		public Stream OpenImageStream()
 		{
 			MemoryStream ms = null;
 			MemoryStream temp = null;

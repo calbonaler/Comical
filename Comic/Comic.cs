@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -91,7 +90,7 @@ namespace Comical.Core
 						ImageReference ir = images[i];
 						writer.Write((byte)ir.ViewMode); // 利用情報
 						writer.Write(ir.Length); // 画像データ大きさ
-						using (var binImage = ir.GetReadOnlyBinaryImage())
+						using (var binImage = ir.OpenImageStream())
 							await Crypto.TransformAsync(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length, false).ConfigureAwait(false); // 画像データ
 						progress?.Report((i + 1) * 100 / images.Count);
 					}
@@ -103,11 +102,7 @@ namespace Comical.Core
 		{
 			using (EnterUndirtiableSection())
 			{
-				if (Thumbnail != null)
-				{
-					Thumbnail.Dispose();
-					Thumbnail = null;
-				}
+				Thumbnail = null;
 				DateOfPublication = null;
 				Title = Author = "";
 				Images.Clear();
@@ -138,8 +133,6 @@ namespace Comical.Core
 				IsDirty = false;
 				var res = await ReadFileAsync(fileName, password, Bookmarks, progress).ConfigureAwait(false);
 				_password = password;
-				if (Thumbnail != null)
-					Thumbnail.Dispose();
 				Thumbnail = res.Thumbnail;
 				FileVersion = res.FileVersion;
 				Title = res.Title;
@@ -180,7 +173,7 @@ namespace Comical.Core
 				await ReadFileAsync(fileName, password, new BookmarkCollection(), progress).ConfigureAwait(false);
 		}
 
-		public async Task ExportAsync(string baseDirectory, IEnumerable<ImageReference> images, IProgress<int> progress)
+		public async Task ExportAsync(string baseDirectory, IEnumerable<ImageReference> images, Func<Stream, string> extensionProvider, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
 			{
@@ -188,14 +181,9 @@ namespace Comical.Core
 				Directory.CreateDirectory(baseDirectory);
 				for (int i = 0; i < imageList.Length; Interlocked.Increment(ref i))
 				{
-					using (var ms = imageList[i].GetReadOnlyBinaryImage())
-					{
-						string ext;
-						using (Bitmap bmp = new Bitmap(ms))
-							ext = Array.Find(System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders(), item => item.FormatID == bmp.RawFormat.Guid).FilenameExtension.Split(';')[0].Remove(0, 1);
-						using (FileStream fs = new FileStream(Path.Combine(baseDirectory, i.ToString(System.Globalization.CultureInfo.CurrentCulture) + ext), FileMode.Create, FileAccess.Write))
-							await ms.CopyToAsync(fs).ConfigureAwait(false);
-					}
+					using (var ms = imageList[i].OpenImageStream())
+					using (FileStream fs = new FileStream(Path.Combine(baseDirectory, i.ToString(System.Globalization.CultureInfo.CurrentCulture) + extensionProvider(ms)), FileMode.Create, FileAccess.Write))
+						await ms.CopyToAsync(fs).ConfigureAwait(false);
 					progress?.Report((i + 1) * 100 / imageList.Length);
 				}
 			}
@@ -302,8 +290,8 @@ namespace Comical.Core
 			}
 		}
 
-		Image _thumbnail = null;
-		public Image Thumbnail
+		byte[] _thumbnail = null;
+		public byte[] Thumbnail
 		{
 			get { return _thumbnail; }
 			set
