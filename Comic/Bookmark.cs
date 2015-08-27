@@ -35,7 +35,21 @@ namespace Comical.Core
 				}
 			}
 		}
-		
+
+		internal static Bookmark Load(BinaryReader reader)
+		{
+			var bookmark = new Bookmark();
+			bookmark.Name = reader.ReadString();
+			bookmark.Target = reader.ReadInt32();
+			return bookmark;
+		}
+
+		internal void Save(BinaryWriter writer)
+		{
+			writer.Write(Name);
+			writer.Write(Target);
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
@@ -47,25 +61,17 @@ namespace Comical.Core
 			{
 				int count = reader.ReadInt32();
 				for (int i = 0; i < count; i++)
-				{
-					var bookmark = new Bookmark();
-					bookmark.Name = reader.ReadString();
-					bookmark.Target = reader.ReadInt32();
-					Add(bookmark);
-				}
+					Add(Bookmark.Load(reader));
 			}
 		}
 
-		internal void SaveInto(Stream stream)
+		internal void Save(Stream stream)
 		{
 			using (var writer = new BinaryWriter(stream, Encoding.Unicode, true))
 			{
 				writer.Write(Count);
 				for (int i = 0; i < Count; i++)
-				{
-					writer.Write(this[i].Name);
-					writer.Write(this[i].Target);
-				}
+					this[i].Save(writer);
 			}
 		}
 	}

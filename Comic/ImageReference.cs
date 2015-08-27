@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
 using Comical.Infrastructures;
 
 namespace Comical.Core
@@ -31,9 +32,7 @@ namespace Comical.Core
 				}
 			}
 		}
-
-		public int Length => _data.Length;
-
+		
 		public Stream OpenImageStream()
 		{
 			MemoryStream ms = null;
@@ -50,6 +49,29 @@ namespace Comical.Core
 					temp.Dispose();
 			}
 			return ms;
+		}
+
+		internal static async Task<ImageReference> LoadAsync(BinaryReader reader, string password, Version fileVersion)
+		{
+			if (fileVersion < new Version(4, 4))
+				reader.ReadString(); // 名前
+			if (fileVersion < new Version(4, 3))
+				reader.ReadString(); // フォーマット
+			ImageViewMode m = (ImageViewMode)reader.ReadByte(); // オプション
+			int len = reader.ReadInt32(); // サイズ
+			using (MemoryStream ms = new MemoryStream())
+			{
+				await Crypto.TransformAsync(reader.BaseStream, ms, password, System.Text.Encoding.Unicode, len, true).ConfigureAwait(false);
+				return new ImageReference(ms.ToArray()) { ViewMode = m };
+			}
+		}
+
+		internal async Task SaveAsync(BinaryWriter writer, string password)
+		{
+			writer.Write((byte)ViewMode); // 利用情報
+			writer.Write(_data.Length); // 画像データ大きさ
+			using (var binImage = OpenImageStream())
+				await Crypto.TransformAsync(binImage, writer.BaseStream, password, System.Text.Encoding.Unicode, _data.Length, false).ConfigureAwait(false); // 画像データ
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -98,6 +120,19 @@ namespace Comical.Core
 					_itemChanges.Clear();
 				}
 			});
+		}
+
+		internal async Task LoadAsync(Stream stream, string password, Version fileVersion, IProgress<int> progress)
+		{
+			using (BinaryReader reader = new BinaryReader(stream, System.Text.Encoding.Unicode, true))
+			{
+				int images = reader.ReadInt32(); // 画像数
+				for (int i = 0; i < images; i++)
+				{
+					Add(await ImageReference.LoadAsync(reader, password, fileVersion).ConfigureAwait(false));
+					progress?.Report((i + 1) * 100 / images);
+				}
+			}
 		}
 	}
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,7 +31,6 @@ namespace Comical.Core
 		
 		string _password = "";
 		bool _canDirty = true;
-		static readonly Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 		public static readonly string DefaultPassword = null;
 
 		public ImageReferenceCollection Images { get; } = new ImageReferenceCollection();
@@ -47,31 +45,13 @@ namespace Comical.Core
 				// ID確認
 				if (!cic.CanOpen)
 					throw new ArgumentException(Properties.Resources.InvalidFileFormat);
-				if (cic.FileVersion > AssemblyVersion)
+				if (!cic.IsSupportedFileVersion)
 					throw new ArgumentException(Properties.Resources.UnsupportedFileVersion);
 				// 復号化済みマーク
 				if (!cic.IsProperPassword(password))
 					throw new WrongPasswordException(Properties.Resources.PasswordIsNotProper);
 				bookmarks.Load(readStream); // 目次
-				using (BinaryReader reader = new BinaryReader(readStream, System.Text.Encoding.Unicode, true))
-				{
-					int images = reader.ReadInt32(); // 画像数
-					for (int i = 0; i < images; i++)
-					{
-						if (cic.FileVersion < new Version(4, 4))
-							reader.ReadString(); // 名前
-						if (cic.FileVersion < new Version(4, 3))
-							reader.ReadString(); // フォーマット
-						ImageViewMode m = (ImageViewMode)reader.ReadByte(); // オプション
-						int len = reader.ReadInt32(); // サイズ
-						using (MemoryStream ms = new MemoryStream())
-						{
-							await Crypto.TransformAsync(readStream, ms, password, System.Text.Encoding.Unicode, len, true).ConfigureAwait(false);
-							Images.Add(new ImageReference(ms.ToArray()) { ViewMode = m });
-						}
-						progress?.Report((i + 1) * 100 / images);
-					}
-				}
+				await Images.LoadAsync(readStream, password, cic.FileVersion, progress).ConfigureAwait(false); // 画像
 				return cic;
 			}
 		}
@@ -80,18 +60,14 @@ namespace Comical.Core
 		{
 			using (FileStream writeStream = new FileStream(cic.Path, FileMode.Create, FileAccess.Write))
 			{
-				cic.SaveInto(writeStream);
-				bookmarks.SaveInto(writeStream);
+				cic.Save(writeStream);
+				bookmarks.Save(writeStream);
 				using (BinaryWriter writer = new BinaryWriter(writeStream, System.Text.Encoding.Unicode, true))
 				{
 					writer.Write(images.Count); // 画像数
 					for (int i = 0; i < images.Count; i++)
 					{
-						ImageReference ir = images[i];
-						writer.Write((byte)ir.ViewMode); // 利用情報
-						writer.Write(ir.Length); // 画像データ大きさ
-						using (var binImage = ir.OpenImageStream())
-							await Crypto.TransformAsync(binImage, writeStream, cic.Password, System.Text.Encoding.Unicode, ir.Length, false).ConfigureAwait(false); // 画像データ
+						await images[i].SaveAsync(writer, cic.Password).ConfigureAwait(false);
 						progress?.Report((i + 1) * 100 / images.Count);
 					}
 				}
@@ -152,15 +128,16 @@ namespace Comical.Core
 					throw new InconsistentDataException(Properties.Resources.InconsistentData, inconsistency);
 				if (password == DefaultPassword)
 					password = _password;
-				await WriteFileAsync(Images.ToArray(), new FileHeader(fileName, password, AssemblyVersion)
+				var header = new FileHeader(fileName, password)
 				{
 					Thumbnail = Thumbnail,
 					Title = Title,
 					Author = Author,
 					DateOfPublication = DateOfPublication,
 					PageTurningDirection = PageTurningDirection
-				}, Bookmarks, progress).ConfigureAwait(false);
-				FileVersion = AssemblyVersion;
+				};
+				await WriteFileAsync(Images.ToArray(), header, Bookmarks, progress).ConfigureAwait(false);
+				FileVersion = header.FileVersion;
 				_password = password;
 				IsDirty = false;
 			}
@@ -192,7 +169,7 @@ namespace Comical.Core
 		public async Task ExtractAsync(string fileName, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
-				await WriteFileAsync(images.ToArray(), new FileHeader(fileName, "", AssemblyVersion) { Author = Author, PageTurningDirection = PageTurningDirection }, new BookmarkCollection(), progress).ConfigureAwait(false);
+				await WriteFileAsync(images.ToArray(), new FileHeader(fileName, string.Empty) { Author = Author, PageTurningDirection = PageTurningDirection }, new BookmarkCollection(), progress).ConfigureAwait(false);
 		}
 
 		public IEnumerable<Spread> ConstructSpreads(bool simpleSpread)
@@ -276,7 +253,7 @@ namespace Comical.Core
 			}
 		}
 
-		Version _fileVersion = AssemblyVersion;
+		Version _fileVersion = FileHeader.LatestSupportedFileVersion;
 		public Version FileVersion
 		{
 			get { return _fileVersion; }

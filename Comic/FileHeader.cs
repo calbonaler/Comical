@@ -6,15 +6,13 @@ namespace Comical.Core
 {
 	public class FileHeader
 	{
-		public FileHeader(string fileName, string password, Version fileVersion)
+		public FileHeader(string fileName, string password)
 		{
 			password = password ?? string.Empty;
-			if (fileVersion == null)
-				throw new ArgumentNullException(nameof(fileVersion));
 			Path = fileName;
 			fileIdentifier = new byte[] { 0x43, 0x49, 0x43 };
-			FileVersionMajor = (byte)fileVersion.Major;
-			FileVersionMinor = (byte)fileVersion.Minor;
+			FileVersionMajor = (byte)LatestSupportedFileVersion.Major;
+			FileVersionMinor = (byte)LatestSupportedFileVersion.Minor;
 			hashData = password.Length > 0 ? Crypto.Transform(Encoding.Unicode.GetBytes(sample), password, Encoding.Unicode, false) : new byte[0];
 			Password = password;
 		}
@@ -74,6 +72,7 @@ namespace Comical.Core
 		}
 
 		const string sample = "This file has already been decoded.";
+		public static readonly Version LatestSupportedFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 		byte[] fileIdentifier;
 		byte[] hashData;
 		string title = string.Empty;
@@ -109,6 +108,8 @@ namespace Comical.Core
 
 		public Version FileVersion => new Version(FileVersionMajor, FileVersionMinor);
 
+		public bool IsSupportedFileVersion => FileVersion <= LatestSupportedFileVersion;
+
 		public bool IsProperPassword(string password) => hashData.Length == 0 || Encoding.Unicode.GetString(Crypto.Transform(hashData, password, Encoding.Unicode, true)) == sample;
 
 		public string Title
@@ -133,7 +134,7 @@ namespace Comical.Core
 
 		public bool PathExists => File.Exists(Path);
 
-		internal void SaveInto(Stream stream)
+		internal void Save(Stream stream)
 		{
 			stream.Write(Thumbnail, 0, Thumbnail.Length);
 			stream.Write(fileIdentifier, 0, fileIdentifier.Length);
