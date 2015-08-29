@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Comical.Infrastructures
+namespace Comical.Core
 {
 	public sealed class DelegateDisposable : IDisposable
 	{

@@ -6,11 +6,10 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using Comical.Infrastructures;
 
 namespace Comical.Core
 {
-	public class Comic : INotifyPropertyChanged
+	public class Comic : IDisposable, INotifyPropertyChanged
 	{
 		public Comic()
 		{
@@ -32,21 +31,52 @@ namespace Comical.Core
 		string _password = "";
 		bool _canDirty = true;
 		public static readonly string DefaultPassword = null;
+		ImageReferenceCollection _images = new ImageReferenceCollection();
+		BookmarkCollection _bookmarks = new BookmarkCollection();
 
-		public ImageReferenceCollection Images { get; } = new ImageReferenceCollection();
+		public ImageReferenceCollection Images { get { return _images; } }
 
-		public BookmarkCollection Bookmarks { get; } = new BookmarkCollection();
+		public BookmarkCollection Bookmarks { get { return _bookmarks; } }
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				using (EnterUndirtiableSection())
+				{
+					if (_images != null)
+					{
+						_images.Clear();
+						_images.Dispose();
+						_images = null;
+					}
+					if (_bookmarks != null)
+					{
+						_bookmarks.Clear();
+						_bookmarks.Dispose();
+						_bookmarks = null;
+					}
+					Thumbnail = null;
+					Title = Author = string.Empty;
+					IsDirty = false;
+				}
+			}
+		}
 
 		async Task<FileHeader> ReadFileAsync(string fileName, string password, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
 			using (FileStream readStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
 			{
-				var cic = new FileHeader(readStream);
+				var cic = FileHeader.Load(readStream);
 				// ID確認
-				if (!cic.CanOpen)
+				if (cic == null)
 					throw new ArgumentException(Properties.Resources.InvalidFileFormat);
-				if (!cic.IsSupportedFileVersion)
-					throw new ArgumentException(Properties.Resources.UnsupportedFileVersion);
 				// 復号化済みマーク
 				if (!cic.IsProperPassword(password))
 					throw new WrongPasswordException(Properties.Resources.PasswordIsNotProper);
@@ -56,9 +86,9 @@ namespace Comical.Core
 			}
 		}
 
-		static async Task WriteFileAsync(IReadOnlyList<ImageReference> images, FileHeader cic, BookmarkCollection bookmarks, IProgress<int> progress)
+		static async Task WriteFileAsync(string fileName, IReadOnlyList<ImageReference> images, FileHeader cic, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
-			using (FileStream writeStream = new FileStream(cic.Path, FileMode.Create, FileAccess.Write))
+			using (FileStream writeStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
 			{
 				cic.Save(writeStream);
 				bookmarks.Save(writeStream);
@@ -128,15 +158,8 @@ namespace Comical.Core
 					throw new InconsistentDataException(Properties.Resources.InconsistentData, inconsistency);
 				if (password == DefaultPassword)
 					password = _password;
-				var header = new FileHeader(fileName, password)
-				{
-					Thumbnail = Thumbnail,
-					Title = Title,
-					Author = Author,
-					DateOfPublication = DateOfPublication,
-					PageTurningDirection = PageTurningDirection
-				};
-				await WriteFileAsync(Images.ToArray(), header, Bookmarks, progress).ConfigureAwait(false);
+				var header = new FileHeader(password, Title, Author, DateOfPublication, PageTurningDirection, Thumbnail);
+				await WriteFileAsync(fileName, Images.ToArray(), header, Bookmarks, progress).ConfigureAwait(false);
 				FileVersion = header.FileVersion;
 				_password = password;
 				IsDirty = false;
@@ -147,7 +170,8 @@ namespace Comical.Core
 		{
 			using (EnterSingleOperation())
 			using (Images.EnterUnnotifiedSection())
-				await ReadFileAsync(fileName, password, new BookmarkCollection(), progress).ConfigureAwait(false);
+			using (var bookmarks = new BookmarkCollection())
+				await ReadFileAsync(fileName, password, bookmarks, progress).ConfigureAwait(false);
 		}
 
 		public async Task ExportAsync(string baseDirectory, IEnumerable<ImageReference> images, Func<Stream, string> extensionProvider, IProgress<int> progress)
@@ -169,7 +193,8 @@ namespace Comical.Core
 		public async Task ExtractAsync(string fileName, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
-				await WriteFileAsync(images.ToArray(), new FileHeader(fileName, string.Empty) { Author = Author, PageTurningDirection = PageTurningDirection }, new BookmarkCollection(), progress).ConfigureAwait(false);
+			using (var bookmarks = new BookmarkCollection())
+				await WriteFileAsync(fileName, images.ToArray(), new FileHeader(string.Empty, string.Empty, Author, null, PageTurningDirection, null), bookmarks, progress).ConfigureAwait(false);
 		}
 
 		public IEnumerable<Spread> ConstructSpreads(bool simpleSpread)

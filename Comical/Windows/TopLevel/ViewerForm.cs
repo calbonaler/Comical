@@ -41,7 +41,7 @@ namespace Comical
 			TaskDialogResult result;
 			do
 			{
-				if (!new FileHeader(fileName).IsProperPassword(""))
+				if (!FileHeader.Load(fileName).IsProperPassword(""))
 				{
 					using (PasswordDialog dialog = new PasswordDialog())
 					{

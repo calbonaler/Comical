@@ -103,9 +103,21 @@ namespace Comical
 
 		static void DrawCross(Graphics g, Point center)
 		{
-			using (System.IO.MemoryStream ms = new System.IO.MemoryStream(Properties.Resources.Cross))
-			using (Cursor cursor = new Cursor(ms))
-				cursor.Draw(g, new Rectangle(center.X - 15, center.Y - 15, 32, 32));
+			System.IO.MemoryStream ms = null;
+			try
+			{
+				ms = new System.IO.MemoryStream(Properties.Resources.Cross);
+				using (Cursor cursor = new Cursor(ms))
+				{
+					ms = null;
+					cursor.Draw(g, new Rectangle(center.X - 15, center.Y - 15, 32, 32));
+				}
+			}
+			finally
+			{
+				if (ms != null)
+					ms.Dispose();
+			}
 		}
 
 		Point GetVerifiedLocation(Point loc)

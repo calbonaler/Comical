@@ -16,7 +16,7 @@
 			if (disposing && (components != null))
 			{
 				components.Dispose();
-				icd.Clear();
+				icd.Dispose();
 				closeBrush.Dispose();
 			}
 			base.Dispose(disposing);

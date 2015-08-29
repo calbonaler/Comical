@@ -6,143 +6,114 @@ namespace Comical.Core
 {
 	public class FileHeader
 	{
-		public FileHeader(string fileName, string password)
+		public FileHeader(string password, string title, string author, DateTime? dateOfPublication, PageTurningDirection pageTurningDirection, byte[] thumbnail)
+			: this(
+				password,
+				title,
+				author,
+				dateOfPublication,
+				pageTurningDirection,
+				thumbnail,
+				string.IsNullOrEmpty(password) ? new byte[0] : Crypto.Transform(Encoding.Unicode.GetBytes(Sample), password, Encoding.Unicode, false),
+				LatestSupportedFileVersion
+			) { }
+
+		FileHeader(string password, string title, string author, DateTime? dateOfPublication, PageTurningDirection pageTurningDirection, byte[] thumbnail, byte[] hashData, Version fileVersion)
 		{
-			password = password ?? string.Empty;
-			Path = fileName;
-			fileIdentifier = new byte[] { 0x43, 0x49, 0x43 };
-			FileVersionMajor = (byte)LatestSupportedFileVersion.Major;
-			FileVersionMinor = (byte)LatestSupportedFileVersion.Minor;
-			hashData = password.Length > 0 ? Crypto.Transform(Encoding.Unicode.GetBytes(sample), password, Encoding.Unicode, false) : new byte[0];
-			Password = password;
+			Password = password ?? string.Empty;
+			Title = title ?? string.Empty;
+			Author = author ?? string.Empty;
+			DateOfPublication = dateOfPublication;
+			PageTurningDirection = pageTurningDirection;
+			Thumbnail = thumbnail;
+			_hashData = hashData;
+			FileVersion = fileVersion;
 		}
 
-		public FileHeader(string fileName)
+		public static FileHeader Load(string fileName)
 		{
-			Path = fileName;
 			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
-				InitializeWithStream(fs);
+				return Load(fs);
 		}
 
-		internal FileHeader(FileStream stream)
+		public static FileHeader Load(Stream stream)
 		{
-			Path = stream.Name;
-			InitializeWithStream(stream);
-		}
-
-		void InitializeWithStream(Stream stream)
-		{
-			var l = GetThumbnailSize(stream);
-			if (l > 0)
-			{
-				Thumbnail = new byte[l];
-				stream.Read(Thumbnail, 0, (int)l);
-			}
-			byte[] bs = new byte[3];
-			stream.Read(bs, 0, bs.Length);
-			fileIdentifier = bs;
-			FileVersionMajor = (byte)stream.ReadByte();
-			if (FileVersionMajor >= 4)
-				FileVersionMinor = (byte)stream.ReadByte();
-			if (CanOpen && FileVersion <= System.Reflection.Assembly.GetExecutingAssembly().GetName().Version)
-			{
-				byte dmLen = (byte)stream.ReadByte();
-				if (dmLen > 0)
-				{
-					byte[] dm = new byte[dmLen];
-					stream.Read(dm, 0, dm.Length);
-					hashData = dm;
-				}
-				else
-					hashData = new byte[0];
-				using (BinaryReader reader = new BinaryReader(stream, Encoding.Unicode, true))
-				{
-					Title = reader.ReadString();
-					Author = reader.ReadString();
-					int year = reader.ReadUInt16();
-					int month = reader.ReadByte();
-					int day = reader.ReadByte();
-					if (year > 1 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= DateTime.DaysInMonth(year, month))
-						DateOfPublication = new DateTime(year, month, day);
-					else
-						DateOfPublication = null;
-					PageTurningDirection = FileVersion.Major >= 4 ? (PageTurningDirection)reader.ReadByte() : PageTurningDirection.ToRight;
-				}
-			}
-		}
-
-		const string sample = "This file has already been decoded.";
-		public static readonly Version LatestSupportedFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-		byte[] fileIdentifier;
-		byte[] hashData;
-		string title = string.Empty;
-		string author = string.Empty;
-
-		public byte[] Thumbnail { get; set; }
-
-		static uint GetThumbnailSize(Stream stream)
-		{
+			if (stream == null)
+				throw new ArgumentNullException(nameof(stream));
+			byte[] thumbnail = null;
 			long pos = stream.Position;
-			if (pos != 0)
-				stream.Seek(0, SeekOrigin.Begin);
-			byte[] bs = new byte[2];
-			stream.Read(bs, 0, bs.Length);
-			uint size;
-			if (Encoding.ASCII.GetString(bs) == "BM")
+			byte[] bitmapHeader = new byte[6];
+			stream.Read(bitmapHeader, 0, bitmapHeader.Length);
+			stream.Seek(pos, SeekOrigin.Begin);
+			if (Encoding.ASCII.GetString(bitmapHeader, 0, 2) == "BM")
 			{
-				size = (uint)stream.ReadByte() + (uint)(stream.ReadByte() << 8) +
-					(uint)(stream.ReadByte() << 16) + (uint)(stream.ReadByte() << 24);
+				var size = BitConverter.ToUInt32(bitmapHeader, 2);
+				thumbnail = new byte[size];
+				stream.Read(thumbnail, 0, (int)size);
 			}
-			else
-				size = 0;
-			if (pos != stream.Position)
-				stream.Seek(pos, SeekOrigin.Begin);
-			return size;
+
+			byte[] cicHeader = new byte[3];
+			stream.Read(cicHeader, 0, cicHeader.Length);
+			if (Encoding.ASCII.GetString(cicHeader) != "CIC")
+				return null;
+
+			int major = stream.ReadByte();
+			int minor = 0;
+			if (major >= 4)
+				minor = stream.ReadByte();
+			Version fileVersion = new Version(major, minor);
+			if (fileVersion > LatestSupportedFileVersion)
+				return null;
+			
+			byte[] dm = new byte[stream.ReadByte()];
+			if (dm.Length > 0)
+				stream.Read(dm, 0, dm.Length);
+			using (BinaryReader reader = new BinaryReader(stream, Encoding.Unicode, true))
+			{
+				var title = reader.ReadString() ?? string.Empty;
+				var author = reader.ReadString() ?? string.Empty;
+				int year = reader.ReadUInt16();
+				int month = reader.ReadByte();
+				int day = reader.ReadByte();
+				DateTime? dateOfPublication = null;
+				if (year > 1 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= DateTime.DaysInMonth(year, month))
+					dateOfPublication = new DateTime(year, month, day);
+				var pageTurningDirection = fileVersion.Major >= 4 ? (PageTurningDirection)reader.ReadByte() : PageTurningDirection.ToRight;
+
+				return new FileHeader(null, title, author, dateOfPublication, pageTurningDirection, thumbnail, dm, fileVersion);
+			}
 		}
 
-		public bool CanOpen => Encoding.ASCII.GetString(fileIdentifier) == "CIC";
+		const string Sample = "This file has already been decoded.";
+		public static readonly Version LatestSupportedFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+		static readonly byte[] FileIdentifier = new byte[] { 0x43, 0x49, 0x43 };
+		readonly byte[] _hashData;
 
-		public byte FileVersionMajor { get; private set; }
+		public byte[] Thumbnail { get; }
+		
+		public Version FileVersion { get; }
+		
+		public bool IsProperPassword(string password) => _hashData.Length == 0 || Encoding.Unicode.GetString(Crypto.Transform(_hashData, password, Encoding.Unicode, true)) == Sample;
 
-		public byte FileVersionMinor { get; private set; }
+		public string Title { get; }
 
-		public Version FileVersion => new Version(FileVersionMajor, FileVersionMinor);
+		public string Author { get; }
 
-		public bool IsSupportedFileVersion => FileVersion <= LatestSupportedFileVersion;
+		public DateTime? DateOfPublication { get; }
 
-		public bool IsProperPassword(string password) => hashData.Length == 0 || Encoding.Unicode.GetString(Crypto.Transform(hashData, password, Encoding.Unicode, true)) == sample;
+		public PageTurningDirection PageTurningDirection { get; }
 
-		public string Title
-		{
-			get { return title; }
-			set { title = value ?? string.Empty; }
-		}
-
-		public string Author
-		{
-			get { return author; }
-			set { author = value ?? string.Empty; }
-		}
-
-		public DateTime? DateOfPublication { get; set; }
-
-		public PageTurningDirection PageTurningDirection { get; set; }
-
-		public string Password { get; }
-
-		public string Path { get; }
-
-		public bool PathExists => File.Exists(Path);
-
+		internal string Password { get; }
+		
 		internal void Save(Stream stream)
 		{
 			stream.Write(Thumbnail, 0, Thumbnail.Length);
-			stream.Write(fileIdentifier, 0, fileIdentifier.Length);
-			stream.WriteByte(FileVersionMajor);
+			stream.Write(FileIdentifier, 0, FileIdentifier.Length);
+			stream.WriteByte((byte)FileVersion.Major);
 			if (FileVersion.Major >= 4)
-				stream.WriteByte(FileVersionMinor);
-			stream.WriteByte((byte)hashData.Length);
-			stream.Write(hashData, 0, hashData.Length);
+				stream.WriteByte((byte)FileVersion.Minor);
+			stream.WriteByte((byte)_hashData.Length);
+			stream.Write(_hashData, 0, _hashData.Length);
 			using (BinaryWriter writer = new BinaryWriter(stream, Encoding.Unicode, true))
 			{
 				writer.Write(Title);

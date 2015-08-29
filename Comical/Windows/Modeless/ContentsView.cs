@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Comical.Core;
-using Comical.Infrastructures;
 
 namespace Comical
 {

@@ -20,7 +20,7 @@ namespace Comical
 				Properties.Settings.Default.HasUpgraded = true;
 				Properties.Settings.Default.Save();
 			}
-			if (args.Length >= 2 && args[0].Equals("/view", StringComparison.OrdinalIgnoreCase) && System.IO.File.Exists(args[1]) && new FileHeader(args[1]).CanOpen)
+			if (args.Length >= 2 && args[0].Equals("/view", StringComparison.OrdinalIgnoreCase) && System.IO.File.Exists(args[1]) && FileHeader.Load(args[1]) != null)
 				Application.Run(new ViewerForm(args[1]));
 			else
 				Application.Run(new EditorForm());

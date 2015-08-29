@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Comical.Infrastructures
+namespace Comical.Core
 {
 	public interface INotifyCollectionItemPropertyChanged
 	{

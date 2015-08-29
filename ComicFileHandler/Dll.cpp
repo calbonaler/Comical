@@ -20,8 +20,10 @@ void DllRelease() { InterlockedDecrement(&g_cRefModule); }
 
 typedef HRESULT(*PFNCREATEINSTANCE)(_In_ REFIID riid, _COM_Outptr_ void** ppv);
 
+#pragma warning(suppress: 6388)
 template <typename T> HRESULT CreateInstance(_In_ REFIID riid, _COM_Outptr_ void** ppv)
 {
+	*ppv = nullptr;
 	T* pNew = new (std::nothrow) T();
 	if (!pNew)
 		return E_OUTOFMEMORY;

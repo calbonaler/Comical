@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
-using Comical.Infrastructures;
 
 namespace Comical.Core
 {
@@ -36,17 +35,12 @@ namespace Comical.Core
 		public Stream OpenImageStream()
 		{
 			MemoryStream ms = null;
-			MemoryStream temp = null;
-			try
+			try { ms = new MemoryStream(_data, false); }
+			catch
 			{
-				temp = new MemoryStream(_data, false);
-				ms = temp;
-				temp = null;
-			}
-			finally
-			{
-				if (temp != null)
-					temp.Dispose();
+				if (ms != null)
+					ms.Dispose();
+				throw;
 			}
 			return ms;
 		}
@@ -98,6 +92,8 @@ namespace Comical.Core
 				base.OnCollectionItemPropertyChanged(e);
 				return;
 			}
+			if (e == null)
+				return;
 			foreach (var propertyNames in e.PropertyNames)
 			{
 				foreach (var propertyName in propertyNames)

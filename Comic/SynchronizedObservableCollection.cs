@@ -8,7 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace Comical.Infrastructures
+namespace Comical.Core
 {
 	[Serializable]
 	[ComVisible(false)]
@@ -19,7 +19,7 @@ namespace Comical.Infrastructures
 		public SynchronizedObservableCollection(IEnumerable<T> collection) { _items = new List<T>(collection); }
 
 		readonly List<T> _items;
-		readonly ReaderWriterLockSlim _itemsLock = new ReaderWriterLockSlim();
+		[NonSerialized]ReaderWriterLockSlim _itemsLock = new ReaderWriterLockSlim();
 		readonly SimpleMonitor _monitor = new SimpleMonitor();
 
 		public int Count { get { using (LockForRead()) return _items.Count; } }
@@ -104,8 +104,11 @@ namespace Comical.Infrastructures
 
 		protected virtual void Dispose(bool disposing)
 		{
-			if (disposing)
+			if (disposing && _itemsLock != null)
+			{
 				_itemsLock.Dispose();
+				_itemsLock = null;
+			}
 		}
 
 		public IEnumerator<T> GetEnumerator() { using (LockForRead()) return _items.ToList().GetEnumerator(); }
@@ -204,6 +207,7 @@ namespace Comical.Infrastructures
 			remove { PropertyChanged -= value; }
 		}
 
+		[Serializable]
 		sealed class SimpleMonitor : IDisposable
 		{
 			int _busyCount;

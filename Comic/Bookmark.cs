@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.IO;
 using System.Text;
-using Comical.Infrastructures;
 
 namespace Comical.Core
 {

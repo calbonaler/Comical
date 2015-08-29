@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Comical.Core;
-using Comical.Infrastructures;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Comical
@@ -105,7 +104,7 @@ namespace Comical
 			});
 		}
 
-		static async Task CollectFiles(IEnumerable<string> paths, List<FileHeader> comicFiles, List<ImageReference> images)
+		static async Task CollectFilesAsync(IEnumerable<string> paths, List<KeyValuePair<string, FileHeader>> comicFiles, List<ImageReference> images)
 		{
 			foreach (var path in paths)
 			{
@@ -113,15 +112,15 @@ namespace Comical
 				{
 					if (System.IO.Directory.Exists(path))
 					{
-						await CollectFiles(System.IO.Directory.EnumerateFileSystemEntries(path), comicFiles, images).ConfigureAwait(false);
+						await CollectFilesAsync(System.IO.Directory.EnumerateFileSystemEntries(path), comicFiles, images).ConfigureAwait(false);
 						continue;
 					}
 					if (!System.IO.File.Exists(path))
 						continue;
-					var fh = new FileHeader(path);
-					if (fh.CanOpen)
+					var fh = FileHeader.Load(path);
+					if (fh != null)
 					{
-						comicFiles.Add(fh);
+						comicFiles.Add(new KeyValuePair<string, FileHeader>(path, fh));
 						continue;
 					}
 					if (!imageExtensions.Any(ex => string.Equals(System.IO.Path.GetExtension(path), "." + ex, StringComparison.OrdinalIgnoreCase)))
@@ -180,14 +179,14 @@ namespace Comical
 			{
 				prgStatus.Style = ProgressBarStyle.Marquee;
 				lblStatus.Text = Properties.Resources.ScanningFiles;
-				List<FileHeader> comicFiles = new List<FileHeader>();
+				List<KeyValuePair<string, FileHeader>> comicFiles = new List<KeyValuePair<string, FileHeader>>();
 				List<ImageReference> images = new List<ImageReference>();
-				await CollectFiles(paths, comicFiles, images);
+				await CollectFilesAsync(paths, comicFiles, images);
 				prgStatus.Style = ProgressBarStyle.Blocks;
-				foreach (var fileHeader in comicFiles)
+				foreach (var kvp in comicFiles)
 				{
 					string password = string.Empty;
-					if (!fileHeader.IsProperPassword(password))
+					if (!kvp.Value.IsProperPassword(password))
 					{
 						using (PasswordDialog dialog = new PasswordDialog())
 						{
@@ -195,7 +194,7 @@ namespace Comical
 							if (dialog.ShowDialog(this) != DialogResult.OK)
 								continue;
 							password = dialog.Password;
-							if (!fileHeader.IsProperPassword(password))
+							if (!kvp.Value.IsProperPassword(password))
 							{
 								TaskDialog.Show(Properties.Resources.CannotDecryptBecausePasswordNotProper, null, Application.ProductName, TaskDialogStandardButtons.Close, TaskDialogStandardIcon.Error, ownerWindowHandle: Handle);
 								continue;
@@ -205,13 +204,13 @@ namespace Comical
 					if (canOpen)
 					{
 						lblStatus.Text = Properties.Resources.OpeningFile;
-						await comic.OpenAsync(fileHeader.Path, password, defaultProgress);
+						await comic.OpenAsync(kvp.Key, password, defaultProgress);
 						AddAuthorToHistory(comic.Author);
 					}
 					else
 					{
 						lblStatus.Text = Properties.Resources.AppendingFile;
-						await comic.AppendAsync(fileHeader.Path, password, defaultProgress);
+						await comic.AppendAsync(kvp.Key, password, defaultProgress);
 					}
 					canOpen = false;
 				}

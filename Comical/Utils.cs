@@ -20,24 +20,16 @@ namespace Comical
 			using (var ms = ir.OpenImageStream())
 			using (var image = Image.FromStream(ms))
 			{
+				if (size.IsEmpty)
+					size = image.Size;
+				var ratio = Math.Min(image.Width * size.Height, size.Width * image.Height);
 				Bitmap bitmap = null;
-				Bitmap tmp = null;
-				try
+				try { bitmap = new Bitmap(image, ratio / image.Height, ratio / image.Width); }
+				catch
 				{
-					if (size.IsEmpty)
-						tmp = new Bitmap(image);
-					else
-					{
-						var x = Math.Min(image.Width * size.Height, size.Width * image.Height);
-						tmp = new Bitmap(image, x / image.Height, x / image.Width);
-					}
-					bitmap = tmp;
-					tmp = null;
-				}
-				finally
-				{
-					if (tmp != null)
-						tmp.Dispose();
+					if (bitmap != null)
+						bitmap.Dispose();
+					throw;
 				}
 				return bitmap;
 			}
