@@ -83,11 +83,11 @@ namespace Comical
 			var count = SelectedBookmarks.Count();
 			itmSelectTarget.Visible = count == 1;
 			sepBookmark1.Visible = count == 1;
-			itmAdd.Visible = _images.Count > 0;
+			itmCreateNew.Visible = _images.Count > 0;
 			itmInsertAbove.Visible = count == 1;
 			itmInsertBelow.Visible = count == 1;
 			sepBookmark2.Visible = count > 0;
-			itmRemove.Visible = count > 0;
+			itmDelete.Visible = count > 0;
 		}
 
 		private void dgvBookmarks_CellErrorTextNeeded(object sender, DataGridViewCellErrorTextNeededEventArgs e)

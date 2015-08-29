@@ -52,7 +52,7 @@ namespace Comical
 
 			bookmarkList.SetImages(comic.Images);
 			bookmarkList.SetBookmarks(comic.Bookmarks);
-			bookmarkList.BookmarkSelected += (s, ev) => itmRemoveBookmark.Enabled = bookmarkList.SelectedBookmarks.Any();
+			bookmarkList.BookmarkSelected += (s, ev) => itmDeleteBookmark.Enabled = bookmarkList.SelectedBookmarks.Any();
 			bookmarkList.BookmarkNavigated += (s, ev) => imageList.FirstSelectedRowIndex = ev.Bookmark.Target;
 
 			document.SetComic(comic);

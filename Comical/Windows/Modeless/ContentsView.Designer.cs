@@ -78,13 +78,13 @@
 			// 
 			// itmExport
 			// 
-			this.itmExport.Name = "itmExport";
 			resources.ApplyResources(this.itmExport, "itmExport");
+			this.itmExport.Name = "itmExport";
 			// 
 			// itmExtract
 			// 
-			this.itmExtract.Name = "itmExtract";
 			resources.ApplyResources(this.itmExtract, "itmExtract");
+			this.itmExtract.Name = "itmExtract";
 			// 
 			// sepImage2
 			// 
@@ -115,7 +115,6 @@
 			this.dgvImages.ContextMenuStrip = conImage;
 			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-			this.dgvImages.Font = System.Drawing.SystemFonts.MessageBoxFont;
 			this.dgvImages.GridColor = System.Drawing.SystemColors.Control;
 			this.dgvImages.MultiDrag = true;
 			this.dgvImages.Name = "dgvImages";

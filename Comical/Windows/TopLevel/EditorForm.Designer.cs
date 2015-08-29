@@ -85,7 +85,7 @@
 			this.itmExport = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmExtract = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmAddBookmark = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmRemoveBookmark = new System.Windows.Forms.ToolStripMenuItem();
+			this.itmDeleteBookmark = new System.Windows.Forms.ToolStripMenuItem();
 			this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
 			this.prgStatus = new System.Windows.Forms.ToolStripProgressBar();
 			this.lblImageCount = new System.Windows.Forms.ToolStripStatusLabel();
@@ -308,7 +308,7 @@
 			// 
 			itmBookmark.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmAddBookmark,
-            this.itmRemoveBookmark});
+            this.itmDeleteBookmark});
 			itmBookmark.Name = "itmBookmark";
 			resources.ApplyResources(itmBookmark, "itmBookmark");
 			// 
@@ -318,11 +318,11 @@
 			this.itmAddBookmark.Name = "itmAddBookmark";
 			this.itmAddBookmark.Click += new System.EventHandler(this.itmAddBookmark_Click);
 			// 
-			// itmRemoveBookmark
+			// itmDeleteBookmark
 			// 
-			resources.ApplyResources(this.itmRemoveBookmark, "itmRemoveBookmark");
-			this.itmRemoveBookmark.Name = "itmRemoveBookmark";
-			this.itmRemoveBookmark.Click += new System.EventHandler(this.itmDeleteBookmark_Click);
+			resources.ApplyResources(this.itmDeleteBookmark, "itmDeleteBookmark");
+			this.itmDeleteBookmark.Name = "itmDeleteBookmark";
+			this.itmDeleteBookmark.Click += new System.EventHandler(this.itmDeleteBookmark_Click);
 			// 
 			// itmTool
 			// 
@@ -497,7 +497,6 @@
 			// EditorForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-			this.Font = System.Drawing.SystemFonts.MessageBoxFont;
 			resources.ApplyResources(this, "$this");
 			this.Controls.Add(this.dpMain);
 			this.Controls.Add(stsMain);
@@ -522,7 +521,7 @@
 		System.Windows.Forms.ToolStripStatusLabel lblImageCount;
 		System.Windows.Forms.ToolStripProgressBar prgStatus;
 		System.Windows.Forms.ToolStripMenuItem itmExclude;
-		System.Windows.Forms.ToolStripMenuItem itmRemoveBookmark;
+		System.Windows.Forms.ToolStripMenuItem itmDeleteBookmark;
 		System.Windows.Forms.ToolStripMenuItem itmAddBookmark;
 		private System.Windows.Forms.ToolStrip tsMain;
 		private System.Windows.Forms.ToolStripMenuItem itmExport;

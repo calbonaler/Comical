@@ -128,18 +128,6 @@
   <data name="itmOpen.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6
-        JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAACXBIWXMAAAsMAAALDAE/QCLIAAABMklE
-        QVQ4T2P4//8/RRirICkYqyApGKsgKRirICmYgWcW6x4g/k8I881jQ8HCyzhAeA/IgP/xF53+J1x0/p91
-        zed/5Z2o/50Ps/5Pf1b5f+mrzv/r3k79v+XdrP/b3s8Dsxe8bP4/8WnR/9q7sWBDwAZkXPX673pG/n/E
-        ZcP/ubfd/zc/iv8/8Vn+/7mv6sB4xouy/x2PU/6X3vP/H3/N/L/bWcX/4WetEQaU3Ar9H3nV+H/+Hc//
-        rY8T/095VgzWBKJ7nmT8r30Q8T/7livYAoeT0v+193P+dz1ojDCg73Hh/6nPysBOXvt2Itipy1/3/F/8
-        sg3slbaH6f+r7sb8z77u+z/qrN1/z6PG/613IQzYgx5A2DBIMRa8B2vUkIKxCpKCsQqSgrEKkoKxChKP
-        /zMAAOJUuXVm8uKaAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="itmDelete.Size" type="System.Drawing.Size, System.Drawing">
     <value>176, 22</value>
   </data>

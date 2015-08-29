@@ -131,7 +131,7 @@
 </value>
   </data>
   <data name="itmNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="itmNew.Text" xml:space="preserve">
     <value>新規作成(&amp;N)</value>
@@ -139,32 +139,32 @@
   <data name="itmOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANbSURBVDhPbZN9TNR1HMd/tfUHf7S2HrbWetia1WbpnMay
-        fzQ2mtGDLRTMqEhch2BZhhAmcCgeDyGE8WCiYAYqKj4AHgQICsjjBRzycE9yRzwe98AdHMfDqffqx3nT
-        Zr22z/bdPt/X+7N99v0K1u6DE5buZJOp8wCTCinG9jjGW/cy2hzNcONu/r6+C0NdJLdqJXpNdVi08DBW
-        ZQqzIwVYe9Mwi2e7IR99bx6uuXruuhrv18J0BVp5qN6rPWAp4Pb8FU/N285h1WUxWCuh/69fmTZXcGfx
-        mtirxTVbhVr+OV7tAf8OcDnLWHBcRFcdRk/rIfraMz3i4kyZGF6KqmLr/wR0J+Oar2DReVmULzBnP4um
-        8kuUN1K42ZziEZ2WUzgmC+kvC/5vgKXrIIuzl5ifKWXOVsKspRjVlRC6rieibJB6xJmxI9iHs+i7tPl+
-        wJavIl5Yvnb9MsEsbn9++jxO2xkcliKmjeKk8i0orsbwZ0ms2zaczZQ+DYv2ANqrofSc35inUqkef3bd
-        p9KnV/hvFSYViTinTuMwnxTlAmyjv4mTNlH+x3duuTyDI4U/YhxIwNgbxbjyW6pzP3Yv8wvetirmVO8T
-        r7zpLxg74pkx/Y594hhTI3lYhg5TkxfoTs3YQUiFkoTjqYwqoxjplDCoN3AoLYzVSVUjr0fmVPr4PPWc
-        MNG2D/t4PtaRXMyGLMbV6cjSviawTENQ212ijudQfk5CdlESIXk1+Oc24ftzu+Ozfdk7pVLpo8JYSyzW
-        4RzM+kwM/ZlI0mQsP6rhjRITb8mdvNd4hyAFfNKwSMBlExuKxV5o0jGJRPKYZ5ujN/ZgGszAqE3lZGEE
-        q5KqeDG9h1fzB1lx1sLqygXWNbjZ2Hyb90v1RMZ/g1Sa+rxHXmLpvU9okhnr30+TPN4dJwtnZfwFXsq4
-        yWuFQ/gW32JDQQ07M/eyKb+e8l8+dAOPeHVBWPoso32JDPf8xFBnNLrW3WTt/4A1CSW8fHiAcNke1A2h
-        6JuC0dV9RHvROzqveg9DvfjT6sPR1G1HXReG+loYHUV+FKQH8XZMLjtit6M4HUBHsZ9HFusHr3oPbeW2
-        ZwYqv1jfezEwoqsk4Gh7kV9T2wlfh2zXmne/j4vb/ORKv8CWlhYf7/WHEIR/AKStdY9KegMHAAAAAElF
-        TkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANaSURBVDhPbZN9TNR1HMd/tfUHf7S2HrbWyrZmtVk6p7Hs
+        H+02mtGDLRTMqEhch2BZhhAmcCgeDyEM48FEIR1IqKjgyZEiKCDPAYfHwx0nd3QccNwDHBzHAeq9+nHe
+        tFmv7bN9t8/39f5sn32/gr370LitO8Vi6TzIRIcMc1s8Yy37MDXFYGzYw983dmOojeJ2jVSvvRIeIzyK
+        XZXK7EghdnU6VvHsMBSgV+ezOFfHvcWGBzU/rWCwKkzv0x6yFHDHfdlb7qmz2HXZDNVI6fvrV6atCu4u
+        XBd7NSzOVqOp+gKf9pB/Byy6Kpl3XkB3JZyelsP0tmV5xYWZSjG8nAHFtv8J6E5h0a1gwVUhyueZc5xB
+        q/wK1c1UbjWlekWX7TTOiSL6KkP+G2DrOsTC7EXcM+XMTZUxayth4HIoXTeSUNXLvOLM6FEcxmx6L255
+        ELD168iXVqzbsFywitt3T5/DNfUHTlsx02Zx0qWtdFyLRVka55ky5jCpT8c2eJDBa2H0nNuUPzAw8OTz
+        6z+TPbsyYJsw0ZGEa7IUp/WUKBcyZfpNnLSZipPfe6qqMjla9BPm/kTM6mjGVN9RnfOJZ7kkZPvq2NPq
+        p159K0AwtycwYzmJY/w4kyP52IaP8GdukCctcyehChWJJ9IwqaIZ6ZQypDdwOD2cNcnVI29E5Sr9/J55
+        QRhv3Y9jrAD7SB5WQzZjmgzk6d8QVKkluPUe0SdyuXRWSk5xMqH5VwnIa8T/lzbn5/tzdslksseF0eY4
+        7MZcrPosDH1ZSNPlrDim5c0yC29XuXi/4S7BHfBp/QKBFRY2loi9sOTjUqn0Ce82TTf3YhnKxDyYxqmi
+        SFYnV7Mso4fXCoZYecbGGuU86+s9bGq6wwfleqISvkUmS3vRKy+x9N7HtSmM9h2gXpHgiZdHsCrhPC9n
+        3uL1omH8S26zsfAqu7L2sbmgjorMjzzAYz5dEJY+i6k3CWPPzwx3xqBr2UP2gQ9Zm1jGK0f6iZDvRVMf
+        hr4xBF3tx7QVv6vzqfcx1Ik/rS4Cbe0ONLXhaK6H014soTAjmHdi89gZt4OO0kDaSyReWawffep9BpXb
+        n+tXfrlBfSEosqss8FhbsaSx9Xd/p3z32vd+iI/f8vQqSVBzc7Of7/ojCMI/evF1d6Za0o4AAAAASUVO
+        RK5CYII=
 </value>
   </data>
   <data name="itmOpen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="itmOpen.Text" xml:space="preserve">
     <value>開く(&amp;O)...</value>
   </data>
   <data name="sepFile1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 6</value>
+    <value>183, 6</value>
   </data>
   <data name="itmSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -186,19 +186,19 @@
 </value>
   </data>
   <data name="itmSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="itmSave.Text" xml:space="preserve">
     <value>上書き保存(&amp;S)</value>
   </data>
   <data name="itmSaveAs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="itmSaveAs.Text" xml:space="preserve">
     <value>名前を付けて保存(&amp;A)...</value>
   </data>
   <data name="sepFile2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 6</value>
+    <value>183, 6</value>
   </data>
   <data name="itmDocumentSettings.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -216,66 +216,55 @@
 </value>
   </data>
   <data name="itmDocumentSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="itmDocumentSettings.Text" xml:space="preserve">
     <value>ドキュメントの設定(&amp;D)</value>
   </data>
   <data name="sepFile3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 6</value>
+    <value>183, 6</value>
   </data>
   <data name="itmExit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="itmExit.Text" xml:space="preserve">
     <value>終了(&amp;X)</value>
   </data>
   <data name="itmFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 19</value>
+    <value>66, 19</value>
   </data>
   <data name="itmFile.Text" xml:space="preserve">
     <value>ファイル(&amp;F)</value>
   </data>
+  <data name="itmEdit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 19</value>
+  </data>
+  <data name="itmEdit.Text" xml:space="preserve">
+    <value>編集(&amp;E)</value>
+  </data>
   <data name="itmSelectAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 22</value>
+    <value>183, 22</value>
   </data>
   <data name="itmSelectAll.Text" xml:space="preserve">
     <value>すべて選択(&amp;A)</value>
   </data>
   <data name="itmInvertSelections.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 22</value>
+    <value>183, 22</value>
   </data>
   <data name="itmInvertSelections.Text" xml:space="preserve">
     <value>選択の切り替え(&amp;I)</value>
   </data>
-  <data name="sepEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 6</value>
+  <data name="itmImage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 19</value>
   </data>
-  <data name="itmGoToIndex.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6
-        JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAACXBIWXMAAAsMAAALDAE/QCLIAAABzElE
-        QVQ4T6WRzUsbQRiH8xc0BSVqNAdFRQltxQZF8SI99iyFWnrUi1iipfEkVA+FKh4kCn60xENSkrQNu4Im
-        WoqBSm270FIKpfiRoFmCn9m4kWw+4NedKYkmmfXSw8PM++78nneY1QH4L5jNqxj6nJ46K/eI9Y3AbF5F
-        FaB5ZBlakpJGMUQwtCVrSgoKFkTQtSLD9iPDlOhan6/byKHr6P6g4F4wg5Gf2RIJnfDQvR1qsv+Kmuf/
-        iC2OkNjujopdvCR2rl4ctAWU+N1AGmZ/GnW8gsefkgUSKuhx7+DW3G+0OvZgcUVw23uE5vcSan0JmLgk
-        qrkUjD4FVd4EDE4JD9akvIQKen3hrHlxB7WvwjAuRWFwnaLSK6tBBTV8CjXqWv3uAhWuOMpeH+HGzD6m
-        hRiVUMF9Tzirt+9CvxBBufMUxreyOlmBSQ2b1OkkXPnmHGWOE+hnI5j4EkPjMx6W8Y//btC/doiB4Bme
-        fE7AKiQx/D2tkqEMCSm0cOcoXzqGfk7E5NfLMH2DjhcbtjujflzH4KaMmyT8LUbr+rHNl/m/kNtoQQID
-        GxKdTPa5yTkKDrMgoSkhzgwTCgoWJKgVJpQ0iml4ynm0wgB0fwGy57+KI8O4FgAAAABJRU5ErkJggg==
-</value>
+  <data name="itmImage.Text" xml:space="preserve">
+    <value>画像(&amp;I)</value>
   </data>
-  <data name="itmGoToIndex.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 22</value>
+  <data name="itmAdd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
   </data>
-  <data name="itmGoToIndex.Text" xml:space="preserve">
-    <value>ジャンプ(&amp;G)</value>
-  </data>
-  <data name="itmEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 19</value>
-  </data>
-  <data name="itmEdit.Text" xml:space="preserve">
-    <value>編集(&amp;E)</value>
+  <data name="itmAdd.Text" xml:space="preserve">
+    <value>追加(&amp;A)</value>
   </data>
   <data name="itmFromFiles.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -295,7 +284,7 @@
 </value>
   </data>
   <data name="itmFromFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="itmFromFiles.Text" xml:space="preserve">
     <value>ファイルから(&amp;F)...</value>
@@ -319,76 +308,48 @@
 </value>
   </data>
   <data name="itmFromFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="itmFromFolder.Text" xml:space="preserve">
     <value>フォルダーから(&amp;L)...</value>
   </data>
-  <data name="sepAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 6</value>
-  </data>
-  <data name="itmFromWebPage.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAqhJREFUOE+F
-        kv1LU1Ecxi/0P/RrP8UIxYpVGlJmRKH0ZiZILximob0JGs2WLwQxE9ecZEjJtJexzDZp6XTO6a7azLSU
-        yl8kbKJMCeaabnfvO0/33HvJSKoHHu45X77Ph+859zBULMvif3Y4HHGO424JgT9FG+KxGOLxGBKJuGBC
-        EoJpjX4nJiZgs9kSC+7FUim2Lp6OWCz6Vwi10+lEMBikkMjc3FyBFBU1ODiIaDTyTwgfhNVqFUzXUlSU
-        3W5HNBJGhLfHs4JmgxU3nhhRqOnH7QfDZGDsC0KhEFlyuzHvcm0E0EIkHIJ7aRkK00tU2DVoHutBvv4D
-        zjycwsWGLrzum+YhYUKnoVNIUVG0EA4Fcar8LtnXex4WrwHTrnlcHl/AubYZKN4pUNTUiJGxWeE4GwAW
-        iwUh/oL2VLZhx1UFSp4ZUG3/ihP2ReRop1E6kI/c55dQVmsTJqD9UlRUd3c3ghyHbRfqSLp6BLICNTlQ
-        P4rMhikcKnMiqaoYMmU70o9pCL1g2i9FRZnNZgQDARSWm7C3fgQZj99j171KnNQ0I/u6jewsaUWS/jvk
-        tT0YejsOvp9IUVEmkwmc3483vZNIPt2AjNYZHOxwYfeLT0hpsUPO77ebfkDWtoCMehuq6xpxJOvoFinO
-        MEajEYG1NXg9K0Snd5K04ibsf/QRh1+5kWnlkDpEILdGkMJDtra6kKxiISvv+CbFGUan08HPAyhkxeMl
-        Zn4Sef5NpFbokd3+GVk2PzIdCaT1R5DauYzjCi02p+etP2mtVgv/6ioPWRUg9Dj8mvh8Pnh9flQ97UPO
-        aAy540CdoY+o1fcJyw5vkuIMo1KpsMY3/w4J8BAu4Of/TgAtHT3I65xFFzspPDjaL0VFKZVK/Mtni67g
-        mvIOqamp+VUTkwzzE0k2h3dtU4HPAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="itmFromWebPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 22</value>
-  </data>
-  <data name="itmFromWebPage.Text" xml:space="preserve">
-    <value>Web ページから(&amp;B)...</value>
-  </data>
-  <data name="itmAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
-  </data>
-  <data name="itmAdd.Text" xml:space="preserve">
-    <value>追加(&amp;A)</value>
-  </data>
   <data name="sepImage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>214, 6</value>
+    <value>205, 6</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="itmOpenImage.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="itmOpenImage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="itmOpenImage.Text" xml:space="preserve">
     <value>開く(&amp;O)</value>
   </data>
   <data name="itmExclude.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6
-        JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAACXBIWXMAAAsMAAALDAE/QCLIAAABMklE
-        QVQ4T2P4//8/RRirICkYqyApGKsgKRirICmYgWcW6x4g/k8I881jQ8HCyzhAeA/IgP/xF53+J1x0/p91
-        zed/5Z2o/50Ps/5Pf1b5f+mrzv/r3k79v+XdrP/b3s8Dsxe8bP4/8WnR/9q7sWBDwAZkXPX673pG/n/E
-        ZcP/ubfd/zc/iv8/8Vn+/7mv6sB4xouy/x2PU/6X3vP/H3/N/L/bWcX/4WetEQaU3Ar9H3nV+H/+Hc//
-        rY8T/095VgzWBKJ7nmT8r30Q8T/7livYAoeT0v+193P+dz1ojDCg73Hh/6nPysBOXvt2Itipy1/3/F/8
-        sg3slbaH6f+r7sb8z77u+z/qrN1/z6PG/613IQzYgx5A2DBIMRa8B2vUkIKxCpKCsQqSgrEKkoKxChKP
-        /zMAAOJUuXVm8uKaAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAJPSURBVDhPY6AYHF40L/TnrO6nL5uL/j+f0PxyXWpc7Vx3
+        Bx6oNAq4l5nB+a6yJPNNddH5CVYmB024uXwYijxcU89lxXz4MaPz/69p7f+/dVX9vxAXsCtWRUUDqg8M
+        HibEWn8vTT92MSP2S5i8TI0oAwMvVIqBIUBfX3dueMCCZ5XZv35mhfz/Gu7w/4qV6p0eHQ1zkPzTCP/K
+        r06av5YZKN905OCwB2vCBuLkZb3WWukeeWIs8f+1Ovv/02oCd09Yau+4KMf5f5kU14nJMtxgA/ECI25e
+        7oX6mgUXlLm+3Fbi/H9Zhvn/PmWBSzd1hGygSgiDR6kJPnvUhd5eVuP9/1Cb7/9BNeHjKTLi4lBp/OB5
+        XHj6JQOJrw8s5P73KYlvmqoksvqzkej/xcrCy6BKcIMn6Qkp542kft7TFfjfryK9j5mRkRskPk9TdsE7
+        M+n/GZIiMWCF2MCOyFD3W866n2/pCf1foyJ2V5iRWRUqxRAoKsy5REtm+wU9iZe63LySUGEEWGFuLnva
+        w/zmDSOx/6d1xX87c3OHQqXgQIGdW/yMttidFkmeLqgQArzwcuy462Py/665zP/1GhI3ThpI20KlUECo
+        sIDnYVWxO8rsHPJQIQaGa442fA8ivE8+iXT8f9fN8P9xA5kV54xkFaDSGGCWktyMfGGhMiiXgWGiqQH/
+        qUifc29i3P5fNJH7c0Jfxh0qhRUYCglqZQoLVUO5ENCsrZr7OMTpxzZD+SNFmvKcUGGcQI6dHZEPQMCH
+        m5s/RUw4V5ODwxgqRCRgYAAAp/XHnTzi43AAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="itmExclude.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="itmExclude.Text" xml:space="preserve">
     <value>削除(&amp;D)</value>
   </data>
   <data name="sepImage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>214, 6</value>
+    <value>205, 6</value>
   </data>
   <data name="itmExport.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -400,7 +361,7 @@
 </value>
   </data>
   <data name="itmExport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="itmExport.Text" xml:space="preserve">
     <value>エクスポート(&amp;T)...</value>
@@ -418,13 +379,13 @@
 </value>
   </data>
   <data name="itmExtract.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="itmExtract.Text" xml:space="preserve">
     <value>抽出(&amp;C)...</value>
   </data>
   <data name="sepImage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>214, 6</value>
+    <value>205, 6</value>
   </data>
   <data name="itmSetViewMode.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -438,73 +399,74 @@
     <value>Ctrl+J</value>
   </data>
   <data name="itmSetViewMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="itmSetViewMode.Text" xml:space="preserve">
     <value>表示の自動設定(&amp;V)</value>
   </data>
   <data name="itmInvertViewMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 22</value>
+    <value>208, 22</value>
   </data>
   <data name="itmInvertViewMode.Text" xml:space="preserve">
     <value>表示の切り替え(&amp;N)</value>
   </data>
-  <data name="itmImage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 19</value>
-  </data>
-  <data name="itmImage.Text" xml:space="preserve">
-    <value>画像(&amp;I)</value>
-  </data>
-  <data name="itmAddBookmark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
-  </data>
-  <data name="itmAddBookmark.Text" xml:space="preserve">
-    <value>追加(&amp;A)</value>
-  </data>
-  <data name="itmRemoveBookmark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
-  </data>
-  <data name="itmRemoveBookmark.Text" xml:space="preserve">
-    <value>削除(&amp;R)</value>
-  </data>
   <data name="itmBookmark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 19</value>
+    <value>85, 19</value>
   </data>
   <data name="itmBookmark.Text" xml:space="preserve">
     <value>ブックマーク(&amp;B)</value>
   </data>
-  <data name="itmArchivers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 22</value>
+  <data name="itmAddBookmark.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
   </data>
-  <data name="itmArchivers.Text" xml:space="preserve">
-    <value>アーカイバー(&amp;A)</value>
+  <data name="itmAddBookmark.Text" xml:space="preserve">
+    <value>選択された画像の追加(&amp;A)</value>
   </data>
-  <data name="sepTool.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 6</value>
+  <data name="itmDeleteBookmark.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
+        80110fkJViYHTbi5fBiKPFxTz2XFfPgxo/P/r2nt/791Vf2/EBewK1ZFRQOqDwweJsRafy9NP3YxI/ZL
+        mLxMjSgDAy9UioEhQF9fd254wIJnldm/fmaF/P8a7vD/ipXqnR4dDXOQ/NMI/8qvTpq/lhko33Tk4LAH
+        a8IG4uRlvdZa6R55Yizx/7U6+//TagJ3T1hq77gox/l/mRTXicky3GAD8QIjbl7uhfqaBReUub7cVuL8
+        f1mG+f8+ZYFLN3WEbKBKCINHqQk+e9SF3l5W4/3/UJvv/0E14eMpMuLiUGn84HlcePolA4mvDyzk/vcp
+        iW+aqiSy+rOR6P/FysLLoEpwgyfpCSnnjaR+3tMV+N+vIr2PmZGRGyQ+T1N2wTsz6f8ZkiIxYIXYwI7I
+        UPdbzrqfb+kJ/V+jInZXmJFZFSrFECgqzLlES2b7BT2Jl7rcvJJQYQRYYW4ue9rD/OYNI7H/p3XFfztz
+        c4dCpeBAgZ1b/Iy22J0WSZ4uqBACvPBy7LjrY/L/rrnM//UaEjdOGkjbQqVQQKiwgOdhVbE7yuwc8lAh
+        BoZrjjZ8DyK8Tz6JdPx/183w/3EDmRXnjGQVoNIYYJaS3Ix8YaEyKJeBYaKpAf+pSJ9zb2Lc/l80kftz
+        Ql/GHSqFFRgKCWplCgtVQ7kQ0Kytmvs4xOnHNkP5I0Wa8pxQYZxAjp0dkQ9AwIebmz9FTDhXk4PDGCpE
+        JGBgAACn9cedPOLjcAAAAABJRU5ErkJggg==
+</value>
   </data>
-  <data name="itmOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 22</value>
+  <data name="itmDeleteBookmark.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
   </data>
-  <data name="itmOption.Text" xml:space="preserve">
-    <value>オプション(&amp;O)</value>
+  <data name="itmDeleteBookmark.Text" xml:space="preserve">
+    <value>削除(&amp;D)</value>
   </data>
   <data name="itmTool.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 19</value>
+    <value>60, 19</value>
   </data>
   <data name="itmTool.Text" xml:space="preserve">
     <value>ツール(&amp;T)</value>
   </data>
-  <data name="itmAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+  <data name="itmOption.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 22</value>
   </data>
-  <data name="itmAbout.Text" xml:space="preserve">
-    <value>バージョン情報(&amp;A)</value>
+  <data name="itmOption.Text" xml:space="preserve">
+    <value>オプション(&amp;O)</value>
   </data>
   <data name="itmHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 19</value>
+    <value>65, 19</value>
   </data>
   <data name="itmHelp.Text" xml:space="preserve">
     <value>ヘルプ(&amp;H)</value>
+  </data>
+  <data name="itmAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>158, 22</value>
+  </data>
+  <data name="itmAbout.Text" xml:space="preserve">
+    <value>バージョン情報(&amp;A)</value>
   </data>
   <data name="lblStatus.Text" xml:space="preserve">
     <value>待機</value>
@@ -514,6 +476,12 @@
   </data>
   <data name="lblImageCount.Text" xml:space="preserve">
     <value>0 個の項目</value>
+  </data>
+  <data name="itmView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 19</value>
+  </data>
+  <data name="itmView.Text" xml:space="preserve">
+    <value>表示(&amp;V)</value>
   </data>
   <data name="itmContentsWindow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -526,7 +494,7 @@
 </value>
   </data>
   <data name="itmContentsWindow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
+    <value>140, 22</value>
   </data>
   <data name="itmContentsWindow.Text" xml:space="preserve">
     <value>コンテンツ(&amp;C)</value>
@@ -547,16 +515,10 @@
 </value>
   </data>
   <data name="itmBookmarksWindow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
+    <value>140, 22</value>
   </data>
   <data name="itmBookmarksWindow.Text" xml:space="preserve">
     <value>ブックマーク(&amp;B)</value>
-  </data>
-  <data name="itmView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 19</value>
-  </data>
-  <data name="itmView.Text" xml:space="preserve">
-    <value>表示(&amp;V)</value>
   </data>
   <data name="btnNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -576,22 +538,22 @@
   <data name="btnOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANbSURBVDhPbZN9TNR1HMd/tfUHf7S2HrbWetia1WbpnMay
-        fzQ2mtGDLRTMqEhch2BZhhAmcCgeDyGE8WCiYAYqKj4AHgQICsjjBRzycE9yRzwe98AdHMfDqffqx3nT
-        Zr22z/bdPt/X+7N99v0K1u6DE5buZJOp8wCTCinG9jjGW/cy2hzNcONu/r6+C0NdJLdqJXpNdVi08DBW
-        ZQqzIwVYe9Mwi2e7IR99bx6uuXruuhrv18J0BVp5qN6rPWAp4Pb8FU/N285h1WUxWCuh/69fmTZXcGfx
-        mtirxTVbhVr+OV7tAf8OcDnLWHBcRFcdRk/rIfraMz3i4kyZGF6KqmLr/wR0J+Oar2DReVmULzBnP4um
-        8kuUN1K42ZziEZ2WUzgmC+kvC/5vgKXrIIuzl5ifKWXOVsKspRjVlRC6rieibJB6xJmxI9iHs+i7tPl+
-        wJavIl5Yvnb9MsEsbn9++jxO2xkcliKmjeKk8i0orsbwZ0ms2zaczZQ+DYv2ANqrofSc35inUqkef3bd
-        p9KnV/hvFSYViTinTuMwnxTlAmyjv4mTNlH+x3duuTyDI4U/YhxIwNgbxbjyW6pzP3Yv8wvetirmVO8T
-        r7zpLxg74pkx/Y594hhTI3lYhg5TkxfoTs3YQUiFkoTjqYwqoxjplDCoN3AoLYzVSVUjr0fmVPr4PPWc
-        MNG2D/t4PtaRXMyGLMbV6cjSviawTENQ212ijudQfk5CdlESIXk1+Oc24ftzu+Ozfdk7pVLpo8JYSyzW
-        4RzM+kwM/ZlI0mQsP6rhjRITb8mdvNd4hyAFfNKwSMBlExuKxV5o0jGJRPKYZ5ujN/ZgGszAqE3lZGEE
-        q5KqeDG9h1fzB1lx1sLqygXWNbjZ2Hyb90v1RMZ/g1Sa+rxHXmLpvU9okhnr30+TPN4dJwtnZfwFXsq4
-        yWuFQ/gW32JDQQ07M/eyKb+e8l8+dAOPeHVBWPoso32JDPf8xFBnNLrW3WTt/4A1CSW8fHiAcNke1A2h
-        6JuC0dV9RHvROzqveg9DvfjT6sPR1G1HXReG+loYHUV+FKQH8XZMLjtit6M4HUBHsZ9HFusHr3oPbeW2
-        ZwYqv1jfezEwoqsk4Gh7kV9T2wlfh2zXmne/j4vb/ORKv8CWlhYf7/WHEIR/AKStdY9KegMHAAAAAElF
-        TkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANaSURBVDhPbZN9TNR1HMd/tfUHf7S2HrbWyrZmtVk6p7Hs
+        H+02mtGDLRTMqEhch2BZhhAmcCgeDyEM48FEIR1IqKjgyZEiKCDPAYfHwx0nd3QccNwDHBzHAeq9+nHe
+        tFmv7bN9t8/39f5sn32/gr370LitO8Vi6TzIRIcMc1s8Yy37MDXFYGzYw983dmOojeJ2jVSvvRIeIzyK
+        XZXK7EghdnU6VvHsMBSgV+ezOFfHvcWGBzU/rWCwKkzv0x6yFHDHfdlb7qmz2HXZDNVI6fvrV6atCu4u
+        XBd7NSzOVqOp+gKf9pB/Byy6Kpl3XkB3JZyelsP0tmV5xYWZSjG8nAHFtv8J6E5h0a1gwVUhyueZc5xB
+        q/wK1c1UbjWlekWX7TTOiSL6KkP+G2DrOsTC7EXcM+XMTZUxayth4HIoXTeSUNXLvOLM6FEcxmx6L255
+        ELD168iXVqzbsFywitt3T5/DNfUHTlsx02Zx0qWtdFyLRVka55ky5jCpT8c2eJDBa2H0nNuUPzAw8OTz
+        6z+TPbsyYJsw0ZGEa7IUp/WUKBcyZfpNnLSZipPfe6qqMjla9BPm/kTM6mjGVN9RnfOJZ7kkZPvq2NPq
+        p159K0AwtycwYzmJY/w4kyP52IaP8GdukCctcyehChWJJ9IwqaIZ6ZQypDdwOD2cNcnVI29E5Sr9/J55
+        QRhv3Y9jrAD7SB5WQzZjmgzk6d8QVKkluPUe0SdyuXRWSk5xMqH5VwnIa8T/lzbn5/tzdslksseF0eY4
+        7MZcrPosDH1ZSNPlrDim5c0yC29XuXi/4S7BHfBp/QKBFRY2loi9sOTjUqn0Ce82TTf3YhnKxDyYxqmi
+        SFYnV7Mso4fXCoZYecbGGuU86+s9bGq6wwfleqISvkUmS3vRKy+x9N7HtSmM9h2gXpHgiZdHsCrhPC9n
+        3uL1omH8S26zsfAqu7L2sbmgjorMjzzAYz5dEJY+i6k3CWPPzwx3xqBr2UP2gQ9Zm1jGK0f6iZDvRVMf
+        hr4xBF3tx7QVv6vzqfcx1Ik/rS4Cbe0ONLXhaK6H014soTAjmHdi89gZt4OO0kDaSyReWawffep9BpXb
+        n+tXfrlBfSEosqss8FhbsaSx9Xd/p3z32vd+iI/f8vQqSVBzc7Of7/ojCMI/evF1d6Za0o4AAAAASUVO
+        RK5CYII=
 </value>
   </data>
   <data name="btnOpen.Text" xml:space="preserve">

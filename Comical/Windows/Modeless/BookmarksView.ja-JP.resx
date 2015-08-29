@@ -134,20 +134,17 @@
   <data name="sepBookmark1.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmAdd.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="itmCreateNew.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="itmAdd.Text" xml:space="preserve">
-    <value>追加(&amp;A)</value>
-  </data>
-  <data name="itmAdd.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="itmCreateNew.Text" xml:space="preserve">
+    <value>新規作成(&amp;N)</value>
   </data>
   <data name="itmInsertAbove.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
   <data name="itmInsertAbove.Text" xml:space="preserve">
-    <value>上に挿入(&amp;O)</value>
+    <value>上に挿入(&amp;A)</value>
   </data>
   <data name="itmInsertAbove.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -167,14 +164,27 @@
   <data name="sepBookmark2.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmRemove.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="itmDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
+        80110fkJViYHTbi5fBiKPFxTz2XFfPgxo/P/r2nt/791Vf2/EBewK1ZFRQOqDwweJsRafy9NP3YxI/ZL
+        mLxMjSgDAy9UioEhQF9fd254wIJnldm/fmaF/P8a7vD/ipXqnR4dDXOQ/NMI/8qvTpq/lhko33Tk4LAH
+        a8IG4uRlvdZa6R55Yizx/7U6+//TagJ3T1hq77gox/l/mRTXicky3GAD8QIjbl7uhfqaBReUub7cVuL8
+        f1mG+f8+ZYFLN3WEbKBKCINHqQk+e9SF3l5W4/3/UJvv/0E14eMpMuLiUGn84HlcePolA4mvDyzk/vcp
+        iW+aqiSy+rOR6P/FysLLoEpwgyfpCSnnjaR+3tMV+N+vIr2PmZGRGyQ+T1N2wTsz6f8ZkiIxYIXYwI7I
+        UPdbzrqfb+kJ/V+jInZXmJFZFSrFECgqzLlES2b7BT2Jl7rcvJJQYQRYYW4ue9rD/OYNI7H/p3XFfztz
+        c4dCpeBAgZ1b/Iy22J0WSZ4uqBACvPBy7LjrY/L/rrnM//UaEjdOGkjbQqVQQKiwgOdhVbE7yuwc8lAh
+        BoZrjjZ8DyK8Tz6JdPx/183w/3EDmRXnjGQVoNIYYJaS3Ix8YaEyKJeBYaKpAf+pSJ9zb2Lc/l80kftz
+        Ql/GHSqFFRgKCWplCgtVQ7kQ0Kytmvs4xOnHNkP5I0Wa8pxQYZxAjp0dkQ9AwIebmz9FTDhXk4PDGCpE
+        JGBgAACn9cedPOLjcAAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="itmDelete.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="itmRemove.Text" xml:space="preserve">
-    <value>削除(&amp;R)</value>
-  </data>
-  <data name="itmRemove.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="itmDelete.Text" xml:space="preserve">
+    <value>削除(&amp;D)</value>
   </data>
   <data name="conBookmark.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 126</value>
