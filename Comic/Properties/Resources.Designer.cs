@@ -86,23 +86,5 @@ namespace Comical.Core.Properties {
                 return ResourceManager.GetString("MultiAsyncOperationIsNotSupported", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   パスワードが適切ではありません。復号化に失敗しました。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string PasswordIsNotProper {
-            get {
-                return ResourceManager.GetString("PasswordIsNotProper", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   サポートされていないファイルバージョンです。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string UnsupportedFileVersion {
-            get {
-                return ResourceManager.GetString("UnsupportedFileVersion", resourceCulture);
-            }
-        }
     }
 }

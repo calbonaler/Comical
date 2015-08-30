@@ -88,24 +88,6 @@ namespace Comical.Properties {
         }
         
         /// <summary>
-        ///   パスワードが適切でないため復号化できません。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string CannotDecryptBecausePasswordNotProper {
-            get {
-                return ResourceManager.GetString("CannotDecryptBecausePasswordNotProper", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   保護の設定(&amp;P) に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string ConfigureProtection {
-            get {
-                return ResourceManager.GetString("ConfigureProtection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
         internal static byte[] Cross {
@@ -121,15 +103,6 @@ namespace Comical.Properties {
         internal static string DoNotSave {
             get {
                 return ResourceManager.GetString("DoNotSave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   ダウンロードしています {0} 個中 {1} 個完了 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string Downloading {
-            get {
-                return ResourceManager.GetString("Downloading", resourceCulture);
             }
         }
         
@@ -192,15 +165,6 @@ namespace Comical.Properties {
         /// <summary>
         ///   {0} x {1} に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string ImageResolutionStringRepresentation {
-            get {
-                return ResourceManager.GetString("ImageResolutionStringRepresentation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   {0} x {1} に類似しているローカライズされた文字列を検索します。
-        /// </summary>
         internal static string ImageSizeStringRepresentation {
             get {
                 return ResourceManager.GetString("ImageSizeStringRepresentation", resourceCulture);
@@ -255,33 +219,6 @@ namespace Comical.Properties {
         }
         
         /// <summary>
-        ///   ファイルを復号化するパスワードを入力してください(&amp;P): に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string InputPasswordToDecrypt {
-            get {
-                return ResourceManager.GetString("InputPasswordToDecrypt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   ファイルを暗号化するパスワードを入力してください。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string InputPasswordToEncrypt {
-            get {
-                return ResourceManager.GetString("InputPasswordToEncrypt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   新しいパスワードを両方のボックスに入力してください。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string InputSamePasswordInBothBox {
-            get {
-                return ResourceManager.GetString("InputSamePasswordInBothBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
         internal static System.Drawing.Bitmap Next {
@@ -297,15 +234,6 @@ namespace Comical.Properties {
         internal static string OpeningFile {
             get {
                 return ResourceManager.GetString("OpeningFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   入力したパスワードは一致しません。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string PasswordsNotSame {
-            get {
-                return ResourceManager.GetString("PasswordsNotSame", resourceCulture);
             }
         }
         
@@ -343,15 +271,6 @@ namespace Comical.Properties {
         internal static string TitleFormat {
             get {
                 return ResourceManager.GetString("TitleFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   ツール(&amp;L) に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string Tool {
-            get {
-                return ResourceManager.GetString("Tool", resourceCulture);
             }
         }
         

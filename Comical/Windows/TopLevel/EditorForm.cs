@@ -104,7 +104,7 @@ namespace Comical
 			});
 		}
 
-		static async Task CollectFilesAsync(IEnumerable<string> paths, List<KeyValuePair<string, FileHeader>> comicFiles, List<ImageReference> images)
+		static async Task CollectFilesAsync(IEnumerable<string> paths, List<string> comicFiles, List<ImageReference> images)
 		{
 			foreach (var path in paths)
 			{
@@ -117,10 +117,9 @@ namespace Comical
 					}
 					if (!System.IO.File.Exists(path))
 						continue;
-					var fh = FileHeader.Load(path);
-					if (fh != null)
+					if (FileHeader.Load(path) != null)
 					{
-						comicFiles.Add(new KeyValuePair<string, FileHeader>(path, fh));
+						comicFiles.Add(path);
 						continue;
 					}
 					if (!imageExtensions.Any(ex => string.Equals(System.IO.Path.GetExtension(path), "." + ex, StringComparison.OrdinalIgnoreCase)))
@@ -179,38 +178,22 @@ namespace Comical
 			{
 				prgStatus.Style = ProgressBarStyle.Marquee;
 				lblStatus.Text = Properties.Resources.ScanningFiles;
-				List<KeyValuePair<string, FileHeader>> comicFiles = new List<KeyValuePair<string, FileHeader>>();
+				List<string> comicFiles = new List<string>();
 				List<ImageReference> images = new List<ImageReference>();
 				await CollectFilesAsync(paths, comicFiles, images);
 				prgStatus.Style = ProgressBarStyle.Blocks;
-				foreach (var kvp in comicFiles)
+				foreach (var fileName in comicFiles)
 				{
-					string password = string.Empty;
-					if (!kvp.Value.IsProperPassword(password))
-					{
-						using (PasswordDialog dialog = new PasswordDialog())
-						{
-							dialog.Creating = false;
-							if (dialog.ShowDialog(this) != DialogResult.OK)
-								continue;
-							password = dialog.Password;
-							if (!kvp.Value.IsProperPassword(password))
-							{
-								TaskDialog.Show(Properties.Resources.CannotDecryptBecausePasswordNotProper, null, Application.ProductName, TaskDialogStandardButtons.Close, TaskDialogStandardIcon.Error, ownerWindowHandle: Handle);
-								continue;
-							}
-						}
-					}
 					if (canOpen)
 					{
 						lblStatus.Text = Properties.Resources.OpeningFile;
-						await comic.OpenAsync(kvp.Key, password, defaultProgress);
+						await comic.OpenAsync(fileName, defaultProgress);
 						AddAuthorToHistory(comic.Author);
 					}
 					else
 					{
 						lblStatus.Text = Properties.Resources.AppendingFile;
-						await comic.AppendAsync(kvp.Key, password, defaultProgress);
+						await comic.AppendAsync(fileName, defaultProgress);
 					}
 					canOpen = false;
 				}
@@ -219,13 +202,13 @@ namespace Comical
 			}
 		}
 
-		async Task<bool> SaveAsync(string fileName, string password)
+		async Task<bool> SaveAsync(string fileName)
 		{
 			try
 			{
 				using (BeginAsyncWork())
 				{
-					await comic.SaveAsync(fileName, password, defaultProgress);
+					await comic.SaveAsync(fileName, defaultProgress);
 					AddAuthorToHistory(comic.Author);
 					return true;
 				}
@@ -248,7 +231,7 @@ namespace Comical
 		{
 			if (string.IsNullOrEmpty(savedFilePath))
 				return await SaveAsAsync();
-			return await SaveAsync(savedFilePath, Comic.DefaultPassword);
+			return await SaveAsync(savedFilePath);
 		}
 
 		async Task<bool> SaveAsAsync()
@@ -258,26 +241,11 @@ namespace Comical
 				dialog.Filters.Add(new CommonFileDialogFilter("Comicファイル", "*.cic"));
 				dialog.AlwaysAppendDefaultExtension = true;
 				dialog.DefaultExtension = "cic";
-				var btnProtection = new Microsoft.WindowsAPICodePack.Dialogs.Controls.CommonFileDialogMenuItem(Properties.Resources.ConfigureProtection);
-				string password = "";
-				btnProtection.Click += (s, ev) =>
-				{
-					using (PasswordDialog passDialog = new PasswordDialog())
-					{
-						passDialog.Password = password;
-						passDialog.Creating = true;
-						if (passDialog.ShowDialog(this) == DialogResult.OK)
-							password = passDialog.Password;
-					}
-				};
-				var menTool = new Microsoft.WindowsAPICodePack.Dialogs.Controls.CommonFileDialogMenu(Properties.Resources.Tool);
-				menTool.Items.Add(btnProtection);
-				dialog.Controls.Add(menTool);
 				if (Properties.Settings.Default.DefaultSavedFileName.Length > 0)
 					dialog.DefaultFileName = string.Format(CultureInfo.CurrentCulture, Properties.Settings.Default.DefaultSavedFileName, comic.Title, comic.Author, comic.DateOfPublication);
 				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
 					return false;
-				var result = await SaveAsync(dialog.FileName, password);
+				var result = await SaveAsync(dialog.FileName);
 				savedFilePath = dialog.FileName;
 				OnSavedFilePathChanged();
 				return result;

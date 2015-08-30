@@ -136,26 +136,14 @@
   <data name="Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>
-  <data name="ConfigureProtection" xml:space="preserve">
-    <value>保護の設定(&amp;P)</value>
-  </data>
-  <data name="Tool" xml:space="preserve">
-    <value>ツール(&amp;L)</value>
-  </data>
   <data name="ImageCountStringRepresentation" xml:space="preserve">
     <value>{0} 個の項目</value>
-  </data>
-  <data name="ImageResolutionStringRepresentation" xml:space="preserve">
-    <value>{0} x {1}</value>
   </data>
   <data name="ImageSizeStringRepresentation" xml:space="preserve">
     <value>{0} x {1}</value>
   </data>
   <data name="TitleFormat" xml:space="preserve">
     <value>{0} - {1}</value>
-  </data>
-  <data name="Downloading" xml:space="preserve">
-    <value>ダウンロードしています {0} 個中 {1} 個完了</value>
   </data>
   <data name="DoNotSave" xml:space="preserve">
     <value>保存しない(&amp;N)</value>
@@ -172,12 +160,6 @@
   <data name="OpeningFile" xml:space="preserve">
     <value>ファイルを開いています...</value>
   </data>
-  <data name="InputPasswordToDecrypt" xml:space="preserve">
-    <value>ファイルを復号化するパスワードを入力してください(&amp;P):</value>
-  </data>
-  <data name="InputPasswordToEncrypt" xml:space="preserve">
-    <value>ファイルを暗号化するパスワードを入力してください。</value>
-  </data>
   <data name="DoYouSaveChanges" xml:space="preserve">
     <value>{0} への変更内容を保存しますか?</value>
   </data>
@@ -189,15 +171,6 @@
   </data>
   <data name="ViewerDescription_Selection" xml:space="preserve">
     <value>{0} 個の画像が選択されています。</value>
-  </data>
-  <data name="PasswordsNotSame" xml:space="preserve">
-    <value>入力したパスワードは一致しません。</value>
-  </data>
-  <data name="InputSamePasswordInBothBox" xml:space="preserve">
-    <value>新しいパスワードを両方のボックスに入力してください。</value>
-  </data>
-  <data name="CannotDecryptBecausePasswordNotProper" xml:space="preserve">
-    <value>パスワードが適切でないため復号化できません。</value>
   </data>
   <data name="AppendingFile" xml:space="preserve">
     <value>ファイルを追加しています...</value>

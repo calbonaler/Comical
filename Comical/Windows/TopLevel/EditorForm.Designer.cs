@@ -15,6 +15,11 @@
 		{
 			if (disposing)
 			{
+				imageList.SetImages(null);
+				bookmarkList.SetBookmarks(null);
+				bookmarkList.SetImages(null);
+				document.SetComic(null);
+				viewModeSettings.SetImages(null);
 				if (components != null)
 					components.Dispose();
 				comic.Dispose();

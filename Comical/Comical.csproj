@@ -188,12 +188,6 @@
     <Compile Include="Windows\Modal\OptionDialog.Designer.cs">
       <DependentUpon>OptionDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Modal\PasswordDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\Modal\PasswordDialog.Designer.cs">
-      <DependentUpon>PasswordDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Windows\Modal\AboutDialog.cs">
@@ -223,9 +217,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modal\OptionDialog.resx">
       <DependentUpon>OptionDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modal\PasswordDialog.ja-JP.resx">
-      <DependentUpon>PasswordDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modal\AboutDialog.ja-JP.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
@@ -265,9 +256,6 @@
     <EmbeddedResource Include="Windows\Modal\ImageEditingDialog.resx">
       <DependentUpon>ImageEditingDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modal\PasswordDialog.resx">
-      <DependentUpon>PasswordDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modeless\BookmarksView.resx">
       <DependentUpon>BookmarksView.cs</DependentUpon>

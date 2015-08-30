@@ -126,10 +126,4 @@
   <data name="MultiAsyncOperationIsNotSupported" xml:space="preserve">
     <value>複数の非同期操作の実行はサポートされていません。</value>
   </data>
-  <data name="PasswordIsNotProper" xml:space="preserve">
-    <value>パスワードが適切ではありません。復号化に失敗しました。</value>
-  </data>
-  <data name="UnsupportedFileVersion" xml:space="preserve">
-    <value>サポートされていないファイルバージョンです。</value>
-  </data>
 </root>

@@ -6,27 +6,23 @@ namespace Comical.Core
 {
 	public class FileHeader
 	{
-		public FileHeader(string password, string title, string author, DateTime? dateOfPublication, PageTurningDirection pageTurningDirection, byte[] thumbnail)
+		public FileHeader(string title, string author, DateTime? dateOfPublication, PageTurningDirection pageTurningDirection, byte[] thumbnail)
 			: this(
-				password,
 				title,
 				author,
 				dateOfPublication,
 				pageTurningDirection,
 				thumbnail,
-				string.IsNullOrEmpty(password) ? new byte[0] : Crypto.Transform(Encoding.Unicode.GetBytes(Sample), password, Encoding.Unicode, false),
 				LatestSupportedFileVersion
 			) { }
 
-		FileHeader(string password, string title, string author, DateTime? dateOfPublication, PageTurningDirection pageTurningDirection, byte[] thumbnail, byte[] hashData, Version fileVersion)
+		FileHeader(string title, string author, DateTime? dateOfPublication, PageTurningDirection pageTurningDirection, byte[] thumbnail, Version fileVersion)
 		{
-			Password = password ?? string.Empty;
 			Title = title ?? string.Empty;
 			Author = author ?? string.Empty;
 			DateOfPublication = dateOfPublication;
 			PageTurningDirection = pageTurningDirection;
 			Thumbnail = thumbnail;
-			_hashData = hashData;
 			FileVersion = fileVersion;
 		}
 
@@ -65,9 +61,8 @@ namespace Comical.Core
 			if (fileVersion > LatestSupportedFileVersion)
 				return null;
 			
-			byte[] dm = new byte[stream.ReadByte()];
-			if (dm.Length > 0)
-				stream.Read(dm, 0, dm.Length);
+			var skip = stream.ReadByte();
+			stream.Seek(skip, SeekOrigin.Current);
 			using (BinaryReader reader = new BinaryReader(stream, Encoding.Unicode, true))
 			{
 				var title = reader.ReadString() ?? string.Empty;
@@ -80,21 +75,17 @@ namespace Comical.Core
 					dateOfPublication = new DateTime(year, month, day);
 				var pageTurningDirection = fileVersion.Major >= 4 ? (PageTurningDirection)reader.ReadByte() : PageTurningDirection.ToRight;
 
-				return new FileHeader(null, title, author, dateOfPublication, pageTurningDirection, thumbnail, dm, fileVersion);
+				return new FileHeader(title, author, dateOfPublication, pageTurningDirection, thumbnail, fileVersion);
 			}
 		}
-
-		const string Sample = "This file has already been decoded.";
+		
 		public static readonly Version LatestSupportedFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 		static readonly byte[] FileIdentifier = new byte[] { 0x43, 0x49, 0x43 };
-		readonly byte[] _hashData;
 
 		public byte[] Thumbnail { get; }
 		
 		public Version FileVersion { get; }
 		
-		public bool IsProperPassword(string password) => _hashData.Length == 0 || Encoding.Unicode.GetString(Crypto.Transform(_hashData, password, Encoding.Unicode, true)) == Sample;
-
 		public string Title { get; }
 
 		public string Author { get; }
@@ -102,8 +93,6 @@ namespace Comical.Core
 		public DateTime? DateOfPublication { get; }
 
 		public PageTurningDirection PageTurningDirection { get; }
-
-		internal string Password { get; }
 		
 		internal void Save(Stream stream)
 		{
@@ -112,8 +101,7 @@ namespace Comical.Core
 			stream.WriteByte((byte)FileVersion.Major);
 			if (FileVersion.Major >= 4)
 				stream.WriteByte((byte)FileVersion.Minor);
-			stream.WriteByte((byte)_hashData.Length);
-			stream.Write(_hashData, 0, _hashData.Length);
+			stream.WriteByte(0);
 			using (BinaryWriter writer = new BinaryWriter(stream, Encoding.Unicode, true))
 			{
 				writer.Write(Title);

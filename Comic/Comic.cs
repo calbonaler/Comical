@@ -28,9 +28,7 @@ namespace Comical.Core
 			};
 		}
 		
-		string _password = "";
 		bool _canDirty = true;
-		public static readonly string DefaultPassword = null;
 		ImageReferenceCollection _images = new ImageReferenceCollection();
 		BookmarkCollection _bookmarks = new BookmarkCollection();
 
@@ -69,7 +67,7 @@ namespace Comical.Core
 			}
 		}
 
-		async Task<FileHeader> ReadFileAsync(string fileName, string password, BookmarkCollection bookmarks, IProgress<int> progress)
+		async Task<FileHeader> ReadFileAsync(string fileName, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
 			using (FileStream readStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
 			{
@@ -77,11 +75,8 @@ namespace Comical.Core
 				// ID確認
 				if (cic == null)
 					throw new ArgumentException(Properties.Resources.InvalidFileFormat);
-				// 復号化済みマーク
-				if (!cic.IsProperPassword(password))
-					throw new WrongPasswordException(Properties.Resources.PasswordIsNotProper);
 				bookmarks.Load(readStream); // 目次
-				await Images.LoadAsync(readStream, password, cic.FileVersion, progress).ConfigureAwait(false); // 画像
+				await Images.LoadAsync(readStream, cic.FileVersion, progress).ConfigureAwait(false); // 画像
 				return cic;
 			}
 		}
@@ -97,7 +92,7 @@ namespace Comical.Core
 					writer.Write(images.Count); // 画像数
 					for (int i = 0; i < images.Count; i++)
 					{
-						await images[i].SaveAsync(writer, cic.Password).ConfigureAwait(false);
+						await images[i].SaveAsync(writer).ConfigureAwait(false);
 						progress?.Report((i + 1) * 100 / images.Count);
 					}
 				}
@@ -128,7 +123,7 @@ namespace Comical.Core
 			return ConsistencyValidatedDataTypes.None;
 		}
 
-		public async Task OpenAsync(string fileName, string password, IProgress<int> progress)
+		public async Task OpenAsync(string fileName, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
 			using (EnterUndirtiableSection())
@@ -137,8 +132,7 @@ namespace Comical.Core
 				Images.Clear();
 				Bookmarks.Clear();
 				IsDirty = false;
-				var res = await ReadFileAsync(fileName, password, Bookmarks, progress).ConfigureAwait(false);
-				_password = password;
+				var res = await ReadFileAsync(fileName, Bookmarks, progress).ConfigureAwait(false);
 				Thumbnail = res.Thumbnail;
 				FileVersion = res.FileVersion;
 				Title = res.Title;
@@ -148,7 +142,7 @@ namespace Comical.Core
 			}
 		}
 
-		public async Task SaveAsync(string fileName, string password, IProgress<int> progress)
+		public async Task SaveAsync(string fileName, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
 			using (EnterUndirtiableSection())
@@ -156,22 +150,19 @@ namespace Comical.Core
 				var inconsistency = CheckInconsistency();
 				if (inconsistency != ConsistencyValidatedDataTypes.None)
 					throw new InconsistentDataException(Properties.Resources.InconsistentData, inconsistency);
-				if (password == DefaultPassword)
-					password = _password;
-				var header = new FileHeader(password, Title, Author, DateOfPublication, PageTurningDirection, Thumbnail);
+				var header = new FileHeader(Title, Author, DateOfPublication, PageTurningDirection, Thumbnail);
 				await WriteFileAsync(fileName, Images.ToArray(), header, Bookmarks, progress).ConfigureAwait(false);
 				FileVersion = header.FileVersion;
-				_password = password;
 				IsDirty = false;
 			}
 		}
 
-		public async Task AppendAsync(string fileName, string password, IProgress<int> progress)
+		public async Task AppendAsync(string fileName, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
 			using (Images.EnterUnnotifiedSection())
 			using (var bookmarks = new BookmarkCollection())
-				await ReadFileAsync(fileName, password, bookmarks, progress).ConfigureAwait(false);
+				await ReadFileAsync(fileName, bookmarks, progress).ConfigureAwait(false);
 		}
 
 		public async Task ExportAsync(string baseDirectory, IEnumerable<ImageReference> images, Func<Stream, string> extensionProvider, IProgress<int> progress)
@@ -194,7 +185,7 @@ namespace Comical.Core
 		{
 			using (EnterSingleOperation())
 			using (var bookmarks = new BookmarkCollection())
-				await WriteFileAsync(fileName, images.ToArray(), new FileHeader(string.Empty, string.Empty, Author, null, PageTurningDirection, null), bookmarks, progress).ConfigureAwait(false);
+				await WriteFileAsync(fileName, images.ToArray(), new FileHeader(string.Empty, Author, null, PageTurningDirection, null), bookmarks, progress).ConfigureAwait(false);
 		}
 
 		public IEnumerable<Spread> ConstructSpreads(bool simpleSpread)
@@ -402,16 +393,7 @@ namespace Comical.Core
 		Images = 1,
 		Bookmarks = 2,
 	}
-
-	[Serializable]
-	public class WrongPasswordException : Exception
-	{
-		public WrongPasswordException() { }
-		public WrongPasswordException(string message) : base(message) { }
-		public WrongPasswordException(string message, Exception innerException) : base(message, innerException) { }
-		protected WrongPasswordException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-	}
-
+	
 	[Serializable]
 	public class InconsistentDataException : Exception
 	{

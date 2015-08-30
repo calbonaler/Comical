@@ -37,24 +37,9 @@ namespace Comical
 
 		void Open(string fileName)
 		{
-			string pass = "";
 			TaskDialogResult result;
 			do
 			{
-				if (!FileHeader.Load(fileName).IsProperPassword(""))
-				{
-					using (PasswordDialog dialog = new PasswordDialog())
-					{
-						dialog.Creating = false;
-						if (dialog.ShowDialog(this) == DialogResult.OK)
-							pass = dialog.Password;
-						else
-						{
-							result = TaskDialogResult.Close;
-							break;
-						}
-					}
-				}
 				Activate();
 				prevMain.ViewPane.Select();
 				using (TaskDialog dialog = new TaskDialog())
@@ -71,19 +56,12 @@ namespace Comical
 						((TaskDialogButtonBase)dialog.Controls["btnCancel"]).Enabled = false;
 						try
 						{
-							await icd.OpenAsync(fileName, pass, new Progress<int>(value => dialog.ProgressBar.Value = value));
+							await icd.OpenAsync(fileName, new Progress<int>(value => dialog.ProgressBar.Value = value));
 							dialog.Close(TaskDialogResult.Ok);
 						}
 						catch (OperationCanceledException)
 						{
 							dialog.Close(TaskDialogResult.Close);
-						}
-						catch (WrongPasswordException ex)
-						{
-							if (TaskDialog.Show(ex.Message, null, Application.ProductName, TaskDialogStandardButtons.Retry | TaskDialogStandardButtons.Cancel, TaskDialogStandardIcon.Error, ownerWindowHandle: Handle) == TaskDialogResult.Retry)
-								dialog.Close(TaskDialogResult.Retry);
-							else
-								dialog.Close(TaskDialogResult.Close);
 						}
 					};
 					dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
