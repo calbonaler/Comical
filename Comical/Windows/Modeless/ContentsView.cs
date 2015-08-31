@@ -87,15 +87,7 @@ namespace Comical
 					_images.Add(image);
 			}
 		}
-
-		public void SelectAll() { dgvImages.SelectAll(); }
-
-		public void InvertSelections()
-		{
-			foreach (DataGridViewRow row in dgvImages.Rows)
-				row.Selected = !row.Selected;
-		}
-
+		
 		void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			this.InvokeIfNeeded(() =>

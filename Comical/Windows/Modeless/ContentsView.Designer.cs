@@ -52,7 +52,6 @@
 			// 
 			// conImage
 			// 
-			resources.ApplyResources(conImage, "conImage");
 			conImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmOpen,
             this.sepImage1,
@@ -66,6 +65,7 @@
             this.sepImage4,
             this.itmDelete});
 			conImage.Name = "conImage";
+			resources.ApplyResources(conImage, "conImage");
 			// 
 			// itmOpen
 			// 
@@ -75,18 +75,18 @@
 			// 
 			// sepImage1
 			// 
-			resources.ApplyResources(this.sepImage1, "sepImage1");
 			this.sepImage1.Name = "sepImage1";
+			resources.ApplyResources(this.sepImage1, "sepImage1");
 			// 
 			// itmAddToBookmark
 			// 
-			resources.ApplyResources(this.itmAddToBookmark, "itmAddToBookmark");
 			this.itmAddToBookmark.Name = "itmAddToBookmark";
+			resources.ApplyResources(this.itmAddToBookmark, "itmAddToBookmark");
 			// 
 			// sepImage2
 			// 
-			resources.ApplyResources(this.sepImage2, "sepImage2");
 			this.sepImage2.Name = "sepImage2";
+			resources.ApplyResources(this.sepImage2, "sepImage2");
 			// 
 			// itmExport
 			// 
@@ -100,25 +100,25 @@
 			// 
 			// sepImage3
 			// 
-			resources.ApplyResources(this.sepImage3, "sepImage3");
 			this.sepImage3.Name = "sepImage3";
+			resources.ApplyResources(this.sepImage3, "sepImage3");
 			// 
 			// itmStartViewModeSettingLeft
 			// 
-			resources.ApplyResources(this.itmStartViewModeSettingLeft, "itmStartViewModeSettingLeft");
 			this.itmStartViewModeSettingLeft.Name = "itmStartViewModeSettingLeft";
+			resources.ApplyResources(this.itmStartViewModeSettingLeft, "itmStartViewModeSettingLeft");
 			this.itmStartViewModeSettingLeft.Click += new System.EventHandler(this.itmStartViewModeSettingLeft_Click);
 			// 
 			// itmStartViewModeSettingRight
 			// 
-			resources.ApplyResources(this.itmStartViewModeSettingRight, "itmStartViewModeSettingRight");
 			this.itmStartViewModeSettingRight.Name = "itmStartViewModeSettingRight";
+			resources.ApplyResources(this.itmStartViewModeSettingRight, "itmStartViewModeSettingRight");
 			this.itmStartViewModeSettingRight.Click += new System.EventHandler(this.itmStartViewModeSettingRight_Click);
 			// 
 			// sepImage4
 			// 
-			resources.ApplyResources(this.sepImage4, "sepImage4");
 			this.sepImage4.Name = "sepImage4";
+			resources.ApplyResources(this.sepImage4, "sepImage4");
 			// 
 			// itmDelete
 			// 
@@ -128,7 +128,6 @@
 			// 
 			// dgvImages
 			// 
-			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.AllowDrop = true;
 			this.dgvImages.AllowUserToAddRows = false;
 			this.dgvImages.AllowUserToMoveRows = true;
@@ -144,6 +143,7 @@
             this.clmImage,
             this.clmViewMode});
 			this.dgvImages.ContextMenuStrip = conImage;
+			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
 			this.dgvImages.GridColor = System.Drawing.SystemColors.Control;
 			this.dgvImages.MultiDrag = true;
@@ -180,9 +180,9 @@
 			// 
 			// ContentsView
 			// 
-			resources.ApplyResources(this, "$this");
 			this.AllowDrop = true;
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+			resources.ApplyResources(this, "$this");
 			this.Controls.Add(this.dgvImages);
 			this.HideOnClose = true;
 			this.Name = "ContentsView";

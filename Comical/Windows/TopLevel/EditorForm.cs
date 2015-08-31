@@ -275,14 +275,6 @@ namespace Comical
 
 		#endregion
 
-		#region EditMenu
-
-		void itmInvertSelections_Click(object sender, EventArgs e) { imageList.InvertSelections(); }
-
-		void itmSelectAll_Click(object sender, EventArgs e) { imageList.SelectAll(); }
-
-		#endregion
-
 		#region ViewMenu
 
 		void itmContentsWindow_Click(object sender, EventArgs e) { imageList.Show(dpMain); }
