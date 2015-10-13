@@ -230,7 +230,6 @@
   </data>
   <data name="txtLibraries.Text" xml:space="preserve">
     <value>Windows API Code Pack (Microsoft)
-Html Agility Pack (Simon Mourier)
 DockPanel Suite (Weifen Luo)</value>
   </data>
   <data name="&gt;&gt;txtLibraries.Name" xml:space="preserve">
@@ -245,6 +244,9 @@ DockPanel Suite (Weifen Luo)</value>
   <data name="&gt;&gt;txtLibraries.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>ja-JP</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
