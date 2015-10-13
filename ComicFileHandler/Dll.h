@@ -1,8 +1,12 @@
 #pragma once
 
-#include <Shlwapi.h>
-#include <new>
+#include <ShObjIdl.h>
+#include <propkey.h>
+#include <propvarutil.h>
 #include <atlbase.h>
+#include <thumbcache.h>
+#include <wincodec.h>
+#include <sstream>
 
 template <typename T> inline T pointer_cast(void* pv) { return static_cast<T>(pv); }
 

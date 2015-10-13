@@ -1,9 +1,5 @@
 #pragma once
 
-#include <ShObjIdl.h>
-#include <propkey.h>
-#include <propvarutil.h>
-#include <sstream>
 #include "Dll.h"
 
 class _declspec(uuid("001823E8-247E-4685-BD84-350347B0460C")) CComicPropertyHandler final : public IInitializeWithStream, public IPropertyStore, public IPropertyStoreCapabilities

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <thumbcache.h>
-#include <wincodec.h>
 #include "Dll.h"
 
 class _declspec(uuid("{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}")) CComicThumbnailProvider final : public IInitializeWithStream, public IThumbnailProvider

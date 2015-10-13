@@ -1,7 +1,5 @@
 #include "CComicPropertyHandler.h"
 #include "CComicThumbnailProvider.h"
-#include <combaseapi.h>
-#include <ShObjIdl.h>
 
 ULONG g_cRefModule = 0;
 
