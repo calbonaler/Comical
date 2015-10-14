@@ -89,6 +89,14 @@
     <Compile Include="UI.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ComicalCore\ComicalCore.csproj">
+      <Name>ComicalCore</Name>
+      <Project>{9c92d548-fa74-4e71-a040-a24f3e93067f}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\Comical\Comical.csproj">
       <Name>Comical</Name>
       <Project>{35914a0e-9765-4594-a011-17be47f01025}</Project>
@@ -100,14 +108,6 @@
     <ProjectReference Include="..\ComicFileHandler\ComicFileHandler.vcxproj">
       <Name>ComicFileHandler</Name>
       <Project>{db009f18-6821-4290-b70d-309befcb61fc}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\Comic\ComicalCore.csproj">
-      <Name>ComicalCore</Name>
-      <Project>{9c92d548-fa74-4e71-a040-a24f3e93067f}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>

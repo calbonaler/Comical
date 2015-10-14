@@ -329,7 +329,7 @@
     <Content Include="Resources\ReleaseHand.cur" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Comic\ComicalCore.csproj">
+    <ProjectReference Include="..\ComicalCore\ComicalCore.csproj">
       <Project>{9c92d548-fa74-4e71-a040-a24f3e93067f}</Project>
       <Name>ComicalCore</Name>
     </ProjectReference>
