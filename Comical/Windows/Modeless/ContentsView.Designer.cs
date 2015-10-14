@@ -32,12 +32,16 @@
 			System.Windows.Forms.ContextMenuStrip conImage;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContentsView));
 			this.itmOpen = new System.Windows.Forms.ToolStripMenuItem();
-			this.itmDelete = new System.Windows.Forms.ToolStripMenuItem();
 			this.sepImage1 = new System.Windows.Forms.ToolStripSeparator();
+			this.itmAddToBookmark = new System.Windows.Forms.ToolStripMenuItem();
+			this.sepImage2 = new System.Windows.Forms.ToolStripSeparator();
 			this.itmExport = new System.Windows.Forms.ToolStripMenuItem();
 			this.itmExtract = new System.Windows.Forms.ToolStripMenuItem();
-			this.sepImage2 = new System.Windows.Forms.ToolStripSeparator();
-			this.itmAddToBookmark = new System.Windows.Forms.ToolStripMenuItem();
+			this.sepImage3 = new System.Windows.Forms.ToolStripSeparator();
+			this.itmStartViewModeSettingLeft = new System.Windows.Forms.ToolStripMenuItem();
+			this.itmStartViewModeSettingRight = new System.Windows.Forms.ToolStripMenuItem();
+			this.sepImage4 = new System.Windows.Forms.ToolStripSeparator();
+			this.itmDelete = new System.Windows.Forms.ToolStripMenuItem();
 			this.dgvImages = new Comical.Controls.DraggableDataGridView();
 			this.clmImage = new System.Windows.Forms.DataGridViewImageColumn();
 			this.clmViewMode = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -48,16 +52,20 @@
 			// 
 			// conImage
 			// 
+			resources.ApplyResources(conImage, "conImage");
 			conImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itmOpen,
-            this.itmDelete,
             this.sepImage1,
+            this.itmAddToBookmark,
+            this.sepImage2,
             this.itmExport,
             this.itmExtract,
-            this.sepImage2,
-            this.itmAddToBookmark});
+            this.sepImage3,
+            this.itmStartViewModeSettingLeft,
+            this.itmStartViewModeSettingRight,
+            this.sepImage4,
+            this.itmDelete});
 			conImage.Name = "conImage";
-			resources.ApplyResources(conImage, "conImage");
 			// 
 			// itmOpen
 			// 
@@ -65,16 +73,20 @@
 			this.itmOpen.Name = "itmOpen";
 			this.itmOpen.Click += new System.EventHandler(this.itmOpen_Click);
 			// 
-			// itmDelete
-			// 
-			resources.ApplyResources(this.itmDelete, "itmDelete");
-			this.itmDelete.Name = "itmDelete";
-			this.itmDelete.Click += new System.EventHandler(this.itmDelete_Click);
-			// 
 			// sepImage1
 			// 
-			this.sepImage1.Name = "sepImage1";
 			resources.ApplyResources(this.sepImage1, "sepImage1");
+			this.sepImage1.Name = "sepImage1";
+			// 
+			// itmAddToBookmark
+			// 
+			resources.ApplyResources(this.itmAddToBookmark, "itmAddToBookmark");
+			this.itmAddToBookmark.Name = "itmAddToBookmark";
+			// 
+			// sepImage2
+			// 
+			resources.ApplyResources(this.sepImage2, "sepImage2");
+			this.sepImage2.Name = "sepImage2";
 			// 
 			// itmExport
 			// 
@@ -86,18 +98,37 @@
 			resources.ApplyResources(this.itmExtract, "itmExtract");
 			this.itmExtract.Name = "itmExtract";
 			// 
-			// sepImage2
+			// sepImage3
 			// 
-			this.sepImage2.Name = "sepImage2";
-			resources.ApplyResources(this.sepImage2, "sepImage2");
+			resources.ApplyResources(this.sepImage3, "sepImage3");
+			this.sepImage3.Name = "sepImage3";
 			// 
-			// itmAddToBookmark
+			// itmStartViewModeSettingLeft
 			// 
-			this.itmAddToBookmark.Name = "itmAddToBookmark";
-			resources.ApplyResources(this.itmAddToBookmark, "itmAddToBookmark");
+			resources.ApplyResources(this.itmStartViewModeSettingLeft, "itmStartViewModeSettingLeft");
+			this.itmStartViewModeSettingLeft.Name = "itmStartViewModeSettingLeft";
+			this.itmStartViewModeSettingLeft.Click += new System.EventHandler(this.itmStartViewModeSettingLeft_Click);
+			// 
+			// itmStartViewModeSettingRight
+			// 
+			resources.ApplyResources(this.itmStartViewModeSettingRight, "itmStartViewModeSettingRight");
+			this.itmStartViewModeSettingRight.Name = "itmStartViewModeSettingRight";
+			this.itmStartViewModeSettingRight.Click += new System.EventHandler(this.itmStartViewModeSettingRight_Click);
+			// 
+			// sepImage4
+			// 
+			resources.ApplyResources(this.sepImage4, "sepImage4");
+			this.sepImage4.Name = "sepImage4";
+			// 
+			// itmDelete
+			// 
+			resources.ApplyResources(this.itmDelete, "itmDelete");
+			this.itmDelete.Name = "itmDelete";
+			this.itmDelete.Click += new System.EventHandler(this.itmDelete_Click);
 			// 
 			// dgvImages
 			// 
+			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.AllowDrop = true;
 			this.dgvImages.AllowUserToAddRows = false;
 			this.dgvImages.AllowUserToMoveRows = true;
@@ -113,7 +144,6 @@
             this.clmImage,
             this.clmViewMode});
 			this.dgvImages.ContextMenuStrip = conImage;
-			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
 			this.dgvImages.GridColor = System.Drawing.SystemColors.Control;
 			this.dgvImages.MultiDrag = true;
@@ -150,9 +180,9 @@
 			// 
 			// ContentsView
 			// 
+			resources.ApplyResources(this, "$this");
 			this.AllowDrop = true;
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-			resources.ApplyResources(this, "$this");
 			this.Controls.Add(this.dgvImages);
 			this.HideOnClose = true;
 			this.Name = "ContentsView";
@@ -174,5 +204,9 @@
 		private System.Windows.Forms.ToolStripMenuItem itmExtract;
 		private System.Windows.Forms.ToolStripSeparator sepImage2;
 		private System.Windows.Forms.ToolStripMenuItem itmAddToBookmark;
+		private System.Windows.Forms.ToolStripSeparator sepImage3;
+		private System.Windows.Forms.ToolStripMenuItem itmStartViewModeSettingLeft;
+		private System.Windows.Forms.ToolStripMenuItem itmStartViewModeSettingRight;
+		private System.Windows.Forms.ToolStripSeparator sepImage4;
 	}
 }

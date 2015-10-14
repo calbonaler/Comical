@@ -163,8 +163,31 @@ namespace Comical
 
 		public void DeleteSelectedImages()
 		{
-			foreach (var x in SelectedIndicies.OrderBy(x => x).Select(x => _images[x]).ToArray())
+			foreach (var x in SortedSelectedImages.ToArray())
 				_images.Remove(x);
+		}
+
+		public void SetViewModes(bool startAtLeft)
+		{
+			var start = SelectedIndicies.Last();
+			var count = SelectedIndicies.First() - start + 1;
+			if (count < 0)
+				count = 0;
+			else if (count > _images.Count - start)
+				count = _images.Count - start;
+			for (int i = 0; i < count; i++)
+				_images[i + start].ViewMode = i % 2 == (startAtLeft ? 0 : 1) ? ImageViewMode.Left : ImageViewMode.Right;
+		}
+
+		public void InvertViewMode()
+		{
+			foreach (var image in SortedSelectedImages)
+			{
+				if (image.ViewMode == ImageViewMode.Left)
+					image.ViewMode = ImageViewMode.Right;
+				else if (image.ViewMode == ImageViewMode.Right)
+					image.ViewMode = ImageViewMode.Left;
+			}
 		}
 
 		private void dgvImages_SelectionChanged(object sender, EventArgs e)
@@ -181,8 +204,11 @@ namespace Comical
 					catch (ArgumentException) { }
 				}
 			}
-			itmOpen.Visible = count == 1;
-			itmAddToBookmark.Visible = itmDelete.Visible = itmExport.Visible = itmExtract.Visible = sepImage1.Visible = sepImage2.Visible = count > 0;
+			itmOpen.Visible = sepImage1.Visible = count == 1;
+			itmAddToBookmark.Visible = sepImage2.Visible =
+				itmExport.Visible = itmExtract.Visible = sepImage3.Visible =
+				itmStartViewModeSettingLeft.Visible = itmStartViewModeSettingRight.Visible = sepImage4.Visible =
+				itmDelete.Visible = count > 0;
 		}
 
 		private void dgvImages_DragEnter(object sender, DragEventArgs e)
@@ -248,6 +274,10 @@ namespace Comical
 		private void itmOpen_Click(object sender, EventArgs e) { OpenFirstSelectedImage(); }
 
 		private void itmDelete_Click(object sender, EventArgs e) { DeleteSelectedImages(); }
+
+		private void itmStartViewModeSettingLeft_Click(object sender, EventArgs e) { SetViewModes(true); }
+
+		private void itmStartViewModeSettingRight_Click(object sender, EventArgs e) { SetViewModes(false); }
 	}
 
 	public class FileDroppedEventArgs : EventArgs

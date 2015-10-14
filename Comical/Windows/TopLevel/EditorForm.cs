@@ -28,23 +28,17 @@ namespace Comical
 		ContentsView imageList = new ContentsView();
 		BookmarksView bookmarkList = new BookmarksView();
 		DocumentView document = new DocumentView();
-		ViewModeSettingsView viewModeSettings = new ViewModeSettingsView();
 		Progress<int> defaultProgress;
 
 		void InitializeDockingWindows()
 		{
-			LoadFromXml(dpMain, Properties.Settings.Default.DockPanelConfiguration, imageList, bookmarkList, document, viewModeSettings);
+			LoadFromXml(dpMain, Properties.Settings.Default.DockPanelConfiguration, imageList, bookmarkList, document);
 
 			imageList.SetImages(comic.Images);
 			imageList.FileDropped += async (s, ev) => await AddAnythingLocalAsync(!ev.Control, ev.FileNames.ToArray());
 			imageList.ImageReferenceSelected += (s, ev) =>
 			{
-				itmAddBookmark.Enabled = itmOpenImage.Enabled = itmExclude.Enabled = itmExport.Enabled = itmExtract.Enabled = imageList.SelectedIndicies.Any();
-				if (imageList.SelectedIndicies.Any())
-				{
-					viewModeSettings.SelectionStart = imageList.SelectedIndicies.Last();
-					viewModeSettings.SelectionLength = imageList.SelectedIndicies.First() - viewModeSettings.SelectionStart + 1;
-				}
+				itmAddBookmark.Enabled = itmOpenImage.Enabled = itmExclude.Enabled = itmExport.Enabled = itmExtract.Enabled = itmSetViewMode.Enabled = itmInvertViewMode.Enabled = imageList.SelectedIndicies.Any();
 			};
 			imageList.ExportRequested += itmExport_Click;
 			imageList.ExtractRequested += itmExtract_Click;
@@ -56,8 +50,6 @@ namespace Comical
 			bookmarkList.BookmarkNavigated += (s, ev) => imageList.FirstSelectedRowIndex = ev.Bookmark.Target;
 
 			document.SetComic(comic);
-
-			viewModeSettings.SetImages(comic.Images);
 		}
 
 		async Task<TaskDialogResult> QuerySaveAsync(Action<TaskDialogResult> beforeSave = null)
@@ -144,34 +136,7 @@ namespace Comical
 			}
 			Properties.Settings.Default.RecentAuthors.Insert(0, author);
 		}
-
-		async Task NewAsync()
-		{
-			if (await QuerySaveAsync() != TaskDialogResult.Cancel)
-			{
-				comic.Clear();
-				savedFilePath = string.Empty;
-				OnSavedFilePathChanged();
-			}
-		}
-
-		async Task OpenAsync()
-		{
-			if (await QuerySaveAsync() == TaskDialogResult.Cancel)
-				return;
-			using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
-			{
-				dialog.DefaultExtension = ".cic";
-				dialog.Filters.Add(new CommonFileDialogFilter("Comicファイル", "*.cic"));
-				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
-				{
-					await AddAnythingLocalAsync(true, dialog.FileName);
-					savedFilePath = dialog.FileName;
-					OnSavedFilePathChanged();
-				}
-			}
-		}
-
+		
 		async Task AddAnythingLocalAsync(bool canOpen, params string[] paths)
 		{
 			using (BeginAsyncWork())
@@ -273,9 +238,32 @@ namespace Comical
 
 		#region FileMenu
 
-		async void itmNew_Click(object sender, EventArgs e) { await NewAsync(); }
+		async void itmNew_Click(object sender, EventArgs e)
+		{
+			if (await QuerySaveAsync() != TaskDialogResult.Cancel)
+			{
+				comic.Clear();
+				savedFilePath = string.Empty;
+				OnSavedFilePathChanged();
+			}
+		}
 
-		async void itmOpen_Click(object sender, EventArgs e) { await OpenAsync(); }
+		async void itmOpen_Click(object sender, EventArgs e)
+		{
+			if (await QuerySaveAsync() == TaskDialogResult.Cancel)
+				return;
+			using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+			{
+				dialog.DefaultExtension = ".cic";
+				dialog.Filters.Add(new CommonFileDialogFilter("Comicファイル", "*.cic"));
+				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
+				{
+					await AddAnythingLocalAsync(true, dialog.FileName);
+					savedFilePath = dialog.FileName;
+					OnSavedFilePathChanged();
+				}
+			}
+		}
 
 		async void itmSave_Click(object sender, EventArgs e) { await SaveAsync(); }
 
@@ -361,9 +349,11 @@ namespace Comical
 			}
 		}
 
-		void itmSetViewMode_Click(object sender, EventArgs e) { viewModeSettings.Show(dpMain); }
+		void itmWithLeft_Click(object sender, EventArgs e) { imageList.SetViewModes(true); }
 
-		void itmInvertViewMode_Click(object sender, EventArgs e) { viewModeSettings.InvertViewMode(); }
+		void itmWithRight_Click(object sender, EventArgs e) { imageList.SetViewModes(false); }
+
+		void itmInvertViewMode_Click(object sender, EventArgs e) { imageList.InvertViewMode(); }
 
 		#endregion
 

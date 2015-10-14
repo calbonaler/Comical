@@ -196,12 +196,6 @@
     <Compile Include="Windows\Modal\AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Modeless\ViewModeSettingsView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\Modeless\ViewModeSettingsView.Designer.cs">
-      <DependentUpon>ViewModeSettingsView.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Controls\Previewer.resx">
       <DependentUpon>Previewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -237,15 +231,9 @@
     <EmbeddedResource Include="Windows\Modeless\Viewer.ja-JP.resx">
       <DependentUpon>Viewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modeless\ViewModeSettingsView.ja-JP.resx">
-      <DependentUpon>ViewModeSettingsView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Windows\TopLevel\EditorForm.ja-JP.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\TopLevel\EditorForm.ja.resx">
-      <DependentUpon>EditorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\TopLevel\EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
@@ -281,9 +269,6 @@
     </Compile>
     <EmbeddedResource Include="Windows\Modal\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modeless\ViewModeSettingsView.resx">
-      <DependentUpon>ViewModeSettingsView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />

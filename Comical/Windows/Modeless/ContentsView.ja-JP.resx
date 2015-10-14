@@ -119,65 +119,98 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="itmOpen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
+    <value>192, 22</value>
   </data>
   <data name="itmOpen.Text" xml:space="preserve">
     <value>開く(&amp;O)</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="itmOpen.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="itmDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
-  </data>
-  <data name="itmDelete.Text" xml:space="preserve">
-    <value>削除(&amp;D)</value>
-  </data>
-  <data name="itmDelete.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="sepImage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 6</value>
-  </data>
-  <data name="sepImage1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="itmExport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
-  </data>
-  <data name="itmExport.Text" xml:space="preserve">
-    <value>エクスポート(&amp;T)...</value>
-  </data>
-  <data name="itmExport.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="itmExtract.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
-  </data>
-  <data name="itmExtract.Text" xml:space="preserve">
-    <value>抽出(&amp;C)...</value>
-  </data>
-  <data name="itmExtract.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sepImage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 6</value>
-  </data>
-  <data name="sepImage2.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+    <value>189, 6</value>
   </data>
   <data name="itmAddToBookmark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
+    <value>192, 22</value>
   </data>
   <data name="itmAddToBookmark.Text" xml:space="preserve">
     <value>ブックマークに追加(&amp;B)</value>
   </data>
-  <data name="itmAddToBookmark.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="sepImage2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 6</value>
+  </data>
+  <data name="itmExport.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAM1JREFUOE+tjDEOgkAQRTmFJ7Cz8QhWHkAvYOIlrGhopKXcGjsst9qGgAlXUEoj
+        iRZo4QHWDHyU1WVI1JdMttj/nvMX4jjW3J2KYo2pHRp1QX/pLr3v88MK80/6AkSWZbfOCBdIkuR5tINi
+        wgWI8lpW93WgoTOglMKEh3ZQTKSUmPDMtyN7IIoiTHgoYI2EYYiJSSO0b3mZVi/UGiEEFJPJZqBnx6Fe
+        nMeV2D4jEgQBFBMKvB/J9EKt8X0fCk8TgfbC8zztum7vWeXfcJwH064gPOUKp8QAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="itmExport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 22</value>
+  </data>
+  <data name="itmExport.Text" xml:space="preserve">
+    <value>エクスポート(&amp;T)...</value>
+  </data>
+  <data name="itmExtract.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAWBJREFUOE+tkT1Lw1AYhYOI+APcnf0DjvpPXMSls4ODVG2gWOzUUvoxOIVmKUKH
+        oNAOSStNp0yNqB0EtYtQKwaEtInH9725CqX2Y+gDz3TPObxwlaVgmiZm+drrncvo/3BoGvzWvG16948P
+        RzI+ybwBxrbtwdSRWQONRuNPzimn2CQPySq5NXeA6b/3hftalwdG5Af5Rh4sNMCoFrCuBr8D7JDcEwO1
+        Wk3GJvF9H8dGHxsX31hJhDwQkj65I8qMYRgyPonjODipvmA1McJaNGCSu7IaUalUZHwc13XRarVgu89w
+        ngbQdR2FQuGsWCxekZfkthjQNE1WIjzPQ6fTQb1e5+9DGIawLAupVAr5fP6TikMyIK/FQKlUktUIPrvd
+        biOdTiOZTEJVVeRyOWSzWVDpjvwib0SZyWQyshpRLpcRi8U4jCAIxAUM52RlHD5tETgnK+PwifF4fK6c
+        k5VloSg/CC1OG5AV66gAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="itmExtract.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 22</value>
+  </data>
+  <data name="itmExtract.Text" xml:space="preserve">
+    <value>抽出(&amp;C)...</value>
+  </data>
+  <data name="sepImage3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 6</value>
+  </data>
+  <data name="itmStartViewModeSettingLeft.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 22</value>
+  </data>
+  <data name="itmStartViewModeSettingLeft.Text" xml:space="preserve">
+    <value>表示設定を左で開始(&amp;L)</value>
+  </data>
+  <data name="itmStartViewModeSettingRight.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 22</value>
+  </data>
+  <data name="itmStartViewModeSettingRight.Text" xml:space="preserve">
+    <value>表示設定を右で開始(&amp;R)</value>
+  </data>
+  <data name="sepImage4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 6</value>
+  </data>
+  <data name="itmDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
+        80110fkJViYHTbi5fBiKPFxTz2XFfPgxo/P/r2nt/791Vf2/EBewK1ZFRQOqDwweJsRafy9NP3YxI/ZL
+        mLxMjSgDAy9UioEhQF9fd254wIJnldm/fmaF/P8a7vD/ipXqnR4dDXOQ/NMI/8qvTpq/lhko33Tk4LAH
+        a8IG4uRlvdZa6R55Yizx/7U6+//TagJ3T1hq77gox/l/mRTXicky3GAD8QIjbl7uhfqaBReUub7cVuL8
+        f1mG+f8+ZYFLN3WEbKBKCINHqQk+e9SF3l5W4/3/UJvv/0E14eMpMuLiUGn84HlcePolA4mvDyzk/vcp
+        iW+aqiSy+rOR6P/FysLLoEpwgyfpCSnnjaR+3tMV+N+vIr2PmZGRGyQ+T1N2wTsz6f8ZkiIxYIXYwI7I
+        UPdbzrqfb+kJ/V+jInZXmJFZFSrFECgqzLlES2b7BT2Jl7rcvJJQYQRYYW4ue9rD/OYNI7H/p3XFfztz
+        c4dCpeBAgZ1b/Iy22J0WSZ4uqBACvPBy7LjrY/L/rrnM//UaEjdOGkjbQqVQQKiwgOdhVbE7yuwc8lAh
+        BoZrjjZ8DyK8Tz6JdPx/183w/3EDmRXnjGQVoNIYYJaS3Ix8YaEyKJeBYaKpAf+pSJ9zb2Lc/l80kftz
+        Ql/GHSqFFRgKCWplCgtVQ7kQ0Kytmvs4xOnHNkP5I0Wa8pxQYZxAjp0dkQ9AwIebmz9FTDhXk4PDGCpE
+        JGBgAACn9cedPOLjcAAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="itmDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 22</value>
+  </data>
+  <data name="itmDelete.Text" xml:space="preserve">
+    <value>削除(&amp;D)</value>
   </data>
   <data name="conImage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 126</value>
+    <value>193, 182</value>
   </data>
   <data name="clmImage.HeaderText" xml:space="preserve">
     <value>画像</value>
