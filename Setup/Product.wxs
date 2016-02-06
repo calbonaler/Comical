@@ -44,12 +44,6 @@
 								Assembly=".net" AssemblyManifest="Microsoft.WindowsAPICodePack.dll" AssemblyApplication="Microsoft.WindowsAPICodePack.dll"
 								Source="$(var.Comical.TargetDir)Microsoft.WindowsAPICodePack.dll" />
 						</Component>
-						<Component Id="C_HtmlAgilityPack.dll" Guid="{1BF5B26F-E635-481F-A01D-523157600064}">
-							<File
-								Id="HtmlAgilityPack.dll" Name="HtmlAgilityPack.dll" KeyPath="yes"
-								Assembly=".net" AssemblyManifest="HtmlAgilityPack.dll" AssemblyApplication="HtmlAgilityPack.dll"
-								Source="$(var.Comical.TargetDir)HtmlAgilityPack.dll" />
-						</Component>
 						<Component Id="C_Comical.exe" Guid="{79CAE661-FFD4-D2A5-9E1F-27B59CCD947F}">
 							<File Id="Comical.exe" Name="Comical.exe" KeyPath="yes" ShortName="COMICAL.EXE" Assembly=".net" AssemblyManifest="Comical.exe" AssemblyApplication="Comical.exe" Source="$(var.Comical.TargetPath)">
 								<Shortcut Id="ComicalStartMenuShortcut" Directory="ProgramMenuFolder" Name="Comical" Icon="Comical.ico" IconIndex="0" WorkingDirectory="TARGETDIR" Advertise="yes"/>
@@ -89,7 +83,6 @@
 			<ComponentRef Id="C_WeifenLuo.WinFormsUI.Docking.dll" />
 			<ComponentRef Id="C_Microsoft.WindowsAPICodePack.Shell.dll" />
 			<ComponentRef Id="C_Microsoft.WindowsAPICodePack.dll" />
-			<ComponentRef Id="C_HtmlAgilityPack.dll" />
 			<ComponentRef Id="C_Comical.exe" />
 			<ComponentRef Id="C_Comical.resources.dll" />
 			<ComponentRef Id="C_ComicFileHandler.dll" />
