@@ -55,7 +55,7 @@
 			this.prevMain.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
 			this.prevMain.TabIndex = 0;
 			// 
-			// frmViewer
+			// ViewerForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -65,8 +65,9 @@
 			this.Controls.Add(this.prevMain);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "frmViewer";
+			this.Name = "ViewerForm";
 			this.ShowInTaskbar = false;
+			this.TopMost = true;
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.ResumeLayout(false);
 
