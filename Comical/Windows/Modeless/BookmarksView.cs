@@ -123,7 +123,7 @@ namespace Comical
 				_bookmarks[e.RowIndex].Target = target;
 		}
 
-		private void dgvBookmarks_QueryActualDestination(object sender, Controls.QueryActualDestinationEventArgs e) { e.Effect = e.Source == dgvBookmarks ? DragDropEffects.Move : DragDropEffects.Link; }
+		private void dgvBookmarks_QueryRowDragDropEffect(object sender, Controls.QueryRowDragDropEffectEventArgs e) { e.Effect = e.Source == dgvBookmarks ? DragDropEffects.Move : DragDropEffects.Link; }
 
 		private void dgvBookmarks_RowMoving(object sender, Controls.RowMovingEventArgs e)
 		{

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
@@ -12,7 +11,7 @@ namespace Comical.Controls
 	{
 		bool mouseDownOnSelectedCell = false;
 		bool _allowUserToMoveRows = false;
-		Point origin;
+		Point? origin;
 		int dragOverCalled = 0;
 		int _hitRowIndex = -1;
 		Pen insertionPen = new Pen(Color.Black, 2.0F);
@@ -39,14 +38,10 @@ namespace Comical.Controls
 		[Description("ユーザーによってドラッグされた行がドロップされたときに発生します。")]
 		public event EventHandler RowMoved;
 
-		/// <summary>行が実際に挿入される位置を確認するときに発生します。</summary>
+		/// <summary>行のドラッグ・ドロップ効果を確認するときに発生します。</summary>
 		[Category("アクション")]
-		[Description("行が実際に挿入される位置を確認するときに発生します。")]
-		public event EventHandler<QueryActualDestinationEventArgs> QueryActualDestination;
-
-		/// <summary>選択された項目の個数を取得します。</summary>
-		protected int SelectedItemCount => SelectionMode == DataGridViewSelectionMode.FullColumnSelect ? SelectedColumns.Count :
-			(SelectionMode == DataGridViewSelectionMode.FullRowSelect ? SelectedRows.Count : SelectedCells.Count);
+		[Description("行のドラッグ・ドロップ効果を確認するときに発生します。")]
+		public event EventHandler<QueryRowDragDropEffectEventArgs> QueryRowDragDropEffect;
 
 		/// <summary>ユーザーが行をドラッグで移動できるかどうかを示す値を取得または設定します。</summary>
 		[Category("動作")]
@@ -100,9 +95,15 @@ namespace Comical.Controls
 			}
 		}
 
-		DragHitTestInfo GetDragHitTestInfo(DragEventArgs de)
+		DragHitTestInfo GetDragHitTestInfo(IDataObject data, Point point)
 		{
-			Point pt = PointToClient(new Point(de.X, de.Y));
+			var obj = (DataGridViewMovedRows)data.GetData(typeof(DataGridViewMovedRows));
+			var ev = new QueryRowDragDropEffectEventArgs(DragDropEffects.Move, obj.Source);
+			OnQueryRowDragDropEffect(ev);
+			var effect = ev.Effect == DragDropEffects.None ? DragDropEffects.None : ev.Effect | DragDropEffects.Scroll;
+			if (effect == DragDropEffects.None)
+				return new DragHitTestInfo(DragDropEffects.None, null, null);
+			var pt = PointToClient(point);
 			int index = HitTest(pt.X, pt.Y).RowIndex;
 			if (index < 0)
 			{
@@ -110,24 +111,25 @@ namespace Comical.Controls
 					index = 0;
 				else if (pt.Y > GetRowDisplayRectangle(RowCount - 1, false).Bottom)
 					index = RowCount;
+				else
+					return new DragHitTestInfo(DragDropEffects.None, null, null);
 			}
-			var obj = de.Data.GetData(typeof(DataGridViewMovedRows)) as DataGridViewMovedRows;
-			int actualdest = index;
+			if (index < RowCount)
+			{
+				var rect = GetRowDisplayRectangle(index, false);
+				if (pt.Y >= rect.Y + rect.Height / 2)
+					index++;
+			}
+			int actualDest = index;
 			if (obj.Source == this)
 			{
-				var rowIndex = obj.SourceRows.Aggregate(int.MaxValue, (work, next) => work > next.Index ? next.Index : work);
-				if (index > rowIndex + obj.SourceRows.Count)
-					actualdest = index - obj.SourceRows.Count;
+				var rowIndex = obj.SourceRows.Min(x => x.Index);
+				if (index > rowIndex + obj.SourceRowsCount)
+					actualDest = index - obj.SourceRowsCount;
 				else if (index >= rowIndex)
-					actualdest = -1;
+					return new DragHitTestInfo(DragDropEffects.None, null, null);
 			}
-			QueryActualDestinationEventArgs ev = new QueryActualDestinationEventArgs(actualdest, DragDropEffects.Move, obj.Source);
-			OnQueryActualDestination(ev);
-			if (ev.ActualDestination < 0)
-				de.Effect = DragDropEffects.None;
-			else
-				de.Effect = ev.Effect;
-			return new DragHitTestInfo(index, ev.ActualDestination);
+			return new DragHitTestInfo(effect, index, actualDest);
 		}
 
 		int IncrementDragOverCalled(int value)
@@ -162,7 +164,7 @@ namespace Comical.Controls
 					ClearSelection(e.ColumnIndex, e.RowIndex, true);
 					if (!IsCurrentCellDirty)
 						CurrentCell = this[e.ColumnIndex, e.RowIndex];
-					BeginEdit(true);
+					BeginEdit(false);
 				}
 			}
 			base.OnCellMouseUp(e);
@@ -177,20 +179,23 @@ namespace Comical.Controls
 
 		protected override void OnMouseMove(MouseEventArgs e)
 		{
-			if (e != null && AllowUserToMoveRows && e.Button == MouseButtons.Left &&
+			if (e != null && AllowUserToMoveRows && e.Button == MouseButtons.Left && origin != null &&
 				SelectionMode == DataGridViewSelectionMode.FullRowSelect &&
-				(MultiDrag && SelectedItemCount > 0 || !MultiDrag && SelectedItemCount == 1) &&
-				(Math.Abs(origin.X - e.X) > SystemInformation.DragSize.Width / 2 ||
-				Math.Abs(origin.Y - e.Y) > SystemInformation.DragSize.Height / 2))
+				(MultiDrag ? SelectedRows.Count > 0 : SelectedRows.Count == 1) &&
+				(Math.Abs(origin.Value.X - e.X) > SystemInformation.DragSize.Width / 2 ||
+				Math.Abs(origin.Value.Y - e.Y) > SystemInformation.DragSize.Height / 2))
+			{
 				DoDragDrop(new DataGridViewMovedRows(SelectedRows, this),
 					DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move | DragDropEffects.None | DragDropEffects.Scroll);
+				origin = null;
+			}
 			base.OnMouseMove(e);
 		}
 
 		protected override void OnDragEnter(DragEventArgs drgevent)
 		{
 			if (drgevent != null && drgevent.Data.GetDataPresent(typeof(DataGridViewMovedRows)))
-				drgevent.Effect = DragDropEffects.Move | DragDropEffects.Scroll;
+				drgevent.Effect = GetDragHitTestInfo(drgevent.Data, new Point(drgevent.X, drgevent.Y)).Effect;
 			else
 				base.OnDragEnter(drgevent);
 		}
@@ -207,13 +212,11 @@ namespace Comical.Controls
 			int diffBottom = pt.Y - Height + ScrollArea;
 			if (diffTop >= 0)
 				FirstDisplayedScrollingRowIndexUnchecked -= IncrementDragOverCalled(diffTop);
-			else if (diffBottom >= 0)
+			if (diffBottom >= 0)
 				FirstDisplayedScrollingRowIndexUnchecked += IncrementDragOverCalled(diffBottom);
-			else
-			{
-				var info = GetDragHitTestInfo(drgevent);
-				HitRowIndex = info.ActualDestination >= 0 ? info.HitIndex : -1;
-			}
+			var info = GetDragHitTestInfo(drgevent.Data, new Point(drgevent.X, drgevent.Y));
+			drgevent.Effect = info.Effect;
+			HitRowIndex = info.HitIndex ?? -1;
 		}
 
 		protected override void OnDragLeave(EventArgs e)
@@ -229,19 +232,20 @@ namespace Comical.Controls
 				base.OnDragDrop(drgevent);
 				return;
 			}
-			int newIndex = GetDragHitTestInfo(drgevent).ActualDestination;
-			if (newIndex < 0)
+			var info = GetDragHitTestInfo(drgevent.Data, new Point(drgevent.X, drgevent.Y));
+			drgevent.Effect = info.Effect;
+			if (!(info.ActualDestination is int newIndex))
 				return;
 			var dgdo = (DataGridViewMovedRows)drgevent.Data.GetData(typeof(DataGridViewMovedRows));
-			RowMovingEventArgs ev = new RowMovingEventArgs(dgdo.Source, dgdo.SourceRows, dgdo.SetRow, newIndex);
+			RowMovingEventArgs ev = new RowMovingEventArgs(dgdo.Source, dgdo.SourceRows, newIndex);
 			OnRowMoving(ev);
 			if (!ev.Cancel)
 			{
 				foreach (var row in dgdo.SourceRows)
 					dgdo.Source.Rows.Remove(row);
-				Rows.InsertRange(newIndex, dgdo.GetModifiedRows());
+				Rows.InsertRange(newIndex, dgdo.SourceRows);
 				ClearSelection();
-				for (int i = newIndex; i < newIndex + dgdo.SourceRows.Count; i++)
+				for (int i = newIndex; i < newIndex + dgdo.SourceRowsCount; i++)
 					SetSelectedRowCore(i, true);
 				OnRowMoved(EventArgs.Empty);
 			}
@@ -268,20 +272,23 @@ namespace Comical.Controls
 		/// <summary><see cref="RowMoved"/> イベントを発生させます。</summary>
 		protected virtual void OnRowMoved(EventArgs e) { RowMoved?.Invoke(this, e); }
 
-		/// <summary><see cref="QueryActualDestination"/> イベントを発生させます。</summary>
-		protected virtual void OnQueryActualDestination(QueryActualDestinationEventArgs e) { QueryActualDestination?.Invoke(this, e); }
+		/// <summary><see cref="QueryRowDragDropEffect"/> イベントを発生させます。</summary>
+		protected virtual void OnQueryRowDragDropEffect(QueryRowDragDropEffectEventArgs e) { QueryRowDragDropEffect?.Invoke(this, e); }
 
 		struct DragHitTestInfo
 		{
-			public DragHitTestInfo(int hitIndex, int actualDestination)
+			public DragHitTestInfo(DragDropEffects effect, int? hitIndex, int? actualDestination)
 			{
+				Effect = effect;
 				HitIndex = hitIndex;
 				ActualDestination = actualDestination;
 			}
 
-			public int HitIndex { get; }
+			public DragDropEffects Effect { get; }
 
-			public int ActualDestination { get; }
+			public int? HitIndex { get; }
+
+			public int? ActualDestination { get; }
 		}
 
 		class DataGridViewMovedRows
@@ -290,18 +297,13 @@ namespace Comical.Controls
 			{
 				if (rows == null)
 					throw new ArgumentNullException(nameof(rows));
-				modifiedRows = rows.Cast<DataGridViewRow>().OrderBy(x => x.Index).ToArray();
-				SourceRows = new ReadOnlyCollection<DataGridViewRow>((DataGridViewRow[])modifiedRows.Clone());
+				SourceRows = rows.Cast<DataGridViewRow>().OrderBy(x => x.Index).ToArray();
 				Source = source;
 			}
 
-			DataGridViewRow[] modifiedRows;
+			public int SourceRowsCount => SourceRows.Length;
 
-			public ReadOnlyCollection<DataGridViewRow> SourceRows { get; }
-
-			public void SetRow(int index, DataGridViewRow row) { modifiedRows[index] = row; }
-
-			public DataGridViewRow[] GetModifiedRows() => (DataGridViewRow[])modifiedRows.Clone();
+			public DataGridViewRow[] SourceRows { get; }
 
 			public DataGridView Source { get; }
 		}
@@ -309,35 +311,27 @@ namespace Comical.Controls
 
 	public class RowMovingEventArgs : CancelEventArgs
 	{
-		public RowMovingEventArgs(DataGridView source, ReadOnlyCollection<DataGridViewRow> sourceRows, Action<int, DataGridViewRow> setRow, int dest)
+		public RowMovingEventArgs(DataGridView source, DataGridViewRow[] sourceRows, int dest)
 		{
 			Source = source;
-			SourceRows = sourceRows;
-			this.setRow = setRow;
+			SourceRows = new ReadOnlyCollection<DataGridViewRow>(sourceRows);
 			Destination = dest;
 		}
-
-		Action<int, DataGridViewRow> setRow = (a, b) => { };
 
 		public int Destination { get; }
 
 		public DataGridView Source { get; }
 
 		public ReadOnlyCollection<DataGridViewRow> SourceRows { get; }
-
-		public void SetRow(int index, DataGridViewRow row) { setRow(index, row); }
 	}
 
-	public class QueryActualDestinationEventArgs : EventArgs
+	public class QueryRowDragDropEffectEventArgs : EventArgs
 	{
-		public QueryActualDestinationEventArgs(int actualDest, DragDropEffects effects, DataGridView source)
+		public QueryRowDragDropEffectEventArgs(DragDropEffects effects, DataGridView source)
 		{
-			ActualDestination = actualDest;
 			Effect = effects;
 			Source = source;
 		}
-
-		public int ActualDestination { get; set; }
 
 		public DragDropEffects Effect { get; set; }
 

@@ -154,7 +154,7 @@
 			this.dgvImages.ShowCellToolTips = false;
 			this.dgvImages.VirtualMode = true;
 			this.dgvImages.RowMoving += new System.EventHandler<Comical.Controls.RowMovingEventArgs>(this.dgvImages_RowMoving);
-			this.dgvImages.QueryActualDestination += new System.EventHandler<Comical.Controls.QueryActualDestinationEventArgs>(this.dgvImages_QueryActualDestination);
+			this.dgvImages.QueryRowDragDropEffect += new System.EventHandler<Comical.Controls.QueryRowDragDropEffectEventArgs>(this.dgvImages_QueryRowDragDropEffect);
 			this.dgvImages.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvImages_CellDoubleClick);
 			this.dgvImages.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvImages_CellValueNeeded);
 			this.dgvImages.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvImages_CellValuePushed);

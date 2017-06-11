@@ -221,11 +221,11 @@ namespace Comical
 				_images.MoveRange(e.SourceRows[0].Index, e.SourceRows.Count, e.Destination);
 		}
 
-		private void dgvImages_QueryActualDestination(object sender, Controls.QueryActualDestinationEventArgs e)
+		private void dgvImages_QueryRowDragDropEffect(object sender, Controls.QueryRowDragDropEffectEventArgs e)
 		{
 			e.Effect = DragDropEffects.Move;
 			if (e.Source.Name == "dgvBookmarks")
-				e.ActualDestination = -1;
+				e.Effect = DragDropEffects.None;
 		}
 
 		private void dgvImages_CellDoubleClick(object sender, DataGridViewCellEventArgs e) { OpenFirstSelectedImage(); }

@@ -127,7 +127,7 @@
 			this.dgvBookmarks.ShowCellToolTips = false;
 			this.dgvBookmarks.VirtualMode = true;
 			this.dgvBookmarks.RowMoving += new System.EventHandler<Comical.Controls.RowMovingEventArgs>(this.dgvBookmarks_RowMoving);
-			this.dgvBookmarks.QueryActualDestination += new System.EventHandler<Comical.Controls.QueryActualDestinationEventArgs>(this.dgvBookmarks_QueryActualDestination);
+			this.dgvBookmarks.QueryRowDragDropEffect += new System.EventHandler<Comical.Controls.QueryRowDragDropEffectEventArgs>(this.dgvBookmarks_QueryRowDragDropEffect);
 			this.dgvBookmarks.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBookmarks_CellDoubleClick);
 			this.dgvBookmarks.CellErrorTextNeeded += new System.Windows.Forms.DataGridViewCellErrorTextNeededEventHandler(this.dgvBookmarks_CellErrorTextNeeded);
 			this.dgvBookmarks.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvBookmarks_CellValueNeeded);
