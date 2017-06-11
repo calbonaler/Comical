@@ -123,40 +123,7 @@
   <metadata name="itmNew.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="itmOpen.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="sepFile1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="itmSave.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="itmSaveAs.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="sepFile2.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="itmDocumentSettings.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="sepFile3.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="itmExit.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="itmFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 19</value>
-  </data>
-  <data name="itmFile.Text" xml:space="preserve">
-    <value>&amp;File</value>
-  </data>
-  <metadata name="itmNew.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
   <data name="itmNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -188,21 +155,21 @@
   <data name="itmOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         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
-        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
+        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
         RK5CYII=
 </value>
   </data>
@@ -312,42 +279,18 @@
   <data name="itmExit.Text" xml:space="preserve">
     <value>E&amp;xit</value>
   </data>
+  <data name="itmFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 19</value>
+  </data>
+  <data name="itmFile.Text" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
   <metadata name="itmImage.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="itmAdd.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="sepImage1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="sepImage2.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="sepImage3.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="itmImage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 19</value>
-  </data>
-  <data name="itmImage.Text" xml:space="preserve">
-    <value>&amp;Images</value>
-  </data>
-  <metadata name="itmAdd.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="itmFromFiles.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="itmFromFolder.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="itmAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
-  </data>
-  <data name="itmAdd.Text" xml:space="preserve">
-    <value>&amp;Add</value>
-  </data>
   <metadata name="itmFromFiles.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
@@ -369,7 +312,7 @@
 </value>
   </data>
   <data name="itmFromFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>142, 22</value>
   </data>
   <data name="itmFromFiles.Text" xml:space="preserve">
     <value>From &amp;file...</value>
@@ -396,10 +339,16 @@
 </value>
   </data>
   <data name="itmFromFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>142, 22</value>
   </data>
   <data name="itmFromFolder.Text" xml:space="preserve">
     <value>From fo&amp;lder...</value>
+  </data>
+  <data name="itmAdd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 22</value>
+  </data>
+  <data name="itmAdd.Text" xml:space="preserve">
+    <value>&amp;Add</value>
   </data>
   <metadata name="sepImage1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
@@ -496,21 +445,6 @@
   <metadata name="itmWithLeft.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="itmWithRight.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="itmSetViewMode.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="itmSetViewMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
-  </data>
-  <data name="itmSetViewMode.Text" xml:space="preserve">
-    <value>Start &amp;view mode setting</value>
-  </data>
-  <metadata name="itmWithLeft.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
   <data name="itmWithLeft.Size" type="System.Drawing.Size, System.Drawing">
     <value>127, 22</value>
   </data>
@@ -526,6 +460,15 @@
   <data name="itmWithRight.Text" xml:space="preserve">
     <value>With &amp;right</value>
   </data>
+  <data name="itmSetViewMode.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="itmSetViewMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 22</value>
+  </data>
+  <data name="itmSetViewMode.Text" xml:space="preserve">
+    <value>Start &amp;view mode setting</value>
+  </data>
   <data name="itmInvertViewMode.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -535,15 +478,15 @@
   <data name="itmInvertViewMode.Text" xml:space="preserve">
     <value>I&amp;nvert view modes</value>
   </data>
+  <data name="itmImage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 19</value>
+  </data>
+  <data name="itmImage.Text" xml:space="preserve">
+    <value>&amp;Images</value>
+  </data>
   <metadata name="itmBookmark.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmBookmark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 19</value>
-  </data>
-  <data name="itmBookmark.Text" xml:space="preserve">
-    <value>&amp;Bookmarks</value>
-  </data>
   <data name="itmAddBookmark.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -578,26 +521,29 @@
   <data name="itmDeleteBookmark.Text" xml:space="preserve">
     <value>&amp;Delete</value>
   </data>
+  <data name="itmBookmark.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 19</value>
+  </data>
+  <data name="itmBookmark.Text" xml:space="preserve">
+    <value>&amp;Bookmarks</value>
+  </data>
   <metadata name="itmTool.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="itmOption.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
+  <data name="itmOption.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="itmOption.Text" xml:space="preserve">
+    <value>&amp;Options</value>
+  </data>
   <data name="itmTool.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 19</value>
   </data>
   <data name="itmTool.Text" xml:space="preserve">
     <value>&amp;Tools</value>
-  </data>
-  <metadata name="itmOption.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="itmOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
-  </data>
-  <data name="itmOption.Text" xml:space="preserve">
-    <value>&amp;Options</value>
   </data>
   <metadata name="itmHelp.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
@@ -605,20 +551,17 @@
   <metadata name="itmAbout.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
+  <data name="itmAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 22</value>
+  </data>
+  <data name="itmAbout.Text" xml:space="preserve">
+    <value>&amp;About</value>
+  </data>
   <data name="itmHelp.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 19</value>
   </data>
   <data name="itmHelp.Text" xml:space="preserve">
     <value>&amp;Help</value>
-  </data>
-  <metadata name="itmAbout.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="itmAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
-  </data>
-  <data name="itmAbout.Text" xml:space="preserve">
-    <value>&amp;About</value>
   </data>
   <metadata name="stsMain.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
@@ -626,30 +569,6 @@
   <metadata name="stsMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>249, 17</value>
   </metadata>
-  <data name="stsMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 359</value>
-  </data>
-  <data name="stsMain.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>1, 0, 16, 0</value>
-  </data>
-  <data name="stsMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>587, 23</value>
-  </data>
-  <data name="stsMain.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;stsMain.Name" xml:space="preserve">
-    <value>stsMain</value>
-  </data>
-  <data name="&gt;&gt;stsMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stsMain.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;stsMain.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="lblStatus.Size" type="System.Drawing.Size, System.Drawing">
     <value>480, 18</value>
   </data>
@@ -677,21 +596,33 @@
   <data name="lblImageCount.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
+  <data name="stsMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 359</value>
+  </data>
+  <data name="stsMain.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>1, 0, 16, 0</value>
+  </data>
+  <data name="stsMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>587, 23</value>
+  </data>
+  <data name="stsMain.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;stsMain.Name" xml:space="preserve">
+    <value>stsMain</value>
+  </data>
+  <data name="&gt;&gt;stsMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;stsMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;stsMain.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <metadata name="itmView.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="itmContentsWindow.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="itmBookmarksWindow.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="itmView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 19</value>
-  </data>
-  <data name="itmView.Text" xml:space="preserve">
-    <value>&amp;View</value>
-  </data>
   <metadata name="itmContentsWindow.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
@@ -735,6 +666,12 @@
   <data name="itmBookmarksWindow.Text" xml:space="preserve">
     <value>&amp;Bookmarks window</value>
   </data>
+  <data name="itmView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 19</value>
+  </data>
+  <data name="itmView.Text" xml:space="preserve">
+    <value>&amp;View</value>
+  </data>
   <metadata name="btnNew.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
@@ -765,21 +702,21 @@
   <data name="btnOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        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
+        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
         RK5CYII=
 </value>
   </data>
@@ -791,6 +728,37 @@
   </data>
   <data name="btnOpen.Text" xml:space="preserve">
     <value>Open</value>
+  </data>
+  <metadata name="btnSave.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALxSURBVDhPjZHrS1NhHMfPP9F/UEIEIYRIvQnMS5KFt9Rc
+        Xmh4zdvUZmUqjRTnmjPnyHld4r1l5nTqvE3TNLXImRRE7yLzNufZ5s6m8O13jq6kVx348Dw8PN/P73vO
+        YVb7f6yaX3wCz8q77/8Ff9eY/9UZ7i/KZxS5TUN3r0nRLO0H5/HA7nTBxjqwvWvHxrYN61u7+Ollcxdb
+        tj10Vk6Cz0RdTFIyBuX7lbW1NUHgIYHb7RFEHK0u9wH2aXVyJCZYF50dHgoCPhN7KUXFmNTf2AHVvCBw
+        U9DFubFPOAmHyw07we67sUfYnHR+4BEE3WlLuOmfWs+MVX+x9j+d+yPwhnn+De8SjmNB251ZRPglaxmT
+        8rP1tfxIwFf3TuZhiZNhqyA4EAQtiWbc8E3QMsOVq1Z9+du/Am+Ygjw2whvecXCwHwsa4yePBMayRetL
+        2bGA6gkNvPW9DU5IHIdHAk2MCWHnRVpGT4LuUrMg4P/x3j5HlTm6zAkTt4hNO4cNYp3lhDu8QB1pROg5
+        XlC6aO2RzqKjZBJdj0gkGUXbvXG0SsahzRxGfboRz9OGoEkxoFZsgCbDgLok2scMkSCOBMWL1t6iBXRL
+        FtCUZUCvfATqnHbUZrVDrxhDT9UoOmSDaCnrgyq3DQ+vqiELb4D6lgGBZ2NIkEcNCuehyzBjSDMP/mnM
+        MKIx0wS73YGdnR1YLKswm2eg07XhfqgaTyKbUXd7AIE+UVqmlwSdkjm0ppKgdh4sy0ItegNNwiBmZuYw
+        MmJCZ2c3tA3NkMkqIA1RoTyqRRAECALJ0l57Lr27eAqvFGZhmipOj2eiPgr2ooGCSmUNysvlyC+QQhJU
+        hQpqwA8JOB2hZXQZ07/68lfQlb4MfeU0JiamBPhwU5MONTV1kFcpUSlXoKTkMR6E1EIZ24GG5FFc8Ylq
+        ZYIvXA8qDFPO5QXLl7Oji2erFTXIyS6w5KTnWNLE6ZaEBLGAWJxmEcUnfqQvPxbtJx4TXy76cOaUb+Fv
+        w+oJHgmYboAAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="btnSave.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnSave.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="btnSave.Text" xml:space="preserve">
+    <value>Save</value>
   </data>
   <metadata name="menMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -821,9 +789,6 @@
   </data>
   <metadata name="tsMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 19</value>
-  </metadata>
-  <metadata name="btnSave.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
   </metadata>
   <data name="tsMain.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 25</value>
@@ -869,37 +834,6 @@
   </data>
   <data name="&gt;&gt;dpMain.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <metadata name="btnSave.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALxSURBVDhPjZHrS1NhHMfPP9F/UEIEIYRIvQnMS5KFt9Rc
-        Xmh4zdvUZmUqjRTnmjPnyHld4r1l5nTqvE3TNLXImRRE7yLzNufZ5s6m8O13jq6kVx348Dw8PN/P73vO
-        YVb7f6yaX3wCz8q77/8Ff9eY/9UZ7i/KZxS5TUN3r0nRLO0H5/HA7nTBxjqwvWvHxrYN61u7+Ollcxdb
-        tj10Vk6Cz0RdTFIyBuX7lbW1NUHgIYHb7RFEHK0u9wH2aXVyJCZYF50dHgoCPhN7KUXFmNTf2AHVvCBw
-        U9DFubFPOAmHyw07we67sUfYnHR+4BEE3WlLuOmfWs+MVX+x9j+d+yPwhnn+De8SjmNB251ZRPglaxmT
-        8rP1tfxIwFf3TuZhiZNhqyA4EAQtiWbc8E3QMsOVq1Z9+du/Am+Ygjw2whvecXCwHwsa4yePBMayRetL
-        2bGA6gkNvPW9DU5IHIdHAk2MCWHnRVpGT4LuUrMg4P/x3j5HlTm6zAkTt4hNO4cNYp3lhDu8QB1pROg5
-        XlC6aO2RzqKjZBJdj0gkGUXbvXG0SsahzRxGfboRz9OGoEkxoFZsgCbDgLok2scMkSCOBMWL1t6iBXRL
-        FtCUZUCvfATqnHbUZrVDrxhDT9UoOmSDaCnrgyq3DQ+vqiELb4D6lgGBZ2NIkEcNCuehyzBjSDMP/mnM
-        MKIx0wS73YGdnR1YLKswm2eg07XhfqgaTyKbUXd7AIE+UVqmlwSdkjm0ppKgdh4sy0ItegNNwiBmZuYw
-        MmJCZ2c3tA3NkMkqIA1RoTyqRRAECALJ0l57Lr27eAqvFGZhmipOj2eiPgr2ooGCSmUNysvlyC+QQhJU
-        hQpqwA8JOB2hZXQZ07/68lfQlb4MfeU0JiamBPhwU5MONTV1kFcpUSlXoKTkMR6E1EIZ24GG5FFc8Ylq
-        ZYIvXA8qDFPO5QXLl7Oji2erFTXIyS6w5KTnWNLE6ZaEBLGAWJxmEcUnfqQvPxbtJx4TXy76cOaUb+Fv
-        w+oJHgmYboAAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnSave.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="btnSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 22</value>
-  </data>
-  <data name="btnSave.Text" xml:space="preserve">
-    <value>Save</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

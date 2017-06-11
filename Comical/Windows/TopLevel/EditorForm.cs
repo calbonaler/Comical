@@ -23,12 +23,27 @@ namespace Comical
 		}
 
 		Comic comic = new Comic();
-		string savedFilePath = string.Empty;
-		static readonly IReadOnlyList<string> imageExtensions = new [] { "bmp", "dib", "gif", "jpeg", "jpe", "jpg", "jfif", "png", "tiff", "tif", };
+		string savedFilePath;
+		static readonly IReadOnlyList<string> imageExtensions = new[] { "bmp", "dib", "gif", "jpeg", "jpe", "jpg", "jfif", "png", "tiff", "tif", };
 		ContentsView imageList = new ContentsView();
 		BookmarksView bookmarkList = new BookmarksView();
 		DocumentView document = new DocumentView();
 		Progress<int> defaultProgress;
+
+		string SavedFilePath
+		{
+			get => savedFilePath;
+			set
+			{
+				if (!string.Equals(savedFilePath, value, StringComparison.Ordinal))
+				{
+					savedFilePath = value;
+					Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.TitleFormat, HumanReadableSavedFileName, Application.ProductName);
+				}
+			}
+		}
+
+		string HumanReadableSavedFileName => string.IsNullOrEmpty(SavedFilePath) ? Properties.Resources.Untitled : System.IO.Path.GetFileName(SavedFilePath);
 
 		void InitializeDockingWindows()
 		{
@@ -136,7 +151,7 @@ namespace Comical
 			}
 			Properties.Settings.Default.RecentAuthors.Insert(0, author);
 		}
-		
+
 		async Task AddAnythingLocalAsync(bool canOpen, params string[] paths)
 		{
 			using (BeginAsyncWork())
@@ -147,21 +162,18 @@ namespace Comical
 				List<ImageReference> images = new List<ImageReference>();
 				await CollectFilesAsync(paths, comicFiles, images);
 				prgStatus.Style = ProgressBarStyle.Blocks;
-				foreach (var fileName in comicFiles)
+				int index = 0;
+				if (canOpen && comicFiles.Count > 0)
 				{
-					if (canOpen)
-					{
-						lblStatus.Text = Properties.Resources.OpeningFile;
-						await comic.OpenAsync(fileName, defaultProgress);
-						AddAuthorToHistory(comic.Author);
-					}
-					else
-					{
-						lblStatus.Text = Properties.Resources.AppendingFile;
-						await comic.AppendAsync(fileName, defaultProgress);
-					}
-					canOpen = false;
+					lblStatus.Text = Properties.Resources.OpeningFile;
+					await comic.OpenAsync(comicFiles[index], defaultProgress);
+					AddAuthorToHistory(comic.Author);
+					SavedFilePath = comicFiles[index];
+					index++;
 				}
+				lblStatus.Text = Properties.Resources.AppendingFile;
+				for (; index < comicFiles.Count; index++)
+					await comic.AppendAsync(comicFiles[index], defaultProgress);
 				lblStatus.Text = Properties.Resources.ImportingImages;
 				imageList.AddImages(images);
 			}
@@ -194,9 +206,9 @@ namespace Comical
 
 		async Task<bool> SaveAsync()
 		{
-			if (string.IsNullOrEmpty(savedFilePath))
+			if (string.IsNullOrEmpty(SavedFilePath))
 				return await SaveAsAsync();
-			return await SaveAsync(savedFilePath);
+			return await SaveAsync(SavedFilePath);
 		}
 
 		async Task<bool> SaveAsAsync()
@@ -211,15 +223,10 @@ namespace Comical
 				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
 					return false;
 				var result = await SaveAsync(dialog.FileName);
-				savedFilePath = dialog.FileName;
-				OnSavedFilePathChanged();
+				SavedFilePath = dialog.FileName;
 				return result;
 			}
 		}
-
-		void OnSavedFilePathChanged() { Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.TitleFormat, HumanReadableSavedFileName, Application.ProductName); }
-
-		string HumanReadableSavedFileName => string.IsNullOrEmpty(savedFilePath) ? Properties.Resources.Untitled : System.IO.Path.GetFileName(savedFilePath);
 
 		static void LoadFromXml(WeifenLuo.WinFormsUI.Docking.DockPanel panel, string xml, params WeifenLuo.WinFormsUI.Docking.IDockContent[] contents)
 		{
@@ -243,8 +250,7 @@ namespace Comical
 			if (await QuerySaveAsync() != TaskDialogResult.Cancel)
 			{
 				comic.Clear();
-				savedFilePath = string.Empty;
-				OnSavedFilePathChanged();
+				SavedFilePath = string.Empty;
 			}
 		}
 
@@ -257,11 +263,7 @@ namespace Comical
 				dialog.DefaultExtension = ".cic";
 				dialog.Filters.Add(new CommonFileDialogFilter("Comicファイル", "*.cic"));
 				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
-				{
 					await AddAnythingLocalAsync(true, dialog.FileName);
-					savedFilePath = dialog.FileName;
-					OnSavedFilePathChanged();
-				}
 			}
 		}
 
@@ -374,7 +376,7 @@ namespace Comical
 		protected override async void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			OnSavedFilePathChanged();
+			SavedFilePath = string.Empty;
 			var args = Environment.GetCommandLineArgs();
 			if (args.Length >= 2)
 				await AddAnythingLocalAsync(true, args[1]);
