@@ -14,6 +14,7 @@ namespace Comical
 	{
 		public EditorForm()
 		{
+			comic.PropertyChanged += Comic_PropertyChanged;
 			comic.Images.CollectionChanged += Comic_CountChanged;
 			InitializeComponent();
 			InitializeDockingWindows();
@@ -38,12 +39,14 @@ namespace Comical
 				if (!string.Equals(savedFilePath, value, StringComparison.Ordinal))
 				{
 					savedFilePath = value;
-					Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.TitleFormat, HumanReadableSavedFileName, Application.ProductName);
+					UpdateTitle();
 				}
 			}
 		}
 
 		string HumanReadableSavedFileName => string.IsNullOrEmpty(SavedFilePath) ? Properties.Resources.Untitled : System.IO.Path.GetFileName(SavedFilePath);
+
+		void UpdateTitle() { Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.TitleFormat, HumanReadableSavedFileName, comic.IsDirty ? Properties.Resources.DirtyMark : string.Empty, Application.ProductName); }
 
 		void InitializeDockingWindows()
 		{
@@ -412,5 +415,7 @@ namespace Comical
 		#endregion
 
 		void Comic_CountChanged(object sender, EventArgs e) { this.InvokeIfNeeded(() => lblImageCount.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageCountStringRepresentation, comic.Images.Count)); }
+
+		void Comic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) { UpdateTitle(); }
 	}
 }

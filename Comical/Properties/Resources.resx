@@ -143,7 +143,7 @@
     <value>{0} x {1}</value>
   </data>
   <data name="TitleFormat" xml:space="preserve">
-    <value>{0} - {1}</value>
+    <value>{0}{1} - {2}</value>
   </data>
   <data name="DoNotSave" xml:space="preserve">
     <value>保存しない(&amp;N)</value>
@@ -197,5 +197,8 @@
   </data>
   <data name="AboutDialog_CopyrightFormat" xml:space="preserve">
     <value>{0} All rights reserved.</value>
+  </data>
+  <data name="DirtyMark" xml:space="preserve">
+    <value>*</value>
   </data>
 </root>

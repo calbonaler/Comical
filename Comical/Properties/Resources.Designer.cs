@@ -98,6 +98,15 @@ namespace Comical.Properties {
         }
         
         /// <summary>
+        ///   * に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DirtyMark {
+            get {
+                return ResourceManager.GetString("DirtyMark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   保存しない(&amp;N) に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string DoNotSave {
@@ -266,7 +275,7 @@ namespace Comical.Properties {
         }
         
         /// <summary>
-        ///   {0} - {1} に類似しているローカライズされた文字列を検索します。
+        ///   {0}{1} - {2} に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string TitleFormat {
             get {
