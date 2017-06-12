@@ -24,16 +24,17 @@ namespace Comical
 			Properties.Settings.Default.Save();
 		}
 
-		void btnInsertMask_Click(object sender, EventArgs e) { conInsertMask.Show(btnInsertMask, btnInsertMask.Width, 0); }
+		void btnInsertMask_Click(object sender, EventArgs e) => conInsertMask.Show(btnInsertMask, btnInsertMask.Width, 0);
 
 		void InsertMaskItem_Click(object sender, EventArgs e)
 		{
-			var senderMenuItem = sender as ToolStripItem;
-			if (senderMenuItem != null)
-			{
-				txtDefaultSavedFileName.Text = txtDefaultSavedFileName.Text.Insert(txtDefaultSavedFileName.SelectionStart,
-					senderMenuItem.Text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0]);
-			}
+			if (!(sender is ToolStripItem senderMenuItem))
+				return;
+			var insertedText = senderMenuItem.Text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
+			var oldSelectionStart = txtDefaultSavedFileName.SelectionStart;
+			txtDefaultSavedFileName.Text = txtDefaultSavedFileName.Text.Insert(oldSelectionStart, insertedText);
+			txtDefaultSavedFileName.SelectionStart = oldSelectionStart + insertedText.Length;
+			txtDefaultSavedFileName.Focus();
 		}
 	}
 }
