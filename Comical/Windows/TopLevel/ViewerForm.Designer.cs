@@ -16,8 +16,8 @@
 			if (disposing && (components != null))
 			{
 				components.Dispose();
-				icd.Dispose();
-				closeBrush.Dispose();
+				_comic.Dispose();
+				_closeBrush.Dispose();
 			}
 			base.Dispose(disposing);
 		}
@@ -46,7 +46,6 @@
 			// 
 			this.prevMain.AutoScroll = true;
 			this.prevMain.BackColor = System.Drawing.Color.Transparent;
-			this.prevMain.Description = null;
 			this.prevMain.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.prevMain.Image = null;
 			this.prevMain.Location = new System.Drawing.Point(0, 0);

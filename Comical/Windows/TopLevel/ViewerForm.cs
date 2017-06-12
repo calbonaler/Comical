@@ -26,60 +26,57 @@ namespace Comical
 
 		public ViewerForm(string fileName) : this()
 		{
-			icd = new Comic(); // Construct with read-only mode.
-			openingFileName = fileName;
+			_comic = new Comic(); // Construct with read-only mode.
+			_openingFileName = fileName;
 		}
 
-		Comic icd;
-		string openingFileName = "";
-		List<Spread> spreads;
-		int current;
+		Comic _comic;
+		string _openingFileName = "";
+		Spread[] _spreads;
+		int _current;
+
+		int CurrentPage
+		{
+			get => _current;
+			set
+			{
+				value = value % _spreads.Length;
+				if (value < 0)
+					value += _spreads.Length;
+				if (_current != value)
+				{
+					_current = value;
+					ViewCurrentPage();
+				}
+			}
+		}
 
 		void Open(string fileName)
 		{
-			TaskDialogResult result;
-			do
+			Activate();
+			prevMain.ViewPane.Select();
+			using (TaskDialog dialog = new TaskDialog())
 			{
-				Activate();
-				prevMain.ViewPane.Select();
-				using (TaskDialog dialog = new TaskDialog())
+				dialog.Cancelable = false;
+				TaskDialogButton btnCancel = new TaskDialogButton(nameof(btnCancel), Properties.Resources.Cancel);
+				dialog.Controls.Add(btnCancel);
+				dialog.Caption = Application.ProductName;
+				dialog.Icon = TaskDialogStandardIcon.None;
+				dialog.InstructionText = Properties.Resources.OpeningFile;
+				dialog.OwnerWindowHandle = Handle;
+				dialog.ProgressBar = new TaskDialogProgressBar(0, 100, 0);
+				dialog.Opened += async (s, ev) =>
 				{
-					dialog.Cancelable = false;
-					dialog.Controls.Add(new TaskDialogButton("btnCancel", Properties.Resources.Cancel));
-					dialog.Caption = Application.ProductName;
-					dialog.Icon = TaskDialogStandardIcon.None;
-					dialog.InstructionText = Properties.Resources.OpeningFile;
-					dialog.OwnerWindowHandle = Handle;
-					dialog.ProgressBar = new TaskDialogProgressBar(0, 100, 0);
-					dialog.Opened += async (s, ev) =>
-					{
-						((TaskDialogButtonBase)dialog.Controls["btnCancel"]).Enabled = false;
-						try
-						{
-							await icd.OpenAsync(fileName, new Progress<int>(value => dialog.ProgressBar.Value = value));
-							dialog.Close(TaskDialogResult.Ok);
-						}
-						catch (OperationCanceledException)
-						{
-							dialog.Close(TaskDialogResult.Close);
-						}
-					};
-					dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
-					result = dialog.Show();
-				}
-			} while (result == TaskDialogResult.Retry);
-			if (result == TaskDialogResult.Close)
-			{
-				Close();
-				return;
+					btnCancel.Enabled = false;
+					await _comic.OpenAsync(fileName, new Progress<int>(x => this.InvokeIfNeeded(() => dialog.ProgressBar.Value = x)));
+					dialog.Close(TaskDialogResult.Ok);
+				};
+				dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
+				dialog.Show();
 			}
-			conBookmarks.Items.AddRange(icd.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (sen, eve) =>
-			{
-				current = spreads.FindIndex(sp => sp.Left == b.Target || sp.Right == b.Target);
-				ViewCurrentPage();
-			})).ToArray());
-			spreads = new List<Spread>(icd.ConstructSpreads(false));
-			openingFileName = "";
+			conBookmarks.Items.AddRange(_comic.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (s, ev) => CurrentPage = Array.FindIndex(_spreads, x => x.Left == b.Target || x.Right == b.Target))).ToArray());
+			_spreads = _comic.ConstructSpreads(false).ToArray();
+			_openingFileName = "";
 			ViewCurrentPage();
 		}
 
@@ -90,18 +87,18 @@ namespace Comical
 				prevMain.Image.Dispose();
 				prevMain.Image = null;
 			}
-			if (spreads[current].Left == null)
+			if (_spreads[CurrentPage].Left == null)
 			{
-				prevMain.Image = icd.Images[(int)spreads[current].Right].GetImage();
+				prevMain.Image = _comic.Images[(int)_spreads[CurrentPage].Right].CreateImage();
 				return;
 			}
-			if (spreads[current].Right == null)
+			if (_spreads[CurrentPage].Right == null)
 			{
-				prevMain.Image = icd.Images[(int)spreads[current].Left].GetImage();
+				prevMain.Image = _comic.Images[(int)_spreads[CurrentPage].Left].CreateImage();
 				return;
 			}
-			using (var left = icd.Images[(int)spreads[current].Left].GetImage())
-			using (var right = icd.Images[(int)spreads[current].Right].GetImage())
+			using (var left = _comic.Images[(int)_spreads[CurrentPage].Left].CreateImage())
+			using (var right = _comic.Images[(int)_spreads[CurrentPage].Right].CreateImage())
 			{
 				prevMain.Image = new Bitmap(left.Width + right.Width, Math.Max(left.Height, right.Height));
 				using (Graphics g = Graphics.FromImage(prevMain.Image))
@@ -112,44 +109,36 @@ namespace Comical
 			}
 		}
 
-		void ViewPrevious()
-		{
-			current = (spreads.Count + current - 1) % spreads.Count;
-			ViewCurrentPage();
-		}
+		void ViewPrevious() => CurrentPage--;
 
-		void ViewNext()
-		{
-			current = (current + 1) % spreads.Count;
-			ViewCurrentPage();
-		}
+		void ViewNext() => CurrentPage++;
 
-		FocusMode focusMode = FocusMode.None;
-		const int closeHeight = 20;
-		SolidBrush closeBrush = new SolidBrush(Color.FromArgb(64, 255, 0, 0));
+		FocusMode _focusMode = FocusMode.None;
+		const int CloseHeight = 20;
+		SolidBrush _closeBrush = new SolidBrush(Color.FromArgb(64, 255, 0, 0));
 
 		#region picPreview EventHandlers
 
 		void picPreview_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.None && (icd.PageTurningDirection == PageTurningDirection.ToLeft ? e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - prevMain.AutoScrollPosition.X))
+			if (e.Button == MouseButtons.None && (_comic.PageTurningDirection == PageTurningDirection.ToLeft ? e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - prevMain.AutoScrollPosition.X))
 			{
-				focusMode = FocusMode.Next;
+				_focusMode = FocusMode.Next;
 				prevMain.Cursor = Cursors.Default;
 			}
-			else if (e.Button == MouseButtons.None && (icd.PageTurningDirection == PageTurningDirection.ToLeft ? e.X <= Properties.Resources.Previous.Width - prevMain.AutoScrollPosition.X : e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Previous.Width))
+			else if (e.Button == MouseButtons.None && (_comic.PageTurningDirection == PageTurningDirection.ToLeft ? e.X <= Properties.Resources.Previous.Width - prevMain.AutoScrollPosition.X : e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Previous.Width))
 			{
-				focusMode = FocusMode.Previous;
+				_focusMode = FocusMode.Previous;
 				prevMain.Cursor = Cursors.Default;
 			}
-			else if (e.Button == MouseButtons.None && e.Y >= prevMain.ClientSize.Height - closeHeight - prevMain.AutoScrollPosition.Y)
+			else if (e.Button == MouseButtons.None && e.Y >= prevMain.ClientSize.Height - CloseHeight - prevMain.AutoScrollPosition.Y)
 			{
-				focusMode = FocusMode.Close;
+				_focusMode = FocusMode.Close;
 				prevMain.Cursor = Cursors.Default;
 			}
 			else
 			{
-				focusMode = FocusMode.None;
+				_focusMode = FocusMode.None;
 				prevMain.Cursor = null;
 			}
 			prevMain.Invalidate();
@@ -159,11 +148,11 @@ namespace Comical
 		{
 			if ((e.Button & MouseButtons.Left) != 0)
 			{
-				if (focusMode == FocusMode.Previous)
+				if (_focusMode == FocusMode.Previous)
 					ViewPrevious();
-				else if (focusMode == FocusMode.Next)
+				else if (_focusMode == FocusMode.Next)
 					ViewNext();
-				else if (focusMode == FocusMode.Close)
+				else if (_focusMode == FocusMode.Close)
 					Close();
 			}
 			if (e.Button == MouseButtons.XButton2)
@@ -177,13 +166,13 @@ namespace Comical
 		void picPreview_Paint(object sender, PaintEventArgs e)
 		{
 			Graphics g = e.Graphics;
-			if (focusMode == FocusMode.Close)
-				g.FillRectangle(closeBrush, -prevMain.AutoScrollPosition.X, prevMain.ClientSize.Height - closeHeight - prevMain.AutoScrollPosition.Y, prevMain.ViewPane.ClientSize.Width, closeHeight);
-			else if (focusMode != FocusMode.None)
+			if (_focusMode == FocusMode.Close)
+				g.FillRectangle(_closeBrush, -prevMain.AutoScrollPosition.X, prevMain.ClientSize.Height - CloseHeight - prevMain.AutoScrollPosition.Y, prevMain.ViewPane.ClientSize.Width, CloseHeight);
+			else if (_focusMode != FocusMode.None)
 			{
-				var img = (Bitmap)Properties.Resources.ResourceManager.GetObject(focusMode.ToString(), Properties.Resources.Culture);
+				var img = (Bitmap)Properties.Resources.ResourceManager.GetObject(_focusMode.ToString(), Properties.Resources.Culture);
 				var y = (prevMain.ClientSize.Height - img.Height) / 2 - prevMain.AutoScrollPosition.Y;
-				if (icd.PageTurningDirection == PageTurningDirection.ToLeft ^ focusMode == FocusMode.Next)
+				if (_comic.PageTurningDirection == PageTurningDirection.ToLeft ^ _focusMode == FocusMode.Next)
 					g.DrawImage(img, -prevMain.AutoScrollPosition.X, y);
 				else
 					g.DrawImage(img, Math.Min(prevMain.ClientSize.Width, prevMain.ViewPane.ClientSize.Width) - img.Width - prevMain.AutoScrollPosition.X, y);
@@ -194,9 +183,9 @@ namespace Comical
 		{
 			if (e.KeyCode == Keys.Escape)
 				Close();
-			else if (e.KeyCode == (icd.PageTurningDirection == PageTurningDirection.ToLeft ? Keys.Left : Keys.Right))
+			else if (e.KeyCode == (_comic.PageTurningDirection == PageTurningDirection.ToLeft ? Keys.Left : Keys.Right))
 				ViewPrevious();
-			else if (e.KeyCode == (icd.PageTurningDirection == PageTurningDirection.ToLeft ? Keys.Right : Keys.Left))
+			else if (e.KeyCode == (_comic.PageTurningDirection == PageTurningDirection.ToLeft ? Keys.Right : Keys.Left))
 				ViewNext();
 		}
 
@@ -204,14 +193,14 @@ namespace Comical
 
 		protected override void OnClosing(CancelEventArgs e)
 		{
-			if (e != null && icd.IsBusy)
+			if (e != null && _comic.IsBusy)
 				e.Cancel = true;
 			base.OnClosing(e);
 		}
 
 		protected override void OnLoad(EventArgs e)
 		{
-			Open(openingFileName);
+			Open(_openingFileName);
 			base.OnLoad(e);
 		}
 

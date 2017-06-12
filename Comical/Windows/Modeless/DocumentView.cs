@@ -15,24 +15,23 @@ namespace Comical
 			InitializeComponent();
 			Disposed += new EventHandler(DocumentDialog_Disposed);
 			cmbAuthor.Items.AddRange(Properties.Settings.Default.RecentAuthors.Cast<string>().ToArray());
-			currentCalendar = CultureInfo.CurrentCulture.OptionalCalendars.FirstOrDefault(cal => !(cal is GregorianCalendar));
+			var calendar = CultureInfo.CurrentCulture.OptionalCalendars.FirstOrDefault(cal => !(cal is GregorianCalendar));
+			if (calendar != null)
+			{
+				_formatInfo = (DateTimeFormatInfo)CultureInfo.CurrentCulture.DateTimeFormat.Clone();
+				_formatInfo.Calendar = calendar;
+			}
 		}
 
 		Comic _comic;
-		Calendar currentCalendar = null;
+		DateTimeFormatInfo _formatInfo;
 
 		protected override string GetPersistString() => "Document";
 
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			txtCultureDependingDateOfPublication.Enabled = dtpDateOfPublication.Checked && currentCalendar != null;
-			if (currentCalendar != null)
-			{
-				var format = (CultureInfo.CurrentCulture.Clone() as CultureInfo).DateTimeFormat;
-				format.Calendar = currentCalendar;
-				txtCultureDependingDateOfPublication.Text = dtpDateOfPublication.Value.ToString(format.LongDatePattern, format);
-			}
+			dtpDateOfIssue_ValueChanged(dtpDateOfPublication, EventArgs.Empty);
 		}
 
 		void LoadImage(Image image)
@@ -46,7 +45,7 @@ namespace Comical
 				}
 			}
 			Size size = image?.Size ?? new Size(0, 0);
-			preThumbnail.LoadImage(image);
+			preThumbnail.Image = image;
 			lblSize.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, size.Width, size.Height);
 		}
 
@@ -60,7 +59,7 @@ namespace Comical
 				using (MemoryStream ms = new MemoryStream(binaryImage))
 				using (Image img = Image.FromStream(ms))
 				{
-					preThumbnail.LoadImage(new Bitmap(img));
+					preThumbnail.Image = new Bitmap(img);
 					size = img.Size;
 				}
 			}
@@ -88,7 +87,7 @@ namespace Comical
 					cmbPageTurningDirection.SelectedIndex = (int)PageTurningDirection.ToRight - 1;
 			}
 		}
-		
+
 		void Comic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			this.InvokeIfNeeded(() =>
@@ -130,7 +129,7 @@ namespace Comical
 		{
 			if (preThumbnail.Image == null)
 				return;
-			using (ImageEditingDialog dialog = new ImageEditingDialog())
+			using (ImageEditDialog dialog = new ImageEditDialog())
 			{
 				dialog.Image = preThumbnail.Image;
 				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
@@ -154,30 +153,19 @@ namespace Comical
 
 		void dtpDateOfIssue_ValueChanged(object sender, EventArgs e)
 		{
-			txtCultureDependingDateOfPublication.Enabled = dtpDateOfPublication.Checked && currentCalendar != null;
-			if (currentCalendar != null)
-			{
-				var format = (CultureInfo.CurrentCulture.Clone() as CultureInfo).DateTimeFormat;
-				format.Calendar = currentCalendar;
-				txtCultureDependingDateOfPublication.Text = dtpDateOfPublication.Value.ToString(format.LongDatePattern, format);
-			}
+			txtCultureDependingDateOfPublication.Enabled = dtpDateOfPublication.Checked && _formatInfo != null;
+			if (_formatInfo != null)
+				txtCultureDependingDateOfPublication.Text = dtpDateOfPublication.Value.ToString(_formatInfo.LongDatePattern, _formatInfo);
 			if (_comic != null)
 				_comic.DateOfPublication = dtpDateOfPublication.Checked ? dtpDateOfPublication.Value : (DateTime?)null;
 		}
 
 		void txtCultureDependingDateOfIssue_TextChanged(object sender, EventArgs e)
 		{
-			if (currentCalendar == null)
-				return;
-			var format = (CultureInfo.CurrentCulture.Clone() as CultureInfo).DateTimeFormat;
-			format.Calendar = currentCalendar;
-			DateTime date;
-			if (DateTime.TryParse(txtCultureDependingDateOfPublication.Text, format,
-				DateTimeStyles.AllowInnerWhite | DateTimeStyles.AllowLeadingWhite | DateTimeStyles.AllowTrailingWhite | DateTimeStyles.AllowWhiteSpaces, out date))
-			{
-				if (date.Year != dtpDateOfPublication.Value.Year || date.Month != dtpDateOfPublication.Value.Month || date.Day != dtpDateOfPublication.Value.Day)
-					dtpDateOfPublication.Value = date;
-			}
+			if (_formatInfo != null && 
+				DateTime.TryParse(txtCultureDependingDateOfPublication.Text, _formatInfo, DateTimeStyles.AllowInnerWhite | DateTimeStyles.AllowLeadingWhite | DateTimeStyles.AllowTrailingWhite | DateTimeStyles.AllowWhiteSpaces, out var date) &&
+				(date.Year != dtpDateOfPublication.Value.Year || date.Month != dtpDateOfPublication.Value.Month || date.Day != dtpDateOfPublication.Value.Day))
+				dtpDateOfPublication.Value = date;
 		}
 
 		void cmbPageTurningDirection_SelectedIndexChanged(object sender, EventArgs e)
@@ -186,12 +174,12 @@ namespace Comical
 				_comic.PageTurningDirection = (PageTurningDirection)(cmbPageTurningDirection.SelectedIndex + 1);
 		}
 
-		void DocumentDialog_Disposed(object sender, EventArgs e) { SetComic(null); }
+		void DocumentDialog_Disposed(object sender, EventArgs e) => SetComic(null);
 
 		void btnUpdate_Click(object sender, EventArgs e)
 		{
 			if (numThumbnailIndex.Enabled)
-				LoadImage(_comic.Images[(int)numThumbnailIndex.Value].GetImage());
+				LoadImage(_comic.Images[(int)numThumbnailIndex.Value].CreateImage());
 		}
 	}
 }

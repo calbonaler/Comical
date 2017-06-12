@@ -115,7 +115,6 @@
 			// 
 			this.AcceptButton = btnOK;
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-			this.Font = System.Drawing.SystemFonts.MessageBoxFont;
 			this.CancelButton = btnCancel;
 			resources.ApplyResources(this, "$this");
 			this.Controls.Add(this.btnInsertMask);

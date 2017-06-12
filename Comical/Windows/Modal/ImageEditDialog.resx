@@ -280,7 +280,7 @@
     <value>picPreview</value>
   </data>
   <data name="&gt;&gt;picPreview.Type" xml:space="preserve">
-    <value>Comical.Controls.FocusablePictureBox, Comical, Version=4.4.16.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Comical.Controls.FocusablePictureBox, Comical, Version=4.4.17.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;picPreview.Parent" xml:space="preserve">
     <value>tlpPreview</value>
@@ -337,7 +337,7 @@
     <value>0</value>
   </data>
   <data name="tlpPreview.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="hsPreview" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="picPreview" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="vsPreview" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,Absolute,17" /&gt;&lt;Rows Styles="Percent,100,Absolute,17" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="hsPreview" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="picPreview" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="vsPreview" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="Percent,100,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="numMagnifyRatio.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -409,9 +409,9 @@
     <value>Edit Image</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ImageEditingDialog</value>
+    <value>ImageEditDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Comical.DialogBase, Comical, Version=4.4.16.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Comical.DialogBase, Comical, Version=4.4.17.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>

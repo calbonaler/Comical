@@ -197,7 +197,6 @@
 			// 
 			resources.ApplyResources(this.preThumbnail, "preThumbnail");
 			tplPanel2.SetColumnSpan(this.preThumbnail, 2);
-			this.preThumbnail.Description = null;
 			this.preThumbnail.Image = null;
 			this.preThumbnail.Name = "preThumbnail";
 			this.preThumbnail.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;

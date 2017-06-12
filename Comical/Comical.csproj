@@ -158,11 +158,11 @@
     <Compile Include="Windows\TopLevel\ViewerForm.Designer.cs">
       <DependentUpon>ViewerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Modal\ImageEditingDialog.cs">
+    <Compile Include="Windows\Modal\ImageEditDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Windows\Modal\ImageEditingDialog.Designer.cs">
-      <DependentUpon>ImageEditingDialog.cs</DependentUpon>
+    <Compile Include="Windows\Modal\ImageEditDialog.Designer.cs">
+      <DependentUpon>ImageEditDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\Modeless\BookmarksView.cs">
       <SubType>Form</SubType>
@@ -202,8 +202,8 @@
     <EmbeddedResource Include="Windows\Modal\DialogBase.resx">
       <DependentUpon>DialogBase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modal\ImageEditingDialog.ja-JP.resx">
-      <DependentUpon>ImageEditingDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Windows\Modal\ImageEditDialog.ja-JP.resx">
+      <DependentUpon>ImageEditDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modal\OptionDialog.ja-JP.resx">
       <DependentUpon>OptionDialog.cs</DependentUpon>
@@ -241,8 +241,8 @@
     <EmbeddedResource Include="Windows\TopLevel\ViewerForm.resx">
       <DependentUpon>ViewerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Windows\Modal\ImageEditingDialog.resx">
-      <DependentUpon>ImageEditingDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Windows\Modal\ImageEditDialog.resx">
+      <DependentUpon>ImageEditDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modeless\BookmarksView.resx">

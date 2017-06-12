@@ -15,7 +15,7 @@ namespace Comical
 				action();
 		}
 
-		public static Image GetImage(this ImageReference ir, Size size)
+		public static Image CreateImage(this ImageReference ir, Size size)
 		{
 			using (var ms = ir.OpenImageStream())
 			using (var image = Image.FromStream(ms))
@@ -35,7 +35,7 @@ namespace Comical
 			}
 		}
 
-		public static Image GetImage(this ImageReference ir) => GetImage(ir, Size.Empty);
+		public static Image CreateImage(this ImageReference ir) => CreateImage(ir, Size.Empty);
 
 		public static System.Drawing.Imaging.ImageCodecInfo GetImageCodecInfo(this Image image)
 		{

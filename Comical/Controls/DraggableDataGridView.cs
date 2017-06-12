@@ -9,19 +9,19 @@ namespace Comical.Controls
 {
 	public class DraggableDataGridView : DataGridView
 	{
-		bool mouseDownOnSelectedCell = false;
+		bool _mouseDownOnSelectedCell = false;
 		bool _allowUserToMoveRows = false;
-		Point? origin;
-		int dragOverCalled = 0;
+		Point? _origin;
+		int _dragOverCalled = 0;
 		int _hitRowIndex = -1;
-		Pen insertionPen = new Pen(Color.Black, 2.0F);
+		Pen _insertionPen = new Pen(Color.Black, 2.0F);
 
 		protected override void Dispose(bool disposing)
 		{
-			if (insertionPen != null)
+			if (_insertionPen != null)
 			{
-				insertionPen.Dispose();
-				insertionPen = null;
+				_insertionPen.Dispose();
+				_insertionPen = null;
 			}
 			base.Dispose(disposing);
 		}
@@ -135,9 +135,9 @@ namespace Comical.Controls
 		int IncrementDragOverCalled(int value)
 		{
 			int callMax = ScrollArea / 2;
-			dragOverCalled += value;
-			int c = dragOverCalled / callMax;
-			dragOverCalled = dragOverCalled % callMax;
+			_dragOverCalled += value;
+			int c = _dragOverCalled / callMax;
+			_dragOverCalled = _dragOverCalled % callMax;
 			return c;
 		}
 
@@ -145,7 +145,7 @@ namespace Comical.Controls
 		{
 			if (e != null && e.ColumnIndex >= 0 && e.RowIndex >= 0 && this[e.ColumnIndex, e.RowIndex].Selected)
 			{
-				mouseDownOnSelectedCell = true;
+				_mouseDownOnSelectedCell = true;
 				return;
 			}
 			if (e != null && e.ColumnIndex >= 0 && e.RowIndex >= 0 && e.Button == MouseButtons.Right)
@@ -156,9 +156,9 @@ namespace Comical.Controls
 
 		protected override void OnCellMouseUp(DataGridViewCellMouseEventArgs e)
 		{
-			if (e != null && e.ColumnIndex >= 0 && e.RowIndex >= 0 && this[e.ColumnIndex, e.RowIndex].Selected && mouseDownOnSelectedCell)
+			if (e != null && e.ColumnIndex >= 0 && e.RowIndex >= 0 && this[e.ColumnIndex, e.RowIndex].Selected && _mouseDownOnSelectedCell)
 			{
-				mouseDownOnSelectedCell = false;
+				_mouseDownOnSelectedCell = false;
 				if (e.Button == MouseButtons.Left)
 				{
 					ClearSelection(e.ColumnIndex, e.RowIndex, true);
@@ -173,21 +173,21 @@ namespace Comical.Controls
 		protected override void OnMouseDown(MouseEventArgs e)
 		{
 			if (e != null)
-				origin = e.Location;
+				_origin = e.Location;
 			base.OnMouseDown(e);
 		}
 
 		protected override void OnMouseMove(MouseEventArgs e)
 		{
-			if (e != null && AllowUserToMoveRows && e.Button == MouseButtons.Left && origin != null &&
+			if (e != null && AllowUserToMoveRows && e.Button == MouseButtons.Left && _origin != null &&
 				SelectionMode == DataGridViewSelectionMode.FullRowSelect &&
 				(MultiDrag ? SelectedRows.Count > 0 : SelectedRows.Count == 1) &&
-				(Math.Abs(origin.Value.X - e.X) > SystemInformation.DragSize.Width / 2 ||
-				Math.Abs(origin.Value.Y - e.Y) > SystemInformation.DragSize.Height / 2))
+				(Math.Abs(_origin.Value.X - e.X) > SystemInformation.DragSize.Width / 2 ||
+				Math.Abs(_origin.Value.Y - e.Y) > SystemInformation.DragSize.Height / 2))
 			{
 				DoDragDrop(new DataGridViewMovedRows(SelectedRows, this),
 					DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move | DragDropEffects.None | DragDropEffects.Scroll);
-				origin = null;
+				_origin = null;
 			}
 			base.OnMouseMove(e);
 		}
@@ -262,18 +262,18 @@ namespace Comical.Controls
 		protected override void OnRowPostPaint(DataGridViewRowPostPaintEventArgs e)
 		{
 			if (e != null && e.RowIndex == HitRowIndex)
-				e.Graphics.DrawLine(insertionPen, e.RowBounds.Left, e.RowBounds.Top + 1, e.RowBounds.Right, e.RowBounds.Top + 1);
+				e.Graphics.DrawLine(_insertionPen, e.RowBounds.Left, e.RowBounds.Top + 1, e.RowBounds.Right, e.RowBounds.Top + 1);
 			base.OnRowPostPaint(e);
 		}
 
 		/// <summary><see cref="RowMoving"/> イベントを発生させます。</summary>
-		protected virtual void OnRowMoving(RowMovingEventArgs e) { RowMoving?.Invoke(this, e); }
+		protected virtual void OnRowMoving(RowMovingEventArgs e) => RowMoving?.Invoke(this, e);
 
 		/// <summary><see cref="RowMoved"/> イベントを発生させます。</summary>
-		protected virtual void OnRowMoved(EventArgs e) { RowMoved?.Invoke(this, e); }
+		protected virtual void OnRowMoved(EventArgs e) => RowMoved?.Invoke(this, e);
 
 		/// <summary><see cref="QueryRowDragDropEffect"/> イベントを発生させます。</summary>
-		protected virtual void OnQueryRowDragDropEffect(QueryRowDragDropEffectEventArgs e) { QueryRowDragDropEffect?.Invoke(this, e); }
+		protected virtual void OnQueryRowDragDropEffect(QueryRowDragDropEffectEventArgs e) => QueryRowDragDropEffect?.Invoke(this, e);
 
 		struct DragHitTestInfo
 		{

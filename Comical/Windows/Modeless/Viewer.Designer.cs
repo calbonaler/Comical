@@ -69,7 +69,6 @@
 			// 
 			resources.ApplyResources(this.preMain, "preMain");
 			this.preMain.BackColor = System.Drawing.Color.Transparent;
-			this.preMain.Description = null;
 			this.preMain.Font = System.Drawing.SystemFonts.MessageBoxFont;
 			this.preMain.ForeColor = System.Drawing.Color.White;
 			this.preMain.Image = null;

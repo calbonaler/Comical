@@ -166,12 +166,6 @@
   <data name="Untitled" xml:space="preserve">
     <value>無題</value>
   </data>
-  <data name="ViewerDescription_NoSelection" xml:space="preserve">
-    <value>ここにプレビューを生成します。</value>
-  </data>
-  <data name="ViewerDescription_Selection" xml:space="preserve">
-    <value>{0} 個の画像が選択されています。</value>
-  </data>
   <data name="AppendingFile" xml:space="preserve">
     <value>ファイルを追加しています...</value>
   </data>
@@ -200,5 +194,11 @@
   </data>
   <data name="DirtyMark" xml:space="preserve">
     <value>*</value>
+  </data>
+  <data name="InvalidBookmarkIndex" xml:space="preserve">
+    <value>ブックマークの対象は画像数よりも小さな0以上の整数である必要があります。</value>
+  </data>
+  <data name="ComicalImageCollection" xml:space="preserve">
+    <value>Comical イメージ コレクション</value>
   </data>
 </root>

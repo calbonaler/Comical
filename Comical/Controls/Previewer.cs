@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -7,9 +6,8 @@ namespace Comical.Controls
 {
 	public partial class Previewer : UserControl
 	{
-		public Previewer() { InitializeComponent(); }
+		public Previewer() => InitializeComponent();
 
-		string desc;
 		PreviewerStretchMode stretchMode;
 		bool avoidResizeMessage = false;
 		Cursor currentCursor = Cursors.Default;
@@ -23,17 +21,10 @@ namespace Comical.Controls
 			set
 			{
 				if (picPreview.Image != value)
-					LoadImage(value);
-			}
-		}
-
-		public string Description
-		{
-			get { return desc; }
-			set
-			{
-				desc = value;
-				Invalidate();
+				{
+					picPreview.Image = value;
+					UpdatePictureBoxSize();
+				}
 			}
 		}
 
@@ -43,72 +34,49 @@ namespace Comical.Controls
 			set
 			{
 				if (stretchMode != value)
-					ChangeStretchMode(value);
+				{
+					stretchMode = value;
+					UpdatePictureBoxSize();
+				}
 			}
 		}
 
-		public void ChangeStretchMode(PreviewerStretchMode mode)
+		void UpdatePictureBoxSize()
 		{
-			avoidResizeMessage = true;
-			Image img = picPreview.Image;
-			stretchMode = mode;
-			PictureBoxSizeMode pbsm = PictureBoxSizeMode.CenterImage;
-			DockStyle ds = DockStyle.Fill;
-			if (img != null && (img.Width > ClientSize.Width - AutoScrollMargin.Width || img.Height > ClientSize.Height - AutoScrollMargin.Height))
+			try
 			{
-				if (mode == PreviewerStretchMode.Uniform)
-					pbsm = PictureBoxSizeMode.Zoom;
+				avoidResizeMessage = true;
+				var img = picPreview.Image;
+				var pbsm = PictureBoxSizeMode.CenterImage;
+				var ds = DockStyle.Fill;
+				if (img != null && (img.Width > ClientSize.Width - AutoScrollMargin.Width || img.Height > ClientSize.Height - AutoScrollMargin.Height))
+				{
+					if (stretchMode == PreviewerStretchMode.Uniform)
+						pbsm = PictureBoxSizeMode.Zoom;
+					else
+						ds = DockStyle.None;
+				}
+				picPreview.SizeMode = pbsm;
+				picPreview.Dock = ds;
+				if (ds == DockStyle.None)
+				{
+					picPreview.ClientSize = new Size(Math.Max(img.Width, ClientSize.Width - AutoScrollMargin.Width - SystemInformation.VerticalScrollBarWidth),
+						Math.Max(img.Height, ClientSize.Height - AutoScrollMargin.Height - SystemInformation.HorizontalScrollBarHeight));
+					picPreview.Location = AutoScrollPosition;
+					SetCursor(false);
+				}
 				else
-					ds = DockStyle.None;
+					SetCursorInternal(Cursors.Default);
 			}
-			picPreview.SizeMode = pbsm;
-			picPreview.Dock = ds;
-			if (ds == DockStyle.None)
-			{
-				picPreview.ClientSize = new Size(Math.Max(img.Width, ClientSize.Width - AutoScrollMargin.Width - SystemInformation.VerticalScrollBarWidth),
-					Math.Max(img.Height, ClientSize.Height - AutoScrollMargin.Height - SystemInformation.HorizontalScrollBarHeight));
-				picPreview.Location = AutoScrollPosition;
-				SetCursor(false);
-			}
-			else
-				SetCursorInternal(Cursors.Default);
-			avoidResizeMessage = false;
-		}
-
-		public void LoadImage(Image image)
-		{
-			picPreview.Image = image;
-			ChangeStretchMode(StretchMode);
-		}
-
-		public void LoadImageAsync(Uri url)
-		{
-			if (url == null)
-				throw new ArgumentNullException(nameof(url));
-			picPreview.LoadAsync(url.AbsoluteUri);
+			finally { avoidResizeMessage = false; }
 		}
 
 		protected override void OnResize(EventArgs e)
 		{
 			if (!avoidResizeMessage)
-				ChangeStretchMode(stretchMode);
+				UpdatePictureBoxSize();
 			base.OnResize(e);
 		}
-
-		void picPreview_Paint(object sender, PaintEventArgs e)
-		{
-			if (picPreview.Image != null)
-				return;
-			using (SolidBrush sb = new SolidBrush(ForeColor))
-			using (StringFormat sf = new StringFormat())
-			{
-				sf.Alignment = StringAlignment.Center;
-				sf.LineAlignment = StringAlignment.Center;
-				e.Graphics.DrawString(Description, Font, sb, ClientRectangle, sf);
-			}
-		}
-
-		void picPreview_LoadCompleted(object sender, AsyncCompletedEventArgs e) { ChangeStretchMode(StretchMode); }
 
 		Point origin;
 		bool dragging = false;
@@ -159,10 +127,7 @@ namespace Comical.Controls
 			if (e.Button.HasFlag(MouseButtons.Left) && (dragging || Math.Abs(origin.X - e.X) > SystemInformation.DragSize.Width / 2 || Math.Abs(origin.Y - e.Y) > SystemInformation.DragSize.Height / 2))
 			{
 				dragging = true;
-				Point sc = picPreview.PointToScreen(e.Location);
-				int x = origin.X - sc.X;
-				int y = origin.Y - sc.Y;
-				AutoScrollPosition = new Point(x, y);
+				AutoScrollPosition = origin - (Size)picPreview.PointToScreen(e.Location);
 				picPreview.Refresh();
 			}
 		}

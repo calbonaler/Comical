@@ -9,7 +9,7 @@ namespace Comical
 {
 	public partial class BookmarksView : WeifenLuo.WinFormsUI.Docking.DockContent
 	{
-		public BookmarksView() { InitializeComponent(); }
+		public BookmarksView() => InitializeComponent();
 
 		ImageReferenceCollection _images;
 		BookmarkCollection _bookmarks;
@@ -76,9 +76,9 @@ namespace Comical
 
 		protected override string GetPersistString() => "BookmarkList";
 
-		protected virtual void OnBookmarkNavigated(BookmarkNavigatedEventArgs e) { BookmarkNavigated?.Invoke(this, e); }
+		protected virtual void OnBookmarkNavigated(BookmarkNavigatedEventArgs e) => BookmarkNavigated?.Invoke(this, e);
 
-		private void RefreshMenuVisibility()
+		void RefreshMenuVisibility()
 		{
 			var count = SelectedBookmarks.Count();
 			itmSelectTarget.Visible = count == 1;
@@ -90,7 +90,7 @@ namespace Comical
 			itmDelete.Visible = count > 0;
 		}
 
-		private void dgvBookmarks_CellErrorTextNeeded(object sender, DataGridViewCellErrorTextNeededEventArgs e)
+		void dgvBookmarks_CellErrorTextNeeded(object sender, DataGridViewCellErrorTextNeededEventArgs e)
 		{
 			e.ErrorText = string.Empty;
 			if (e.RowIndex < 0 || e.RowIndex >= _bookmarks.Count)
@@ -99,17 +99,17 @@ namespace Comical
 			{
 				if (_bookmarks[e.RowIndex].Target < _images.Count)
 					return;
-				e.ErrorText = "ブックマークの対象インデックスは画像数未満である必要があります。";
+				e.ErrorText = Properties.Resources.InvalidBookmarkIndex;
 			}
 		}
 
-		private void dgvBookmarks_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+		void dgvBookmarks_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
 		{
 			if (e.RowIndex >= 0 && e.RowIndex < _bookmarks.Count)
 				e.Value = dgvBookmarks.Columns[e.ColumnIndex] == clmName ? _bookmarks[e.RowIndex].Name : (object)_bookmarks[e.RowIndex].Target;
 		}
 
-		private void dgvBookmarks_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+		void dgvBookmarks_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
 		{
 			if (e.RowIndex < 0 || e.RowIndex >= _bookmarks.Count)
 				return;
@@ -123,20 +123,20 @@ namespace Comical
 				_bookmarks[e.RowIndex].Target = target;
 		}
 
-		private void dgvBookmarks_QueryRowDragDropEffect(object sender, Controls.QueryRowDragDropEffectEventArgs e) { e.Effect = e.Source == dgvBookmarks ? DragDropEffects.Move : DragDropEffects.Link; }
+		void dgvBookmarks_QueryRowDragDropEffect(object sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.Source == dgvBookmarks ? DragDropEffects.Move : DragDropEffects.Link;
 
-		private void dgvBookmarks_RowMoving(object sender, Controls.RowMovingEventArgs e)
+		void dgvBookmarks_RowMoving(object sender, Controls.RowMovingEventArgs e)
 		{
-			if (e.Source.Name == "dgvImages")
+			if (e.Source == dgvBookmarks)
+				_bookmarks.Move(e.SourceRows[0].Index, e.Destination);
+			else
 			{
 				e.Cancel = true;
 				_bookmarks.Insert(e.Destination, new Bookmark() { Target = e.SourceRows[0].Index });
 			}
-			else if (e.Source == dgvBookmarks)
-				_bookmarks.Move(e.SourceRows[0].Index, e.Destination);
 		}
 
-		private void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			this.InvokeIfNeeded(() =>
             {
@@ -145,9 +145,9 @@ namespace Comical
 			});
 		}
 
-		private void dgvBookmarks_SelectionChanged(object sender, EventArgs e) { RefreshMenuVisibility(); }
+		void dgvBookmarks_SelectionChanged(object sender, EventArgs e) => RefreshMenuVisibility();
 
-		private void Bookmarks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void Bookmarks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			this.InvokeIfNeeded(() =>
 			{
@@ -156,32 +156,32 @@ namespace Comical
 			});
 		}
 
-		private void dgvBookmarks_CellDoubleClick(object sender, DataGridViewCellEventArgs e) { OnBookmarkNavigated(new BookmarkNavigatedEventArgs(_bookmarks[e.RowIndex])); }
+		void dgvBookmarks_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => OnBookmarkNavigated(new BookmarkNavigatedEventArgs(_bookmarks[e.RowIndex]));
 
 		int rowIndex = -1;
 
-		private void dgvBookmarks_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e) { rowIndex = e.Row.Index; }
+		void dgvBookmarks_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e) => rowIndex = e.Row.Index;
 
-		private void dgvBookmarks_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+		void dgvBookmarks_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
 		{
 			if (rowIndex >= 0 && rowIndex < _bookmarks.Count)
 				_bookmarks.RemoveAt(rowIndex);
 		}
 
-		private void itmSelectTarget_Click(object sender, EventArgs e) { OnBookmarkNavigated(new BookmarkNavigatedEventArgs(_bookmarks[dgvBookmarks.SelectedRows[0].Index])); }
+		void itmSelectTarget_Click(object sender, EventArgs e) => OnBookmarkNavigated(new BookmarkNavigatedEventArgs(_bookmarks[dgvBookmarks.SelectedRows[0].Index]));
 
-		private void itmAdd_Click(object sender, EventArgs e) { _bookmarks.Add(new Bookmark()); }
+		void itmAdd_Click(object sender, EventArgs e) => _bookmarks.Add(new Bookmark());
 
-		private void itmInsertAbove_Click(object sender, EventArgs e) { _bookmarks.Insert(dgvBookmarks.SelectedRows[0].Index, new Bookmark()); }
+		void itmInsertAbove_Click(object sender, EventArgs e) => _bookmarks.Insert(dgvBookmarks.SelectedRows[0].Index, new Bookmark());
 
-		private void itmInsertBelow_Click(object sender, EventArgs e) { _bookmarks.Insert(dgvBookmarks.SelectedRows[0].Index + 1, new Bookmark()); }
+		void itmInsertBelow_Click(object sender, EventArgs e) => _bookmarks.Insert(dgvBookmarks.SelectedRows[0].Index + 1, new Bookmark());
 
-		private void itmRemove_Click(object sender, EventArgs e) { DeleteSelectedBookmarks(); }
+		void itmRemove_Click(object sender, EventArgs e) => DeleteSelectedBookmarks();
 	}
 
 	public class BookmarkNavigatedEventArgs : EventArgs
 	{
-		public BookmarkNavigatedEventArgs(Bookmark bookmark) { Bookmark = bookmark; }
+		public BookmarkNavigatedEventArgs(Bookmark bookmark) => Bookmark = bookmark;
 
 		public Bookmark Bookmark { get; }
 	}

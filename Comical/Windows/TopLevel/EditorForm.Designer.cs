@@ -15,13 +15,13 @@
 		{
 			if (disposing)
 			{
-				imageList.SetImages(null);
-				bookmarkList.SetBookmarks(null);
-				bookmarkList.SetImages(null);
-				document.SetComic(null);
+				_imageList.SetImages(null);
+				_bookmarkList.SetBookmarks(null);
+				_bookmarkList.SetImages(null);
+				_document.SetComic(null);
 				if (components != null)
 					components.Dispose();
-				comic.Dispose();
+				_comic.Dispose();
 			}
 			base.Dispose(disposing);
 		}

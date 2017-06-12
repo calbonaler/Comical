@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Comical
 {
 	public partial class OptionDialog : Form
 	{
-		public OptionDialog() { InitializeComponent(); }
+		public OptionDialog()
+		{
+			InitializeComponent();
+			Font = SystemFonts.MessageBoxFont;
+		}
 
 		protected override void OnLoad(EventArgs e)
 		{
@@ -27,7 +32,7 @@ namespace Comical
 			if (senderMenuItem != null)
 			{
 				txtDefaultSavedFileName.Text = txtDefaultSavedFileName.Text.Insert(txtDefaultSavedFileName.SelectionStart,
-					senderMenuItem.Text.Split(new[] { "  " }, StringSplitOptions.RemoveEmptyEntries)[0]);
+					senderMenuItem.Text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0]);
 			}
 		}
 	}

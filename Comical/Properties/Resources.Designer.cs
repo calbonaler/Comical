@@ -88,6 +88,15 @@ namespace Comical.Properties {
         }
         
         /// <summary>
+        ///   Comical イメージ コレクション に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ComicalImageCollection {
+            get {
+                return ResourceManager.GetString("ComicalImageCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
         internal static byte[] Cross {
@@ -228,6 +237,15 @@ namespace Comical.Properties {
         }
         
         /// <summary>
+        ///   ブックマークの対象は画像数よりも小さな0以上の整数である必要があります。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string InvalidBookmarkIndex {
+            get {
+                return ResourceManager.GetString("InvalidBookmarkIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
         internal static System.Drawing.Bitmap Next {
@@ -289,24 +307,6 @@ namespace Comical.Properties {
         internal static string Untitled {
             get {
                 return ResourceManager.GetString("Untitled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   ここにプレビューを生成します。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string ViewerDescription_NoSelection {
-            get {
-                return ResourceManager.GetString("ViewerDescription_NoSelection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   {0} 個の画像が選択されています。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string ViewerDescription_Selection {
-            get {
-                return ResourceManager.GetString("ViewerDescription_Selection", resourceCulture);
             }
         }
     }

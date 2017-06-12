@@ -1,6 +1,6 @@
 ﻿namespace Comical
 {
-	partial class ImageEditingDialog
+	partial class ImageEditDialog
 	{
 		/// <summary>
 		/// 必要なデザイナー変数です。
@@ -29,7 +29,7 @@
 		void InitializeComponent()
 		{
 			System.Windows.Forms.Label lblMagnifyRatio;
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageEditingDialog));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageEditDialog));
 			System.Windows.Forms.Button btnOK;
 			System.Windows.Forms.Button btnCancel;
 			System.Windows.Forms.TableLayoutPanel tlpPreview;
@@ -126,7 +126,7 @@
 			this.lblSize.BackColor = System.Drawing.Color.Transparent;
 			this.lblSize.Name = "lblSize";
 			// 
-			// ImageEditingDialog
+			// ImageEditDialog
 			// 
 			this.AcceptButton = btnOK;
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -140,7 +140,7 @@
 			this.Controls.Add(btnOK);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
 			this.MaximizeBox = true;
-			this.Name = "ImageEditingDialog";
+			this.Name = "ImageEditDialog";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.Controls.SetChildIndex(btnOK, 0);
 			this.Controls.SetChildIndex(lblMagnifyRatio, 0);

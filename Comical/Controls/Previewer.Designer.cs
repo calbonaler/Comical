@@ -40,8 +40,6 @@
 			this.picPreview.Size = new System.Drawing.Size(150, 150);
 			this.picPreview.TabIndex = 0;
 			this.picPreview.TabStop = false;
-			this.picPreview.LoadCompleted += new System.ComponentModel.AsyncCompletedEventHandler(this.picPreview_LoadCompleted);
-			this.picPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.picPreview_Paint);
 			this.picPreview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseDown);
 			this.picPreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseMove);
 			this.picPreview.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseUp);
