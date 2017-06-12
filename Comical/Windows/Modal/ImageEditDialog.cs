@@ -16,6 +16,7 @@ namespace Comical
 		Point point2;
 		bool point2Move = true;
 		Point shiftScale;
+		bool leftMouseDown = false;
 
 		Rectangle ImageBounds => new Rectangle(0, 0, Image.Width * (int)numMagnifyRatio.Value / 100, Image.Height * (int)numMagnifyRatio.Value / 100);
 
@@ -93,11 +94,18 @@ namespace Comical
 
 		#region picPreview EventHandlers
 
-		void picPreview_MouseDown(object sender, MouseEventArgs e) { point1 = point2 = e.Location + new Size(hsPreview.Value, vsPreview.Value); }
+		void picPreview_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Left)
+			{
+				point1 = point2 = GetVerifiedLocation(e.Location + new Size(hsPreview.Value, vsPreview.Value));
+				leftMouseDown = true;
+			}
+		}
 
 		void picPreview_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.Left)
+			if (leftMouseDown && e.Button == MouseButtons.Left)
 			{
 				point2 = GetVerifiedLocation(e.Location + new Size(hsPreview.Value, vsPreview.Value));
 				picPreview.Invalidate();
@@ -106,10 +114,11 @@ namespace Comical
 
 		void picPreview_MouseUp(object sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.Left)
+			if (leftMouseDown && e.Button == MouseButtons.Left)
 			{
 				point2 = GetVerifiedLocation(e.Location + new Size(hsPreview.Value, vsPreview.Value));
 				picPreview.Invalidate();
+				leftMouseDown = false;
 			}
 		}
 
@@ -164,17 +173,17 @@ namespace Comical
 				shiftScale.Y = 0;
 		}
 
-		void picPreview_MouseLeave(object sender, EventArgs e) { picPreview.Invalidate(); }
+		void picPreview_MouseLeave(object sender, EventArgs e) => picPreview.Invalidate();
 
 		void picPreview_MouseWheel(object sender, MouseEventArgs e)
 		{
 			var scPt = picPreview.PointToScreen(e.Location);
-			if (numMagnifyRatio.ClientRectangle.Contains(numMagnifyRatio.PointToClient(scPt)))
-				numMagnifyRatio.Value = RoundInteger((int)numMagnifyRatio.Value + e.Delta / SystemInformation.MouseWheelScrollDelta, 0, 100);
-			else if (hsPreview.ClientRectangle.Contains(hsPreview.PointToClient(scPt)))
-				hsPreview.Value = RoundInteger(hsPreview.Value - e.Delta, 0, hsPreview.Maximum - hsPreview.LargeChange + 1);
+			if ((ModifierKeys & Keys.Control) != 0)
+				numMagnifyRatio.Value = RoundInteger((int)numMagnifyRatio.Value + SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 1, 100);
+			else if ((ModifierKeys & Keys.Shift) != 0)
+				hsPreview.Value = RoundInteger(hsPreview.Value - 10 * SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 0, hsPreview.Maximum - hsPreview.LargeChange + 1);
 			else
-				vsPreview.Value = RoundInteger(vsPreview.Value - e.Delta, 0, vsPreview.Maximum - vsPreview.LargeChange + 1);
+				vsPreview.Value = RoundInteger(vsPreview.Value - 10 * SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 0, vsPreview.Maximum - vsPreview.LargeChange + 1);
 			picPreview.Invalidate();
 		}
 
