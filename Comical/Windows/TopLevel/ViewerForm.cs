@@ -87,24 +87,21 @@ namespace Comical
 				prevMain.Image.Dispose();
 				prevMain.Image = null;
 			}
-			if (_spreads[CurrentPage].Left == null)
-			{
-				prevMain.Image = _spreads[CurrentPage].Right.CreateImage();
-				return;
-			}
-			if (_spreads[CurrentPage].Right == null)
+			if (_spreads[CurrentPage].IsFillSpread)
 			{
 				prevMain.Image = _spreads[CurrentPage].Left.CreateImage();
 				return;
 			}
-			using (var left = _spreads[CurrentPage].Left.CreateImage())
-			using (var right = _spreads[CurrentPage].Right.CreateImage())
+			using (var left = _spreads[CurrentPage].Left?.CreateImage())
+			using (var right = _spreads[CurrentPage].Right?.CreateImage())
 			{
-				prevMain.Image = new Bitmap(left.Width + right.Width, Math.Max(left.Height, right.Height));
+				prevMain.Image = new Bitmap(Math.Max(left?.Width ?? 0, right?.Width ?? 0) * 2, Math.Max(left?.Height ?? 0, right?.Height ?? 0));
 				using (Graphics g = Graphics.FromImage(prevMain.Image))
 				{
-					g.DrawImage(left, new Point(0, 0));
-					g.DrawImage(right, new Point(left.Width, 0));
+					if (left != null)
+						g.DrawImage(left, new Point(prevMain.Image.Width / 2 - left.Width, 0));
+					if (right != null)
+						g.DrawImage(right, new Point(prevMain.Image.Width / 2, 0));
 				}
 			}
 		}
