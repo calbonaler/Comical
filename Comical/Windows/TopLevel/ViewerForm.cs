@@ -24,6 +24,16 @@ namespace Comical
 				ExtendFrame(new Padding(-1));
 		}
 
+		protected override CreateParams CreateParams
+		{
+			get
+			{
+				var cparams = base.CreateParams;
+				cparams.Style = cparams.Style & ~0x000F0000 | 0x00020000;
+				return cparams;
+			}
+		}
+
 		public ViewerForm(string fileName) : this()
 		{
 			_comic = new Comic(); // Construct with read-only mode.
@@ -197,6 +207,7 @@ namespace Comical
 
 		protected override void OnLoad(EventArgs e)
 		{
+			DesktopBounds = Screen.FromControl(this).Bounds;
 			Open(_openingFileName);
 			base.OnLoad(e);
 		}

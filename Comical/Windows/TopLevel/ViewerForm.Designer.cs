@@ -62,12 +62,10 @@
 			this.ClientSize = new System.Drawing.Size(284, 262);
 			this.ControlBox = false;
 			this.Controls.Add(this.prevMain);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ViewerForm";
-			this.ShowInTaskbar = false;
 			this.TopMost = true;
-			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.ResumeLayout(false);
 
 		}
