@@ -74,8 +74,8 @@ namespace Comical
 				dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
 				dialog.Show();
 			}
-			conBookmarks.Items.AddRange(_comic.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (s, ev) => CurrentPage = Array.FindIndex(_spreads, x => x.Left == b.Target || x.Right == b.Target))).ToArray());
-			_spreads = _comic.ConstructSpreads(false).ToArray();
+			conBookmarks.Items.AddRange(_comic.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (s, ev) => CurrentPage = Array.FindIndex(_spreads, x => x.Left == _comic.Images[b.Target] || x.Right == _comic.Images[b.Target]))).ToArray());
+			_spreads = _comic.ConstructSpreads().ToArray();
 			_openingFileName = "";
 			ViewCurrentPage();
 		}
@@ -89,16 +89,16 @@ namespace Comical
 			}
 			if (_spreads[CurrentPage].Left == null)
 			{
-				prevMain.Image = _comic.Images[(int)_spreads[CurrentPage].Right].CreateImage();
+				prevMain.Image = _spreads[CurrentPage].Right.CreateImage();
 				return;
 			}
 			if (_spreads[CurrentPage].Right == null)
 			{
-				prevMain.Image = _comic.Images[(int)_spreads[CurrentPage].Left].CreateImage();
+				prevMain.Image = _spreads[CurrentPage].Left.CreateImage();
 				return;
 			}
-			using (var left = _comic.Images[(int)_spreads[CurrentPage].Left].CreateImage())
-			using (var right = _comic.Images[(int)_spreads[CurrentPage].Right].CreateImage())
+			using (var left = _spreads[CurrentPage].Left.CreateImage())
+			using (var right = _spreads[CurrentPage].Right.CreateImage())
 			{
 				prevMain.Image = new Bitmap(left.Width + right.Width, Math.Max(left.Height, right.Height));
 				using (Graphics g = Graphics.FromImage(prevMain.Image))

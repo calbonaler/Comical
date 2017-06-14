@@ -11,28 +11,14 @@ namespace Comical.Core
 
 		public string Name
 		{
-			get { return _name; }
-			set
-			{
-				if (_name != value)
-				{
-					_name = value ?? string.Empty;
-					PropertyChanged.Raise(this);
-				}
-			}
+			get => _name;
+			set => Utils.SetProperty(ref _name, value ?? string.Empty, this, PropertyChanged);
 		}
 
 		public int Target
 		{
-			get { return _target; }
-			set
-			{
-				if (_target != value)
-				{
-					_target = value;
-					PropertyChanged.Raise(this);
-				}
-			}
+			get => _target;
+			set => Utils.SetProperty(ref _target, value, this, PropertyChanged);
 		}
 
 		internal static Bookmark Load(BinaryReader reader)

@@ -117,6 +117,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompositeDisposable.cs" />
     <Compile Include="Controls\DraggableDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>

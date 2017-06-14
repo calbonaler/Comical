@@ -97,15 +97,16 @@ namespace Comical
 		{
 			prgStatus.Value = 0;
 			prgStatus.Visible = !(menMain.Enabled = tsMain.Enabled = false);
-			var imageListWork = _imageList.BeginAsyncWork();
-			var bookmarkListWork = _bookmarkList.BeginAsyncWork();
-			return new DelegateDisposable(() =>
+			return new CompositeDisposable()
 			{
-				bookmarkListWork.Dispose();
-				imageListWork.Dispose();
-				prgStatus.Visible = !(menMain.Enabled = tsMain.Enabled = true);
-				lblStatus.Text = string.Empty;
-			});
+				() =>
+				{
+					prgStatus.Visible = !(menMain.Enabled = tsMain.Enabled = true);
+					lblStatus.Text = string.Empty;
+				},
+				_imageList.BeginAsyncWork(),
+				_bookmarkList.BeginAsyncWork(),
+			};
 		}
 
 		static async Task CollectFilesAsync(IEnumerable<string> paths, List<string> comicFiles, List<ImageReference> images)
@@ -412,6 +413,6 @@ namespace Comical
 
 		void Comic_CountChanged(object sender, EventArgs e) => this.InvokeIfNeeded(() => lblImageCount.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageCountStringRepresentation, _comic.Images.Count));
 
-		void Comic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) => this.InvokeIfNeeded(() => UpdateTitle());
+		void Comic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) => this.InvokeIfNeeded(UpdateTitle);
 	}
 }

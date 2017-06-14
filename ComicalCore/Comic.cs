@@ -27,7 +27,7 @@ namespace Comical.Core
 					IsDirty = true;
 			};
 		}
-		
+
 		bool _canDirty = true;
 		ImageReferenceCollection _images = new ImageReferenceCollection();
 		BookmarkCollection _bookmarks = new BookmarkCollection();
@@ -188,43 +188,45 @@ namespace Comical.Core
 				await WriteFileAsync(fileName, images.ToArray(), new FileHeader(string.Empty, Author, null, PageTurningDirection, null), bookmarks, progress).ConfigureAwait(false);
 		}
 
-		public IEnumerable<Spread> ConstructSpreads(bool simpleSpread)
+		public IEnumerable<Spread> ConstructSpreads()
 		{
-			int? left = null;
-			int? right = null;
-			for (int i = 0; i < Images.Count; i++)
+			ImageReference left = null;
+			ImageReference right = null;
+			Spread Flush()
 			{
-				if (simpleSpread || PageTurningDirection == PageTurningDirection.None || Images[i].ViewMode == ImageViewMode.Default)
+				var spread = new Spread(left, right, false);
+				left = right = null;
+				return spread;
+			}
+			foreach (var image in Images)
+			{
+				if (PageTurningDirection == PageTurningDirection.None || image.ViewMode == ImageViewMode.Default)
 				{
 					if (left != null || right != null)
-					{
-						yield return new Spread(left, right, false);
-						left = right = null;
-					}
-					yield return new Spread(i, null, true);
+						yield return Flush();
+					yield return new Spread(image, null, true);
+				}
+				else if (image.ViewMode == ImageViewMode.Left)
+				{
+					if (left != null)
+						yield return Flush();
+					left = image;
+					if (PageTurningDirection == PageTurningDirection.ToRight)
+						yield return Flush();
 				}
 				else
 				{
-					if (left != null && Images[i].ViewMode == ImageViewMode.Left || right != null && Images[i].ViewMode == ImageViewMode.Right)
-					{
-						yield return new Spread(left, right, false);
-						left = right = null;
-					}
-					if (Images[i].ViewMode == ImageViewMode.Left)
-						left = i;
-					else
-						right = i;
-					if (PageTurningDirection == (PageTurningDirection)(3 - Images[i].ViewMode))
-					{
-						yield return new Spread(left, right, false);
-						left = right = null;
-					}
+					if (right != null)
+						yield return Flush();
+					right = image;
+					if (PageTurningDirection == PageTurningDirection.ToLeft)
+						yield return Flush();
 				}
 			}
 			if (left != null || right != null)
-				yield return new Spread(left, right, false);
+				yield return Flush();
 		}
-		
+
 		public IDisposable EnterUndirtiableSection()
 		{
 			if (!_canDirty)
@@ -244,132 +246,80 @@ namespace Comical.Core
 		bool _busy = false;
 		public bool IsBusy
 		{
-			get { return _busy; }
-			private set
-			{
-				if (_busy != value)
-				{
-					_busy = value;
-					PropertyChanged.Raise(this);
-				}
-			}
+			get => _busy;
+			private set => Utils.SetProperty(ref _busy, value, this, PropertyChanged);
 		}
 
 		bool _dirty = false;
 		public bool IsDirty
 		{
-			get { return _dirty; }
+			get => _dirty;
 			private set
 			{
-				if (_dirty != value && (_canDirty || !value))
-				{
-					_dirty = value;
-					PropertyChanged.Raise(this);
-				}
+				if (_canDirty || !value)
+					Utils.SetProperty(ref _dirty, value, this, PropertyChanged);
 			}
 		}
 
 		Version _fileVersion = FileHeader.LatestSupportedFileVersion;
 		public Version FileVersion
 		{
-			get { return _fileVersion; }
-			private set
-			{
-				if (_fileVersion != value)
-				{
-					_fileVersion = value;
-					PropertyChanged.Raise(this);
-				}
-			}
+			get => _fileVersion;
+			private set => Utils.SetProperty(ref _fileVersion, value, this, PropertyChanged);
 		}
 
 		byte[] _thumbnail = null;
 		public byte[] Thumbnail
 		{
-			get { return _thumbnail; }
-			set
-			{
-				if (_thumbnail != value)
-				{
-					_thumbnail = value;
-					PropertyChanged.Raise(this);
-				}
-			}
+			get => _thumbnail;
+			set => Utils.SetProperty(ref _thumbnail, value, this, PropertyChanged);
 		}
 
 		string _title = "";
 		public string Title
 		{
-			get { return _title; }
-			set
-			{
-				if (_title != value)
-				{
-					_title = value;
-					PropertyChanged.Raise(this);
-				}
-			}
+			get => _title;
+			set => Utils.SetProperty(ref _title, value, this, PropertyChanged);
 		}
 
 		string _author = "";
 		public string Author
 		{
-			get { return _author; }
-			set
-			{
-				if (_author != value)
-				{
-					_author = value;
-					PropertyChanged.Raise(this);
-				}
-			}
+			get => _author;
+			set => Utils.SetProperty(ref _author, value, this, PropertyChanged);
 		}
 
 		DateTime? _dateOfPublication = null;
 		public DateTime? DateOfPublication
 		{
-			get { return _dateOfPublication; }
-			set
-			{
-				if (_dateOfPublication != value)
-				{
-					_dateOfPublication = value;
-					PropertyChanged.Raise(this);
-				}
-			}
+			get => _dateOfPublication;
+			set => Utils.SetProperty(ref _dateOfPublication, value, this, PropertyChanged);
 		}
 
 		PageTurningDirection _pageTurningDirection;
 		public PageTurningDirection PageTurningDirection
 		{
-			get { return _pageTurningDirection; }
-			set
-			{
-				if (_pageTurningDirection != value)
-				{
-					_pageTurningDirection = value;
-					PropertyChanged.Raise(this);
-				}
-			}
+			get => _pageTurningDirection;
+			set => Utils.SetProperty(ref _pageTurningDirection, value, this, PropertyChanged);
 		}
-		
+
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
 	public class Spread
 	{
-		public Spread(int? left, int? right, bool fillSpread)
+		public Spread(ImageReference left, ImageReference right, bool fillSpread)
 		{
 			Left = left;
 			Right = right;
-			FillSpread = fillSpread;
+			IsFillSpread = fillSpread;
 		}
 
-		public int? Left { get; }
+		public ImageReference Left { get; }
 
-		public int? Right { get; }
+		public ImageReference Right { get; }
 
-		public bool FillSpread { get; }
+		public bool IsFillSpread { get; }
 	}
 
 	public enum ImageViewMode
@@ -393,7 +343,7 @@ namespace Comical.Core
 		Images = 1,
 		Bookmarks = 2,
 	}
-	
+
 	[Serializable]
 	public class InconsistentDataException : Exception
 	{

@@ -21,15 +21,8 @@ namespace Comical.Core
 
 		public ImageViewMode ViewMode
 		{
-			get { return _mode; }
-			set
-			{
-				if (value != _mode)
-				{
-					_mode = value;
-					PropertyChanged.Raise(this);
-				}
-			}
+			get => _mode;
+			set => Utils.SetProperty(ref _mode, value, this, PropertyChanged);
 		}
 		
 		public Stream OpenImageStream()
