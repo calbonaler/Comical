@@ -175,7 +175,10 @@ namespace Comical.Core
 				{
 					using (var ms = imageList[i].OpenImageStream())
 					using (FileStream fs = new FileStream(Path.Combine(baseDirectory, i.ToString(System.Globalization.CultureInfo.CurrentCulture) + extensionProvider(ms)), FileMode.Create, FileAccess.Write))
+					{
+						ms.Seek(0, SeekOrigin.Begin);
 						await ms.CopyToAsync(fs).ConfigureAwait(false);
+					}
 					progress?.Report((i + 1) * 100 / imageList.Length);
 				}
 			}
