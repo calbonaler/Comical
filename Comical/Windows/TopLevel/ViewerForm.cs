@@ -15,7 +15,7 @@ namespace Comical
 		public ViewerForm()
 		{
 			InitializeComponent();
-			prevMain.ViewPane.ContextMenuStrip = conBookmarks;
+			prevMain.ContextMenuStrip = conBookmarks;
 			prevMain.ViewPane.MouseMove += picPreview_MouseMove;
 			prevMain.ViewPane.MouseUp += picPreview_MouseUp;
 			prevMain.ViewPane.Paint += picPreview_Paint;
@@ -64,7 +64,7 @@ namespace Comical
 		void Open(string fileName)
 		{
 			Activate();
-			prevMain.ViewPane.Select();
+			prevMain.Select();
 			using (TaskDialog dialog = new TaskDialog())
 			{
 				dialog.Cancelable = false;

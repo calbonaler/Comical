@@ -22,12 +22,12 @@ namespace Comical
 			DesktopBounds = Properties.Settings.Default.EditorWindowBounds;
 		}
 
-		Comic _comic = new Comic();
+		readonly Comic _comic = new Comic();
 		string _savedFilePath;
 		static readonly IReadOnlyList<string> ImageExtensions = new[] { "bmp", "dib", "gif", "jpeg", "jpe", "jpg", "jfif", "png", "tiff", "tif", };
-		ContentsView _imageList = new ContentsView();
-		BookmarksView _bookmarkList = new BookmarksView();
-		DocumentView _document = new DocumentView();
+		readonly ContentsView _imageList = new ContentsView();
+		readonly BookmarksView _bookmarkList = new BookmarksView();
+		readonly DocumentView _document = new DocumentView();
 
 		string SavedFilePath
 		{
@@ -122,7 +122,7 @@ namespace Comical
 					}
 					if (!System.IO.File.Exists(path))
 						continue;
-					if (FileHeader.Load(path) != null)
+					if (await FileHeader.LoadAsync(path).ConfigureAwait(false) != null)
 					{
 						comicFiles.Add(path);
 						continue;

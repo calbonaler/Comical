@@ -1,5 +1,7 @@
 #pragma once
 
+#define NOMINMAX
+
 #include <ShObjIdl.h>
 #include <propkey.h>
 #include <propvarutil.h>
@@ -7,8 +9,7 @@
 #include <thumbcache.h>
 #include <wincodec.h>
 #include <sstream>
-
-template <typename T> inline T pointer_cast(void* pv) { return static_cast<T>(pv); }
+#include <algorithm>
 
 #ifdef _DEBUG
 inline bool SUCCEEDED_DEBUG(HRESULT hr, LPSTR file, int line)
@@ -33,7 +34,15 @@ void DllAddRef();
 void DllRelease();
 
 #define BEGIN_COM_INTERFACE_MAPPPING \
-IFACEMETHODIMP QueryInterface(REFIID riid, void** ppv) \
+IFACEMETHODIMP_(ULONG) AddRef() { return InterlockedIncrement(&m_cRef); } \
+IFACEMETHODIMP_(ULONG) Release() \
+{ \
+	auto cRef = InterlockedDecrement(&m_cRef); \
+	if (cRef == 0) \
+		delete this; \
+	return cRef; \
+} \
+IFACEMETHODIMP QueryInterface(const IID& riid, void** ppv) \
 { \
 	static const QITAB qit[] = \
 	{ \
@@ -42,14 +51,6 @@ IFACEMETHODIMP QueryInterface(REFIID riid, void** ppv) \
 		,{ nullptr } \
 	}; \
 	return QISearch(this, qit, riid, ppv); \
-} \
-IFACEMETHODIMP_(ULONG) AddRef() { return InterlockedIncrement(&m_cRef); } \
-IFACEMETHODIMP_(ULONG) Release() \
-{ \
-	auto cRef = InterlockedDecrement(&m_cRef); \
-	if (cRef == 0) \
-		delete this; \
-	return cRef; \
 } \
 private: \
 	ULONG m_cRef = 1; \

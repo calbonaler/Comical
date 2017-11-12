@@ -29,7 +29,7 @@ namespace Comical
 
 		#region SplashScreen EventHandlers
 
-		void SplashScreen_Click(object sender, System.EventArgs e) { Close(); }
+		void SplashScreen_Click(object sender, System.EventArgs e) => Close();
 
 		protected override void OnLoad(System.EventArgs e)
 		{

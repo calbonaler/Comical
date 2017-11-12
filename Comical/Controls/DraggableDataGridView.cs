@@ -95,14 +95,13 @@ namespace Comical.Controls
 			}
 		}
 
-		DragHitTestInfo GetDragHitTestInfo(IDataObject data, Point point)
+		DragHitTestInfo DragHitTest(IDataObject data, Point point)
 		{
 			var obj = (DataGridViewMovedRows)data.GetData(typeof(DataGridViewMovedRows));
 			var ev = new QueryRowDragDropEffectEventArgs(DragDropEffects.Move, obj.Source);
 			OnQueryRowDragDropEffect(ev);
-			var effect = ev.Effect == DragDropEffects.None ? DragDropEffects.None : ev.Effect | DragDropEffects.Scroll;
-			if (effect == DragDropEffects.None)
-				return new DragHitTestInfo(DragDropEffects.None, null, null);
+			if (ev.Effect == DragDropEffects.None)
+				return DragHitTestInfo.Nowhere;
 			var pt = PointToClient(point);
 			int index = HitTest(pt.X, pt.Y).RowIndex;
 			if (index < 0)
@@ -112,7 +111,7 @@ namespace Comical.Controls
 				else if (pt.Y > GetRowDisplayRectangle(RowCount - 1, false).Bottom)
 					index = RowCount;
 				else
-					return new DragHitTestInfo(DragDropEffects.None, null, null);
+					return DragHitTestInfo.Nowhere;
 			}
 			if (index < RowCount)
 			{
@@ -124,12 +123,12 @@ namespace Comical.Controls
 			if (obj.Source == this)
 			{
 				var rowIndex = obj.SourceRows.Min(x => x.Index);
-				if (index > rowIndex + obj.SourceRowsCount)
-					actualDest = index - obj.SourceRowsCount;
+				if (index > rowIndex + obj.SourceRows.Length)
+					actualDest = index - obj.SourceRows.Length;
 				else if (index >= rowIndex)
-					return new DragHitTestInfo(DragDropEffects.None, null, null);
+					return DragHitTestInfo.Nowhere;
 			}
-			return new DragHitTestInfo(effect, index, actualDest);
+			return new DragHitTestInfo(ev.Effect | DragDropEffects.Scroll, index, actualDest);
 		}
 
 		int IncrementDragOverCalled(int value)
@@ -182,11 +181,9 @@ namespace Comical.Controls
 			if (e != null && AllowUserToMoveRows && e.Button == MouseButtons.Left && _origin != null &&
 				SelectionMode == DataGridViewSelectionMode.FullRowSelect &&
 				(MultiDrag ? SelectedRows.Count > 0 : SelectedRows.Count == 1) &&
-				(Math.Abs(_origin.Value.X - e.X) > SystemInformation.DragSize.Width / 2 ||
-				Math.Abs(_origin.Value.Y - e.Y) > SystemInformation.DragSize.Height / 2))
+				(Math.Abs(_origin.Value.X - e.X) > SystemInformation.DragSize.Width / 2 || Math.Abs(_origin.Value.Y - e.Y) > SystemInformation.DragSize.Height / 2))
 			{
-				DoDragDrop(new DataGridViewMovedRows(SelectedRows, this),
-					DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move | DragDropEffects.None | DragDropEffects.Scroll);
+				DoDragDrop(new DataGridViewMovedRows(SelectedRows, this), DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move | DragDropEffects.Scroll);
 				_origin = null;
 			}
 			base.OnMouseMove(e);
@@ -195,7 +192,7 @@ namespace Comical.Controls
 		protected override void OnDragEnter(DragEventArgs drgevent)
 		{
 			if (drgevent != null && drgevent.Data.GetDataPresent(typeof(DataGridViewMovedRows)))
-				drgevent.Effect = GetDragHitTestInfo(drgevent.Data, new Point(drgevent.X, drgevent.Y)).Effect;
+				drgevent.Effect = DragHitTest(drgevent.Data, new Point(drgevent.X, drgevent.Y)).Effect;
 			else
 				base.OnDragEnter(drgevent);
 		}
@@ -214,9 +211,9 @@ namespace Comical.Controls
 				FirstDisplayedScrollingRowIndexUnchecked -= IncrementDragOverCalled(diffTop);
 			if (diffBottom >= 0)
 				FirstDisplayedScrollingRowIndexUnchecked += IncrementDragOverCalled(diffBottom);
-			var info = GetDragHitTestInfo(drgevent.Data, new Point(drgevent.X, drgevent.Y));
+			var info = DragHitTest(drgevent.Data, new Point(drgevent.X, drgevent.Y));
 			drgevent.Effect = info.Effect;
-			HitRowIndex = info.HitIndex ?? -1;
+			HitRowIndex = info.HitIndex;
 		}
 
 		protected override void OnDragLeave(EventArgs e)
@@ -232,20 +229,20 @@ namespace Comical.Controls
 				base.OnDragDrop(drgevent);
 				return;
 			}
-			var info = GetDragHitTestInfo(drgevent.Data, new Point(drgevent.X, drgevent.Y));
+			var info = DragHitTest(drgevent.Data, new Point(drgevent.X, drgevent.Y));
 			drgevent.Effect = info.Effect;
-			if (!(info.ActualDestination is int newIndex))
+			if (info.Effect == DragDropEffects.None)
 				return;
 			var dgdo = (DataGridViewMovedRows)drgevent.Data.GetData(typeof(DataGridViewMovedRows));
-			RowMovingEventArgs ev = new RowMovingEventArgs(dgdo.Source, dgdo.SourceRows, newIndex);
+			var ev = new RowMovingEventArgs(dgdo.Source, dgdo.SourceRows, info.ActualDestination);
 			OnRowMoving(ev);
 			if (!ev.Cancel)
 			{
 				foreach (var row in dgdo.SourceRows)
 					dgdo.Source.Rows.Remove(row);
-				Rows.InsertRange(newIndex, dgdo.SourceRows);
+				Rows.InsertRange(info.ActualDestination, dgdo.SourceRows);
 				ClearSelection();
-				for (int i = newIndex; i < newIndex + dgdo.SourceRowsCount; i++)
+				foreach (var i in Enumerable.Range(info.ActualDestination, dgdo.SourceRows.Length))
 					SetSelectedRowCore(i, true);
 				OnRowMoved(EventArgs.Empty);
 			}
@@ -277,18 +274,20 @@ namespace Comical.Controls
 
 		struct DragHitTestInfo
 		{
-			public DragHitTestInfo(DragDropEffects effect, int? hitIndex, int? actualDestination)
+			public DragHitTestInfo(DragDropEffects effect, int hitIndex, int actualDestination)
 			{
 				Effect = effect;
 				HitIndex = hitIndex;
 				ActualDestination = actualDestination;
 			}
 
+			public static readonly DragHitTestInfo Nowhere = new DragHitTestInfo(DragDropEffects.None, -1, -1);
+
 			public DragDropEffects Effect { get; }
 
-			public int? HitIndex { get; }
+			public int HitIndex { get; }
 
-			public int? ActualDestination { get; }
+			public int ActualDestination { get; }
 		}
 
 		class DataGridViewMovedRows
@@ -300,8 +299,6 @@ namespace Comical.Controls
 				SourceRows = rows.Cast<DataGridViewRow>().OrderBy(x => x.Index).ToArray();
 				Source = source;
 			}
-
-			public int SourceRowsCount => SourceRows.Length;
 
 			public DataGridViewRow[] SourceRows { get; }
 

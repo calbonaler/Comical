@@ -4,10 +4,26 @@ using System.Windows.Forms;
 
 namespace Comical.Controls
 {
-	public partial class Previewer : UserControl
+	public partial class Previewer : ScrollableControl
 	{
-		public Previewer() => InitializeComponent();
+		public Previewer()
+		{
+			SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+			picPreview = new FocusablePictureBox();
+			((System.ComponentModel.ISupportInitialize)picPreview).BeginInit();
+			SuspendLayout();
+			picPreview.Dock = DockStyle.Fill;
+			picPreview.Location = new Point(0, 0);
+			picPreview.MouseDown += picPreview_MouseDown;
+			picPreview.MouseMove += picPreview_MouseMove;
+			picPreview.MouseUp += picPreview_MouseUp;
+			AutoScroll = true;
+			Controls.Add(picPreview);
+			((System.ComponentModel.ISupportInitialize)picPreview).EndInit();
+			ResumeLayout(false);
+		}
 
+		FocusablePictureBox picPreview;
 		PreviewerStretchMode stretchMode;
 		bool avoidResizeMessage = false;
 		Cursor currentCursor = Cursors.Default;
@@ -139,6 +155,22 @@ namespace Comical.Controls
 				dragging = false;
 				if (picPreview.Dock == DockStyle.None)
 					SetCursor(false);
+			}
+		}
+
+		protected override void Select(bool directed, bool forward)
+		{
+			base.Select(directed, forward);
+			picPreview.Select();
+		}
+
+		public override ContextMenuStrip ContextMenuStrip
+		{
+			get => base.ContextMenuStrip;
+			set
+			{
+				base.ContextMenuStrip = value;
+				picPreview.ContextMenuStrip = value;
 			}
 		}
 	}

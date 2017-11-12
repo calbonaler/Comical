@@ -2,10 +2,12 @@
 
 #include "Dll.h"
 
-class _declspec(uuid("{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}")) CComicThumbnailProvider final : public IInitializeWithStream, public IThumbnailProvider
+class _declspec(uuid("{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}")) CComicThumbnailProvider: public IInitializeWithStream, public IThumbnailProvider
 {
 public:
 	CComicThumbnailProvider() { DllAddRef(); }
+
+	virtual ~CComicThumbnailProvider() { DllRelease(); }
 
 #pragma warning (push)
 #pragma warning (disable: 4838)
@@ -45,11 +47,11 @@ public:
 		bmi.bmiHeader.biHeight = -static_cast<LONG>(nHeight);
 		bmi.bmiHeader.biPlanes = 1;
 		bmi.bmiHeader.biBitCount = 32;
-		BYTE* pBits;
-		auto hbmp = CreateDIBSection(nullptr, &bmi, DIB_RGB_COLORS, pointer_cast<void**>(&pBits), nullptr, 0);
+		void* pBits;
+		auto hbmp = CreateDIBSection(nullptr, &bmi, DIB_RGB_COLORS, &pBits, nullptr, 0);
 		if (!hbmp)
 			return E_OUTOFMEMORY;
-		auto hr = pBitmapSourceConverted->CopyPixels(nullptr, nWidth * 4, nWidth * nHeight * 4, pBits);
+		auto hr = pBitmapSourceConverted->CopyPixels(nullptr, nWidth * 4, nWidth * nHeight * 4, static_cast<BYTE*>(pBits));
 		if (SUCCEEDED(hr))
 		{
 			*pdwAlpha = WTSAT_ARGB;
@@ -62,6 +64,4 @@ public:
 
 private:
 	CComPtr<IStream> m_pStream;
-	
-	~CComicThumbnailProvider() { DllRelease(); }
 };

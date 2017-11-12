@@ -9,14 +9,9 @@ namespace Comical.Core
 {
 	public class ImageReference : INotifyPropertyChanged
 	{
-		public ImageReference(byte[] data)
-		{
-			if (data == null)
-				throw new ArgumentNullException(nameof(data));
-			_data = data;
-		}
+		public ImageReference(byte[] data) => _data = data ?? throw new ArgumentNullException(nameof(data));
 
-		byte[] _data;
+		readonly byte[] _data;
 		ImageViewMode _mode;
 
 		public ImageViewMode ViewMode
@@ -31,8 +26,7 @@ namespace Comical.Core
 			try { ms = new MemoryStream(_data, false); }
 			catch
 			{
-				if (ms != null)
-					ms.Dispose();
+				ms?.Dispose();
 				throw;
 			}
 			return ms;
@@ -64,7 +58,7 @@ namespace Comical.Core
 	{
 		bool _notificationSuspended = false;
 		bool _collectionChanged = false;
-		List<KeyValuePair<object, string>> _itemChanges = new List<KeyValuePair<object, string>>();
+		readonly List<KeyValuePair<object, string>> _itemChanges = new List<KeyValuePair<object, string>>();
 		
 		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
 		{

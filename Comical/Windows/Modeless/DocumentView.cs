@@ -24,7 +24,7 @@ namespace Comical
 		}
 
 		Comic _comic;
-		DateTimeFormatInfo _formatInfo;
+		readonly DateTimeFormatInfo _formatInfo;
 
 		protected override string GetPersistString() => "Document";
 

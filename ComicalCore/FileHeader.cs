@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Comical.Core
 {
@@ -26,30 +27,30 @@ namespace Comical.Core
 			FileVersion = fileVersion;
 		}
 
-		public static FileHeader Load(string fileName)
+		public static async Task<FileHeader> LoadAsync(string fileName)
 		{
 			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
-				return Load(fs);
+				return await LoadAsync(fs).ConfigureAwait(false);
 		}
 
-		public static FileHeader Load(Stream stream)
+		public static async Task<FileHeader> LoadAsync(Stream stream)
 		{
 			if (stream == null)
 				throw new ArgumentNullException(nameof(stream));
 			byte[] thumbnail = null;
 			long pos = stream.Position;
 			byte[] bitmapHeader = new byte[6];
-			stream.Read(bitmapHeader, 0, bitmapHeader.Length);
+			await stream.ReadAsync(bitmapHeader, 0, bitmapHeader.Length).ConfigureAwait(false);
 			stream.Seek(pos, SeekOrigin.Begin);
 			if (Encoding.ASCII.GetString(bitmapHeader, 0, 2) == "BM")
 			{
 				var size = BitConverter.ToUInt32(bitmapHeader, 2);
 				thumbnail = new byte[size];
-				stream.Read(thumbnail, 0, (int)size);
+				await stream.ReadAsync(thumbnail, 0, (int)size).ConfigureAwait(false);
 			}
 
 			byte[] cicHeader = new byte[3];
-			stream.Read(cicHeader, 0, cicHeader.Length);
+			await stream.ReadAsync(cicHeader, 0, cicHeader.Length).ConfigureAwait(false);
 			if (Encoding.ASCII.GetString(cicHeader) != "CIC")
 				return null;
 
@@ -94,10 +95,10 @@ namespace Comical.Core
 
 		public PageTurningDirection PageTurningDirection { get; }
 		
-		internal void Save(Stream stream)
+		internal async Task SaveAsync(Stream stream)
 		{
-			stream.Write(Thumbnail, 0, Thumbnail.Length);
-			stream.Write(FileIdentifier, 0, FileIdentifier.Length);
+			await stream.WriteAsync(Thumbnail, 0, Thumbnail.Length).ConfigureAwait(false);
+			await stream.WriteAsync(FileIdentifier, 0, FileIdentifier.Length).ConfigureAwait(false);
 			stream.WriteByte((byte)FileVersion.Major);
 			if (FileVersion.Major >= 4)
 				stream.WriteByte((byte)FileVersion.Minor);

@@ -8,17 +8,14 @@ namespace Comical
 {
 	public partial class DialogBase : Form
 	{
-		public DialogBase()
-		{
-			InitializeComponent();
-		}
+		public DialogBase() => InitializeComponent();
 
 		[Localizable(true)]
 		[Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
 		public string Description
 		{
-			get { return lblDescription.Text; }
-			set { lblDescription.Text = value; }
+			get => lblDescription.Text;
+			set => lblDescription.Text = value;
 		}
 
 		protected override void OnPaint(PaintEventArgs e)
@@ -27,9 +24,8 @@ namespace Comical
 			if (e == null)
 				return;
 			if (Application.RenderWithVisualStyles)
-				e.Graphics.FillRectangle(Brushes.White, 0, 0, ClientSize.Width, ClientSize.Height - 44);
-			if (Application.RenderWithVisualStyles)
 			{
+				e.Graphics.FillRectangle(Brushes.White, 0, 0, ClientSize.Width, ClientSize.Height - 44);
 				using (Pen pen = new Pen(Color.FromArgb(223, 223, 223)))
 					e.Graphics.DrawLine(pen, 0, ClientSize.Height - 44, ClientSize.Width, ClientSize.Height - 44);
 				using (SolidBrush sb = new SolidBrush(Color.FromArgb(240, 240, 240)))

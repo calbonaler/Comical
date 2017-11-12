@@ -32,9 +32,9 @@ namespace Comical.Core
 		ImageReferenceCollection _images = new ImageReferenceCollection();
 		BookmarkCollection _bookmarks = new BookmarkCollection();
 
-		public ImageReferenceCollection Images { get { return _images; } }
+		public ImageReferenceCollection Images => _images;
 
-		public BookmarkCollection Bookmarks { get { return _bookmarks; } }
+		public BookmarkCollection Bookmarks => _bookmarks;
 
 		public void Dispose()
 		{
@@ -71,7 +71,7 @@ namespace Comical.Core
 		{
 			using (FileStream readStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
 			{
-				var cic = FileHeader.Load(readStream);
+				var cic = await FileHeader.LoadAsync(readStream).ConfigureAwait(false);
 				// ID確認
 				if (cic == null)
 					throw new ArgumentException(Properties.Resources.InvalidFileFormat);
@@ -85,7 +85,7 @@ namespace Comical.Core
 		{
 			using (FileStream writeStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
 			{
-				cic.Save(writeStream);
+				await cic.SaveAsync(writeStream).ConfigureAwait(false);
 				bookmarks.Save(writeStream);
 				using (BinaryWriter writer = new BinaryWriter(writeStream, System.Text.Encoding.Unicode, true))
 				{
@@ -193,40 +193,32 @@ namespace Comical.Core
 
 		public IEnumerable<Spread> ConstructSpreads()
 		{
-			ImageReference left = null;
-			ImageReference right = null;
+			ImageReference[] pages = new ImageReference[2];
 			Spread Flush()
 			{
-				var spread = new Spread(left, right, false);
-				left = right = null;
+				var spread = new Spread(pages[0], pages[1], false);
+				pages[0] = pages[1] = null;
 				return spread;
 			}
 			foreach (var image in Images)
 			{
 				if (PageTurningDirection == PageTurningDirection.None || image.ViewMode == ImageViewMode.Default)
 				{
-					if (left != null || right != null)
+					if (pages.Any(x => x != null))
 						yield return Flush();
 					yield return new Spread(image, null, true);
 				}
-				else if (image.ViewMode == ImageViewMode.Left)
-				{
-					if (left != null)
-						yield return Flush();
-					left = image;
-					if (PageTurningDirection == PageTurningDirection.ToRight)
-						yield return Flush();
-				}
 				else
 				{
-					if (right != null)
+					System.Diagnostics.Debug.Assert(image.ViewMode == ImageViewMode.Left || image.ViewMode == ImageViewMode.Right);
+					if (pages[(int)image.ViewMode - 1] != null)
 						yield return Flush();
-					right = image;
-					if (PageTurningDirection == PageTurningDirection.ToLeft)
+					pages[(int)image.ViewMode - 1] = image;
+					if (PageTurningDirection == (PageTurningDirection)(3 - (int)image.ViewMode))
 						yield return Flush();
 				}
 			}
-			if (left != null || right != null)
+			if (pages.Any(x => x != null))
 				yield return Flush();
 		}
 

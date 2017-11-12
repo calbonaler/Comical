@@ -43,6 +43,7 @@
     <DocumentationFile>
     </DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
@@ -125,10 +126,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\Previewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\Previewer.Designer.cs">
-      <DependentUpon>Previewer.cs</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\FocusablePictureBox.cs">
       <SubType>Component</SubType>
@@ -197,9 +195,6 @@
     <Compile Include="Windows\Modal\AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Controls\Previewer.resx">
-      <DependentUpon>Previewer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Windows\Modal\DialogBase.resx">
       <DependentUpon>DialogBase.cs</DependentUpon>
     </EmbeddedResource>

@@ -16,8 +16,8 @@ namespace Comical
 
 		public event EventHandler BookmarkSelected
 		{
-			add { dgvBookmarks.SelectionChanged += value; }
-			remove { dgvBookmarks.SelectionChanged -= value; }
+			add => dgvBookmarks.SelectionChanged += value;
+			remove => dgvBookmarks.SelectionChanged -= value;
 		}
 
 		public event EventHandler<BookmarkNavigatedEventArgs> BookmarkNavigated;
@@ -118,8 +118,7 @@ namespace Comical
 				_bookmarks[e.RowIndex].Name = e.Value.ToString();
 				return;
 			}
-			int target;
-			if (int.TryParse(e.Value.ToString(), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.CurrentCulture, out target) && target >= 0)
+			if (int.TryParse(e.Value.ToString(), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.CurrentCulture, out var target) && target >= 0)
 				_bookmarks[e.RowIndex].Target = target;
 		}
 

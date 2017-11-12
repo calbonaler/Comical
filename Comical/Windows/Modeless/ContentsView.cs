@@ -20,26 +20,26 @@ namespace Comical
 
 		public event EventHandler ImageReferenceSelected
 		{
-			add { dgvImages.SelectionChanged += value; }
-			remove { dgvImages.SelectionChanged -= value; }
+			add => dgvImages.SelectionChanged += value;
+			remove => dgvImages.SelectionChanged -= value;
 		}
 
 		public event EventHandler ExportRequested
 		{
-			add { itmExport.Click += value; }
-			remove { itmExport.Click -= value; }
+			add => itmExport.Click += value;
+			remove => itmExport.Click -= value;
 		}
 
 		public event EventHandler ExtractRequested
 		{
-			add { itmExtract.Click += value; }
-			remove { itmExport.Click -= value; }
+			add => itmExtract.Click += value;
+			remove => itmExport.Click -= value;
 		}
 
 		public event EventHandler BookmarkRequested
 		{
-			add { itmAddToBookmark.Click += value; }
-			remove { itmAddToBookmark.Click -= value; }
+			add => itmAddToBookmark.Click += value;
+			remove => itmAddToBookmark.Click -= value;
 		}
 
 		public event EventHandler<FileDroppedEventArgs> FileDropped;
@@ -124,13 +124,7 @@ namespace Comical
 
 		public int FirstSelectedRowIndex
 		{
-			get
-			{
-				if (dgvImages.SelectedRows.Count > 0)
-					return SelectedIndicies.Min();
-				else
-					return -1;
-			}
+			get => dgvImages.SelectedRows.Count > 0 ? SelectedIndicies.Min() : -1;
 			set
 			{
 				for (int i = 0; i < _images.Count; i++)
