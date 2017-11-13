@@ -24,7 +24,7 @@ namespace Comical
 			Properties.Settings.Default.Save();
 		}
 
-		void btnInsertMask_Click(object sender, EventArgs e) => conInsertMask.Show(btnInsertMask, btnInsertMask.Width, 0);
+		void btnInsertMask_Click(object sender, EventArgs e) => conInsertMask.Show(btnInsertMask, 0, btnInsertMask.Height);
 
 		void InsertMaskItem_Click(object sender, EventArgs e)
 		{

@@ -253,7 +253,7 @@
     <value>4</value>
   </data>
   <data name="btnInsertMask.Text" xml:space="preserve">
-    <value>&gt;</value>
+    <value>▼</value>
   </data>
   <data name="&gt;&gt;btnInsertMask.Name" xml:space="preserve">
     <value>btnInsertMask</value>
