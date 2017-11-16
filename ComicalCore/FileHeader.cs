@@ -97,7 +97,8 @@ namespace Comical.Core
 		
 		internal async Task SaveAsync(Stream stream)
 		{
-			await stream.WriteAsync(Thumbnail, 0, Thumbnail.Length).ConfigureAwait(false);
+			if (Thumbnail != null)
+				await stream.WriteAsync(Thumbnail, 0, Thumbnail.Length).ConfigureAwait(false);
 			await stream.WriteAsync(FileIdentifier, 0, FileIdentifier.Length).ConfigureAwait(false);
 			stream.WriteByte((byte)FileVersion.Major);
 			if (FileVersion.Major >= 4)
