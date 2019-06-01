@@ -31,19 +31,19 @@
 			System.Windows.Forms.SplitContainer splMain;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentView));
 			System.Windows.Forms.TableLayoutPanel tplPanel1;
-			System.Windows.Forms.Label lblPageTurningDirection;
-			System.Windows.Forms.Label lblCultureDependingDateOfPublication;
+			System.Windows.Forms.Label lblBindingSide;
+			System.Windows.Forms.Label lblCultureDependingPublished;
 			System.Windows.Forms.Label lblTitle;
-			System.Windows.Forms.Label lblDateOfPublication;
+			System.Windows.Forms.Label lblPublished;
 			System.Windows.Forms.Label lblAuthor;
 			System.Windows.Forms.Button btnSearchOnBrowser;
 			System.Windows.Forms.TableLayoutPanel tplPanel2;
 			System.Windows.Forms.Button btnEdit;
-			this.cmbPageTurningDirection = new System.Windows.Forms.ComboBox();
-			this.txtCultureDependingDateOfPublication = new System.Windows.Forms.TextBox();
+			this.cmbBindingSide = new System.Windows.Forms.ComboBox();
+			this.txtCultureDependingPublished = new System.Windows.Forms.TextBox();
 			this.txtTitle = new System.Windows.Forms.TextBox();
 			this.cmbAuthor = new System.Windows.Forms.ComboBox();
-			this.dtpDateOfPublication = new System.Windows.Forms.DateTimePicker();
+			this.dtpPublished = new System.Windows.Forms.DateTimePicker();
 			this.lblThumbnail = new System.Windows.Forms.Label();
 			this.preThumbnail = new Comical.Controls.Previewer();
 			this.btnUpdate = new System.Windows.Forms.Button();
@@ -51,10 +51,10 @@
 			this.numThumbnailIndex = new System.Windows.Forms.NumericUpDown();
 			splMain = new System.Windows.Forms.SplitContainer();
 			tplPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			lblPageTurningDirection = new System.Windows.Forms.Label();
-			lblCultureDependingDateOfPublication = new System.Windows.Forms.Label();
+			lblBindingSide = new System.Windows.Forms.Label();
+			lblCultureDependingPublished = new System.Windows.Forms.Label();
 			lblTitle = new System.Windows.Forms.Label();
-			lblDateOfPublication = new System.Windows.Forms.Label();
+			lblPublished = new System.Windows.Forms.Label();
 			lblAuthor = new System.Windows.Forms.Label();
 			btnSearchOnBrowser = new System.Windows.Forms.Button();
 			tplPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -75,58 +75,61 @@
 			// 
 			// splMain.Panel1
 			// 
+			resources.ApplyResources(splMain.Panel1, "splMain.Panel1");
 			splMain.Panel1.Controls.Add(tplPanel1);
 			// 
 			// splMain.Panel2
 			// 
+			resources.ApplyResources(splMain.Panel2, "splMain.Panel2");
 			splMain.Panel2.Controls.Add(tplPanel2);
 			// 
 			// tplPanel1
 			// 
 			resources.ApplyResources(tplPanel1, "tplPanel1");
-			tplPanel1.Controls.Add(this.cmbPageTurningDirection, 0, 9);
-			tplPanel1.Controls.Add(lblPageTurningDirection, 0, 8);
-			tplPanel1.Controls.Add(this.txtCultureDependingDateOfPublication, 0, 7);
-			tplPanel1.Controls.Add(lblCultureDependingDateOfPublication, 0, 6);
+			tplPanel1.Controls.Add(this.cmbBindingSide, 0, 9);
+			tplPanel1.Controls.Add(lblBindingSide, 0, 8);
+			tplPanel1.Controls.Add(this.txtCultureDependingPublished, 0, 7);
+			tplPanel1.Controls.Add(lblCultureDependingPublished, 0, 6);
 			tplPanel1.Controls.Add(lblTitle, 0, 0);
 			tplPanel1.Controls.Add(this.txtTitle, 0, 1);
-			tplPanel1.Controls.Add(lblDateOfPublication, 0, 4);
+			tplPanel1.Controls.Add(lblPublished, 0, 4);
 			tplPanel1.Controls.Add(lblAuthor, 0, 2);
 			tplPanel1.Controls.Add(btnSearchOnBrowser, 1, 5);
 			tplPanel1.Controls.Add(this.cmbAuthor, 0, 3);
-			tplPanel1.Controls.Add(this.dtpDateOfPublication, 0, 5);
+			tplPanel1.Controls.Add(this.dtpPublished, 0, 5);
 			tplPanel1.Name = "tplPanel1";
 			// 
-			// cmbPageTurningDirection
+			// cmbBindingSide
 			// 
-			resources.ApplyResources(this.cmbPageTurningDirection, "cmbPageTurningDirection");
-			tplPanel1.SetColumnSpan(this.cmbPageTurningDirection, 2);
-			this.cmbPageTurningDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbPageTurningDirection.FormattingEnabled = true;
-			this.cmbPageTurningDirection.Items.AddRange(new object[] {
-            resources.GetString("cmbPageTurningDirection.Items"),
-            resources.GetString("cmbPageTurningDirection.Items1")});
-			this.cmbPageTurningDirection.Name = "cmbPageTurningDirection";
-			this.cmbPageTurningDirection.SelectedIndexChanged += new System.EventHandler(this.cmbPageTurningDirection_SelectedIndexChanged);
+			resources.ApplyResources(this.cmbBindingSide, "cmbBindingSide");
+			tplPanel1.SetColumnSpan(this.cmbBindingSide, 2);
+			this.cmbBindingSide.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbBindingSide.FormattingEnabled = true;
+			this.cmbBindingSide.Items.AddRange(new object[] {
+            resources.GetString("cmbBindingSide.Items"),
+            resources.GetString("cmbBindingSide.Items1"),
+            resources.GetString("cmbBindingSide.Items2")});
+			this.cmbBindingSide.Name = "cmbBindingSide";
+			this.cmbBindingSide.SelectedIndexChanged += new System.EventHandler(this.cmbBindingSide_SelectedIndexChanged);
 			// 
-			// lblPageTurningDirection
+			// lblBindingSide
 			// 
-			resources.ApplyResources(lblPageTurningDirection, "lblPageTurningDirection");
-			tplPanel1.SetColumnSpan(lblPageTurningDirection, 2);
-			lblPageTurningDirection.Name = "lblPageTurningDirection";
+			resources.ApplyResources(lblBindingSide, "lblBindingSide");
+			tplPanel1.SetColumnSpan(lblBindingSide, 2);
+			lblBindingSide.Name = "lblBindingSide";
 			// 
-			// txtCultureDependingDateOfPublication
+			// txtCultureDependingPublished
 			// 
-			resources.ApplyResources(this.txtCultureDependingDateOfPublication, "txtCultureDependingDateOfPublication");
-			tplPanel1.SetColumnSpan(this.txtCultureDependingDateOfPublication, 2);
-			this.txtCultureDependingDateOfPublication.Name = "txtCultureDependingDateOfPublication";
-			this.txtCultureDependingDateOfPublication.TextChanged += new System.EventHandler(this.txtCultureDependingDateOfIssue_TextChanged);
+			resources.ApplyResources(this.txtCultureDependingPublished, "txtCultureDependingPublished");
+			tplPanel1.SetColumnSpan(this.txtCultureDependingPublished, 2);
+			this.txtCultureDependingPublished.Name = "txtCultureDependingPublished";
+			this.txtCultureDependingPublished.TextChanged += new System.EventHandler(this.txtCultureDependingPublished_TextChanged);
 			// 
-			// lblCultureDependingDateOfPublication
+			// lblCultureDependingPublished
 			// 
-			resources.ApplyResources(lblCultureDependingDateOfPublication, "lblCultureDependingDateOfPublication");
-			tplPanel1.SetColumnSpan(lblCultureDependingDateOfPublication, 2);
-			lblCultureDependingDateOfPublication.Name = "lblCultureDependingDateOfPublication";
+			resources.ApplyResources(lblCultureDependingPublished, "lblCultureDependingPublished");
+			tplPanel1.SetColumnSpan(lblCultureDependingPublished, 2);
+			lblCultureDependingPublished.Name = "lblCultureDependingPublished";
 			// 
 			// lblTitle
 			// 
@@ -141,11 +144,11 @@
 			this.txtTitle.Name = "txtTitle";
 			this.txtTitle.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
 			// 
-			// lblDateOfPublication
+			// lblPublished
 			// 
-			resources.ApplyResources(lblDateOfPublication, "lblDateOfPublication");
-			tplPanel1.SetColumnSpan(lblDateOfPublication, 2);
-			lblDateOfPublication.Name = "lblDateOfPublication";
+			resources.ApplyResources(lblPublished, "lblPublished");
+			tplPanel1.SetColumnSpan(lblPublished, 2);
+			lblPublished.Name = "lblPublished";
 			// 
 			// lblAuthor
 			// 
@@ -169,13 +172,13 @@
 			this.cmbAuthor.Name = "cmbAuthor";
 			this.cmbAuthor.TextChanged += new System.EventHandler(this.cmbAuthor_TextChanged);
 			// 
-			// dtpDateOfPublication
+			// dtpPublished
 			// 
-			resources.ApplyResources(this.dtpDateOfPublication, "dtpDateOfPublication");
-			this.dtpDateOfPublication.Checked = false;
-			this.dtpDateOfPublication.Name = "dtpDateOfPublication";
-			this.dtpDateOfPublication.ShowCheckBox = true;
-			this.dtpDateOfPublication.ValueChanged += new System.EventHandler(this.dtpDateOfIssue_ValueChanged);
+			resources.ApplyResources(this.dtpPublished, "dtpPublished");
+			this.dtpPublished.Checked = false;
+			this.dtpPublished.Name = "dtpPublished";
+			this.dtpPublished.ShowCheckBox = true;
+			this.dtpPublished.ValueChanged += new System.EventHandler(this.dtpPublished_ValueChanged);
 			// 
 			// tplPanel2
 			// 
@@ -227,8 +230,8 @@
 			// 
 			// DocumentView
 			// 
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			resources.ApplyResources(this, "$this");
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.Controls.Add(splMain);
 			this.HideOnClose = true;
 			this.Name = "DocumentView";
@@ -249,13 +252,13 @@
 
 		System.Windows.Forms.TextBox txtTitle;
 		System.Windows.Forms.ComboBox cmbAuthor;
-		System.Windows.Forms.DateTimePicker dtpDateOfPublication;
+		System.Windows.Forms.DateTimePicker dtpPublished;
 		System.Windows.Forms.Label lblSize;
-		private System.Windows.Forms.ComboBox cmbPageTurningDirection;
+		private System.Windows.Forms.ComboBox cmbBindingSide;
 		private System.Windows.Forms.Label lblThumbnail;
 		private Controls.Previewer preThumbnail;
 		private System.Windows.Forms.NumericUpDown numThumbnailIndex;
 		private System.Windows.Forms.Button btnUpdate;
-		private System.Windows.Forms.TextBox txtCultureDependingDateOfPublication;
+		private System.Windows.Forms.TextBox txtCultureDependingPublished;
 	}
 }

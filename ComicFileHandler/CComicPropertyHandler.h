@@ -33,8 +33,8 @@ public:
 			{ nullptr, ReadHashData },
 			{ &PKEY_Title, ReadSingleString },
 			{ &PKEY_Author, ReadSingleString },
-			{ &PKEY_Document_DateCreated, ReadDateOfPublication },
-			{ nullptr, ReadBoundSide },
+			{ &PKEY_Document_DateCreated, ReadPublished },
+			{ nullptr, ReadBindingSide },
 			{ &PKEY_Keywords, ReadBookmarks },
 		};
 		TEST(PSCreateMemoryPropertyStore(IID_PPV_ARGS(&m_pCache)));
@@ -151,7 +151,7 @@ private:
 		return InitPropVariantFromString(wstr.c_str(), var);
 	}
 
-	static HRESULT ReadDateOfPublication(IStream* stream, PROPVARIANT* var, UINT32&)
+	static HRESULT ReadPublished(IStream* stream, PROPVARIANT* var, UINT32&)
 	{
 		UINT8 date[4];
 		TEST(stream->Read(date, ARRAYSIZE(date), nullptr));
@@ -170,7 +170,7 @@ private:
 		return InitPropVariantFromFileTime(&ft, var);
 	}
 
-	static HRESULT ReadBoundSide(IStream* stream, PROPVARIANT*, UINT32& version)
+	static HRESULT ReadBindingSide(IStream* stream, PROPVARIANT*, UINT32& version)
 	{
 		UINT8 boundSide;
 		if (version >= MakeVersion(4, 0))

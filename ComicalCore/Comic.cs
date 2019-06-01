@@ -24,8 +24,8 @@ namespace Comical.Core
 				if (ev.PropertyName == nameof(Thumbnail) ||
 					ev.PropertyName == nameof(Title) ||
 					ev.PropertyName == nameof(Author) ||
-					ev.PropertyName == nameof(DateOfPublication) ||
-					ev.PropertyName == nameof(PageTurningDirection))
+					ev.PropertyName == nameof(Published) ||
+					ev.PropertyName == nameof(BindingSide))
 					IsDirty = true;
 			};
 		}
@@ -102,7 +102,7 @@ namespace Comical.Core
 			using (EnterUndirtiableSection())
 			{
 				Thumbnail = null;
-				DateOfPublication = null;
+				Published = null;
 				Title = Author = "";
 				Images.Clear();
 				Bookmarks.Clear();
@@ -135,8 +135,8 @@ namespace Comical.Core
 				FileVersion = res.FileVersion;
 				Title = res.Title;
 				Author = res.Author;
-				DateOfPublication = res.DateOfPublication;
-				PageTurningDirection = res.PageTurningDirection;
+				Published = res.Published;
+				BindingSide = res.BindingSide;
 			}
 		}
 
@@ -148,7 +148,7 @@ namespace Comical.Core
 				var inconsistency = CheckInconsistency();
 				if (inconsistency != ConsistencyValidatedDataTypes.None)
 					throw new InconsistentDataException(Properties.Resources.InconsistentData, inconsistency);
-				var header = new FileHeader(Title, Author, DateOfPublication, PageTurningDirection, Thumbnail);
+				var header = new FileHeader(Title, Author, Published, BindingSide, Thumbnail);
 				await WriteFileAsync(fileName, header, Images.ToArray(), Bookmarks, progress).ConfigureAwait(false);
 				FileVersion = header.FileVersion;
 				IsDirty = false;
@@ -185,7 +185,7 @@ namespace Comical.Core
 		public async Task ExtractAsync(string fileName, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
-				await WriteFileAsync(fileName, new FileHeader(string.Empty, Author, null, PageTurningDirection, null), images.ToArray(), Array.Empty<Bookmark>(), progress).ConfigureAwait(false);
+				await WriteFileAsync(fileName, new FileHeader(string.Empty, Author, null, BindingSide, null), images.ToArray(), Array.Empty<Bookmark>(), progress).ConfigureAwait(false);
 		}
 
 		public IEnumerable<Spread> ConstructSpreads()
@@ -199,7 +199,7 @@ namespace Comical.Core
 			}
 			foreach (var image in Images)
 			{
-				if (PageTurningDirection == PageTurningDirection.None || image.ViewMode == ImageViewMode.Default)
+				if (BindingSide == BindingSide.Default || image.ViewMode == ImageViewMode.Default)
 				{
 					if (pages.Any(x => x != null))
 						yield return Flush();
@@ -210,7 +210,7 @@ namespace Comical.Core
 					if (pages[(int)image.ViewMode - 1] != null)
 						yield return Flush();
 					pages[(int)image.ViewMode - 1] = image;
-					if (PageTurningDirection == (PageTurningDirection)(3 - (int)image.ViewMode))
+					if (BindingSide == (BindingSide)(3 - (int)image.ViewMode))
 						yield return Flush();
 				}
 			}
@@ -280,18 +280,18 @@ namespace Comical.Core
 			set => Utils.SetProperty(ref _author, value, this, PropertyChanged);
 		}
 
-		DateTime? _dateOfPublication = null;
-		public DateTime? DateOfPublication
+		DateTime? _published = null;
+		public DateTime? Published
 		{
-			get => _dateOfPublication;
-			set => Utils.SetProperty(ref _dateOfPublication, value, this, PropertyChanged);
+			get => _published;
+			set => Utils.SetProperty(ref _published, value, this, PropertyChanged);
 		}
 
-		PageTurningDirection _pageTurningDirection;
-		public PageTurningDirection PageTurningDirection
+		BindingSide _bindingSide;
+		public BindingSide BindingSide
 		{
-			get => _pageTurningDirection;
-			set => Utils.SetProperty(ref _pageTurningDirection, value, this, PropertyChanged);
+			get => _bindingSide;
+			set => Utils.SetProperty(ref _bindingSide, value, this, PropertyChanged);
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -320,11 +320,11 @@ namespace Comical.Core
 		Right = 2,
 	}
 
-	public enum PageTurningDirection
+	public enum BindingSide
 	{
-		None = 0,
-		ToLeft = 1,
-		ToRight = 2,
+		Default = 0,
+		Left = 1,
+		Right = 2,
 	}
 
 	[Flags]

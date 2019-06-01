@@ -8,23 +8,23 @@ namespace Comical.Core
 {
 	public class FileHeader
 	{
-		public FileHeader(string title, string author, DateTime? dateOfPublication, PageTurningDirection pageTurningDirection, byte[] thumbnail)
+		public FileHeader(string title, string author, DateTime? published, BindingSide bindingSide, byte[] thumbnail)
 			: this(
 				title,
 				author,
-				dateOfPublication,
-				pageTurningDirection,
+				published,
+				bindingSide,
 				thumbnail,
 				LatestSupportedFileVersion
 			)
 		{ }
 
-		FileHeader(string title, string author, DateTime? dateOfPublication, PageTurningDirection pageTurningDirection, byte[] thumbnail, Version fileVersion)
+		FileHeader(string title, string author, DateTime? published, BindingSide bindingSide, byte[] thumbnail, Version fileVersion)
 		{
 			Title = title ?? string.Empty;
 			Author = author ?? string.Empty;
-			DateOfPublication = dateOfPublication;
-			PageTurningDirection = pageTurningDirection;
+			Published = published;
+			BindingSide = bindingSide;
 			Thumbnail = thumbnail;
 			FileVersion = fileVersion;
 		}
@@ -78,12 +78,12 @@ namespace Comical.Core
 				int year = reader.ReadUInt16();
 				int month = reader.ReadByte();
 				int day = reader.ReadByte();
-				DateTime? dateOfPublication = null;
+				DateTime? published = null;
 				if (year > 1 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= DateTime.DaysInMonth(year, month))
-					dateOfPublication = new DateTime(year, month, day);
-				var pageTurningDirection = fileVersion.Major >= 4 ? (PageTurningDirection)reader.ReadByte() : PageTurningDirection.ToRight;
+					published = new DateTime(year, month, day);
+				var bindingSide = fileVersion.Major >= 4 ? (BindingSide)reader.ReadByte() : BindingSide.Right;
 
-				return new FileHeader(title, author, dateOfPublication, pageTurningDirection, thumbnail, fileVersion);
+				return new FileHeader(title, author, published, bindingSide, thumbnail, fileVersion);
 			}
 		}
 
@@ -98,9 +98,9 @@ namespace Comical.Core
 
 		public string Author { get; }
 
-		public DateTime? DateOfPublication { get; }
+		public DateTime? Published { get; }
 
-		public PageTurningDirection PageTurningDirection { get; }
+		public BindingSide BindingSide { get; }
 
 		internal async Task SaveAsync(Stream stream)
 		{
@@ -115,11 +115,11 @@ namespace Comical.Core
 			{
 				writer.Write(Title);
 				writer.Write(Author);
-				writer.Write((ushort)(DateOfPublication ?? new DateTime(1, 1, 1)).Year);
-				writer.Write((byte)(DateOfPublication ?? new DateTime(1, 1, 1)).Month);
-				writer.Write((byte)(DateOfPublication ?? new DateTime(1, 1, 1)).Day);
+				writer.Write((ushort)(Published ?? new DateTime(1, 1, 1)).Year);
+				writer.Write((byte)(Published ?? new DateTime(1, 1, 1)).Month);
+				writer.Write((byte)(Published ?? new DateTime(1, 1, 1)).Day);
 				if (FileVersion.Major >= 4)
-					writer.Write((byte)PageTurningDirection);
+					writer.Write((byte)BindingSide);
 			}
 		}
 	}

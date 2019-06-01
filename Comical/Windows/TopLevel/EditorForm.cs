@@ -43,7 +43,7 @@ namespace Comical
 			}
 		}
 
-		string HumanReadableSavedFileName => string.IsNullOrEmpty(SavedFilePath) ? Properties.Resources.Untitled : System.IO.Path.GetFileName(SavedFilePath);
+		string HumanReadableSavedFileName => string.IsNullOrEmpty(SavedFilePath) ? Properties.Resources.Untitled : Path.GetFileName(SavedFilePath);
 
 		void UpdateTitle() => Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.TitleFormat, HumanReadableSavedFileName, _comic.IsDirty ? Properties.Resources.DirtyMark : string.Empty, Application.ProductName);
 
@@ -218,7 +218,7 @@ namespace Comical
 				dialog.AlwaysAppendDefaultExtension = true;
 				dialog.DefaultExtension = "cic";
 				if (Properties.Settings.Default.DefaultSavedFileName.Length > 0)
-					dialog.DefaultFileName = string.Format(CultureInfo.CurrentCulture, Properties.Settings.Default.DefaultSavedFileName, _comic.Title, _comic.Author, _comic.DateOfPublication);
+					dialog.DefaultFileName = string.Format(CultureInfo.CurrentCulture, Properties.Settings.Default.DefaultSavedFileName, _comic.Title, _comic.Author, _comic.Published);
 				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
 					return false;
 				var result = await SaveAsync(dialog.FileName);

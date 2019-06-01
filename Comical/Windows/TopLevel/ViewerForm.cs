@@ -128,12 +128,12 @@ namespace Comical
 
 		void picPreview_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.None && (_comic.PageTurningDirection == PageTurningDirection.ToLeft ? e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - prevMain.AutoScrollPosition.X))
+			if (e.Button == MouseButtons.None && (_comic.BindingSide == BindingSide.Left ? e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - prevMain.AutoScrollPosition.X))
 			{
 				_focusMode = FocusMode.Next;
 				prevMain.Cursor = Cursors.Default;
 			}
-			else if (e.Button == MouseButtons.None && (_comic.PageTurningDirection == PageTurningDirection.ToLeft ? e.X <= Properties.Resources.Previous.Width - prevMain.AutoScrollPosition.X : e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Previous.Width))
+			else if (e.Button == MouseButtons.None && (_comic.BindingSide == BindingSide.Left ? e.X <= Properties.Resources.Previous.Width - prevMain.AutoScrollPosition.X : e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Previous.Width))
 			{
 				_focusMode = FocusMode.Previous;
 				prevMain.Cursor = Cursors.Default;
@@ -179,7 +179,7 @@ namespace Comical
 			{
 				var img = (Bitmap)Properties.Resources.ResourceManager.GetObject(_focusMode.ToString(), Properties.Resources.Culture);
 				var y = (prevMain.ClientSize.Height - img.Height) / 2 - prevMain.AutoScrollPosition.Y;
-				if (_comic.PageTurningDirection == PageTurningDirection.ToLeft ^ _focusMode == FocusMode.Next)
+				if (_comic.BindingSide == BindingSide.Left ^ _focusMode == FocusMode.Next)
 					g.DrawImage(img, -prevMain.AutoScrollPosition.X, y);
 				else
 					g.DrawImage(img, Math.Min(prevMain.ClientSize.Width, prevMain.ViewPane.ClientSize.Width) - img.Width - prevMain.AutoScrollPosition.X, y);
@@ -190,9 +190,9 @@ namespace Comical
 		{
 			if (e.KeyCode == Keys.Escape)
 				Close();
-			else if (e.KeyCode == (_comic.PageTurningDirection == PageTurningDirection.ToLeft ? Keys.Left : Keys.Right))
+			else if (e.KeyCode == (_comic.BindingSide == BindingSide.Left ? Keys.Left : Keys.Right))
 				ViewPrevious();
-			else if (e.KeyCode == (_comic.PageTurningDirection == PageTurningDirection.ToLeft ? Keys.Right : Keys.Left))
+			else if (e.KeyCode == (_comic.BindingSide == BindingSide.Left ? Keys.Right : Keys.Left))
 				ViewNext();
 		}
 

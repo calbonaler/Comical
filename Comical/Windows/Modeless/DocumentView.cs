@@ -31,7 +31,7 @@ namespace Comical
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			dtpDateOfIssue_ValueChanged(dtpDateOfPublication, EventArgs.Empty);
+			dtpPublished_ValueChanged(dtpPublished, EventArgs.Empty);
 		}
 
 		void LoadImage(Image image)
@@ -84,7 +84,7 @@ namespace Comical
 					comic.Images.CollectionChanged += ComicImageCollection_CollectionChanged;
 				ComicImageCollection_CollectionChanged(comic.Images, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
 				using (comic.EnterUndirtiableSection())
-					cmbPageTurningDirection.SelectedIndex = (int)PageTurningDirection.ToRight - 1;
+					cmbBindingSide.SelectedIndex = (int)BindingSide.Right;
 			}
 		}
 
@@ -98,13 +98,13 @@ namespace Comical
 				case nameof(_comic.Author):
 					cmbAuthor.Text = _comic.Author;
 					break;
-				case nameof(_comic.DateOfPublication):
-					dtpDateOfPublication.Checked = _comic.DateOfPublication != null;
-					if (_comic.DateOfPublication != null && _comic.DateOfPublication >= dtpDateOfPublication.MinDate && _comic.DateOfPublication <= dtpDateOfPublication.MaxDate)
-						dtpDateOfPublication.Value = (DateTime)_comic.DateOfPublication;
+				case nameof(_comic.Published):
+					dtpPublished.Checked = _comic.Published != null;
+					if (_comic.Published != null && _comic.Published >= dtpPublished.MinDate && _comic.Published <= dtpPublished.MaxDate)
+						dtpPublished.Value = (DateTime)_comic.Published;
 					break;
-				case nameof(_comic.PageTurningDirection):
-					cmbPageTurningDirection.SelectedIndex = (int)_comic.PageTurningDirection - 1;
+				case nameof(_comic.BindingSide):
+					cmbBindingSide.SelectedIndex = (int)_comic.BindingSide;
 					break;
 				case nameof(_comic.Thumbnail):
 					LoadImage(_comic.Thumbnail);
@@ -145,29 +145,29 @@ namespace Comical
 				_comic.Author = cmbAuthor.Text;
 		}
 
-		void dtpDateOfIssue_ValueChanged(object sender, EventArgs e)
+		void dtpPublished_ValueChanged(object sender, EventArgs e)
 		{
-			txtCultureDependingDateOfPublication.Enabled = dtpDateOfPublication.Checked && _formatInfo != null;
-			txtCultureDependingDateOfPublication.Text =
-				txtCultureDependingDateOfPublication.Enabled &&
-				dtpDateOfPublication.Value >= _formatInfo.Calendar.MinSupportedDateTime && dtpDateOfPublication.Value < _formatInfo.Calendar.MaxSupportedDateTime ?
-				dtpDateOfPublication.Value.ToString(_formatInfo.LongDatePattern, _formatInfo) : string.Empty;
+			txtCultureDependingPublished.Enabled = dtpPublished.Checked && _formatInfo != null;
+			txtCultureDependingPublished.Text =
+				txtCultureDependingPublished.Enabled &&
+				dtpPublished.Value >= _formatInfo.Calendar.MinSupportedDateTime && dtpPublished.Value < _formatInfo.Calendar.MaxSupportedDateTime ?
+				dtpPublished.Value.ToString(_formatInfo.LongDatePattern, _formatInfo) : string.Empty;
 			if (_comic != null)
-				_comic.DateOfPublication = dtpDateOfPublication.Checked ? dtpDateOfPublication.Value : (DateTime?)null;
+				_comic.Published = dtpPublished.Checked ? dtpPublished.Value : (DateTime?)null;
 		}
 
-		void txtCultureDependingDateOfIssue_TextChanged(object sender, EventArgs e)
+		void txtCultureDependingPublished_TextChanged(object sender, EventArgs e)
 		{
 			if (_formatInfo != null &&
-				DateTime.TryParse(txtCultureDependingDateOfPublication.Text, _formatInfo, DateTimeStyles.AllowInnerWhite | DateTimeStyles.AllowLeadingWhite | DateTimeStyles.AllowTrailingWhite | DateTimeStyles.AllowWhiteSpaces, out var date) &&
-				(date.Year != dtpDateOfPublication.Value.Year || date.Month != dtpDateOfPublication.Value.Month || date.Day != dtpDateOfPublication.Value.Day))
-				dtpDateOfPublication.Value = date;
+				DateTime.TryParse(txtCultureDependingPublished.Text, _formatInfo, DateTimeStyles.AllowInnerWhite | DateTimeStyles.AllowLeadingWhite | DateTimeStyles.AllowTrailingWhite | DateTimeStyles.AllowWhiteSpaces, out var date) &&
+				(date.Year != dtpPublished.Value.Year || date.Month != dtpPublished.Value.Month || date.Day != dtpPublished.Value.Day))
+				dtpPublished.Value = date;
 		}
 
-		void cmbPageTurningDirection_SelectedIndexChanged(object sender, EventArgs e)
+		void cmbBindingSide_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (_comic != null)
-				_comic.PageTurningDirection = (PageTurningDirection)(cmbPageTurningDirection.SelectedIndex + 1);
+				_comic.BindingSide = (BindingSide)cmbBindingSide.SelectedIndex;
 		}
 
 		void DocumentDialog_Disposed(object sender, EventArgs e) => SetComic(null);
