@@ -33,7 +33,7 @@ namespace Comical.Controls
 
 		public Image Image
 		{
-			get { return picPreview.Image; }
+			get => picPreview.Image;
 			set
 			{
 				if (picPreview.Image != value)
@@ -46,7 +46,7 @@ namespace Comical.Controls
 
 		public PreviewerStretchMode StretchMode
 		{
-			get { return stretchMode; }
+			get => stretchMode;
 			set
 			{
 				if (stretchMode != value)
@@ -99,7 +99,7 @@ namespace Comical.Controls
 
 		void SetCursor(bool grisp)
 		{
-			using (System.IO.MemoryStream ms = new System.IO.MemoryStream(grisp ? Properties.Resources.GrispingHand : Properties.Resources.FreeHand))
+			using (var ms = new System.IO.MemoryStream(grisp ? Properties.Resources.GrispingHand : Properties.Resources.FreeHand))
 				SetCursorInternal(new Cursor(ms));
 		}
 
@@ -112,7 +112,7 @@ namespace Comical.Controls
 
 		public override Cursor Cursor
 		{
-			get { return base.Cursor; }
+			get => base.Cursor;
 			set
 			{
 				if (value == null)

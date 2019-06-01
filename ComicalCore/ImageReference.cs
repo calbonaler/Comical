@@ -19,7 +19,7 @@ namespace Comical.Core
 			get => _mode;
 			set => Utils.SetProperty(ref _mode, value, this, PropertyChanged);
 		}
-		
+
 		public Stream OpenImageStream()
 		{
 			MemoryStream ms = null;
@@ -38,10 +38,10 @@ namespace Comical.Core
 				reader.ReadString(); // 名前
 			if (fileVersion < new Version(4, 3))
 				reader.ReadString(); // フォーマット
-			ImageViewMode m = (ImageViewMode)reader.ReadByte(); // オプション
-			byte[] buffer = new byte[reader.ReadInt32()]; // サイズ
+			var mode = (ImageViewMode)reader.ReadByte();
+			var buffer = new byte[reader.ReadInt32()]; // サイズ
 			await reader.BaseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
-			return new ImageReference(buffer) { ViewMode = m };
+			return new ImageReference(buffer) { ViewMode = mode };
 		}
 
 		internal async Task SaveAsync(BinaryWriter writer)
@@ -59,7 +59,7 @@ namespace Comical.Core
 		bool _notificationSuspended = false;
 		bool _collectionChanged = false;
 		readonly List<KeyValuePair<object, string>> _itemChanges = new List<KeyValuePair<object, string>>();
-		
+
 		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
 		{
 			if (_notificationSuspended)
@@ -101,16 +101,23 @@ namespace Comical.Core
 			});
 		}
 
-		internal async Task LoadAsync(Stream stream, Version fileVersion, IProgress<int> progress)
+		internal async Task LoadAsync(BinaryReader reader, Version fileVersion, IProgress<int> progress)
 		{
-			using (BinaryReader reader = new BinaryReader(stream, System.Text.Encoding.Unicode, true))
+			var imageCount = reader.ReadInt32();
+			for (var i = 0; i < imageCount; i++)
 			{
-				int images = reader.ReadInt32(); // 画像数
-				for (int i = 0; i < images; i++)
-				{
-					Add(await ImageReference.LoadAsync(reader, fileVersion).ConfigureAwait(false));
-					progress?.Report((i + 1) * 100 / images);
-				}
+				Add(await ImageReference.LoadAsync(reader, fileVersion).ConfigureAwait(false));
+				progress?.Report((i + 1) * 100 / imageCount);
+			}
+		}
+
+		internal static async Task SaveAsync(IReadOnlyList<ImageReference> images, BinaryWriter writer, IProgress<int> progress)
+		{
+			writer.Write(images.Count);
+			for (var i = 0; i < images.Count; i++)
+			{
+				await images[i].SaveAsync(writer).ConfigureAwait(false);
+				progress?.Report((i + 1) * 100 / images.Count);
 			}
 		}
 	}

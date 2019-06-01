@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -69,7 +70,7 @@ namespace Comical
 		{
 			if (!_comic.IsDirty)
 				return TaskDialogResult.No;
-			using (TaskDialog dialog = new TaskDialog())
+			using (var dialog = new TaskDialog())
 			{
 				dialog.Caption = Application.ProductName;
 				dialog.InstructionText = string.Format(CultureInfo.CurrentCulture, Properties.Resources.DoYouSaveChanges, HumanReadableSavedFileName);
@@ -115,23 +116,23 @@ namespace Comical
 			{
 				try
 				{
-					if (System.IO.Directory.Exists(path))
+					if (Directory.Exists(path))
 					{
-						await CollectFilesAsync(System.IO.Directory.EnumerateFileSystemEntries(path), comicFiles, images).ConfigureAwait(false);
+						await CollectFilesAsync(Directory.EnumerateFileSystemEntries(path), comicFiles, images).ConfigureAwait(false);
 						continue;
 					}
-					if (!System.IO.File.Exists(path))
+					if (!File.Exists(path))
 						continue;
 					if (await FileHeader.LoadAsync(path).ConfigureAwait(false) != null)
 					{
 						comicFiles.Add(path);
 						continue;
 					}
-					if (!ImageExtensions.Any(ex => string.Equals(System.IO.Path.GetExtension(path), "." + ex, StringComparison.OrdinalIgnoreCase)))
+					if (!ImageExtensions.Any(ex => string.Equals(Path.GetExtension(path), "." + ex, StringComparison.OrdinalIgnoreCase)))
 						continue;
-					using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+					using (var ms = new MemoryStream())
 					{
-						using (System.IO.FileStream fs = new System.IO.FileStream(path, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+						using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
 							await fs.CopyToAsync(ms).ConfigureAwait(false);
 						images.Add(new ImageReference(ms.ToArray()));
 					}
@@ -142,7 +143,7 @@ namespace Comical
 
 		static void AddAuthorToHistory(string author)
 		{
-			for (int i = Properties.Settings.Default.RecentAuthors.Count - 1; i >= 0; i--)
+			for (var i = Properties.Settings.Default.RecentAuthors.Count - 1; i >= 0; i--)
 			{
 				if (author.Equals(Properties.Settings.Default.RecentAuthors[i], StringComparison.CurrentCulture))
 					Properties.Settings.Default.RecentAuthors.RemoveAt(i);
@@ -156,11 +157,11 @@ namespace Comical
 			{
 				prgStatus.Style = ProgressBarStyle.Marquee;
 				lblStatus.Text = Properties.Resources.ScanningFiles;
-				List<string> comicFiles = new List<string>();
-				List<ImageReference> images = new List<ImageReference>();
+				var comicFiles = new List<string>();
+				var images = new List<ImageReference>();
 				await CollectFilesAsync(paths, comicFiles, images);
 				prgStatus.Style = ProgressBarStyle.Blocks;
-				int i = 0;
+				var i = 0;
 				if (canOpen && comicFiles.Count > 0)
 				{
 					lblStatus.Text = Properties.Resources.OpeningFile;
@@ -211,7 +212,7 @@ namespace Comical
 
 		async Task<bool> SaveAsAsync()
 		{
-			using (CommonSaveFileDialog dialog = new CommonSaveFileDialog())
+			using (var dialog = new CommonSaveFileDialog())
 			{
 				dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
 				dialog.AlwaysAppendDefaultExtension = true;
@@ -230,7 +231,7 @@ namespace Comical
 		{
 			if (string.IsNullOrEmpty(xml))
 				return;
-			using (System.IO.MemoryStream ms = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(xml)))
+			using (var ms = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(xml)))
 				panel.LoadFromXml(ms, persistString => Array.Find(contents, x => string.Equals(persistString, x.DockHandler.GetPersistStringCallback(), StringComparison.Ordinal)));
 		}
 
@@ -256,7 +257,7 @@ namespace Comical
 		{
 			if (await QuerySaveAsync() == TaskDialogResult.Cancel)
 				return;
-			using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+			using (var dialog = new CommonOpenFileDialog())
 			{
 				dialog.DefaultExtension = ".cic";
 				dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
@@ -287,7 +288,7 @@ namespace Comical
 
 		async void itmFromFile_Click(object sender, EventArgs e)
 		{
-			using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+			using (var dialog = new CommonOpenFileDialog())
 			{
 				dialog.Multiselect = true;
 				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
@@ -297,7 +298,7 @@ namespace Comical
 
 		async void itmFromFolder_Click(object sender, EventArgs e)
 		{
-			using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+			using (var dialog = new CommonOpenFileDialog())
 			{
 				dialog.Multiselect = true;
 				dialog.IsFolderPicker = true;
@@ -312,7 +313,7 @@ namespace Comical
 
 		async void itmExport_Click(object sender, EventArgs e)
 		{
-			using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+			using (var dialog = new CommonOpenFileDialog())
 			{
 				dialog.IsFolderPicker = true;
 				dialog.Title = Properties.Resources.ExportImages;
@@ -322,7 +323,7 @@ namespace Comical
 				{
 					await _comic.ExportAsync(dialog.FileName, _imageList.SortedSelectedImages, stream =>
 					{
-						using (Bitmap bmp = new Bitmap(stream))
+						using (var bmp = new Bitmap(stream))
 							return bmp.GetImageCodecInfo().FilenameExtension.Split(';')[0].Remove(0, 1);
 					}, new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
 				}
@@ -331,7 +332,7 @@ namespace Comical
 
 		async void itmExtract_Click(object sender, EventArgs e)
 		{
-			using (CommonSaveFileDialog dialog = new CommonSaveFileDialog())
+			using (var dialog = new CommonSaveFileDialog())
 			{
 				dialog.DefaultExtension = ".cic";
 				dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
@@ -361,13 +362,13 @@ namespace Comical
 
 		void itmOption_Click(object sender, EventArgs e)
 		{
-			using (OptionDialog dialog = new OptionDialog())
+			using (var dialog = new OptionDialog())
 				dialog.ShowDialog(this);
 		}
 
 		void itmAbout_Click(object sender, EventArgs e)
 		{
-			using (AboutDialog ss = new AboutDialog())
+			using (var ss = new AboutDialog())
 				ss.ShowDialog(this);
 		}
 

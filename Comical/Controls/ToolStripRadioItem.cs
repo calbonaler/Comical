@@ -19,7 +19,7 @@ namespace Comical.Controls
 				try
 				{
 					var hdc = dc.GetHdc();
-					uint rgb = GetPixel(hdc, xPos, yPos);
+					var rgb = GetPixel(hdc, xPos, yPos);
 					return Color.FromArgb((int)(rgb & 0xFF), (int)((rgb >> 8) & 0xFF), (int)((rgb >> 16) & 0xFF));
 				}
 				finally { dc.ReleaseHdc(); }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,8 @@ namespace Comical.Core
 				pageTurningDirection,
 				thumbnail,
 				LatestSupportedFileVersion
-			) { }
+			)
+		{ }
 
 		FileHeader(string title, string author, DateTime? dateOfPublication, PageTurningDirection pageTurningDirection, byte[] thumbnail, Version fileVersion)
 		{
@@ -29,7 +31,7 @@ namespace Comical.Core
 
 		public static async Task<FileHeader> LoadAsync(string fileName)
 		{
-			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+			using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
 				return await LoadAsync(fs).ConfigureAwait(false);
 		}
 
@@ -37,34 +39,39 @@ namespace Comical.Core
 		{
 			if (stream == null)
 				throw new ArgumentNullException(nameof(stream));
+
+			var header = new byte[6];
+			var readHeaderLength = await stream.ReadAsync(header, 0, FileIdentifier.Length).ConfigureAwait(false);
 			byte[] thumbnail = null;
-			long pos = stream.Position;
-			byte[] bitmapHeader = new byte[6];
-			await stream.ReadAsync(bitmapHeader, 0, bitmapHeader.Length).ConfigureAwait(false);
-			stream.Seek(pos, SeekOrigin.Begin);
-			if (Encoding.ASCII.GetString(bitmapHeader, 0, 2) == "BM")
+			if (readHeaderLength == FileIdentifier.Length && Encoding.ASCII.GetString(header, 0, 2) == "BM")
 			{
-				var size = BitConverter.ToUInt32(bitmapHeader, 2);
-				thumbnail = new byte[size];
-				await stream.ReadAsync(thumbnail, 0, (int)size).ConfigureAwait(false);
+				readHeaderLength += await stream.ReadAsync(header, readHeaderLength, header.Length - readHeaderLength).ConfigureAwait(false);
+				if (readHeaderLength < header.Length)
+					return null;
+				thumbnail = new byte[BitConverter.ToUInt32(header, 2)];
+				header.CopyTo(thumbnail, 0);
+				var readThumbnailLength = await stream.ReadAsync(thumbnail, header.Length, thumbnail.Length - header.Length).ConfigureAwait(false);
+				if (header.Length + readThumbnailLength < thumbnail.Length)
+					return null;
+				readHeaderLength = await stream.ReadAsync(header, 0, FileIdentifier.Length).ConfigureAwait(false);
 			}
 
-			byte[] cicHeader = new byte[3];
-			await stream.ReadAsync(cicHeader, 0, cicHeader.Length).ConfigureAwait(false);
-			if (Encoding.ASCII.GetString(cicHeader) != "CIC")
+			if (readHeaderLength < FileIdentifier.Length)
+				return null;
+			if (!header.Take(FileIdentifier.Length).SequenceEqual(FileIdentifier))
 				return null;
 
-			int major = stream.ReadByte();
-			int minor = 0;
-			if (major >= 4)
-				minor = stream.ReadByte();
-			Version fileVersion = new Version(major, minor);
+			var majorFileVersion = stream.ReadByte();
+			var minorFileVersion = 0;
+			if (majorFileVersion >= 4)
+				minorFileVersion = stream.ReadByte();
+			var fileVersion = new Version(majorFileVersion, minorFileVersion);
 			if (fileVersion > LatestSupportedFileVersion)
 				return null;
-			
+
 			var skip = stream.ReadByte();
 			stream.Seek(skip, SeekOrigin.Current);
-			using (BinaryReader reader = new BinaryReader(stream, Encoding.Unicode, true))
+			using (var reader = new BinaryReader(stream, Encoding.Unicode, true))
 			{
 				var title = reader.ReadString() ?? string.Empty;
 				var author = reader.ReadString() ?? string.Empty;
@@ -79,14 +86,14 @@ namespace Comical.Core
 				return new FileHeader(title, author, dateOfPublication, pageTurningDirection, thumbnail, fileVersion);
 			}
 		}
-		
+
 		public static readonly Version LatestSupportedFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 		static readonly byte[] FileIdentifier = new byte[] { 0x43, 0x49, 0x43 };
 
 		public byte[] Thumbnail { get; }
-		
+
 		public Version FileVersion { get; }
-		
+
 		public string Title { get; }
 
 		public string Author { get; }
@@ -94,7 +101,7 @@ namespace Comical.Core
 		public DateTime? DateOfPublication { get; }
 
 		public PageTurningDirection PageTurningDirection { get; }
-		
+
 		internal async Task SaveAsync(Stream stream)
 		{
 			if (Thumbnail != null)
@@ -104,7 +111,7 @@ namespace Comical.Core
 			if (FileVersion.Major >= 4)
 				stream.WriteByte((byte)FileVersion.Minor);
 			stream.WriteByte(0);
-			using (BinaryWriter writer = new BinaryWriter(stream, Encoding.Unicode, true))
+			using (var writer = new BinaryWriter(stream, Encoding.Unicode, true))
 			{
 				writer.Write(Title);
 				writer.Write(Author);

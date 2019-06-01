@@ -10,9 +10,9 @@ using System;
 [assembly: AssemblyTitle("Comical")]
 [assembly: AssemblyDescription("Managing and Reading Comics")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("takumi")]
+[assembly: AssemblyCompany("calbonaler")]
 [assembly: AssemblyProduct("Comical")]
-[assembly: AssemblyCopyright("Copyright © takumi 2010-2015")]
+[assembly: AssemblyCopyright("Copyright © calbonaler 2010-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -10,9 +10,9 @@ using System.Resources;
 [assembly: AssemblyTitle("ComicalCore")]
 [assembly: AssemblyDescription("Core System for Comical Application")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("takumi")]
+[assembly: AssemblyCompany("calbonaler")]
 [assembly: AssemblyProduct("ComicalCore")]
-[assembly: AssemblyCopyright("Copyright © takumi 2012-2015")]
+[assembly: AssemblyCopyright("Copyright © calbonaler 2012-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

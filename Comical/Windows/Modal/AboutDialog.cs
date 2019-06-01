@@ -11,7 +11,7 @@ namespace Comical
 		public AboutDialog()
 		{
 			InitializeComponent();
-			using (GraphicsPath path = new GraphicsPath(FillMode.Winding))
+			using (var path = new GraphicsPath(FillMode.Winding))
 			{
 				const int round = 60;
 				path.AddArc(0, 0, round, round, 180, 90);
@@ -34,9 +34,8 @@ namespace Comical
 		protected override void OnLoad(System.EventArgs e)
 		{
 			base.OnLoad(e);
-			var ca = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).FirstOrDefault() as AssemblyCopyrightAttribute;
 			lblVersionHeader.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
-			if (ca != null)
+			if (Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).FirstOrDefault() is AssemblyCopyrightAttribute ca)
 				lblCopyright.Text = string.Format(System.Globalization.CultureInfo.CurrentCulture, Properties.Resources.AboutDialog_CopyrightFormat, ca.Copyright);
 			else
 				lblCopyright.Text = string.Empty;

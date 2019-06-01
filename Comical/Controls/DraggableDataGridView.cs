@@ -49,7 +49,7 @@ namespace Comical.Controls
 		[DefaultValue(false)]
 		public bool AllowUserToMoveRows
 		{
-			get { return _allowUserToMoveRows; }
+			get => _allowUserToMoveRows;
 			set
 			{
 				_allowUserToMoveRows = value;
@@ -66,7 +66,7 @@ namespace Comical.Controls
 
 		int HitRowIndex
 		{
-			get { return _hitRowIndex; }
+			get => _hitRowIndex;
 			set
 			{
 				if (_hitRowIndex != value)
@@ -82,7 +82,7 @@ namespace Comical.Controls
 
 		int FirstDisplayedScrollingRowIndexUnchecked
 		{
-			get { return FirstDisplayedScrollingRowIndex; }
+			get => FirstDisplayedScrollingRowIndex;
 			set
 			{
 				if (RowCount == 0)
@@ -103,7 +103,7 @@ namespace Comical.Controls
 			if (ev.Effect == DragDropEffects.None)
 				return DragHitTestInfo.Nowhere;
 			var pt = PointToClient(point);
-			int index = HitTest(pt.X, pt.Y).RowIndex;
+			var index = HitTest(pt.X, pt.Y).RowIndex;
 			if (index < 0)
 			{
 				if (RowCount == 0)
@@ -119,7 +119,7 @@ namespace Comical.Controls
 				if (pt.Y >= rect.Y + rect.Height / 2)
 					index++;
 			}
-			int actualDest = index;
+			var actualDest = index;
 			if (obj.Source == this)
 			{
 				var rowIndex = obj.SourceRows.Min(x => x.Index);
@@ -133,9 +133,9 @@ namespace Comical.Controls
 
 		int IncrementDragOverCalled(int value)
 		{
-			int callMax = ScrollArea / 2;
+			var callMax = ScrollArea / 2;
 			_dragOverCalled += value;
-			int c = _dragOverCalled / callMax;
+			var c = _dragOverCalled / callMax;
 			_dragOverCalled = _dragOverCalled % callMax;
 			return c;
 		}
@@ -205,8 +205,8 @@ namespace Comical.Controls
 				return;
 			}
 			var pt = PointToClient(new Point(drgevent.X, drgevent.Y));
-			int diffTop = ScrollArea - pt.Y;
-			int diffBottom = pt.Y - Height + ScrollArea;
+			var diffTop = ScrollArea - pt.Y;
+			var diffBottom = pt.Y - Height + ScrollArea;
 			if (diffTop >= 0)
 				FirstDisplayedScrollingRowIndexUnchecked -= IncrementDragOverCalled(diffTop);
 			if (diffBottom >= 0)

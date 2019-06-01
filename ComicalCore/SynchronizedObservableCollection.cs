@@ -15,8 +15,8 @@ namespace Comical.Core
 	[DebuggerDisplay("Count = {Count}")]
 	public class SynchronizedObservableCollection<T> : IDisposable, IList<T>, IReadOnlyList<T>, INotifyCollectionChanged, INotifyPropertyChanged, INotifyCollectionItemPropertyChanged where T : INotifyPropertyChanged
 	{
-		public SynchronizedObservableCollection() { _items = new List<T>(); }
-		public SynchronizedObservableCollection(IEnumerable<T> collection) { _items = new List<T>(collection); }
+		public SynchronizedObservableCollection() => _items = new List<T>();
+		public SynchronizedObservableCollection(IEnumerable<T> collection) => _items = new List<T>(collection);
 
 		readonly List<T> _items;
 		[NonSerialized]ReaderWriterLockSlim _itemsLock = new ReaderWriterLockSlim();
@@ -138,12 +138,12 @@ namespace Comical.Core
 			_itemsLock.EnterWriteLock();
 			return new DelegateDisposable(_itemsLock.ExitWriteLock);
 		}
-		
-		public void Move(int oldIndex, int newIndex) { MoveRange(oldIndex, 1, newIndex); }
+
+		public void Move(int oldIndex, int newIndex) => MoveRange(oldIndex, 1, newIndex);
 
 		public void MoveRange(int oldIndex, int count, int newIndex)
 		{
-			T[] movedItems = new T[count];
+			var movedItems = new T[count];
 			using (LockForWrite())
 			{
 				CheckReentrancy();
@@ -157,12 +157,12 @@ namespace Comical.Core
 		
 		protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e) { using (BlockReentrancy()) CollectionChanged?.Invoke(this, e); }
 
-		protected virtual void OnCollectionItemPropertyChanged(CollectionItemPropertyChangedEventArgs e) { CollectionItemPropertyChanged?.Invoke(this, e); }
+		protected virtual void OnCollectionItemPropertyChanged(CollectionItemPropertyChangedEventArgs e) => CollectionItemPropertyChanged?.Invoke(this, e);
 
-		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e) { OnCollectionItemPropertyChanged(new CollectionItemPropertyChangedEventArgs(sender, e.PropertyName)); }
+		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e) => OnCollectionItemPropertyChanged(new CollectionItemPropertyChangedEventArgs(sender, e.PropertyName));
 
-		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e) { PropertyChanged?.Invoke(this, e); }
-		
+		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e) => PropertyChanged?.Invoke(this, e);
+
 		void OnItemRemoved(int index, T item)
 		{
 			item.PropertyChanged -= OnItemPropertyChanged;
@@ -214,9 +214,9 @@ namespace Comical.Core
 
 			public bool IsBusy => _busyCount > 0;
 
-			public void Enter() { ++_busyCount; }
+			public void Enter() => ++_busyCount;
 
-			public void Dispose() { --_busyCount; }
+			public void Dispose() => --_busyCount;
 		}
 	}
 }

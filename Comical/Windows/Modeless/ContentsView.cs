@@ -88,29 +88,23 @@ namespace Comical
 			}
 		}
 
-		void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
-			this.InvokeIfNeeded(() =>
-			{
-				dgvImages.RowCount = _images.Count;
-				if (_images.Count == 0 && DefaultViewer != null)
-					DefaultViewer.Image = null;
-				dgvImages.Invalidate();
-			});
-		}
+			dgvImages.RowCount = _images.Count;
+			if (_images.Count == 0 && DefaultViewer != null)
+				DefaultViewer.Image = null;
+			dgvImages.Invalidate();
+		});
 
-		void Images_CollectionItemPropertyChanged(object sender, CollectionItemPropertyChangedEventArgs e)
+		void Images_CollectionItemPropertyChanged(object sender, CollectionItemPropertyChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
-			this.InvokeIfNeeded(() =>
-			{
-				foreach (var group in e.PropertyNames)
-				{
-					int index = _images.IndexOf((ImageReference)group.Key);
-					if (index >= 0)
-						dgvImages.UpdateCellValue(1, index);
-				}
-			});
-		}
+		    foreach (var group in e.PropertyNames)
+		    {
+		  	  var index = _images.IndexOf((ImageReference)group.Key);
+		  	  if (index >= 0)
+		  		  dgvImages.UpdateCellValue(1, index);
+		    }
+		});
 
 		protected override void OnLoad(EventArgs e)
 		{
@@ -127,7 +121,7 @@ namespace Comical
 			get => dgvImages.SelectedRows.Count > 0 ? SelectedIndicies.Min() : -1;
 			set
 			{
-				for (int i = 0; i < _images.Count; i++)
+				for (var i = 0; i < _images.Count; i++)
 					dgvImages.Rows[i].Selected = i == value;
 				if (value >= 0 && value < _images.Count)
 					dgvImages.FirstDisplayedScrollingRowIndex = value;
@@ -139,7 +133,7 @@ namespace Comical
 			if (FirstSelectedRowIndex >= 0)
 			{
 				var content = DockPanel.ActiveContent;
-				Viewer viewer = new Viewer();
+				var viewer = new Viewer();
 				viewer.Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture);
 				viewer.Image = _images[FirstSelectedRowIndex].CreateImage();
 				viewer.Show(DockPanel);
@@ -161,7 +155,7 @@ namespace Comical
 				count = 0;
 			else if (count > _images.Count - start)
 				count = _images.Count - start;
-			for (int i = 0; i < count; i++)
+			for (var i = 0; i < count; i++)
 				_images[i + start].ViewMode = i % 2 == (startAtLeft ? 0 : 1) ? ImageViewMode.Left : ImageViewMode.Right;
 		}
 
@@ -178,7 +172,7 @@ namespace Comical
 
 		void dgvImages_SelectionChanged(object sender, EventArgs e)
 		{
-			int count = dgvImages.SelectedRows.Count;
+			var count = dgvImages.SelectedRows.Count;
 			if (DefaultViewer != null && count == 1)
 			{
 				DefaultViewer.Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture);
@@ -262,7 +256,7 @@ namespace Comical
 			Y = y;
 		}
 
-		int _keyState;
+		readonly int _keyState;
 
 		public IEnumerable<string> FileNames { get; }
 

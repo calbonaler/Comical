@@ -41,7 +41,7 @@ namespace Comical
 			try
 			{
 				ms = new System.IO.MemoryStream(Properties.Resources.Cross);
-				using (Cursor cursor = new Cursor(ms))
+				using (var cursor = new Cursor(ms))
 				{
 					ms = null;
 					cursor.Draw(g, new Rectangle(center.X - 15, center.Y - 15, 32, 32));
@@ -126,7 +126,7 @@ namespace Comical
 		{
 			e.Graphics.TranslateTransform(-hsPreview.Value, -vsPreview.Value);
 			e.Graphics.DrawImage(Image, ImageBounds);
-			using (Region reg = new Region(ImageBounds))
+			using (var reg = new Region(ImageBounds))
 			{
 				reg.Xor(ClippedImageBounds);
 				lblSize.Text = string.Format(System.Globalization.CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, ClippedImageBounds.Width, ClippedImageBounds.Height);
@@ -146,7 +146,7 @@ namespace Comical
 				return;
 			}
 			var loc = point2Move ? point2 : point1;
-			int dif = e.Control ? 10 : 1;
+			var dif = e.Control ? 10 : 1;
 			if (e.KeyCode == Keys.Left)
 				shiftScale.X = -1;
 			else if (e.KeyCode == Keys.Right)
@@ -204,7 +204,7 @@ namespace Comical
 			try
 			{
 				image = new Bitmap(ClippedImageBounds.Width, ClippedImageBounds.Height);
-				using (Graphics g = Graphics.FromImage(image))
+				using (var g = Graphics.FromImage(image))
 					g.DrawImage(Image, new Rectangle(Point.Empty, image.Size), UnmagnifiedClippedImageBounds, GraphicsUnit.Pixel);
 				Image = image;
 				image = null;
@@ -217,7 +217,7 @@ namespace Comical
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			using (System.IO.MemoryStream ms = new System.IO.MemoryStream(Properties.Resources.Cross))
+			using (var ms = new System.IO.MemoryStream(Properties.Resources.Cross))
 				picPreview.Cursor = new Cursor(ms);
 			RecalculateRequested(null, null);
 			picPreview.Select();

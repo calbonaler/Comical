@@ -11,8 +11,8 @@ namespace Comical
 
 		public Image Image
 		{
-			get { return preMain.Image; }
-			set { preMain.Image = value; }
+			get => preMain.Image;
+			set => preMain.Image = value;
 		}
 
 		void itmFitToWindow_CheckedChanged(object sender, EventArgs e) => preMain.StretchMode = itmFitToWindow.Checked ? Comical.Controls.PreviewerStretchMode.Uniform : Comical.Controls.PreviewerStretchMode.None;

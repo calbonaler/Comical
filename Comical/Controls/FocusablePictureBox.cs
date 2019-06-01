@@ -15,16 +15,16 @@ namespace Comical.Controls
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Always)]
 		public new int TabIndex
 		{
-			get { return base.TabIndex; }
-			set { base.TabIndex = value; }
+			get => base.TabIndex;
+			set => base.TabIndex = value;
 		}
 
 		[System.ComponentModel.Browsable(true)]
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Always)]
 		public new bool TabStop
 		{
-			get { return base.TabStop; }
-			set { base.TabStop = value; }
+			get => base.TabStop;
+			set => base.TabStop = value;
 		}
 
 		protected override bool IsInputKey(Keys keyData)

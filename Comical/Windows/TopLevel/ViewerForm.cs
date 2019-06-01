@@ -65,7 +65,7 @@ namespace Comical
 		{
 			Activate();
 			prevMain.Select();
-			using (TaskDialog dialog = new TaskDialog())
+			using (var dialog = new TaskDialog())
 			{
 				dialog.Cancelable = false;
 				TaskDialogButton btnCancel = new TaskDialogButton(nameof(btnCancel), Properties.Resources.Cancel);
@@ -106,7 +106,7 @@ namespace Comical
 			using (var right = _spreads[CurrentPage].Right?.CreateImage())
 			{
 				prevMain.Image = new Bitmap(Math.Max(left?.Width ?? 0, right?.Width ?? 0) * 2, Math.Max(left?.Height ?? 0, right?.Height ?? 0));
-				using (Graphics g = Graphics.FromImage(prevMain.Image))
+				using (var g = Graphics.FromImage(prevMain.Image))
 				{
 					if (left != null)
 						g.DrawImage(left, new Point(prevMain.Image.Width / 2 - left.Width, 0));
@@ -172,7 +172,7 @@ namespace Comical
 
 		void picPreview_Paint(object sender, PaintEventArgs e)
 		{
-			Graphics g = e.Graphics;
+			var g = e.Graphics;
 			if (_focusMode == FocusMode.Close)
 				g.FillRectangle(_closeBrush, -prevMain.AutoScrollPosition.X, prevMain.ClientSize.Height - CloseHeight - prevMain.AutoScrollPosition.Y, prevMain.ViewPane.ClientSize.Width, CloseHeight);
 			else if (_focusMode != FocusMode.None)

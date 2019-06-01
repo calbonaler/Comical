@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
-using System.Text;
 
 namespace Comical.Core
 {
@@ -23,10 +23,9 @@ namespace Comical.Core
 
 		internal static Bookmark Load(BinaryReader reader)
 		{
-			var bookmark = new Bookmark();
-			bookmark.Name = reader.ReadString();
-			bookmark.Target = reader.ReadInt32();
-			return bookmark;
+			var name = reader.ReadString();
+			var target = reader.ReadInt32();
+			return new Bookmark() { Name = name, Target = target };
 		}
 
 		internal void Save(BinaryWriter writer)
@@ -40,24 +39,18 @@ namespace Comical.Core
 
 	public class BookmarkCollection : SynchronizedObservableCollection<Bookmark>
 	{
-		internal void Load(Stream stream)
+		internal void Load(BinaryReader reader)
 		{
-			using (var reader = new BinaryReader(stream, Encoding.Unicode, true))
-			{
-				int count = reader.ReadInt32();
-				for (int i = 0; i < count; i++)
-					Add(Bookmark.Load(reader));
-			}
+			var count = reader.ReadInt32();
+			for (var i = 0; i < count; i++)
+				Add(Bookmark.Load(reader));
 		}
 
-		internal void Save(Stream stream)
+		internal static void Save(IReadOnlyList<Bookmark> bookmarks, BinaryWriter writer)
 		{
-			using (var writer = new BinaryWriter(stream, Encoding.Unicode, true))
-			{
-				writer.Write(Count);
-				for (int i = 0; i < Count; i++)
-					this[i].Save(writer);
-			}
+			writer.Write(bookmarks.Count);
+			foreach (var bookmark in bookmarks)
+				bookmark.Save(writer);
 		}
 	}
 }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Comical.Core;
+using System;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Comical.Core;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace Comical
@@ -44,7 +44,7 @@ namespace Comical
 					_comic.Thumbnail = stream.ToArray();
 				}
 			}
-			Size size = image?.Size ?? new Size(0, 0);
+			var size = image?.Size ?? new Size(0, 0);
 			preThumbnail.Image = image;
 			lblSize.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, size.Width, size.Height);
 		}
@@ -53,11 +53,11 @@ namespace Comical
 		{
 			if (_comic != null)
 				_comic.Thumbnail = binaryImage;
-			Size size = new Size(0, 0);
+			var size = new Size(0, 0);
 			if (binaryImage != null)
 			{
-				using (MemoryStream ms = new MemoryStream(binaryImage))
-				using (Image img = Image.FromStream(ms))
+				using (var ms = new MemoryStream(binaryImage))
+				using (var img = Image.FromStream(ms))
 				{
 					preThumbnail.Image = new Bitmap(img);
 					size = img.Size;
@@ -88,48 +88,42 @@ namespace Comical
 			}
 		}
 
-		void Comic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		void Comic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
-			this.InvokeIfNeeded(() =>
+			switch (e.PropertyName)
 			{
-				switch (e.PropertyName)
-				{
-					case nameof(_comic.Title):
-						txtTitle.Text = _comic.Title;
-						break;
-					case nameof(_comic.Author):
-						cmbAuthor.Text = _comic.Author;
-						break;
-					case nameof(_comic.DateOfPublication):
-						dtpDateOfPublication.Checked = _comic.DateOfPublication != null;
-						if (_comic.DateOfPublication != null && _comic.DateOfPublication >= dtpDateOfPublication.MinDate && _comic.DateOfPublication <= dtpDateOfPublication.MaxDate)
-							dtpDateOfPublication.Value = (DateTime)_comic.DateOfPublication;
-						break;
-					case nameof(_comic.PageTurningDirection):
-						cmbPageTurningDirection.SelectedIndex = (int)_comic.PageTurningDirection - 1;
-						break;
-					case nameof(_comic.Thumbnail):
-						LoadImage(_comic.Thumbnail);
-						break;
-				}
-			});
-		}
+				case nameof(_comic.Title):
+					txtTitle.Text = _comic.Title;
+					break;
+				case nameof(_comic.Author):
+					cmbAuthor.Text = _comic.Author;
+					break;
+				case nameof(_comic.DateOfPublication):
+					dtpDateOfPublication.Checked = _comic.DateOfPublication != null;
+					if (_comic.DateOfPublication != null && _comic.DateOfPublication >= dtpDateOfPublication.MinDate && _comic.DateOfPublication <= dtpDateOfPublication.MaxDate)
+						dtpDateOfPublication.Value = (DateTime)_comic.DateOfPublication;
+					break;
+				case nameof(_comic.PageTurningDirection):
+					cmbPageTurningDirection.SelectedIndex = (int)_comic.PageTurningDirection - 1;
+					break;
+				case nameof(_comic.Thumbnail):
+					LoadImage(_comic.Thumbnail);
+					break;
+			}
+		});
 
-		void ComicImageCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		void ComicImageCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
-			this.InvokeIfNeeded(() =>
-			{
-				lblThumbnail.Enabled = numThumbnailIndex.Enabled = btnUpdate.Enabled = _comic != null && _comic.Images.Count > 0;
-				if (_comic != null && _comic.Images.Count > 0)
-					numThumbnailIndex.Maximum = _comic.Images.Count - 1;
-			});
-		}
+			lblThumbnail.Enabled = numThumbnailIndex.Enabled = btnUpdate.Enabled = _comic != null && _comic.Images.Count > 0;
+			if (_comic != null && _comic.Images.Count > 0)
+				numThumbnailIndex.Maximum = _comic.Images.Count - 1;
+		});
 
 		void btnEdit_Click(object sender, EventArgs e)
 		{
 			if (preThumbnail.Image == null)
 				return;
-			using (ImageEditDialog dialog = new ImageEditDialog())
+			using (var dialog = new ImageEditDialog())
 			{
 				dialog.Image = preThumbnail.Image;
 				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
@@ -154,15 +148,17 @@ namespace Comical
 		void dtpDateOfIssue_ValueChanged(object sender, EventArgs e)
 		{
 			txtCultureDependingDateOfPublication.Enabled = dtpDateOfPublication.Checked && _formatInfo != null;
-			if (_formatInfo != null)
-				txtCultureDependingDateOfPublication.Text = dtpDateOfPublication.Value.ToString(_formatInfo.LongDatePattern, _formatInfo);
+			txtCultureDependingDateOfPublication.Text =
+				txtCultureDependingDateOfPublication.Enabled &&
+				dtpDateOfPublication.Value >= _formatInfo.Calendar.MinSupportedDateTime && dtpDateOfPublication.Value < _formatInfo.Calendar.MaxSupportedDateTime ?
+				dtpDateOfPublication.Value.ToString(_formatInfo.LongDatePattern, _formatInfo) : string.Empty;
 			if (_comic != null)
 				_comic.DateOfPublication = dtpDateOfPublication.Checked ? dtpDateOfPublication.Value : (DateTime?)null;
 		}
 
 		void txtCultureDependingDateOfIssue_TextChanged(object sender, EventArgs e)
 		{
-			if (_formatInfo != null && 
+			if (_formatInfo != null &&
 				DateTime.TryParse(txtCultureDependingDateOfPublication.Text, _formatInfo, DateTimeStyles.AllowInnerWhite | DateTimeStyles.AllowLeadingWhite | DateTimeStyles.AllowTrailingWhite | DateTimeStyles.AllowWhiteSpaces, out var date) &&
 				(date.Year != dtpDateOfPublication.Value.Year || date.Month != dtpDateOfPublication.Value.Month || date.Day != dtpDateOfPublication.Value.Day))
 				dtpDateOfPublication.Value = date;

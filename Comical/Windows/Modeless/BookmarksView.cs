@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Comical.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Forms;
-using Comical.Core;
 
 namespace Comical
 {
@@ -135,25 +135,19 @@ namespace Comical
 			}
 		}
 
-		void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
-			this.InvokeIfNeeded(() =>
-            {
-				RefreshMenuVisibility();
-				dgvBookmarks.Invalidate();
-			});
-		}
+			RefreshMenuVisibility();
+			dgvBookmarks.Invalidate();
+		});
 
 		void dgvBookmarks_SelectionChanged(object sender, EventArgs e) => RefreshMenuVisibility();
 
-		void Bookmarks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void Bookmarks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
-			this.InvokeIfNeeded(() =>
-			{
-				dgvBookmarks.RowCount = _bookmarks.Count;
-				dgvBookmarks.Invalidate();
-			});
-		}
+		    dgvBookmarks.RowCount = _bookmarks.Count;
+		    dgvBookmarks.Invalidate();
+		});
 
 		void dgvBookmarks_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => OnBookmarkNavigated(new BookmarkNavigatedEventArgs(_bookmarks[e.RowIndex]));
 

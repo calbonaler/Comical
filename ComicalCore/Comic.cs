@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,12 +31,10 @@ namespace Comical.Core
 		}
 
 		bool _canDirty = true;
-		ImageReferenceCollection _images = new ImageReferenceCollection();
-		BookmarkCollection _bookmarks = new BookmarkCollection();
 
-		public ImageReferenceCollection Images => _images;
+		public ImageReferenceCollection Images { get; private set; } = new ImageReferenceCollection();
 
-		public BookmarkCollection Bookmarks => _bookmarks;
+		public BookmarkCollection Bookmarks { get; private set; } = new BookmarkCollection();
 
 		public void Dispose()
 		{
@@ -48,17 +48,17 @@ namespace Comical.Core
 			{
 				using (EnterUndirtiableSection())
 				{
-					if (_images != null)
+					if (Images != null)
 					{
-						_images.Clear();
-						_images.Dispose();
-						_images = null;
+						Images.Clear();
+						Images.Dispose();
+						Images = null;
 					}
-					if (_bookmarks != null)
+					if (Bookmarks != null)
 					{
-						_bookmarks.Clear();
-						_bookmarks.Dispose();
-						_bookmarks = null;
+						Bookmarks.Clear();
+						Bookmarks.Dispose();
+						Bookmarks = null;
 					}
 					Thumbnail = null;
 					Title = Author = string.Empty;
@@ -69,32 +69,30 @@ namespace Comical.Core
 
 		async Task<FileHeader> ReadFileAsync(string fileName, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
-			using (FileStream readStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+			using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
 			{
-				var cic = await FileHeader.LoadAsync(readStream).ConfigureAwait(false);
+				var fileHeader = await FileHeader.LoadAsync(stream).ConfigureAwait(false);
 				// ID確認
-				if (cic == null)
+				if (fileHeader == null)
 					throw new ArgumentException(Properties.Resources.InvalidFileFormat);
-				bookmarks.Load(readStream); // 目次
-				await Images.LoadAsync(readStream, cic.FileVersion, progress).ConfigureAwait(false); // 画像
-				return cic;
+				using (var reader = new BinaryReader(stream, Encoding.Unicode, true))
+				{
+					bookmarks.Load(reader); // 目次
+					await Images.LoadAsync(reader, fileHeader.FileVersion, progress).ConfigureAwait(false); // 画像
+				}
+				return fileHeader;
 			}
 		}
 
-		static async Task WriteFileAsync(string fileName, IReadOnlyList<ImageReference> images, FileHeader cic, BookmarkCollection bookmarks, IProgress<int> progress)
+		static async Task WriteFileAsync(string fileName, FileHeader fileHeader, IReadOnlyList<ImageReference> images, IReadOnlyList<Bookmark> bookmarks, IProgress<int> progress)
 		{
-			using (FileStream writeStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+			using (var stream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
 			{
-				await cic.SaveAsync(writeStream).ConfigureAwait(false);
-				bookmarks.Save(writeStream);
-				using (BinaryWriter writer = new BinaryWriter(writeStream, System.Text.Encoding.Unicode, true))
+				await fileHeader.SaveAsync(stream).ConfigureAwait(false);
+				using (var writer = new BinaryWriter(stream, Encoding.Unicode, true))
 				{
-					writer.Write(images.Count); // 画像数
-					for (int i = 0; i < images.Count; i++)
-					{
-						await images[i].SaveAsync(writer).ConfigureAwait(false);
-						progress?.Report((i + 1) * 100 / images.Count);
-					}
+					BookmarkCollection.Save(bookmarks, writer);
+					await ImageReferenceCollection.SaveAsync(images, writer, progress).ConfigureAwait(false);
 				}
 			}
 		}
@@ -114,7 +112,7 @@ namespace Comical.Core
 
 		public ConsistencyValidatedDataTypes CheckInconsistency()
 		{
-			for (int i = 0; i < Bookmarks.Count; i++)
+			for (var i = 0; i < Bookmarks.Count; i++)
 			{
 				if (Bookmarks[i].Target < Images.Count && Bookmarks[i].Target >= 0)
 					continue;
@@ -151,7 +149,7 @@ namespace Comical.Core
 				if (inconsistency != ConsistencyValidatedDataTypes.None)
 					throw new InconsistentDataException(Properties.Resources.InconsistentData, inconsistency);
 				var header = new FileHeader(Title, Author, DateOfPublication, PageTurningDirection, Thumbnail);
-				await WriteFileAsync(fileName, Images.ToArray(), header, Bookmarks, progress).ConfigureAwait(false);
+				await WriteFileAsync(fileName, header, Images.ToArray(), Bookmarks, progress).ConfigureAwait(false);
 				FileVersion = header.FileVersion;
 				IsDirty = false;
 			}
@@ -171,10 +169,10 @@ namespace Comical.Core
 			{
 				var imageList = images.ToArray();
 				Directory.CreateDirectory(baseDirectory);
-				for (int i = 0; i < imageList.Length; Interlocked.Increment(ref i))
+				for (var i = 0; i < imageList.Length; Interlocked.Increment(ref i))
 				{
 					using (var ms = imageList[i].OpenImageStream())
-					using (FileStream fs = new FileStream(Path.Combine(baseDirectory, i.ToString(System.Globalization.CultureInfo.CurrentCulture) + extensionProvider(ms)), FileMode.Create, FileAccess.Write))
+					using (var fs = new FileStream(Path.Combine(baseDirectory, i.ToString(CultureInfo.CurrentCulture) + extensionProvider(ms)), FileMode.Create, FileAccess.Write))
 					{
 						ms.Seek(0, SeekOrigin.Begin);
 						await ms.CopyToAsync(fs).ConfigureAwait(false);
@@ -187,13 +185,12 @@ namespace Comical.Core
 		public async Task ExtractAsync(string fileName, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
-			using (var bookmarks = new BookmarkCollection())
-				await WriteFileAsync(fileName, images.ToArray(), new FileHeader(string.Empty, Author, null, PageTurningDirection, null), bookmarks, progress).ConfigureAwait(false);
+				await WriteFileAsync(fileName, new FileHeader(string.Empty, Author, null, PageTurningDirection, null), images.ToArray(), Array.Empty<Bookmark>(), progress).ConfigureAwait(false);
 		}
 
 		public IEnumerable<Spread> ConstructSpreads()
 		{
-			ImageReference[] pages = new ImageReference[2];
+			var pages = new ImageReference[2];
 			Spread Flush()
 			{
 				var spread = new Spread(pages[0], pages[1], false);
@@ -210,7 +207,6 @@ namespace Comical.Core
 				}
 				else
 				{
-					System.Diagnostics.Debug.Assert(image.ViewMode == ImageViewMode.Left || image.ViewMode == ImageViewMode.Right);
 					if (pages[(int)image.ViewMode - 1] != null)
 						yield return Flush();
 					pages[(int)image.ViewMode - 1] = image;
@@ -343,11 +339,11 @@ namespace Comical.Core
 	public class InconsistentDataException : Exception
 	{
 		public InconsistentDataException() : this(ConsistencyValidatedDataTypes.None) { }
-		public InconsistentDataException(ConsistencyValidatedDataTypes dataTypes) { DataTypes = dataTypes; }
+		public InconsistentDataException(ConsistencyValidatedDataTypes dataTypes) => DataTypes = dataTypes;
 		public InconsistentDataException(string message) : this(message, ConsistencyValidatedDataTypes.None) { }
-		public InconsistentDataException(string message, ConsistencyValidatedDataTypes dataTypes) : base(message) { DataTypes = dataTypes; }
+		public InconsistentDataException(string message, ConsistencyValidatedDataTypes dataTypes) : base(message) => DataTypes = dataTypes;
 		public InconsistentDataException(string message, Exception inner) : base(message, inner) { }
-		protected InconsistentDataException(SerializationInfo info, StreamingContext context) : base(info, context) { DataTypes = (ConsistencyValidatedDataTypes)info.GetInt32(nameof(DataTypes)); }
+		protected InconsistentDataException(SerializationInfo info, StreamingContext context) : base(info, context) => DataTypes = (ConsistencyValidatedDataTypes)info.GetInt32(nameof(DataTypes));
 		public ConsistencyValidatedDataTypes DataTypes { get; private set; }
 		public override void GetObjectData(SerializationInfo info, StreamingContext context)
 		{

@@ -37,9 +37,6 @@ namespace Comical
 
 		public static Image CreateImage(this ImageReference ir) => CreateImage(ir, Size.Empty);
 
-		public static System.Drawing.Imaging.ImageCodecInfo GetImageCodecInfo(this Image image)
-		{
-			return Array.Find(System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders(), item => item.FormatID == image.RawFormat.Guid);
-        }
+		public static System.Drawing.Imaging.ImageCodecInfo GetImageCodecInfo(this Image image) => Array.Find(System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders(), item => item.FormatID == image.RawFormat.Guid);
 	}
 }
