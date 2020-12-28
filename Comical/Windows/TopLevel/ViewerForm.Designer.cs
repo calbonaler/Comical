@@ -47,7 +47,6 @@
 			this.prevMain.AutoScroll = true;
 			this.prevMain.BackColor = System.Drawing.Color.Transparent;
 			this.prevMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.prevMain.Image = null;
 			this.prevMain.Location = new System.Drawing.Point(0, 0);
 			this.prevMain.Name = "prevMain";
 			this.prevMain.Size = new System.Drawing.Size(284, 262);

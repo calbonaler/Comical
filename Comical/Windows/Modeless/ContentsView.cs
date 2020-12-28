@@ -11,7 +11,12 @@ namespace Comical
 {
 	public partial class ContentsView : WeifenLuo.WinFormsUI.Docking.DockContent
 	{
-		public ContentsView() => InitializeComponent();
+		public ContentsView()
+		{
+			InitializeComponent();
+			dgvImages.RowTemplate.Height = ThumbnailSize.Height;
+			clmViewMode.DataSource = Enum.GetNames(typeof(ImageViewMode));
+		}
 
 		ImageReferenceCollection _images;
 		static readonly Size ThumbnailSize = new Size(118, 118);
@@ -106,14 +111,6 @@ namespace Comical
 		    }
 		});
 
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad(e);
-			dgvImages.RowTemplate.Height = ThumbnailSize.Height;
-			clmImage.Width = ThumbnailSize.Width;
-			clmViewMode.DataSource = Enum.GetNames(typeof(ImageViewMode));
-		}
-
 		protected override string GetPersistString() => "ImageList";
 
 		public int FirstSelectedRowIndex
@@ -135,7 +132,7 @@ namespace Comical
 				var content = DockPanel.ActiveContent;
 				var viewer = new Viewer();
 				viewer.Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture);
-				viewer.Image = _images[FirstSelectedRowIndex].Data.CreateImage();
+				viewer.Image = _images[FirstSelectedRowIndex].Data;
 				viewer.Show(DockPanel);
 				content.DockHandler.Activate();
 			}
@@ -176,7 +173,7 @@ namespace Comical
 			if (DefaultViewer != null && count == 1)
 			{
 				DefaultViewer.Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture);
-				try { DefaultViewer.Image = _images[FirstSelectedRowIndex].Data.CreateImage(); }
+				try { DefaultViewer.Image = _images[FirstSelectedRowIndex].Data; }
 				catch (ArgumentException) { }
 			}
 			itmOpen.Visible = sepImage1.Visible = count == 1;
@@ -215,7 +212,7 @@ namespace Comical
 			if (dgvImages.Columns[e.ColumnIndex] == clmViewMode)
 				e.Value = _images[e.RowIndex].ViewMode.ToString();
 			else if (dgvImages.Columns[e.ColumnIndex] == clmImage)
-				e.Value = _images[e.RowIndex].Data.CreateImage(ThumbnailSize);
+				e.Value = _images[e.RowIndex].Data;
 		}
 
 		void dgvImages_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 using Comical.Core;
 
@@ -15,26 +17,30 @@ namespace Comical
 				action();
 		}
 
-		public static Image CreateImage(this Binary binary, Size size)
+		/// <summary>バイナリを <see cref="Image"/> に変換する。</summary>
+		/// <param name="binary"><see cref="Image"/> に変換するバイナリ情報。</param>
+		/// <returns>変換後の <see cref="Image"/>。Save メソッドは使用できない。</returns>
+		public static Image ToImage(this Binary binary)
 		{
 			using var ms = binary.ToStream();
-			using var image = Image.FromStream(ms);
-			if (size.IsEmpty)
-				size = image.Size;
-			var ratio = Math.Min(image.Width * size.Height, size.Width * image.Height);
-			Bitmap bitmap = null;
-			try { bitmap = new Bitmap(image, ratio / image.Height, ratio / image.Width); }
-			catch
-			{
-				if (bitmap != null)
-					bitmap.Dispose();
-				throw;
-			}
-			return bitmap;
+			return Image.FromStream(ms);
+		}
+		
+		public static Size ScaleSize(Size original, Size containing)
+		{
+			if (original.Width <= containing.Width && original.Height <= containing.Height)
+				return original;
+			var ratio = Math.Min(original.Width * containing.Height, containing.Width * original.Height);
+			return new Size(ratio / original.Height, ratio / original.Width);
 		}
 
-		public static Image CreateImage(this Binary binary) => CreateImage(binary, Size.Empty);
+		public static Binary ToBinary(this Image image, ImageFormat format)
+		{
+			using var ms = new MemoryStream();
+			image.Save(ms, format);
+			return new Binary(ms.ToArray());
+		}
 
-		public static System.Drawing.Imaging.ImageCodecInfo GetImageCodecInfo(this Image image) => Array.Find(System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders(), item => item.FormatID == image.RawFormat.Guid);
+		public static ImageCodecInfo GetImageCodecInfo(this Image image) => Array.Find(ImageCodecInfo.GetImageDecoders(), item => item.FormatID == image.RawFormat.Guid);
 	}
 }

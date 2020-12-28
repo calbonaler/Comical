@@ -1,8 +1,6 @@
 ﻿using Comical.Core;
 using System;
-using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -34,31 +32,12 @@ namespace Comical
 			dtpPublished_ValueChanged(dtpPublished, EventArgs.Empty);
 		}
 
-		void LoadImage(Image image)
-		{
-			if (_comic != null)
-			{
-				using var stream = new MemoryStream();
-				image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
-				_comic.Thumbnail = new Binary(stream.ToArray());
-			}
-			var size = image?.Size ?? new Size(0, 0);
-			preThumbnail.Image = image;
-			lblSize.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, size.Width, size.Height);
-		}
-
 		void LoadImage(Binary binaryImage)
 		{
 			if (_comic != null)
 				_comic.Thumbnail = binaryImage;
-			var size = new Size(0, 0);
-			if (binaryImage != null)
-			{
-				using var ms = binaryImage.ToStream();
-				using var img = Image.FromStream(ms);
-				preThumbnail.Image = new Bitmap(img);
-				size = img.Size;
-			}
+			preThumbnail.SetImage(binaryImage);
+			var size = preThumbnail.ImageSize;
 			lblSize.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, size.Width, size.Height);
 		}
 

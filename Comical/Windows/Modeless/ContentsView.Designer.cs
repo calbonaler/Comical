@@ -43,7 +43,7 @@
 			this.sepImage4 = new System.Windows.Forms.ToolStripSeparator();
 			this.itmDelete = new System.Windows.Forms.ToolStripMenuItem();
 			this.dgvImages = new Comical.Controls.DraggableDataGridView();
-			this.clmImage = new System.Windows.Forms.DataGridViewImageColumn();
+			this.clmImage = new Comical.Controls.DataGridViewBinaryColumn();
 			this.clmViewMode = new System.Windows.Forms.DataGridViewComboBoxColumn();
 			conImage = new System.Windows.Forms.ContextMenuStrip(this.components);
 			conImage.SuspendLayout();
@@ -194,7 +194,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.DataGridViewImageColumn clmImage;
+		private Controls.DataGridViewBinaryColumn clmImage;
 		private System.Windows.Forms.DataGridViewComboBoxColumn clmViewMode;
 		private Controls.DraggableDataGridView dgvImages;
 		private System.Windows.Forms.ToolStripMenuItem itmOpen;

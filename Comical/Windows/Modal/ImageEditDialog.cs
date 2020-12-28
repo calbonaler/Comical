@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
+using Comical.Core;
 
 namespace Comical
 {
@@ -17,8 +19,10 @@ namespace Comical
 		bool point2Move = true;
 		Point shiftScale;
 		bool leftMouseDown = false;
+		Binary image;
+		Image internalImage;
 
-		Rectangle ImageBounds => new Rectangle(0, 0, Image.Width * (int)numMagnifyRatio.Value / 100, Image.Height * (int)numMagnifyRatio.Value / 100);
+		Rectangle ImageBounds => new Rectangle(0, 0, internalImage.Width * (int)numMagnifyRatio.Value / 100, internalImage.Height * (int)numMagnifyRatio.Value / 100);
 
 		Rectangle ClippedImageBounds => point1 == point2 ? ImageBounds : new Rectangle(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Abs(point2.X - point1.X) + 1, Math.Abs(point2.Y - point1.Y) + 1);
 
@@ -27,13 +31,23 @@ namespace Comical
 			get
 			{
 				if (point1 == point2)
-					return new Rectangle(Point.Empty, Image.Size);
+					return new Rectangle(Point.Empty, internalImage.Size);
 				var bounds = new Rectangle(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Abs(point2.X - point1.X) + 1, Math.Abs(point2.Y - point1.Y) + 1);
 				return new Rectangle(bounds.X * 100 / (int)numMagnifyRatio.Value, bounds.Y * 100 / (int)numMagnifyRatio.Value, bounds.Width * 100 / (int)numMagnifyRatio.Value, bounds.Height * 100 / (int)numMagnifyRatio.Value);
 			}
 		}
 
-		public Image Image { get; set; }
+		public Binary Image
+		{
+			get => image;
+			set
+			{
+				if (image == value) return;
+				image = value;
+				internalImage?.Dispose();
+				internalImage = image?.ToImage();
+			}
+		}
 
 		static void DrawCross(Graphics g, Point center)
 		{
@@ -123,7 +137,7 @@ namespace Comical
 		void picPreview_Paint(object sender, PaintEventArgs e)
 		{
 			e.Graphics.TranslateTransform(-hsPreview.Value, -vsPreview.Value);
-			e.Graphics.DrawImage(Image, ImageBounds);
+			e.Graphics.DrawImage(internalImage, ImageBounds);
 			using (var reg = new Region(ImageBounds))
 			{
 				reg.Xor(ClippedImageBounds);
@@ -190,16 +204,12 @@ namespace Comical
 
 		void btnOK_Click(object sender, EventArgs e)
 		{
-			Image image = null;
-			try
+			using (var image = new Bitmap(ClippedImageBounds.Width, ClippedImageBounds.Height))
 			{
-				image = new Bitmap(ClippedImageBounds.Width, ClippedImageBounds.Height);
 				using (var g = Graphics.FromImage(image))
-					g.DrawImage(Image, new Rectangle(Point.Empty, image.Size), UnmagnifiedClippedImageBounds, GraphicsUnit.Pixel);
-				Image = image;
-				image = null;
+					g.DrawImage(internalImage, new Rectangle(Point.Empty, image.Size), UnmagnifiedClippedImageBounds, GraphicsUnit.Pixel);
+				this.image = image.ToBinary(ImageFormat.Bmp);
 			}
-			finally { image?.Dispose(); }
 			DialogResult = DialogResult.OK;
 			Close();
 		}

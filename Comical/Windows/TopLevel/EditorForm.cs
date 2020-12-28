@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -302,9 +301,8 @@ namespace Comical
 			{
 				await _comic.ExportAsync(dialog.FileName, _imageList.SortedSelectedImages, data =>
 				{
-					using var ms = data.ToStream();
-					using var bmp = new Bitmap(ms);
-					return bmp.GetImageCodecInfo().FilenameExtension.Split(';')[0].Remove(0, 1);
+					using var image = data.ToImage();
+					return image.GetImageCodecInfo().FilenameExtension.Split(';')[0].Remove(0, 1);
 				}, new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
 			}
 		}

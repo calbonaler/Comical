@@ -91,24 +91,10 @@ namespace Comical
 
 		void ViewCurrentPage()
 		{
-			if (prevMain.Image != null)
-			{
-				prevMain.Image.Dispose();
-				prevMain.Image = null;
-			}
 			if (_spreads[CurrentPage].IsFillSpread)
-			{
-				prevMain.Image = _spreads[CurrentPage].Left.Data.CreateImage();
-				return;
-			}
-			using var left = _spreads[CurrentPage].Left?.Data?.CreateImage();
-			using var right = _spreads[CurrentPage].Right?.Data?.CreateImage();
-			prevMain.Image = new Bitmap(Math.Max(left?.Width ?? 0, right?.Width ?? 0) * 2, Math.Max(left?.Height ?? 0, right?.Height ?? 0));
-			using var g = Graphics.FromImage(prevMain.Image);
-			if (left != null)
-				g.DrawImage(left, new Point(prevMain.Image.Width / 2 - left.Width, 0));
-			if (right != null)
-				g.DrawImage(right, new Point(prevMain.Image.Width / 2, 0));
+				prevMain.SetImage(_spreads[CurrentPage].Left.Data);
+			else
+				prevMain.SetImage(_spreads[CurrentPage].Left?.Data, _spreads[CurrentPage].Right?.Data);
 		}
 
 		void ViewPrevious() => CurrentPage--;

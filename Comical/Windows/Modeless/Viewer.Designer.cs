@@ -71,7 +71,6 @@
 			this.preMain.BackColor = System.Drawing.Color.Transparent;
 			this.preMain.Font = System.Drawing.SystemFonts.MessageBoxFont;
 			this.preMain.ForeColor = System.Drawing.Color.White;
-			this.preMain.Image = null;
 			this.preMain.Name = "preMain";
 			this.preMain.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
 			// 
