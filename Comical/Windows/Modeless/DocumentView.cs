@@ -38,30 +38,26 @@ namespace Comical
 		{
 			if (_comic != null)
 			{
-				using (var stream = new MemoryStream())
-				{
-					image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
-					_comic.Thumbnail = stream.ToArray();
-				}
+				using var stream = new MemoryStream();
+				image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+				_comic.Thumbnail = new Binary(stream.ToArray());
 			}
 			var size = image?.Size ?? new Size(0, 0);
 			preThumbnail.Image = image;
 			lblSize.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, size.Width, size.Height);
 		}
 
-		void LoadImage(byte[] binaryImage)
+		void LoadImage(Binary binaryImage)
 		{
 			if (_comic != null)
 				_comic.Thumbnail = binaryImage;
 			var size = new Size(0, 0);
 			if (binaryImage != null)
 			{
-				using (var ms = new MemoryStream(binaryImage))
-				using (var img = Image.FromStream(ms))
-				{
-					preThumbnail.Image = new Bitmap(img);
-					size = img.Size;
-				}
+				using var ms = binaryImage.ToStream();
+				using var img = Image.FromStream(ms);
+				preThumbnail.Image = new Bitmap(img);
+				size = img.Size;
 			}
 			lblSize.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, size.Width, size.Height);
 		}
@@ -123,12 +119,10 @@ namespace Comical
 		{
 			if (preThumbnail.Image == null)
 				return;
-			using (var dialog = new ImageEditDialog())
-			{
-				dialog.Image = preThumbnail.Image;
-				if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-					LoadImage(dialog.Image);
-			}
+			using var dialog = new ImageEditDialog();
+			dialog.Image = preThumbnail.Image;
+			if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+				LoadImage(dialog.Image);
 		}
 
 		void btnSearchOnBrowser_Click(object sender, EventArgs e) => System.Diagnostics.Process.Start("http://www.google.co.jp/search?q=" + Uri.EscapeDataString(cmbAuthor.Text + " " + txtTitle.Text));
@@ -175,7 +169,7 @@ namespace Comical
 		void btnUpdate_Click(object sender, EventArgs e)
 		{
 			if (numThumbnailIndex.Enabled)
-				LoadImage(_comic.Images[(int)numThumbnailIndex.Value].CreateImage());
+				LoadImage(_comic.Images[(int)numThumbnailIndex.Value].Data);
 		}
 	}
 }

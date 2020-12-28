@@ -27,12 +27,7 @@ namespace Comical.Controls
 			set => base.TabStop = value;
 		}
 
-		protected override bool IsInputKey(Keys keyData)
-		{
-			if ((keyData & Keys.Up) != 0 || (keyData & Keys.Down) != 0 || (keyData & Keys.Left) != 0 || (keyData & Keys.Right) != 0)
-				return true;
-			return base.IsInputKey(keyData);
-		}
+		protected override bool IsInputKey(Keys keyData) => (keyData & Keys.Up) != 0 || (keyData & Keys.Down) != 0 || (keyData & Keys.Left) != 0 || (keyData & Keys.Right) != 0 || base.IsInputKey(keyData);
 
 		protected override void OnClick(EventArgs e)
 		{

@@ -135,7 +135,7 @@ namespace Comical
 				var content = DockPanel.ActiveContent;
 				var viewer = new Viewer();
 				viewer.Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture);
-				viewer.Image = _images[FirstSelectedRowIndex].CreateImage();
+				viewer.Image = _images[FirstSelectedRowIndex].Data.CreateImage();
 				viewer.Show(DockPanel);
 				content.DockHandler.Activate();
 			}
@@ -176,7 +176,7 @@ namespace Comical
 			if (DefaultViewer != null && count == 1)
 			{
 				DefaultViewer.Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture);
-				try { DefaultViewer.Image = _images[FirstSelectedRowIndex].CreateImage(); }
+				try { DefaultViewer.Image = _images[FirstSelectedRowIndex].Data.CreateImage(); }
 				catch (ArgumentException) { }
 			}
 			itmOpen.Visible = sepImage1.Visible = count == 1;
@@ -215,7 +215,7 @@ namespace Comical
 			if (dgvImages.Columns[e.ColumnIndex] == clmViewMode)
 				e.Value = _images[e.RowIndex].ViewMode.ToString();
 			else if (dgvImages.Columns[e.ColumnIndex] == clmImage)
-				e.Value = _images[e.RowIndex].CreateImage(ThumbnailSize);
+				e.Value = _images[e.RowIndex].Data.CreateImage(ThumbnailSize);
 		}
 
 		void dgvImages_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)

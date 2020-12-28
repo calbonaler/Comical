@@ -2,24 +2,21 @@
 
 #include "Dll.h"
 
-class _declspec(uuid("{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}")) CComicThumbnailProvider: public IInitializeWithStream, public IThumbnailProvider
+class _declspec(uuid("{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}")) CComicThumbnailProvider: public CCoclassBase<IInitializeWithStream, IThumbnailProvider>
 {
 public:
-	CComicThumbnailProvider() { DllAddRef(); }
-
-	virtual ~CComicThumbnailProvider() { DllRelease(); }
+#pragma warning (push)
+#pragma warning (disable: 26429) // not null
+	IFACEMETHODIMP Initialize(_In_ IStream* pStream, _In_ DWORD) override
+#pragma warning (pop)
+	{
+		return m_pStream ? HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED) : pStream->QueryInterface(&m_pStream);
+	}
 
 #pragma warning (push)
-#pragma warning (disable: 4838)
-	BEGIN_COM_INTERFACE_MAPPPING
-		QITABENT(CComicThumbnailProvider, IInitializeWithStream),
-		QITABENT(CComicThumbnailProvider, IThumbnailProvider)
-	END_COM_INTER_FACE_MAPPING
+#pragma warning (disable: 26429) // not null
+	IFACEMETHODIMP GetThumbnail(UINT, __RPC__deref_out_opt HBITMAP* phbmp, __RPC__out WTS_ALPHATYPE* pdwAlpha) override
 #pragma warning (pop)
-
-	IFACEMETHODIMP Initialize(_In_ IStream* pStream, _In_ DWORD) { return m_pStream ? HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED) : pStream->QueryInterface(&m_pStream); }
-
-	IFACEMETHODIMP GetThumbnail(UINT, __RPC__deref_out_opt HBITMAP* phbmp, __RPC__out WTS_ALPHATYPE* pdwAlpha)
 	{
 		*phbmp = nullptr;
 		CComPtr<IWICImagingFactory> pImagingFactory;
@@ -44,14 +41,14 @@ public:
 		TEST(pBitmapSourceConverted->GetSize(&nWidth, &nHeight));
 		BITMAPINFO bmi = { sizeof(bmi.bmiHeader) };
 		bmi.bmiHeader.biWidth = nWidth;
-		bmi.bmiHeader.biHeight = -static_cast<LONG>(nHeight);
+		bmi.bmiHeader.biHeight = -gsl::narrow_cast<LONG>(nHeight);
 		bmi.bmiHeader.biPlanes = 1;
 		bmi.bmiHeader.biBitCount = 32;
 		void* pBits;
 		auto hbmp = CreateDIBSection(nullptr, &bmi, DIB_RGB_COLORS, &pBits, nullptr, 0);
 		if (!hbmp)
 			return E_OUTOFMEMORY;
-		auto hr = pBitmapSourceConverted->CopyPixels(nullptr, nWidth * 4, nWidth * nHeight * 4, static_cast<BYTE*>(pBits));
+		const auto hr = pBitmapSourceConverted->CopyPixels(nullptr, nWidth * 4, nWidth * nHeight * 4, static_cast<BYTE*>(pBits));
 		if (SUCCEEDED(hr))
 		{
 			*pdwAlpha = WTSAT_ARGB;

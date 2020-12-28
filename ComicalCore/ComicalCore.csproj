@@ -40,11 +40,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binary.cs" />
     <Compile Include="Bookmark.cs" />
     <Compile Include="DelegateDisposable.cs" />
     <Compile Include="FileHeader.cs" />
     <Compile Include="Comic.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ImageReference.cs" />
     <Compile Include="INotifyCollectionItemPropertyChanged.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

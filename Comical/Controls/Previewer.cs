@@ -23,7 +23,7 @@ namespace Comical.Controls
 			ResumeLayout(false);
 		}
 
-		FocusablePictureBox picPreview;
+		readonly FocusablePictureBox picPreview;
 		PreviewerStretchMode stretchMode;
 		bool avoidResizeMessage = false;
 		Cursor currentCursor = Cursors.Default;
@@ -99,8 +99,8 @@ namespace Comical.Controls
 
 		void SetCursor(bool grisp)
 		{
-			using (var ms = new System.IO.MemoryStream(grisp ? Properties.Resources.GrispingHand : Properties.Resources.FreeHand))
-				SetCursorInternal(new Cursor(ms));
+			using var ms = new System.IO.MemoryStream(grisp ? Properties.Resources.GrispingHand : Properties.Resources.FreeHand);
+			SetCursorInternal(new Cursor(ms));
 		}
 
 		void SetCursorInternal(Cursor cursor)

@@ -10,7 +10,7 @@ namespace Comical
 {
 	sealed class CompositeDisposable : IDisposable, IEnumerable<IDisposable>
 	{
-		List<IDisposable> _disposables = new List<IDisposable>();
+		readonly List<IDisposable> _disposables = new List<IDisposable>();
 
 		public void Add(IDisposable item) => _disposables.Add(item);
 

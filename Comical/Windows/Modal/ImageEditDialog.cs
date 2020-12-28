@@ -41,11 +41,9 @@ namespace Comical
 			try
 			{
 				ms = new System.IO.MemoryStream(Properties.Resources.Cross);
-				using (var cursor = new Cursor(ms))
-				{
-					ms = null;
-					cursor.Draw(g, new Rectangle(center.X - 15, center.Y - 15, 32, 32));
-				}
+				using var cursor = new Cursor(ms);
+				ms = null;
+				cursor.Draw(g, new Rectangle(center.X - 15, center.Y - 15, 32, 32));
 			}
 			finally
 			{
@@ -177,7 +175,6 @@ namespace Comical
 
 		void picPreview_MouseWheel(object sender, MouseEventArgs e)
 		{
-			var scPt = picPreview.PointToScreen(e.Location);
 			if ((ModifierKeys & Keys.Control) != 0)
 				numMagnifyRatio.Value = RoundInteger((int)numMagnifyRatio.Value + SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 1, 100);
 			else if ((ModifierKeys & Keys.Shift) != 0)
@@ -187,14 +184,7 @@ namespace Comical
 			picPreview.Invalidate();
 		}
 
-		static int RoundInteger(int value, int min, int max)
-		{
-			if (value < min)
-				return min;
-			if (value > max)
-				return max;
-			return value;
-		}
+		static int RoundInteger(int value, int min, int max) => value < min ? min : value > max ? max : value;
 
 		#endregion
 

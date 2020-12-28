@@ -69,32 +69,26 @@ namespace Comical.Core
 
 		async Task<FileHeader> ReadFileAsync(string fileName, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
-			using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+			using var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+			var fileHeader = await FileHeader.LoadAsync(stream).ConfigureAwait(false);
+			// ID確認
+			if (fileHeader == null)
+				throw new ArgumentException(Properties.Resources.InvalidFileFormat);
+			using (var reader = new BinaryReader(stream, Encoding.Unicode, true))
 			{
-				var fileHeader = await FileHeader.LoadAsync(stream).ConfigureAwait(false);
-				// ID確認
-				if (fileHeader == null)
-					throw new ArgumentException(Properties.Resources.InvalidFileFormat);
-				using (var reader = new BinaryReader(stream, Encoding.Unicode, true))
-				{
-					bookmarks.Load(reader); // 目次
-					await Images.LoadAsync(reader, fileHeader.FileVersion, progress).ConfigureAwait(false); // 画像
-				}
-				return fileHeader;
+				bookmarks.Load(reader); // 目次
+				await Images.LoadAsync(reader, fileHeader.FileVersion, progress).ConfigureAwait(false); // 画像
 			}
+			return fileHeader;
 		}
 
 		static async Task WriteFileAsync(string fileName, FileHeader fileHeader, IReadOnlyList<ImageReference> images, IReadOnlyList<Bookmark> bookmarks, IProgress<int> progress)
 		{
-			using (var stream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
-			{
-				await fileHeader.SaveAsync(stream).ConfigureAwait(false);
-				using (var writer = new BinaryWriter(stream, Encoding.Unicode, true))
-				{
-					BookmarkCollection.Save(bookmarks, writer);
-					await ImageReferenceCollection.SaveAsync(images, writer, progress).ConfigureAwait(false);
-				}
-			}
+			using var stream = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+			await fileHeader.SaveAsync(stream).ConfigureAwait(false);
+			using var writer = new BinaryWriter(stream, Encoding.Unicode, true);
+			BookmarkCollection.Save(bookmarks, writer);
+			await ImageReferenceCollection.SaveAsync(images, writer, progress).ConfigureAwait(false);
 		}
 
 		public void Clear()
@@ -163,7 +157,7 @@ namespace Comical.Core
 				await ReadFileAsync(fileName, bookmarks, progress).ConfigureAwait(false);
 		}
 
-		public async Task ExportAsync(string baseDirectory, IEnumerable<ImageReference> images, Func<Stream, string> extensionProvider, IProgress<int> progress)
+		public async Task ExportAsync(string baseDirectory, IEnumerable<ImageReference> images, Func<Binary, string> extensionProvider, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
 			{
@@ -171,12 +165,8 @@ namespace Comical.Core
 				Directory.CreateDirectory(baseDirectory);
 				for (var i = 0; i < imageList.Length; Interlocked.Increment(ref i))
 				{
-					using (var ms = imageList[i].OpenImageStream())
-					using (var fs = new FileStream(Path.Combine(baseDirectory, i.ToString(CultureInfo.CurrentCulture) + extensionProvider(ms)), FileMode.Create, FileAccess.Write))
-					{
-						ms.Seek(0, SeekOrigin.Begin);
-						await ms.CopyToAsync(fs).ConfigureAwait(false);
-					}
+					using (var fs = new FileStream(Path.Combine(baseDirectory, i.ToString(CultureInfo.CurrentCulture) + extensionProvider(imageList[i].Data)), FileMode.Create, FileAccess.Write))
+						await imageList[i].Data.WriteToAsync(fs).ConfigureAwait(false);
 					progress?.Report((i + 1) * 100 / imageList.Length);
 				}
 			}
@@ -259,8 +249,8 @@ namespace Comical.Core
 			private set => Utils.SetProperty(ref _fileVersion, value, this, PropertyChanged);
 		}
 
-		byte[] _thumbnail = null;
-		public byte[] Thumbnail
+		Binary _thumbnail = null;
+		public Binary Thumbnail
 		{
 			get => _thumbnail;
 			set => Utils.SetProperty(ref _thumbnail, value, this, PropertyChanged);

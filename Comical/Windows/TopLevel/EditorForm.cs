@@ -70,28 +70,26 @@ namespace Comical
 		{
 			if (!_comic.IsDirty)
 				return TaskDialogResult.No;
-			using (var dialog = new TaskDialog())
-			{
-				dialog.Caption = Application.ProductName;
-				dialog.InstructionText = string.Format(CultureInfo.CurrentCulture, Properties.Resources.DoYouSaveChanges, HumanReadableSavedFileName);
-				dialog.OwnerWindowHandle = Handle;
-				TaskDialogButton SaveButton = new TaskDialogButton(nameof(SaveButton), Properties.Resources.Save);
-				SaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.Yes);
-				TaskDialogButton DoNotSaveButton = new TaskDialogButton(nameof(DoNotSaveButton), Properties.Resources.DoNotSave);
-				DoNotSaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.No);
-				TaskDialogButton CancelButton = new TaskDialogButton(nameof(CancelButton), Properties.Resources.Cancel);
-				CancelButton.Click += (s, ev) => dialog.Close(TaskDialogResult.Cancel);
-				dialog.Controls.Add(SaveButton);
-				dialog.Controls.Add(DoNotSaveButton);
-				dialog.Controls.Add(CancelButton);
-				dialog.Cancelable = true;
-				dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
-				var result = dialog.Show();
-				beforeSave?.Invoke(result);
-				if (result == TaskDialogResult.Yes && !await SaveAsync())
-					result = TaskDialogResult.Cancel;
-				return result;
-			}
+			using var dialog = new TaskDialog();
+			dialog.Caption = Application.ProductName;
+			dialog.InstructionText = string.Format(CultureInfo.CurrentCulture, Properties.Resources.DoYouSaveChanges, HumanReadableSavedFileName);
+			dialog.OwnerWindowHandle = Handle;
+			TaskDialogButton SaveButton = new TaskDialogButton(nameof(SaveButton), Properties.Resources.Save);
+			SaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.Yes);
+			TaskDialogButton DoNotSaveButton = new TaskDialogButton(nameof(DoNotSaveButton), Properties.Resources.DoNotSave);
+			DoNotSaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.No);
+			TaskDialogButton CancelButton = new TaskDialogButton(nameof(CancelButton), Properties.Resources.Cancel);
+			CancelButton.Click += (s, ev) => dialog.Close(TaskDialogResult.Cancel);
+			dialog.Controls.Add(SaveButton);
+			dialog.Controls.Add(DoNotSaveButton);
+			dialog.Controls.Add(CancelButton);
+			dialog.Cancelable = true;
+			dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
+			var result = dialog.Show();
+			beforeSave?.Invoke(result);
+			if (result == TaskDialogResult.Yes && !await SaveAsync())
+				result = TaskDialogResult.Cancel;
+			return result;
 		}
 
 		IDisposable BeginAsyncWork()
@@ -130,12 +128,7 @@ namespace Comical
 					}
 					if (!ImageExtensions.Any(ex => string.Equals(Path.GetExtension(path), "." + ex, StringComparison.OrdinalIgnoreCase)))
 						continue;
-					using (var ms = new MemoryStream())
-					{
-						using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-							await fs.CopyToAsync(ms).ConfigureAwait(false);
-						images.Add(new ImageReference(ms.ToArray()));
-					}
+					images.Add(new ImageReference(await Binary.FromFileAsync(path)));
 				}
 				catch (UnauthorizedAccessException) { }
 			}
@@ -203,43 +196,36 @@ namespace Comical
 			}
 		}
 
-		async Task<bool> SaveAsync()
-		{
-			if (string.IsNullOrEmpty(SavedFilePath))
-				return await SaveAsAsync();
-			return await SaveAsync(SavedFilePath);
-		}
+		async Task<bool> SaveAsync() => string.IsNullOrEmpty(SavedFilePath) ? await SaveAsAsync() : await SaveAsync(SavedFilePath);
 
 		async Task<bool> SaveAsAsync()
 		{
-			using (var dialog = new CommonSaveFileDialog())
-			{
-				dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
-				dialog.AlwaysAppendDefaultExtension = true;
-				dialog.DefaultExtension = "cic";
-				if (Properties.Settings.Default.DefaultSavedFileName.Length > 0)
-					dialog.DefaultFileName = string.Format(CultureInfo.CurrentCulture, Properties.Settings.Default.DefaultSavedFileName, _comic.Title, _comic.Author, _comic.Published);
-				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
-					return false;
-				var result = await SaveAsync(dialog.FileName);
-				SavedFilePath = dialog.FileName;
-				return result;
-			}
+			using var dialog = new CommonSaveFileDialog();
+			dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
+			dialog.AlwaysAppendDefaultExtension = true;
+			dialog.DefaultExtension = "cic";
+			if (Properties.Settings.Default.DefaultSavedFileName.Length > 0)
+				dialog.DefaultFileName = string.Format(CultureInfo.CurrentCulture, Properties.Settings.Default.DefaultSavedFileName, _comic.Title, _comic.Author, _comic.Published);
+			if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
+				return false;
+			var result = await SaveAsync(dialog.FileName);
+			SavedFilePath = dialog.FileName;
+			return result;
 		}
 
 		static void LoadFromXml(WeifenLuo.WinFormsUI.Docking.DockPanel panel, string xml, params WeifenLuo.WinFormsUI.Docking.IDockContent[] contents)
 		{
 			if (string.IsNullOrEmpty(xml))
 				return;
-			using (var ms = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(xml)))
-				panel.LoadFromXml(ms, persistString => Array.Find(contents, x => string.Equals(persistString, x.DockHandler.GetPersistStringCallback(), StringComparison.Ordinal)));
+			using var ms = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(xml));
+			panel.LoadFromXml(ms, persistString => Array.Find(contents, x => string.Equals(persistString, x.DockHandler.GetPersistStringCallback(), StringComparison.Ordinal)));
 		}
 
-		static IEnumerable<T> SplitEnumValue<T>(T value) where T : struct
+		static IEnumerable<T> SplitEnumValue<T>(T value) where T : Enum
 		{
-			if (value.Equals(Enum.ToObject(typeof(T), 0)))
-				return Enumerable.Empty<T>();
-			return Enum.GetValues(typeof(T)).Cast<T>().Where(x => !x.Equals(Enum.ToObject(typeof(T), 0)) && ((Enum)(object)value).HasFlag((Enum)(object)x));
+			var enumZero = Enum.ToObject(typeof(T), 0);
+			return value.Equals(enumZero) ? Enumerable.Empty<T>()
+				: ((T[])Enum.GetValues(typeof(T))).Where(x => !x.Equals(enumZero) && value.HasFlag(x));
 		}
 
 		#region FileMenu
@@ -257,13 +243,11 @@ namespace Comical
 		{
 			if (await QuerySaveAsync() == TaskDialogResult.Cancel)
 				return;
-			using (var dialog = new CommonOpenFileDialog())
-			{
-				dialog.DefaultExtension = ".cic";
-				dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
-				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
-					await AddAnythingLocalAsync(true, Enumerable.Repeat(dialog.FileName, 1));
-			}
+			using var dialog = new CommonOpenFileDialog();
+			dialog.DefaultExtension = ".cic";
+			dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
+			if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
+				await AddAnythingLocalAsync(true, Enumerable.Repeat(dialog.FileName, 1));
 		}
 
 		async void itmSave_Click(object sender, EventArgs e) => await SaveAsync();
@@ -288,23 +272,19 @@ namespace Comical
 
 		async void itmFromFile_Click(object sender, EventArgs e)
 		{
-			using (var dialog = new CommonOpenFileDialog())
-			{
-				dialog.Multiselect = true;
-				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
-					await AddAnythingLocalAsync(false, dialog.FileNames);
-			}
+			using var dialog = new CommonOpenFileDialog();
+			dialog.Multiselect = true;
+			if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
+				await AddAnythingLocalAsync(false, dialog.FileNames);
 		}
 
 		async void itmFromFolder_Click(object sender, EventArgs e)
 		{
-			using (var dialog = new CommonOpenFileDialog())
-			{
-				dialog.Multiselect = true;
-				dialog.IsFolderPicker = true;
-				if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
-					await AddAnythingLocalAsync(false, dialog.FileNames);
-			}
+			using var dialog = new CommonOpenFileDialog();
+			dialog.Multiselect = true;
+			dialog.IsFolderPicker = true;
+			if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
+				await AddAnythingLocalAsync(false, dialog.FileNames);
 		}
 
 		void itmOpenImage_Click(object sender, EventArgs e) => _imageList.OpenFirstSelectedImage();
@@ -313,35 +293,32 @@ namespace Comical
 
 		async void itmExport_Click(object sender, EventArgs e)
 		{
-			using (var dialog = new CommonOpenFileDialog())
+			using var dialog = new CommonOpenFileDialog();
+			dialog.IsFolderPicker = true;
+			dialog.Title = Properties.Resources.ExportImages;
+			if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
+				return;
+			using (BeginAsyncWork())
 			{
-				dialog.IsFolderPicker = true;
-				dialog.Title = Properties.Resources.ExportImages;
-				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
-					return;
-				using (BeginAsyncWork())
+				await _comic.ExportAsync(dialog.FileName, _imageList.SortedSelectedImages, data =>
 				{
-					await _comic.ExportAsync(dialog.FileName, _imageList.SortedSelectedImages, stream =>
-					{
-						using (var bmp = new Bitmap(stream))
-							return bmp.GetImageCodecInfo().FilenameExtension.Split(';')[0].Remove(0, 1);
-					}, new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
-				}
+					using var ms = data.ToStream();
+					using var bmp = new Bitmap(ms);
+					return bmp.GetImageCodecInfo().FilenameExtension.Split(';')[0].Remove(0, 1);
+				}, new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
 			}
 		}
 
 		async void itmExtract_Click(object sender, EventArgs e)
 		{
-			using (var dialog = new CommonSaveFileDialog())
-			{
-				dialog.DefaultExtension = ".cic";
-				dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
-				dialog.Title = Properties.Resources.ExtractImages;
-				if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
-					return;
-				using (BeginAsyncWork())
-					await _comic.ExtractAsync(dialog.FileName, _imageList.SortedSelectedImages, new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
-			}
+			using var dialog = new CommonSaveFileDialog();
+			dialog.DefaultExtension = ".cic";
+			dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
+			dialog.Title = Properties.Resources.ExtractImages;
+			if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
+				return;
+			using (BeginAsyncWork())
+				await _comic.ExtractAsync(dialog.FileName, _imageList.SortedSelectedImages, new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
 		}
 
 		void itmWithLeft_Click(object sender, EventArgs e) => _imageList.SetViewModes(true);
@@ -362,14 +339,14 @@ namespace Comical
 
 		void itmOption_Click(object sender, EventArgs e)
 		{
-			using (var dialog = new OptionDialog())
-				dialog.ShowDialog(this);
+			using var dialog = new OptionDialog();
+			dialog.ShowDialog(this);
 		}
 
 		void itmAbout_Click(object sender, EventArgs e)
 		{
-			using (var ss = new AboutDialog())
-				ss.ShowDialog(this);
+			using var ss = new AboutDialog();
+			ss.ShowDialog(this);
 		}
 
 		#region frmEditor EventHandlers

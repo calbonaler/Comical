@@ -15,27 +15,25 @@ namespace Comical
 				action();
 		}
 
-		public static Image CreateImage(this ImageReference ir, Size size)
+		public static Image CreateImage(this Binary binary, Size size)
 		{
-			using (var ms = ir.OpenImageStream())
-			using (var image = Image.FromStream(ms))
+			using var ms = binary.ToStream();
+			using var image = Image.FromStream(ms);
+			if (size.IsEmpty)
+				size = image.Size;
+			var ratio = Math.Min(image.Width * size.Height, size.Width * image.Height);
+			Bitmap bitmap = null;
+			try { bitmap = new Bitmap(image, ratio / image.Height, ratio / image.Width); }
+			catch
 			{
-				if (size.IsEmpty)
-					size = image.Size;
-				var ratio = Math.Min(image.Width * size.Height, size.Width * image.Height);
-				Bitmap bitmap = null;
-				try { bitmap = new Bitmap(image, ratio / image.Height, ratio / image.Width); }
-				catch
-				{
-					if (bitmap != null)
-						bitmap.Dispose();
-					throw;
-				}
-				return bitmap;
+				if (bitmap != null)
+					bitmap.Dispose();
+				throw;
 			}
+			return bitmap;
 		}
 
-		public static Image CreateImage(this ImageReference ir) => CreateImage(ir, Size.Empty);
+		public static Image CreateImage(this Binary binary) => CreateImage(binary, Size.Empty);
 
 		public static System.Drawing.Imaging.ImageCodecInfo GetImageCodecInfo(this Image image) => Array.Find(System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders(), item => item.FormatID == image.RawFormat.Guid);
 	}

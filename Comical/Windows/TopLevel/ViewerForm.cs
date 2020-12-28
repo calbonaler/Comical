@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -40,7 +39,7 @@ namespace Comical
 			_openingFileName = fileName;
 		}
 
-		Comic _comic;
+		readonly Comic _comic;
 		string _openingFileName = "";
 		Spread[] _spreads;
 		int _current;
@@ -50,7 +49,7 @@ namespace Comical
 			get => _current;
 			set
 			{
-				value = value % _spreads.Length;
+				value %= _spreads.Length;
 				if (value < 0)
 					value += _spreads.Length;
 				if (_current != value)
@@ -99,21 +98,17 @@ namespace Comical
 			}
 			if (_spreads[CurrentPage].IsFillSpread)
 			{
-				prevMain.Image = _spreads[CurrentPage].Left.CreateImage();
+				prevMain.Image = _spreads[CurrentPage].Left.Data.CreateImage();
 				return;
 			}
-			using (var left = _spreads[CurrentPage].Left?.CreateImage())
-			using (var right = _spreads[CurrentPage].Right?.CreateImage())
-			{
-				prevMain.Image = new Bitmap(Math.Max(left?.Width ?? 0, right?.Width ?? 0) * 2, Math.Max(left?.Height ?? 0, right?.Height ?? 0));
-				using (var g = Graphics.FromImage(prevMain.Image))
-				{
-					if (left != null)
-						g.DrawImage(left, new Point(prevMain.Image.Width / 2 - left.Width, 0));
-					if (right != null)
-						g.DrawImage(right, new Point(prevMain.Image.Width / 2, 0));
-				}
-			}
+			using var left = _spreads[CurrentPage].Left?.Data?.CreateImage();
+			using var right = _spreads[CurrentPage].Right?.Data?.CreateImage();
+			prevMain.Image = new Bitmap(Math.Max(left?.Width ?? 0, right?.Width ?? 0) * 2, Math.Max(left?.Height ?? 0, right?.Height ?? 0));
+			using var g = Graphics.FromImage(prevMain.Image);
+			if (left != null)
+				g.DrawImage(left, new Point(prevMain.Image.Width / 2 - left.Width, 0));
+			if (right != null)
+				g.DrawImage(right, new Point(prevMain.Image.Width / 2, 0));
 		}
 
 		void ViewPrevious() => CurrentPage--;
@@ -122,7 +117,7 @@ namespace Comical
 
 		FocusMode _focusMode = FocusMode.None;
 		const int CloseHeight = 20;
-		SolidBrush _closeBrush = new SolidBrush(Color.FromArgb(64, 255, 0, 0));
+		readonly SolidBrush _closeBrush = new SolidBrush(Color.FromArgb(64, 255, 0, 0));
 
 		#region picPreview EventHandlers
 

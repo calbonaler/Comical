@@ -9,27 +9,16 @@ namespace Comical.Core
 {
 	public class ImageReference : INotifyPropertyChanged
 	{
-		public ImageReference(byte[] data) => _data = data ?? throw new ArgumentNullException(nameof(data));
+		public ImageReference(Binary data) => Data = data ?? throw new ArgumentNullException(nameof(data));
 
-		readonly byte[] _data;
 		ImageViewMode _mode;
+
+		public Binary Data { get; }
 
 		public ImageViewMode ViewMode
 		{
 			get => _mode;
 			set => Utils.SetProperty(ref _mode, value, this, PropertyChanged);
-		}
-
-		public Stream OpenImageStream()
-		{
-			MemoryStream ms = null;
-			try { ms = new MemoryStream(_data, false); }
-			catch
-			{
-				ms?.Dispose();
-				throw;
-			}
-			return ms;
 		}
 
 		internal static async Task<ImageReference> LoadAsync(BinaryReader reader, Version fileVersion)
@@ -41,14 +30,14 @@ namespace Comical.Core
 			var mode = (ImageViewMode)reader.ReadByte();
 			var buffer = new byte[reader.ReadInt32()]; // サイズ
 			await reader.BaseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
-			return new ImageReference(buffer) { ViewMode = mode };
+			return new ImageReference(new Binary(buffer)) { ViewMode = mode };
 		}
 
 		internal async Task SaveAsync(BinaryWriter writer)
 		{
 			writer.Write((byte)ViewMode); // 利用情報
-			writer.Write(_data.Length); // 画像データ大きさ
-			await writer.BaseStream.WriteAsync(_data, 0, _data.Length).ConfigureAwait(false); // 画像データ
+			writer.Write(Data.Length); // 画像データ大きさ
+			await Data.WriteToAsync(writer.BaseStream).ConfigureAwait(false); // 画像データ
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

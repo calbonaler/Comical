@@ -3,7 +3,7 @@
 
 ULONG g_cRefModule = 0;
 
-BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, void*)
+BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, void*) noexcept
 {
 	if (dwReason == DLL_PROCESS_ATTACH)
 		DisableThreadLibraryCalls(hInstance);
@@ -12,31 +12,36 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, void*)
 
 __control_entrypoint(DllExport) STDAPI DllCanUnloadNow() { return !g_cRefModule ? S_OK : S_FALSE; }
 
-void DllAddRef() { InterlockedIncrement(&g_cRefModule); }
+void DllAddRef() noexcept
+{
+#pragma warning (push)
+#pragma warning (disable: 26447) // declared noexcept but maybe throw (InterlockedIncrement)
+	InterlockedIncrement(&g_cRefModule);
+#pragma warning (pop)
+}
 
-void DllRelease() { InterlockedDecrement(&g_cRefModule); }
+void DllRelease() noexcept
+{
+#pragma warning (push)
+#pragma warning (disable: 26447) // declared noexcept but maybe throw (InterlockedIncrement)
+	InterlockedDecrement(&g_cRefModule);
+#pragma warning (pop)
+}
 
-class CClassFactoryBase : public IClassFactory
+class CClassFactoryBase : public CCoclassBase<IClassFactory>
 {
 public:
-	CClassFactoryBase() { DllAddRef(); }
-	virtual ~CClassFactoryBase() { DllRelease(); }
-
 #pragma warning (push)
-#pragma warning (disable: 4838)
-	BEGIN_COM_INTERFACE_MAPPPING
-		QITABENT(CClassFactoryBase, IClassFactory)
-	END_COM_INTER_FACE_MAPPING
+#pragma warning (disable: 26429) // nullability is not tested (ppv)
+	IFACEMETHODIMP CreateInstance(_In_opt_ IUnknown* punkOuter, _In_ const IID& riid, _COM_Outptr_ void** ppv) noexcept override
 #pragma warning (pop)
-
-	IFACEMETHODIMP CreateInstance(_In_opt_ IUnknown* punkOuter, _In_ const IID& riid, _COM_Outptr_ void** ppv)
 	{
 		*ppv = nullptr;
 		if (punkOuter)
 			return CLASS_E_NOAGGREGATION;
 		return CreateInstanceCore(riid, ppv);
 	}
-	IFACEMETHODIMP LockServer(BOOL fLock)
+	IFACEMETHODIMP LockServer(BOOL fLock) noexcept override
 	{
 		if (fLock)
 			DllAddRef();
@@ -46,14 +51,16 @@ public:
 	}
 
 protected:
-	IFACEMETHOD(CreateInstanceCore)(_In_ const IID& riid, _COM_Outptr_ void** ppv) = 0;
+	IFACEMETHOD(CreateInstanceCore)(_In_ const IID& riid, _COM_Outptr_ void** ppv) noexcept = 0;
 };
 
 template <typename T> class CClassFactory : public CClassFactoryBase
 {
 protected:
-#pragma warning(suppress: 6388)
-	IFACEMETHODIMP CreateInstanceCore(_In_ const IID& riid, _COM_Outptr_ void** ppv)
+#pragma warning (push)
+#pragma warning (disable: 26429) // nullability is not tested (ppv)
+	IFACEMETHODIMP CreateInstanceCore(_In_ const IID& riid, _COM_Outptr_ void** ppv) noexcept override
+#pragma warning (pop)
 	{
 		*ppv = nullptr;
 		CComPtr<T> pNew;

@@ -11,7 +11,7 @@ namespace Comical.Core
 
 	public class CollectionItemPropertyChangedEventArgs : EventArgs
 	{
-		public CollectionItemPropertyChangedEventArgs(IEnumerable<KeyValuePair<object, string>> propertyNames) { PropertyNames = propertyNames.ToLookup(x => x.Key, x => x.Value); }
+		public CollectionItemPropertyChangedEventArgs(IEnumerable<KeyValuePair<object, string>> propertyNames) => PropertyNames = propertyNames.ToLookup(x => x.Key, x => x.Value);
 
 		public CollectionItemPropertyChangedEventArgs(params KeyValuePair<object, string>[] propertyNames) : this((IEnumerable<KeyValuePair<object, string>>)propertyNames) { }
 
