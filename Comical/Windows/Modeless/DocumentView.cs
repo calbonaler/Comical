@@ -1,5 +1,6 @@
 ﻿using Comical.Core;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using WeifenLuo.WinFormsUI.Docking;
@@ -104,7 +105,14 @@ namespace Comical
 				LoadImage(dialog.Image);
 		}
 
-		void btnSearchOnBrowser_Click(object sender, EventArgs e) => System.Diagnostics.Process.Start("http://www.google.co.jp/search?q=" + Uri.EscapeDataString(cmbAuthor.Text + " " + txtTitle.Text));
+		void btnSearchOnBrowser_Click(object sender, EventArgs e)
+		{
+			Process.Start(new ProcessStartInfo()
+			{
+				FileName = "http://www.google.co.jp/search?q=" + Uri.EscapeDataString(cmbAuthor.Text + " " + txtTitle.Text),
+				UseShellExecute = true,
+			});
+		}
 
 		void txtTitle_TextChanged(object sender, EventArgs e)
 		{

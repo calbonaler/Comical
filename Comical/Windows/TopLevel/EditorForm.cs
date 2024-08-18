@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Comical.Core;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using CPDialogs = Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Comical
 {
@@ -48,6 +48,8 @@ namespace Comical
 
 		void InitializeDockingWindows()
 		{
+			dpMain.Theme = new WeifenLuo.WinFormsUI.Docking.VS2015LightTheme();
+
 			LoadFromXml(dpMain, Properties.Settings.Default.DockPanelConfiguration, _imageList, _bookmarkList, _document);
 
 			_imageList.SetImages(_comic.Images);
@@ -65,29 +67,29 @@ namespace Comical
 			_document.SetComic(_comic);
 		}
 
-		async Task<TaskDialogResult> QuerySaveAsync(Action<TaskDialogResult> beforeSave = null)
+		async Task<CPDialogs.TaskDialogResult> QuerySaveAsync(Action<CPDialogs.TaskDialogResult> beforeSave = null)
 		{
 			if (!_comic.IsDirty)
-				return TaskDialogResult.No;
-			using var dialog = new TaskDialog();
+				return CPDialogs.TaskDialogResult.No;
+			using var dialog = new CPDialogs.TaskDialog();
 			dialog.Caption = Application.ProductName;
 			dialog.InstructionText = string.Format(CultureInfo.CurrentCulture, Properties.Resources.DoYouSaveChanges, HumanReadableSavedFileName);
 			dialog.OwnerWindowHandle = Handle;
-			TaskDialogButton SaveButton = new TaskDialogButton(nameof(SaveButton), Properties.Resources.Save);
-			SaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.Yes);
-			TaskDialogButton DoNotSaveButton = new TaskDialogButton(nameof(DoNotSaveButton), Properties.Resources.DoNotSave);
-			DoNotSaveButton.Click += (s, ev) => dialog.Close(TaskDialogResult.No);
-			TaskDialogButton CancelButton = new TaskDialogButton(nameof(CancelButton), Properties.Resources.Cancel);
-			CancelButton.Click += (s, ev) => dialog.Close(TaskDialogResult.Cancel);
+			CPDialogs.TaskDialogButton SaveButton = new CPDialogs.TaskDialogButton(nameof(SaveButton), Properties.Resources.Save);
+			SaveButton.Click += (s, ev) => dialog.Close(CPDialogs.TaskDialogResult.Yes);
+			CPDialogs.TaskDialogButton DoNotSaveButton = new CPDialogs.TaskDialogButton(nameof(DoNotSaveButton), Properties.Resources.DoNotSave);
+			DoNotSaveButton.Click += (s, ev) => dialog.Close(CPDialogs.TaskDialogResult.No);
+			CPDialogs.TaskDialogButton CancelButton = new CPDialogs.TaskDialogButton(nameof(CancelButton), Properties.Resources.Cancel);
+			CancelButton.Click += (s, ev) => dialog.Close(CPDialogs.TaskDialogResult.Cancel);
 			dialog.Controls.Add(SaveButton);
 			dialog.Controls.Add(DoNotSaveButton);
 			dialog.Controls.Add(CancelButton);
 			dialog.Cancelable = true;
-			dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
+			dialog.StartupLocation = CPDialogs.TaskDialogStartupLocation.CenterOwner;
 			var result = dialog.Show();
 			beforeSave?.Invoke(result);
-			if (result == TaskDialogResult.Yes && !await SaveAsync())
-				result = TaskDialogResult.Cancel;
+			if (result == CPDialogs.TaskDialogResult.Yes && !await SaveAsync())
+				result = CPDialogs.TaskDialogResult.Cancel;
 			return result;
 		}
 
@@ -183,14 +185,14 @@ namespace Comical
 			}
 			catch (InconsistentDataException ex)
 			{
-				TaskDialog.Show(
-					Properties.Resources.InconsistentData_Instruction,
-					string.Format(Properties.Resources.InconsistentData_Text, string.Join(", ", SplitEnumValue(ex.DataTypes).Select(x => Properties.Resources.ResourceManager.GetString("InconsistentData_DataTypes_" + x.ToString(), Properties.Resources.Culture)))),
-					Application.ProductName,
-					TaskDialogStandardButtons.Close,
-					TaskDialogStandardIcon.Error,
-					ownerWindowHandle: Handle
-				);
+				using var dialog = new CPDialogs.TaskDialog();
+				dialog.InstructionText = Properties.Resources.InconsistentData_Instruction;
+				dialog.Text = string.Format(Properties.Resources.InconsistentData_Text, string.Join(", ", SplitEnumValue(ex.DataTypes).Select(x => Properties.Resources.ResourceManager.GetString("InconsistentData_DataTypes_" + x.ToString(), Properties.Resources.Culture))));
+				dialog.Caption = Application.ProductName;
+				dialog.StandardButtons = CPDialogs.TaskDialogStandardButtons.Close;
+				dialog.Icon = CPDialogs.TaskDialogStandardIcon.Error;
+				dialog.OwnerWindowHandle = Handle;
+				dialog.Show();
 				return false;
 			}
 		}
@@ -199,13 +201,13 @@ namespace Comical
 
 		async Task<bool> SaveAsAsync()
 		{
-			using var dialog = new CommonSaveFileDialog();
-			dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
+			using var dialog = new CPDialogs.CommonSaveFileDialog();
+			dialog.Filters.Add(new CPDialogs.CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
 			dialog.AlwaysAppendDefaultExtension = true;
 			dialog.DefaultExtension = "cic";
 			if (Properties.Settings.Default.DefaultSavedFileName.Length > 0)
 				dialog.DefaultFileName = string.Format(CultureInfo.CurrentCulture, Properties.Settings.Default.DefaultSavedFileName, _comic.Title, _comic.Author, _comic.Published);
-			if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
+			if (dialog.ShowDialog(Handle) != CPDialogs.CommonFileDialogResult.Ok)
 				return false;
 			var result = await SaveAsync(dialog.FileName);
 			SavedFilePath = dialog.FileName;
@@ -231,7 +233,7 @@ namespace Comical
 
 		async void itmNew_Click(object sender, EventArgs e)
 		{
-			if (await QuerySaveAsync() != TaskDialogResult.Cancel)
+			if (await QuerySaveAsync() != CPDialogs.TaskDialogResult.Cancel)
 			{
 				_comic.Clear();
 				SavedFilePath = string.Empty;
@@ -240,12 +242,12 @@ namespace Comical
 
 		async void itmOpen_Click(object sender, EventArgs e)
 		{
-			if (await QuerySaveAsync() == TaskDialogResult.Cancel)
+			if (await QuerySaveAsync() == CPDialogs.TaskDialogResult.Cancel)
 				return;
-			using var dialog = new CommonOpenFileDialog();
+			using var dialog = new CPDialogs.CommonOpenFileDialog();
 			dialog.DefaultExtension = ".cic";
-			dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
-			if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
+			dialog.Filters.Add(new CPDialogs.CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
+			if (dialog.ShowDialog(Handle) == CPDialogs.CommonFileDialogResult.Ok)
 				await AddAnythingLocalAsync(true, Enumerable.Repeat(dialog.FileName, 1));
 		}
 
@@ -271,18 +273,18 @@ namespace Comical
 
 		async void itmFromFile_Click(object sender, EventArgs e)
 		{
-			using var dialog = new CommonOpenFileDialog();
+			using var dialog = new CPDialogs.CommonOpenFileDialog();
 			dialog.Multiselect = true;
-			if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
+			if (dialog.ShowDialog(Handle) == CPDialogs.CommonFileDialogResult.Ok)
 				await AddAnythingLocalAsync(false, dialog.FileNames);
 		}
 
 		async void itmFromFolder_Click(object sender, EventArgs e)
 		{
-			using var dialog = new CommonOpenFileDialog();
+			using var dialog = new CPDialogs.CommonOpenFileDialog();
 			dialog.Multiselect = true;
 			dialog.IsFolderPicker = true;
-			if (dialog.ShowDialog(Handle) == CommonFileDialogResult.Ok)
+			if (dialog.ShowDialog(Handle) == CPDialogs.CommonFileDialogResult.Ok)
 				await AddAnythingLocalAsync(false, dialog.FileNames);
 		}
 
@@ -292,10 +294,10 @@ namespace Comical
 
 		async void itmExport_Click(object sender, EventArgs e)
 		{
-			using var dialog = new CommonOpenFileDialog();
+			using var dialog = new CPDialogs.CommonOpenFileDialog();
 			dialog.IsFolderPicker = true;
 			dialog.Title = Properties.Resources.ExportImages;
-			if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
+			if (dialog.ShowDialog(Handle) != CPDialogs.CommonFileDialogResult.Ok)
 				return;
 			using (BeginAsyncWork())
 			{
@@ -309,11 +311,11 @@ namespace Comical
 
 		async void itmExtract_Click(object sender, EventArgs e)
 		{
-			using var dialog = new CommonSaveFileDialog();
+			using var dialog = new CPDialogs.CommonSaveFileDialog();
 			dialog.DefaultExtension = ".cic";
-			dialog.Filters.Add(new CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
+			dialog.Filters.Add(new CPDialogs.CommonFileDialogFilter(Properties.Resources.ComicalImageCollection, "*.cic"));
 			dialog.Title = Properties.Resources.ExtractImages;
-			if (dialog.ShowDialog(Handle) != CommonFileDialogResult.Ok)
+			if (dialog.ShowDialog(Handle) != CPDialogs.CommonFileDialogResult.Ok)
 				return;
 			using (BeginAsyncWork())
 				await _comic.ExtractAsync(dialog.FileName, _imageList.SortedSelectedImages, new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
@@ -366,7 +368,7 @@ namespace Comical
 			{
 				if (prgStatus.Visible)
 					e.Cancel = true;
-				else if (await QuerySaveAsync(res => e.Cancel = res != TaskDialogResult.No) == TaskDialogResult.Yes)
+				else if (await QuerySaveAsync(res => e.Cancel = res != CPDialogs.TaskDialogResult.No) == CPDialogs.TaskDialogResult.Yes)
 					Close();
 			}
 		}

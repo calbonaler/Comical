@@ -4,11 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Comical.Core;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using CPDialogs = Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Comical
 {
-	[CLSCompliant(false)]
 	public partial class ViewerForm : Microsoft.WindowsAPICodePack.Shell.GlassForm
 	{
 		public ViewerForm()
@@ -19,8 +18,6 @@ namespace Comical
 			prevMain.ViewPane.MouseUp += picPreview_MouseUp;
 			prevMain.ViewPane.Paint += picPreview_Paint;
 			prevMain.ViewPane.KeyDown += picPreview_KeyDown;
-			if (AeroGlassCompositionEnabled)
-				ExtendFrame(new Padding(-1));
 		}
 
 		protected override CreateParams CreateParams
@@ -64,23 +61,23 @@ namespace Comical
 		{
 			Activate();
 			prevMain.Select();
-			using (var dialog = new TaskDialog())
+			using (var dialog = new CPDialogs.TaskDialog())
 			{
 				dialog.Cancelable = false;
-				TaskDialogButton btnCancel = new TaskDialogButton(nameof(btnCancel), Properties.Resources.Cancel);
+				CPDialogs.TaskDialogButton btnCancel = new CPDialogs.TaskDialogButton(nameof(btnCancel), Properties.Resources.Cancel);
 				dialog.Controls.Add(btnCancel);
 				dialog.Caption = Application.ProductName;
-				dialog.Icon = TaskDialogStandardIcon.None;
+				dialog.Icon = CPDialogs.TaskDialogStandardIcon.None;
 				dialog.InstructionText = Properties.Resources.OpeningFile;
 				dialog.OwnerWindowHandle = Handle;
-				dialog.ProgressBar = new TaskDialogProgressBar(0, 100, 0);
+				dialog.ProgressBar = new CPDialogs.TaskDialogProgressBar(0, 100, 0);
 				dialog.Opened += async (s, ev) =>
 				{
 					btnCancel.Enabled = false;
 					await _comic.OpenAsync(fileName, new Progress<int>(x => this.InvokeIfNeeded(() => dialog.ProgressBar.Value = x)));
-					dialog.Close(TaskDialogResult.Ok);
+					dialog.Close(CPDialogs.TaskDialogResult.Ok);
 				};
-				dialog.StartupLocation = TaskDialogStartupLocation.CenterOwner;
+				dialog.StartupLocation = CPDialogs.TaskDialogStartupLocation.CenterOwner;
 				dialog.Show();
 			}
 			conBookmarks.Items.AddRange(_comic.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (s, ev) => CurrentPage = Array.FindIndex(_spreads, x => x.Left == _comic.Images[b.Target] || x.Right == _comic.Images[b.Target]))).ToArray());
@@ -192,6 +189,9 @@ namespace Comical
 			Open(_openingFileName);
 			base.OnLoad(e);
 		}
+
+		// Prevent base class from filling background
+		protected override void OnPaint(PaintEventArgs e) { }
 
 		enum FocusMode
 		{

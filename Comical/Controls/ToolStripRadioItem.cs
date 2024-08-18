@@ -47,7 +47,6 @@ namespace Comical.Controls
 			base.OnClick(e);
 		}
 
-		[System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand)]
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			base.OnPaint(e);

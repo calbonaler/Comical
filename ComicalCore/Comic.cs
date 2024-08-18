@@ -325,7 +325,6 @@ namespace Comical.Core
 		Bookmarks = 2,
 	}
 
-	[Serializable]
 	public class InconsistentDataException : Exception
 	{
 		public InconsistentDataException() : this(ConsistencyValidatedDataTypes.None) { }
@@ -333,12 +332,6 @@ namespace Comical.Core
 		public InconsistentDataException(string message) : this(message, ConsistencyValidatedDataTypes.None) { }
 		public InconsistentDataException(string message, ConsistencyValidatedDataTypes dataTypes) : base(message) => DataTypes = dataTypes;
 		public InconsistentDataException(string message, Exception inner) : base(message, inner) { }
-		protected InconsistentDataException(SerializationInfo info, StreamingContext context) : base(info, context) => DataTypes = (ConsistencyValidatedDataTypes)info.GetInt32(nameof(DataTypes));
 		public ConsistencyValidatedDataTypes DataTypes { get; private set; }
-		public override void GetObjectData(SerializationInfo info, StreamingContext context)
-		{
-			base.GetObjectData(info, context);
-			info.AddValue(nameof(DataTypes), (int)DataTypes);
-		}
 	}
 }

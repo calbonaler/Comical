@@ -117,99 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblPageViewDesc.Text" xml:space="preserve">
-    <value>ページビュー機能ではコレクション内の画像を書籍の各ページとして、ビューアに表示します。
-エディターで各画像の表示方式、開きを変更できます。</value>
-  </data>
   <data name="btnCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblDefaultSavedFileName.GenerateMember" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="lblDefaultSavedFileName.AutoSize" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="chkCheckArchiverUpdateWhenStarted.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 16</value>
-  </data>
-  <data name="chkCheckArchiverUpdateWhenStarted.Size" type="System.Drawing.Size, System.Drawing">
-    <value>262, 22</value>
-  </data>
-  <data name="chkCheckArchiverUpdateWhenStarted.Text" xml:space="preserve">
-    <value>起動時にアーカイバーの更新を確認する(&amp;U)</value>
-  </data>
-  <data name="tpArchivers.Text" xml:space="preserve">
-    <value>アーカイバー</value>
-  </data>
-  <data name="ilStatus.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABS
-        CwAAAk1TRnQBSQFMAgEBAgEAARgBAAEYAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABECIAAy0BRgNMAY0BXwFeAV8BxwNqAfADagHwAV8BXgFfAccDTAGNAy0BRhQA
-        AwcBCQJZAWMBrgI8AT0BZwMHAQkYAAMCAQMCWAFiAa0CSAFJAYYDDQERjAADFwEgA0wBjAGBAn8B9QGl
-        AaEBoAH/Ab4BuQG3Af8B0AHJAcgB/wHQAckByAH/Ab4BuQG3Af8BpQGhAaAB/wGBAn8B9QNMAYwDFwEg
-        CAADAwEEAmABgAHNAgYB6AH/AkwBugHzAkQBRQF8AwYBCBAAAwQBBQJeAW8BuwIDAaoB/wI5AaEB9gJN
-        AU8BlQMLAQ+EAAMXASADVAGjAZsClwH/AbIBuwGtAf8BeAGzAXsB/wE4AZ4BQQH/ARcBlwElAf8BFgGj
-        ASsB/wFAAbgBVQH/AYABwgGHAf8BswG8Aa4B/wGbApcB/wNUAaMDFwEgBAACWwFnAbICAAHsAf8CAAHq
-        Af8CAAHnAf8CUQG9AfQDRAF6AwUBBwgAAwQBBgJgAXIBvwIDAbIB/wIAAa4B/wIAAagB/wJDAa4B+AMz
-        AVKEAANMAYwBmwKXAf8BpgG/AaMB/wFAAakBSgH/ASABkgElAf8B9wH8AfgB/wGzAesBvQH/AUMBlgFC
-        Af8BBwGiAR8B/wEFAbEBJwH/AUgBvQFdAf8BqQHBAaUB/wGbApcB/wNMAYwEAAJZAXcBwgILAewB/wIA
-        AesB/wIAAeoB/wIAAecB/wJRAb4B9ANEAXkDBAEGAwUBBwJhAXcBwgIBAbwB/wIAAbcB/wIAAbMB/wIA
-        AawB/wJKAdYB/wMeASuAAAMtAUYBgQJ/AfUBsgG9Aa0B/wFFAbMBUQH/AScBnAEvAf8B/AH+AfwF/wH+
-        A/8BowHjAa4B/wEUAZABHQH/AQUBqAEiAf8BBQGvASYB/wFKAbcBWgH/AbMBvAGuAf8BgQJ/AfUDLQFG
-        BAACWAGoAeMCDAHsAf8CAAHrAf8CAAHrAf8CAAHoAf8CUQHAAfUDQgF0AmMBegHFAgEBxgH/AgABwQH/
-        AgABvQH/AgABtQH/AkoB2wH/AzcBWoQAA0wBjQGlAaEBoAH/AXoBwgGDAf8BLwGoATwB/wH4Af0B+QX/
-        Aa0B5gG4Af8B/gH/Af4B/wH3AfwB+AH/AUMBlgFCAf8BDAGeAR8B/wEFAaUBIQH/AQUBqQEjAf8BggG7
-        AYUB/wGlAaEBoAH/A0wBjQgAAlkBoQHgAgsB6wH/AgAB6wH/AgAB6wH/AgAB6AH/AkwBtgHxAgAB3AH/
-        AgAB0QH/AgABxwH/AgABvwH/AkYB3gH/AzsBZIgAAV8BXgFfAccBvgG5AbcB/wFOAcUBYAH/AeUB8QHl
-        Bf8B8wH8AfUB/wEnAaIBMwH/AbIB5wG8Af8B/QH+Af0B/wGnAeUBsgH/ARgBkQEgAf8BBwGfAR0B/wEF
-        AZ8BHgH/AUQBqwFRAf8BvgG5AbcB/wFfAV4BXwHHDAACVAGcAd4CCQHrAf8CAAHrAf8CAAHrAf8CAAHo
-        Af8CAAHjAf8CAAHbAf8CAAHRAf8COgHeAf8DQAFujAADagHwAdAByQHIAf8BQAHCAVoB/wGNAeEBoAH/
-        AekB8wHpAf8BRgGzAVMB/wEXAaoBKgH/AXkBzgGIAf8B/gH/Af4B/wH4Af0B+AH/AUMBmgFEAf8BEgGa
-        ASEB/wEFAZgBGgH/ARkBnAEqAf8B0AHJAcgB/wNqAfAQAAJZAZMB1wICAeoB/wIAAesB/wIAAesB/wIA
-        AegB/wIAAeMB/wIpAeYB/wNEAXmQAANqAfAB0AHJAcgB/wE/AcIBXAH/ATcBwwFVAf8BOAHCAVYB/wEn
-        AbMBRQH/ARoBqgEzAf8BJQG1AT0B/wGyAecBvAH/Af0B/gH9Af8BpQHjAa8B/wEcAZIBIwH/AQcBlQEW
-        Af8BHAGZASgB/wHQAckByAH/A2oB8BAAAkMBRAF4AiAB7gH/AgAB6QH/AgAB6gH/AgAB6wH/AgAB6QH/
-        AjwBswHxAzcBWwMEAQaMAAFfAV4BXwHHAb4BuQG3Af8BZAHKAXkB/wE1AcQBVQH/ATIBwAFSAf8BMAG7
-        AU8B/wEuAbYBTAH/ASwBtAFIAf8BbAHRAYAB/wH8Af4B/AH/AfgB/QH5Af8BSwGkAU4B/wERAZYBIwH/
-        AUsBpwFVAf8BvgG5AbcB/wFfAV4BXwHHDAACRAFFAXoCWQHvAf8CWQHuAf8CXgHwAf8CTgHvAf8CMgHu
-        Af8CGgHtAf8CDAHsAf8CQQGbAekDNQFYAwUBB4gAA0wBjQGlAaEBoAH/AZMB0QGdAf8BOwHLAVwB/wE4
-        AcgBWQH/ATYBwwFUAf8BMgG+AVAB/wEvAbkBTQH/ATEBvAFOAf8BkgHcAaEF/wHIAe8BzwH/ASQBnwE3
-        Af8BiAG7AYoB/wGlAaEBoAH/A0wBjQgAAkMBRAF4AmQB7AH/AmMB6wH/AmYB7QH/AmcB7wH/AnIB8wH/
-        Am4B8gH/AmwB8gH/AmoB8gH/AmQB8wH/Ak0BlwHnAzQBVAMEAQaEAAMtAUYBgQJ/AfUBuAHDAbUB/wFs
-        AdIBgwH/AT4BzgFfAf8BPAHLAVsB/wE5AcYBVwH/ATUBwQFUAf8BMgG9AU8B/wFCAcUBWwH/AbQB6AG+
-        Af8B/QH+Af0B/wFeAboBaQH/AbUBvQGwAf8BgQJ/AfUDLQFGAwABAQJCAUMBdgJqAecB/wJqAegB/wJu
-        AesB/wJxAe0B/wKCAfIB/wI/AUABbwJbAZAB1gJ6AfMB/wJxAfMB/wJrAfIB/wJqAfIB/wJMAZIB5QMy
-        AVEDBAEFhAADTAGMAZsClwH/AbMBzgG0Af8BbQHWAYUB/wE/AdIBYAH/AT4BzQFfAf8BPAHKAVsB/wE4
-        AcUBVwH/ATYBwQFTAf8BnAHhAaoB/wG3AeMBvgH/Aa8BxwGtAf8BmwKXAf8DTAGMBAADOQFfAm0B4gH/
-        Am4B5AH/AnUB5wH/AngB6gH/AogB7wH/AkEBQgF0BAADAQECAl4BjAHVAoMB8wH/AncB8wH/AnEB8wH/
-        AmsB8wH/Ak0BiQHiAyoBQIQAAxcBIANUAaMBmwKXAf8BugHCAbcB/wGaAdQBowH/AWsB1QGDAf8BTAHT
-        AWoB/wFJAc8BZgH/AWgBygF6Af8BjgHKAZYB/wG2AcMBsgH/AZsClwH/A1QBowMXASAEAAJHAX4B0wJx
-        Ad8B/wJ4AeMB/wJ7AeYB/wKLAewB/wI/AUABbwwAAwEBAgJdAYgB0gKIAfQB/wJ5AfMB/wJxAfMB/wJ2
-        AfUB/wMoATyIAAMXASADTAGMAYECfwH1AaUBoQGgAf8BvgG5AbcB/wHQAckByAH/AdAByQHIAf8BvgG5
-        AbcB/wGlAaEBoAH/AYECfwH1A0wBjAMXASAIAAMHAQoCbQHNAfwCgAHiAf8CigHnAf8DPgFrFAADAQEC
-        Al4BggHOAocB9AH/AoYB9AH/AksBTwGQAwIBA5AAAy0BRgNMAY0BXwFeAV8BxwNqAfADagHwAV8BXgFf
-        AccDTAGNAy0BRhQAAwcBCQJOAXoBzgMwAUsDAAEBGwABAQJPAV8BqQJCAUMBdAMBAQKEAAFCAU0BPgcA
-        AT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAB8AEPAYcB4QQAAcACAwHABAABgAIBAYAEAAGA
-        AQEIAAGAAQEGAAHAAQMGAAHgAQcGAAHwAQ8GAAHwAQcGAAHgAQMGAAHAAQEMAAGAAgEFAAGAAQEBAwGA
-        BAABwAEDAQcBwAQAAfABDwGHAeEEAAs=
-</value>
-  </data>
-  <data name="chkUsePageView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
-  </data>
-  <data name="chkUsePageView.Text" xml:space="preserve">
-    <value>ページビューを使用する(&amp;P)</value>
-  </data>
-  <data name="tpCommon.Text" xml:space="preserve">
-    <value>共通設定</value>
-  </data>
   <data name="lblDefaultSavedFileName.Size" type="System.Drawing.Size, System.Drawing">
     <value>306, 18</value>
   </data>
   <data name="lblDefaultSavedFileName.Text" xml:space="preserve">
     <value>「名前を付けて保存」で使用する既定のファイル名(&amp;F):</value>
-  </data>
-  <data name="tpEditor.Text" xml:space="preserve">
-    <value>エディター</value>
   </data>
   <data name="itmTitle.Size" type="System.Drawing.Size, System.Drawing">
     <value>175, 22</value>
