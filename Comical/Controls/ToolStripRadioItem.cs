@@ -7,12 +7,12 @@ using System.Windows.Forms.Design;
 namespace Comical.Controls
 {
 	[ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.ContextMenuStrip | ToolStripItemDesignerAvailability.MenuStrip)]
-	public class ToolStripRadioMenuItem : ToolStripMenuItem
+	public partial class ToolStripRadioMenuItem : ToolStripMenuItem
 	{
-		static class NativeMethods
+		static partial class NativeMethods
 		{
-			[DllImport("gdi32.dll")]
-			static extern uint GetPixel(IntPtr hdc, int x, int y);
+			[LibraryImport("gdi32.dll")]
+			private static partial uint GetPixel(IntPtr hdc, int x, int y);
 
 			public static Color GetPixelColor(IDeviceContext dc, int xPos, int yPos)
 			{

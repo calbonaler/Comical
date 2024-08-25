@@ -14,7 +14,7 @@ namespace Comical.Controls
 		Point? _origin;
 		int _dragOverCalled = 0;
 		int _hitRowIndex = -1;
-		Pen _insertionPen = new Pen(Color.Black, 2.0F);
+		Pen _insertionPen = new(Color.Black, 2.0F);
 
 		protected override void Dispose(bool disposing)
 		{
@@ -80,19 +80,11 @@ namespace Comical.Controls
 			}
 		}
 
-		int FirstDisplayedScrollingRowIndexUnchecked
+		void AddFirstDisplayedScrollingRowIndex(int addend)
 		{
-			get => FirstDisplayedScrollingRowIndex;
-			set
-			{
-				if (RowCount == 0)
-					return;
-				if (value < 0)
-					value = 0;
-				else if (value >= RowCount)
-					value = RowCount - 1;
-				FirstDisplayedScrollingRowIndex = value;
-			}
+			if (RowCount == 0)
+				return;
+			FirstDisplayedScrollingRowIndex = Math.Clamp(FirstDisplayedScrollingRowIndex + addend, 0, RowCount);
 		}
 
 		DragHitTestInfo DragHitTest(IDataObject data, Point point)
@@ -136,7 +128,7 @@ namespace Comical.Controls
 			var callMax = ScrollArea / 2;
 			_dragOverCalled += value;
 			var c = _dragOverCalled / callMax;
-			_dragOverCalled = _dragOverCalled % callMax;
+			_dragOverCalled %= callMax;
 			return c;
 		}
 
@@ -208,9 +200,9 @@ namespace Comical.Controls
 			var diffTop = ScrollArea - pt.Y;
 			var diffBottom = pt.Y - Height + ScrollArea;
 			if (diffTop >= 0)
-				FirstDisplayedScrollingRowIndexUnchecked -= IncrementDragOverCalled(diffTop);
+				AddFirstDisplayedScrollingRowIndex(-IncrementDragOverCalled(diffTop));
 			if (diffBottom >= 0)
-				FirstDisplayedScrollingRowIndexUnchecked += IncrementDragOverCalled(diffBottom);
+				AddFirstDisplayedScrollingRowIndex(IncrementDragOverCalled(diffBottom));
 			var info = DragHitTest(drgevent.Data, new Point(drgevent.X, drgevent.Y));
 			drgevent.Effect = info.Effect;
 			HitRowIndex = info.HitIndex;
@@ -272,66 +264,38 @@ namespace Comical.Controls
 		/// <summary><see cref="QueryRowDragDropEffect"/> イベントを発生させます。</summary>
 		protected virtual void OnQueryRowDragDropEffect(QueryRowDragDropEffectEventArgs e) => QueryRowDragDropEffect?.Invoke(this, e);
 
-		struct DragHitTestInfo
+		readonly struct DragHitTestInfo(DragDropEffects effect, int hitIndex, int actualDestination)
 		{
-			public DragHitTestInfo(DragDropEffects effect, int hitIndex, int actualDestination)
-			{
-				Effect = effect;
-				HitIndex = hitIndex;
-				ActualDestination = actualDestination;
-			}
+			public static readonly DragHitTestInfo Nowhere = new(DragDropEffects.None, -1, -1);
 
-			public static readonly DragHitTestInfo Nowhere = new DragHitTestInfo(DragDropEffects.None, -1, -1);
+			public DragDropEffects Effect { get; } = effect;
 
-			public DragDropEffects Effect { get; }
+			public int HitIndex { get; } = hitIndex;
 
-			public int HitIndex { get; }
-
-			public int ActualDestination { get; }
+			public int ActualDestination { get; } = actualDestination;
 		}
 
-		class DataGridViewMovedRows
+		class DataGridViewMovedRows(DataGridViewSelectedRowCollection rows, DataGridView source)
 		{
-			public DataGridViewMovedRows(DataGridViewSelectedRowCollection rows, DataGridView source)
-			{
-				if (rows == null)
-					throw new ArgumentNullException(nameof(rows));
-				SourceRows = rows.Cast<DataGridViewRow>().OrderBy(x => x.Index).ToArray();
-				Source = source;
-			}
+			public DataGridViewRow[] SourceRows { get; } = [.. rows.Cast<DataGridViewRow>().OrderBy(x => x.Index)];
 
-			public DataGridViewRow[] SourceRows { get; }
-
-			public DataGridView Source { get; }
+			public DataGridView Source { get; } = source;
 		}
 	}
 
-	public class RowMovingEventArgs : CancelEventArgs
+	public class RowMovingEventArgs(DataGridView source, DataGridViewRow[] sourceRows, int dest) : CancelEventArgs
 	{
-		public RowMovingEventArgs(DataGridView source, DataGridViewRow[] sourceRows, int dest)
-		{
-			Source = source;
-			SourceRows = new ReadOnlyCollection<DataGridViewRow>(sourceRows);
-			Destination = dest;
-		}
+		public int Destination { get; } = dest;
 
-		public int Destination { get; }
+		public DataGridView Source { get; } = source;
 
-		public DataGridView Source { get; }
-
-		public ReadOnlyCollection<DataGridViewRow> SourceRows { get; }
+		public ReadOnlyCollection<DataGridViewRow> SourceRows { get; } = new ReadOnlyCollection<DataGridViewRow>(sourceRows);
 	}
 
-	public class QueryRowDragDropEffectEventArgs : EventArgs
+	public class QueryRowDragDropEffectEventArgs(DragDropEffects effects, DataGridView source) : EventArgs
 	{
-		public QueryRowDragDropEffectEventArgs(DragDropEffects effects, DataGridView source)
-		{
-			Effect = effects;
-			Source = source;
-		}
+		public DragDropEffects Effect { get; set; } = effects;
 
-		public DragDropEffects Effect { get; set; }
-
-		public DataGridView Source { get; }
+		public DataGridView Source { get; } = source;
 	}
 }

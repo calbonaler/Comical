@@ -21,20 +21,16 @@ namespace Comical.Core
 			Bookmarks.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
 			PropertyChanged += (s, ev) =>
 			{
-				if (ev.PropertyName == nameof(Thumbnail) ||
-					ev.PropertyName == nameof(Title) ||
-					ev.PropertyName == nameof(Author) ||
-					ev.PropertyName == nameof(Published) ||
-					ev.PropertyName == nameof(BindingSide))
+				if (ev.PropertyName is nameof(Thumbnail) or nameof(Title) or nameof(Author) or nameof(Published) or nameof(BindingSide))
 					IsDirty = true;
 			};
 		}
 
 		bool _canDirty = true;
 
-		public ImageReferenceCollection Images { get; private set; } = new ImageReferenceCollection();
+		public ImageReferenceCollection Images { get; private set; } = [];
 
-		public BookmarkCollection Bookmarks { get; private set; } = new BookmarkCollection();
+		public BookmarkCollection Bookmarks { get; private set; } = [];
 
 		public void Dispose()
 		{
@@ -70,10 +66,7 @@ namespace Comical.Core
 		async Task<FileHeader> ReadFileAsync(string fileName, BookmarkCollection bookmarks, IProgress<int> progress)
 		{
 			using var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-			var fileHeader = await FileHeader.LoadAsync(stream).ConfigureAwait(false);
-			// ID確認
-			if (fileHeader == null)
-				throw new ArgumentException(Properties.Resources.InvalidFileFormat);
+			var fileHeader = await FileHeader.LoadAsync(stream).ConfigureAwait(false) ?? throw new ArgumentException(Properties.Resources.InvalidFileFormat);
 			using (var reader = new BinaryReader(stream, Encoding.Unicode, true))
 			{
 				bookmarks.Load(reader); // 目次
@@ -175,7 +168,7 @@ namespace Comical.Core
 		public async Task ExtractAsync(string fileName, IEnumerable<ImageReference> images, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
-				await WriteFileAsync(fileName, new FileHeader(string.Empty, Author, null, BindingSide, null), images.ToArray(), Array.Empty<Bookmark>(), progress).ConfigureAwait(false);
+				await WriteFileAsync(fileName, new FileHeader(string.Empty, Author, null, BindingSide, null), images.ToArray(), [], progress).ConfigureAwait(false);
 		}
 
 		public IEnumerable<Spread> ConstructSpreads()
@@ -287,20 +280,13 @@ namespace Comical.Core
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
-	public class Spread
+	public class Spread(ImageReference left, ImageReference right, bool fillSpread)
 	{
-		public Spread(ImageReference left, ImageReference right, bool fillSpread)
-		{
-			Left = left;
-			Right = right;
-			IsFillSpread = fillSpread;
-		}
+		public ImageReference Left { get; } = left;
 
-		public ImageReference Left { get; }
+		public ImageReference Right { get; } = right;
 
-		public ImageReference Right { get; }
-
-		public bool IsFillSpread { get; }
+		public bool IsFillSpread { get; } = fillSpread;
 	}
 
 	public enum ImageViewMode

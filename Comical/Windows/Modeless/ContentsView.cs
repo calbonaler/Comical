@@ -19,7 +19,7 @@ namespace Comical
 		}
 
 		ImageReferenceCollection _images;
-		static readonly Size ThumbnailSize = new Size(118, 118);
+		static readonly Size ThumbnailSize = new(118, 118);
 
 		Viewer DefaultViewer => DockPanel?.Contents?.OfType<Viewer>()?.FirstOrDefault(v => v.Pane.IsActiveDocumentPane);
 
@@ -84,8 +84,7 @@ namespace Comical
 
 		public void AddImages(IEnumerable<ImageReference> images)
 		{
-			if (images == null)
-				throw new ArgumentNullException(nameof(images));
+			ArgumentNullException.ThrowIfNull(images);
 			using (_images.EnterUnnotifiedSection())
 			{
 				foreach (var image in images)
@@ -130,9 +129,11 @@ namespace Comical
 			if (FirstSelectedRowIndex >= 0)
 			{
 				var content = DockPanel.ActiveContent;
-				var viewer = new Viewer();
-				viewer.Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture);
-				viewer.Image = _images[FirstSelectedRowIndex].Data;
+				var viewer = new Viewer
+				{
+					Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture),
+					Image = _images[FirstSelectedRowIndex].Data
+				};
 				viewer.Show(DockPanel);
 				content.DockHandler.Activate();
 			}
@@ -243,19 +244,11 @@ namespace Comical
 		void itmStartViewModeSettingRight_Click(object sender, EventArgs e) => SetViewModes(false);
 	}
 
-	public class FileDroppedEventArgs : EventArgs
+	public class FileDroppedEventArgs(IEnumerable<string> fileNames, int keyState, int x, int y) : EventArgs
 	{
-		public FileDroppedEventArgs(IEnumerable<string> fileNames, int keyState, int x, int y)
-		{
-			FileNames = fileNames;
-			_keyState = keyState;
-			X = x;
-			Y = y;
-		}
+		readonly int _keyState = keyState;
 
-		readonly int _keyState;
-
-		public IEnumerable<string> FileNames { get; }
+		public IEnumerable<string> FileNames { get; } = fileNames;
 
 		public bool MouseLeft => (_keyState & 1) != 0;
 
@@ -269,8 +262,8 @@ namespace Comical
 
 		public bool Alt => (_keyState & 32) != 0;
 
-		public int X { get; }
+		public int X { get; } = x;
 
-		public int Y { get; }
+		public int Y { get; } = y;
 	}
 }

@@ -2,15 +2,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Comical
 {
 	sealed class CompositeDisposable : IDisposable, IEnumerable<IDisposable>
 	{
-		readonly List<IDisposable> _disposables = new List<IDisposable>();
+		readonly List<IDisposable> _disposables = [];
 
 		public void Add(IDisposable item) => _disposables.Add(item);
 

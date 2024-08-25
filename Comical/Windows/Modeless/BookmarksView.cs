@@ -62,8 +62,7 @@ namespace Comical
 
 		public void AddBookmarks(IEnumerable<int> targetIndexes)
 		{
-			if (targetIndexes == null)
-				throw new ArgumentNullException(nameof(targetIndexes));
+			ArgumentNullException.ThrowIfNull(targetIndexes);
 			foreach (var targetIndex in targetIndexes)
 				_bookmarks.Add(new Bookmark() { Target = targetIndex });
 		}
@@ -172,10 +171,8 @@ namespace Comical
 		void itmRemove_Click(object sender, EventArgs e) => DeleteSelectedBookmarks();
 	}
 
-	public class BookmarkNavigatedEventArgs : EventArgs
+	public class BookmarkNavigatedEventArgs(Bookmark bookmark) : EventArgs
 	{
-		public BookmarkNavigatedEventArgs(Bookmark bookmark) => Bookmark = bookmark;
-
-		public Bookmark Bookmark { get; }
+		public Bookmark Bookmark { get; } = bookmark;
 	}
 }

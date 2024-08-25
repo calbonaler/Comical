@@ -14,7 +14,7 @@ namespace Comical
 			InitializeComponent();
 			Disposed += new EventHandler(DocumentDialog_Disposed);
 			cmbAuthor.Items.AddRange(Properties.Settings.Default.RecentAuthors.Cast<string>().ToArray());
-			var calendar = CultureInfo.CurrentCulture.OptionalCalendars.FirstOrDefault(cal => !(cal is GregorianCalendar));
+			var calendar = CultureInfo.CurrentCulture.OptionalCalendars.FirstOrDefault(cal => cal is not GregorianCalendar);
 			if (calendar != null)
 			{
 				_formatInfo = (DateTimeFormatInfo)CultureInfo.CurrentCulture.DateTimeFormat.Clone();

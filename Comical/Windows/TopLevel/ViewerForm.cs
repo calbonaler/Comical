@@ -100,7 +100,7 @@ namespace Comical
 
 		FocusMode _focusMode = FocusMode.None;
 		const int CloseHeight = 20;
-		readonly SolidBrush _closeBrush = new SolidBrush(Color.FromArgb(64, 255, 0, 0));
+		readonly SolidBrush _closeBrush = new(Color.FromArgb(64, 255, 0, 0));
 
 		#region picPreview EventHandlers
 

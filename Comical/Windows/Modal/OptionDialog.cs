@@ -28,9 +28,9 @@ namespace Comical
 
 		void InsertMaskItem_Click(object sender, EventArgs e)
 		{
-			if (!(sender is ToolStripItem senderMenuItem))
+			if (sender is not ToolStripItem senderMenuItem)
 				return;
-			var insertedText = senderMenuItem.Text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
+			var insertedText = senderMenuItem.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries)[0];
 			var oldSelectionStart = txtDefaultSavedFileName.SelectionStart;
 			txtDefaultSavedFileName.Text = txtDefaultSavedFileName.Text.Insert(oldSelectionStart, insertedText);
 			txtDefaultSavedFileName.SelectionStart = oldSelectionStart + insertedText.Length;

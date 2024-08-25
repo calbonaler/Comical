@@ -15,12 +15,12 @@ namespace Comical.Core
 	[DebuggerDisplay("Count = {Count}")]
 	public class SynchronizedObservableCollection<T> : IDisposable, IList<T>, IReadOnlyList<T>, INotifyCollectionChanged, INotifyPropertyChanged, INotifyCollectionItemPropertyChanged where T : INotifyPropertyChanged
 	{
-		public SynchronizedObservableCollection() => _items = new List<T>();
+		public SynchronizedObservableCollection() => _items = [];
 		public SynchronizedObservableCollection(IEnumerable<T> collection) => _items = new List<T>(collection);
 
 		readonly List<T> _items;
-		[NonSerialized]ReaderWriterLockSlim _itemsLock = new ReaderWriterLockSlim();
-		readonly SimpleMonitor _monitor = new SimpleMonitor();
+		[NonSerialized]ReaderWriterLockSlim _itemsLock = new();
+		readonly SimpleMonitor _monitor = new();
 
 		public int Count { get { using (LockForRead()) return _items.Count; } }
 		

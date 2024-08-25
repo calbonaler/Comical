@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Comical.Core
 {
@@ -13,5 +17,8 @@ namespace Comical.Core
 			storage = value;
 			handler?.Invoke(@this, new PropertyChangedEventArgs(propertyName));
 		}
+
+		public static ValueTask<int> ReadExactlyNoThrowAsync(this Stream stream, Memory<byte> buffer, CancellationToken cancellationToken = default)
+			=> stream.ReadAtLeastAsync(buffer, buffer.Length, false, cancellationToken);
 	}
 }

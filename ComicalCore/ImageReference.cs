@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace Comical.Core
 {
-	public class ImageReference : INotifyPropertyChanged
+	public class ImageReference(Binary data) : INotifyPropertyChanged
 	{
-		public ImageReference(Binary data) => Data = data ?? throw new ArgumentNullException(nameof(data));
-
 		ImageViewMode _mode;
 
-		public Binary Data { get; }
+		public Binary Data { get; } = data ?? throw new ArgumentNullException(nameof(data));
 
 		public ImageViewMode ViewMode
 		{
@@ -29,7 +27,7 @@ namespace Comical.Core
 				reader.ReadString(); // フォーマット
 			var mode = (ImageViewMode)reader.ReadByte();
 			var buffer = new byte[reader.ReadInt32()]; // サイズ
-			await reader.BaseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+			await reader.BaseStream.ReadExactlyNoThrowAsync(buffer).ConfigureAwait(false);
 			return new ImageReference(new Binary(buffer)) { ViewMode = mode };
 		}
 
@@ -47,7 +45,7 @@ namespace Comical.Core
 	{
 		bool _notificationSuspended = false;
 		bool _collectionChanged = false;
-		readonly List<KeyValuePair<object, string>> _itemChanges = new List<KeyValuePair<object, string>>();
+		readonly List<KeyValuePair<object, string>> _itemChanges = [];
 
 		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
 		{

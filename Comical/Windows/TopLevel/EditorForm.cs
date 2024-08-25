@@ -22,12 +22,12 @@ namespace Comical
 			DesktopBounds = Properties.Settings.Default.EditorWindowBounds;
 		}
 
-		readonly Comic _comic = new Comic();
+		readonly Comic _comic = new();
 		string _savedFilePath;
-		static readonly IReadOnlyList<string> ImageExtensions = new[] { "bmp", "dib", "gif", "jpeg", "jpe", "jpg", "jfif", "png", "tiff", "tif", };
-		readonly ContentsView _imageList = new ContentsView();
-		readonly BookmarksView _bookmarkList = new BookmarksView();
-		readonly DocumentView _document = new DocumentView();
+		static readonly IReadOnlyList<string> ImageExtensions = ["bmp", "dib", "gif", "jpeg", "jpe", "jpg", "jfif", "png", "tiff", "tif",];
+		readonly ContentsView _imageList = new();
+		readonly BookmarksView _bookmarkList = new();
+		readonly DocumentView _document = new();
 
 		string SavedFilePath
 		{
@@ -225,8 +225,7 @@ namespace Comical
 		static IEnumerable<T> SplitEnumValue<T>(T value) where T : Enum
 		{
 			var enumZero = Enum.ToObject(typeof(T), 0);
-			return value.Equals(enumZero) ? Enumerable.Empty<T>()
-				: ((T[])Enum.GetValues(typeof(T))).Where(x => !x.Equals(enumZero) && value.HasFlag(x));
+			return value.Equals(enumZero) ? [] : ((T[])Enum.GetValues(typeof(T))).Where(x => !x.Equals(enumZero) && value.HasFlag(x));
 		}
 
 		#region FileMenu

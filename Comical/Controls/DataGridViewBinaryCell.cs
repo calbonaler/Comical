@@ -14,7 +14,7 @@ namespace Comical.Controls
 			get => base.CellTemplate;
 			set
 			{
-				if (value != null && !(value is DataGridViewBinaryCell))
+				if (value is not null and not DataGridViewBinaryCell)
 					throw new InvalidCastException($"{nameof(CellTemplate)}には{nameof(DataGridViewBinaryCell)}を指定してください。");
 				base.CellTemplate = value;
 			}

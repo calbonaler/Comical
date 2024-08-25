@@ -5,44 +5,43 @@ using Comical.Core;
 
 namespace Comical.Controls
 {
-	public partial class Previewer : ScrollableControl
+	public class Previewer : ScrollableControl
 	{
 		public Previewer()
 		{
 			SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-			picPreview = new FocusablePictureBox();
-			((System.ComponentModel.ISupportInitialize)picPreview).BeginInit();
+			ViewPane = new FocusablePictureBox();
+			((System.ComponentModel.ISupportInitialize)ViewPane).BeginInit();
 			SuspendLayout();
-			picPreview.Dock = DockStyle.Fill;
-			picPreview.Location = new Point(0, 0);
-			picPreview.MouseDown += picPreview_MouseDown;
-			picPreview.MouseMove += picPreview_MouseMove;
-			picPreview.MouseUp += picPreview_MouseUp;
+			ViewPane.Dock = DockStyle.Fill;
+			ViewPane.Location = new Point(0, 0);
+			ViewPane.MouseDown += OnViewPaneMouseDown;
+			ViewPane.MouseMove += OnViewPaneMouseMove;
+			ViewPane.MouseUp += OnViewPaneMouseUp;
 			AutoScroll = true;
-			Controls.Add(picPreview);
-			((System.ComponentModel.ISupportInitialize)picPreview).EndInit();
+			Controls.Add(ViewPane);
+			((System.ComponentModel.ISupportInitialize)ViewPane).EndInit();
 			ResumeLayout(false);
 		}
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && picPreview != null)
+			if (disposing && ViewPane != null)
 			{
-				picPreview.Image?.Dispose();
-				picPreview.Dispose();
-				picPreview = null;
+				ViewPane.Image?.Dispose();
+				ViewPane.Dispose();
+				ViewPane = null;
 			}
 			base.Dispose(disposing);
 		}
 
-		FocusablePictureBox picPreview;
 		PreviewerStretchMode stretchMode;
 		bool avoidResizeMessage = false;
 		Cursor currentCursor = Cursors.Default;
 		bool cursorOverride = false;
 		Binary[] images;
 
-		public PictureBox ViewPane => picPreview;
+		public PictureBox ViewPane { get; private set; }
 
 		public Binary Image => images != null && images.Length > 0 ? images[0] : null;
 
@@ -55,14 +54,14 @@ namespace Comical.Controls
 			if (useSecondary)
 			{
 				if (images != null && images.Length == 2 && images[0] == primaryImage && images[1] == secondaryImage) return;
-				images = new[] { primaryImage, secondaryImage };
+				images = [primaryImage, secondaryImage];
 			}
 			else
 			{
 				if (images != null && images.Length == 1 && images[0] == primaryImage) return;
-				images = new[] { primaryImage };
+				images = [primaryImage];
 			}
-			picPreview.Image?.Dispose();
+			ViewPane.Image?.Dispose();
 			if (useSecondary)
 			{
 				Bitmap image = null;
@@ -78,19 +77,19 @@ namespace Comical.Controls
 						if (right != null)
 							g.DrawImage(right, new Point(image.Width / 2, 0));
 					}
-					picPreview.Image = image;
+					ViewPane.Image = image;
 					image = null;
 				}
 				finally { image?.Dispose(); }
 			}
 			else
 			{
-				picPreview.Image = primaryImage?.ToImage();
+				ViewPane.Image = primaryImage?.ToImage();
 			}
 			UpdatePictureBoxSize();
 		}
 
-		public Size ImageSize => picPreview.Image == null ? default : picPreview.Image.Size;
+		public Size ImageSize => ViewPane.Image == null ? default : ViewPane.Image.Size;
 
 		public PreviewerStretchMode StretchMode
 		{
@@ -120,13 +119,13 @@ namespace Comical.Controls
 					else
 						ds = DockStyle.None;
 				}
-				picPreview.SizeMode = pbsm;
-				picPreview.Dock = ds;
+				ViewPane.SizeMode = pbsm;
+				ViewPane.Dock = ds;
 				if (ds == DockStyle.None)
 				{
-					picPreview.ClientSize = new Size(Math.Max(imageSize.Width, ClientSize.Width - AutoScrollMargin.Width - SystemInformation.VerticalScrollBarWidth),
+					ViewPane.ClientSize = new Size(Math.Max(imageSize.Width, ClientSize.Width - AutoScrollMargin.Width - SystemInformation.VerticalScrollBarWidth),
 						Math.Max(imageSize.Height, ClientSize.Height - AutoScrollMargin.Height - SystemInformation.HorizontalScrollBarHeight));
-					picPreview.Location = AutoScrollPosition;
+					ViewPane.Location = AutoScrollPosition;
 					SetCursor(false);
 				}
 				else
@@ -155,7 +154,7 @@ namespace Comical.Controls
 		{
 			currentCursor = cursor;
 			if (!cursorOverride)
-				picPreview.Cursor = currentCursor;
+				ViewPane.Cursor = currentCursor;
 		}
 
 		public override Cursor Cursor
@@ -166,42 +165,42 @@ namespace Comical.Controls
 				if (value == null)
 				{
 					cursorOverride = false;
-					picPreview.Cursor = currentCursor;
+					ViewPane.Cursor = currentCursor;
 				}
 				else
 				{
 					cursorOverride = true;
-					picPreview.Cursor = value;
+					ViewPane.Cursor = value;
 				}
 			}
 		}
 
-		void picPreview_MouseDown(object sender, MouseEventArgs e)
+		void OnViewPaneMouseDown(object sender, MouseEventArgs e)
 		{
 			if (e.Button.HasFlag(MouseButtons.Left))
 			{
-				origin = picPreview.Parent.PointToScreen(e.Location);
-				if (picPreview.Dock == DockStyle.None)
+				origin = ViewPane.Parent.PointToScreen(e.Location);
+				if (ViewPane.Dock == DockStyle.None)
 					SetCursor(true);
 			}
 		}
 
-		void picPreview_MouseMove(object sender, MouseEventArgs e)
+		void OnViewPaneMouseMove(object sender, MouseEventArgs e)
 		{
 			if (e.Button.HasFlag(MouseButtons.Left) && (dragging || Math.Abs(origin.X - e.X) > SystemInformation.DragSize.Width / 2 || Math.Abs(origin.Y - e.Y) > SystemInformation.DragSize.Height / 2))
 			{
 				dragging = true;
-				AutoScrollPosition = origin - (Size)picPreview.PointToScreen(e.Location);
-				picPreview.Refresh();
+				AutoScrollPosition = origin - (Size)ViewPane.PointToScreen(e.Location);
+				ViewPane.Refresh();
 			}
 		}
 
-		void picPreview_MouseUp(object sender, MouseEventArgs e)
+		void OnViewPaneMouseUp(object sender, MouseEventArgs e)
 		{
 			if (e.Button.HasFlag(MouseButtons.Left))
 			{
 				dragging = false;
-				if (picPreview.Dock == DockStyle.None)
+				if (ViewPane.Dock == DockStyle.None)
 					SetCursor(false);
 			}
 		}
@@ -209,7 +208,7 @@ namespace Comical.Controls
 		protected override void Select(bool directed, bool forward)
 		{
 			base.Select(directed, forward);
-			picPreview.Select();
+			ViewPane.Select();
 		}
 
 		public override ContextMenuStrip ContextMenuStrip
@@ -218,7 +217,7 @@ namespace Comical.Controls
 			set
 			{
 				base.ContextMenuStrip = value;
-				picPreview.ContextMenuStrip = value;
+				ViewPane.ContextMenuStrip = value;
 			}
 		}
 	}

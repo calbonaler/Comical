@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -37,29 +38,33 @@ namespace Comical.Core
 
 		public static async Task<FileHeader> LoadAsync(Stream stream)
 		{
-			if (stream == null)
-				throw new ArgumentNullException(nameof(stream));
+			ArgumentNullException.ThrowIfNull(stream);
 
-			var header = new byte[6];
-			var readHeaderLength = await stream.ReadAsync(header, 0, FileIdentifier.Length).ConfigureAwait(false);
 			byte[] thumbnail = null;
-			if (readHeaderLength == FileIdentifier.Length && Encoding.ASCII.GetString(header, 0, 2) == "BM")
+			var headerBuffer = ArrayPool<byte>.Shared.Rent(6);
+			try
 			{
-				readHeaderLength += await stream.ReadAsync(header, readHeaderLength, header.Length - readHeaderLength).ConfigureAwait(false);
-				if (readHeaderLength < header.Length)
-					return null;
-				thumbnail = new byte[BitConverter.ToUInt32(header, 2)];
-				header.CopyTo(thumbnail, 0);
-				var readThumbnailLength = await stream.ReadAsync(thumbnail, header.Length, thumbnail.Length - header.Length).ConfigureAwait(false);
-				if (header.Length + readThumbnailLength < thumbnail.Length)
-					return null;
-				readHeaderLength = await stream.ReadAsync(header, 0, FileIdentifier.Length).ConfigureAwait(false);
-			}
+				var header = headerBuffer.AsMemory(..6);
+				var readHeaderLength = await stream.ReadExactlyNoThrowAsync(header[0..FileIdentifier.Length]).ConfigureAwait(false);
+				if (readHeaderLength == FileIdentifier.Length && header.Span[..2].SequenceEqual("BM"u8))
+				{
+					readHeaderLength += await stream.ReadExactlyNoThrowAsync(header[readHeaderLength..]).ConfigureAwait(false);
+					if (readHeaderLength < header.Length)
+						return null;
+					thumbnail = new byte[BitConverter.ToUInt32(header.Span[2..])];
+					header.CopyTo(thumbnail.AsMemory());
+					var readThumbnailLength = await stream.ReadExactlyNoThrowAsync(thumbnail.AsMemory(header.Length)).ConfigureAwait(false);
+					if (header.Length + readThumbnailLength < thumbnail.Length)
+						return null;
+					readHeaderLength = await stream.ReadExactlyNoThrowAsync(header[..FileIdentifier.Length]).ConfigureAwait(false);
+				}
 
-			if (readHeaderLength < FileIdentifier.Length)
-				return null;
-			if (!header.Take(FileIdentifier.Length).SequenceEqual(FileIdentifier))
-				return null;
+				if (readHeaderLength < FileIdentifier.Length)
+					return null;
+				if (!header.Span[..FileIdentifier.Length].SequenceEqual(FileIdentifier))
+					return null;
+			}
+			finally { ArrayPool<byte>.Shared.Return(headerBuffer); }
 
 			var majorFileVersion = stream.ReadByte();
 			var minorFileVersion = 0;
@@ -86,7 +91,7 @@ namespace Comical.Core
 		}
 
 		public static readonly Version LatestSupportedFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-		static readonly byte[] FileIdentifier = new byte[] { 0x43, 0x49, 0x43 };
+		static ReadOnlySpan<byte> FileIdentifier => "CIC"u8;
 
 		public Binary Thumbnail { get; }
 
@@ -104,7 +109,7 @@ namespace Comical.Core
 		{
 			if (Thumbnail != null)
 				await Thumbnail.WriteToAsync(stream).ConfigureAwait(false);
-			await stream.WriteAsync(FileIdentifier, 0, FileIdentifier.Length).ConfigureAwait(false);
+			await stream.WriteAsync(FileIdentifier.ToArray()).ConfigureAwait(false);
 			stream.WriteByte((byte)FileVersion.Major);
 			if (FileVersion.Major >= 4)
 				stream.WriteByte((byte)FileVersion.Minor);

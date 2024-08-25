@@ -22,7 +22,7 @@ namespace Comical
 		Binary image;
 		Image internalImage;
 
-		Rectangle ImageBounds => new Rectangle(0, 0, internalImage.Width * (int)numMagnifyRatio.Value / 100, internalImage.Height * (int)numMagnifyRatio.Value / 100);
+		Rectangle ImageBounds => new(0, 0, internalImage.Width * (int)numMagnifyRatio.Value / 100, internalImage.Height * (int)numMagnifyRatio.Value / 100);
 
 		Rectangle ClippedImageBounds => point1 == point2 ? ImageBounds : new Rectangle(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Abs(point2.X - point1.X) + 1, Math.Abs(point2.Y - point1.Y) + 1);
 
@@ -51,19 +51,9 @@ namespace Comical
 
 		static void DrawCross(Graphics g, Point center)
 		{
-			System.IO.MemoryStream ms = null;
-			try
-			{
-				ms = new System.IO.MemoryStream(Properties.Resources.Cross);
-				using var cursor = new Cursor(ms);
-				ms = null;
-				cursor.Draw(g, new Rectangle(center.X - 15, center.Y - 15, 32, 32));
-			}
-			finally
-			{
-				if (ms != null)
-					ms.Dispose();
-			}
+			using var ms = new System.IO.MemoryStream(Properties.Resources.Cross);
+			using var cursor = new Cursor(ms);
+			cursor.Draw(g, new Rectangle(center.X - 15, center.Y - 15, 32, 32));
 		}
 
 		Point GetVerifiedLocation(Point loc)
@@ -150,7 +140,7 @@ namespace Comical
 
 		void picPreview_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.KeyCode == Keys.ShiftKey || e.KeyCode == Keys.Menu || e.KeyCode == Keys.ControlKey)
+			if (e.KeyCode is Keys.ShiftKey or Keys.Menu or Keys.ControlKey)
 				return;
 			else if (e.KeyCode == Keys.Enter)
 			{
@@ -179,9 +169,9 @@ namespace Comical
 
 		void picPreview_KeyUp(object sender, KeyEventArgs e)
 		{
-			if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+			if (e.KeyCode is Keys.Left or Keys.Right)
 				shiftScale.X = 0;
-			else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+			else if (e.KeyCode is Keys.Up or Keys.Down)
 				shiftScale.Y = 0;
 		}
 

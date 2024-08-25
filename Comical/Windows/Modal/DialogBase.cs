@@ -26,10 +26,10 @@ namespace Comical
 			if (Application.RenderWithVisualStyles)
 			{
 				e.Graphics.FillRectangle(Brushes.White, 0, 0, ClientSize.Width, ClientSize.Height - 44);
-				using (var pen = new Pen(Color.FromArgb(223, 223, 223)))
-					e.Graphics.DrawLine(pen, 0, ClientSize.Height - 44, ClientSize.Width, ClientSize.Height - 44);
-				using (var sb = new SolidBrush(Color.FromArgb(240, 240, 240)))
-					e.Graphics.FillRectangle(sb, 0, ClientSize.Height - 43, ClientSize.Width, 43);
+				using var pen = new Pen(Color.FromArgb(223, 223, 223));
+				using var sb = new SolidBrush(Color.FromArgb(240, 240, 240));
+				e.Graphics.DrawLine(pen, 0, ClientSize.Height - 44, ClientSize.Width, ClientSize.Height - 44);
+				e.Graphics.FillRectangle(sb, 0, ClientSize.Height - 43, ClientSize.Width, 43);
 			}
 		}
 	}

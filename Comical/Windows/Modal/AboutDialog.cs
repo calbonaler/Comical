@@ -11,20 +11,18 @@ namespace Comical
 		public AboutDialog()
 		{
 			InitializeComponent();
-			using (var path = new GraphicsPath(FillMode.Winding))
-			{
-				const int round = 60;
-				path.AddArc(0, 0, round, round, 180, 90);
-				path.AddLine(round, 0, Width - round, 0);
-				path.AddArc(Width - round, 0, round, round, 270, 90);
-				path.AddLine(Width, round, Width, Height - round);
-				path.AddArc(Width - round, Height - round, round, round, 0, 90);
-				path.AddLine(Width - round, Height, round, Height);
-				path.AddArc(0, Height - round, round, round, 90, 90);
-				path.AddLine(0, Height - round, 0, round);
-				path.CloseFigure();
-				Region = new Region(path);
-			}
+			using var path = new GraphicsPath(FillMode.Winding);
+			const int round = 60;
+			path.AddArc(0, 0, round, round, 180, 90);
+			path.AddLine(round, 0, Width - round, 0);
+			path.AddArc(Width - round, 0, round, round, 270, 90);
+			path.AddLine(Width, round, Width, Height - round);
+			path.AddArc(Width - round, Height - round, round, round, 0, 90);
+			path.AddLine(Width - round, Height, round, Height);
+			path.AddArc(0, Height - round, round, round, 90, 90);
+			path.AddLine(0, Height - round, 0, round);
+			path.CloseFigure();
+			Region = new Region(path);
 		}
 
 		#region SplashScreen EventHandlers
@@ -35,10 +33,9 @@ namespace Comical
 		{
 			base.OnLoad(e);
 			lblVersionHeader.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
-			if (Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).FirstOrDefault() is AssemblyCopyrightAttribute ca)
-				lblCopyright.Text = string.Format(System.Globalization.CultureInfo.CurrentCulture, Properties.Resources.AboutDialog_CopyrightFormat, ca.Copyright);
-			else
-				lblCopyright.Text = string.Empty;
+			lblCopyright.Text = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).FirstOrDefault() is AssemblyCopyrightAttribute ca
+				? string.Format(System.Globalization.CultureInfo.CurrentCulture, Properties.Resources.AboutDialog_CopyrightFormat, ca.Copyright)
+				: string.Empty;
 			txtLibraries.Select(0, 0);
 		}
 
