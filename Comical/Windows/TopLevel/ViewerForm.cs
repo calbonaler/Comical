@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,7 +11,7 @@ namespace Comical
 {
 	public partial class ViewerForm : Microsoft.WindowsAPICodePack.Shell.GlassForm
 	{
-		public ViewerForm()
+		public ViewerForm(string fileName)
 		{
 			InitializeComponent();
 			prevMain.ContextMenuStrip = conBookmarks;
@@ -18,6 +19,8 @@ namespace Comical
 			prevMain.ViewPane.MouseUp += picPreview_MouseUp;
 			prevMain.ViewPane.Paint += picPreview_Paint;
 			prevMain.ViewPane.KeyDown += picPreview_KeyDown;
+			_comic = new Comic();
+			_openingFileName = fileName;
 		}
 
 		protected override CreateParams CreateParams
@@ -30,31 +33,32 @@ namespace Comical
 			}
 		}
 
-		public ViewerForm(string fileName) : this()
-		{
-			_comic = new Comic(); // Construct with read-only mode.
-			_openingFileName = fileName;
-		}
-
 		readonly Comic _comic;
 		string _openingFileName = "";
-		Spread[] _spreads;
-		int _current;
+		Spread[]? _spreads;
+		int _currentSpreadIndex;
 
-		int CurrentPage
+		void SetCurrentSpread(int value)
 		{
-			get => _current;
-			set
+			if (_currentSpreadIndex != value)
 			{
-				value %= _spreads.Length;
-				if (value < 0)
-					value += _spreads.Length;
-				if (_current != value)
-				{
-					_current = value;
-					ViewCurrentPage();
-				}
+				_currentSpreadIndex = value;
+				Debug.Assert(_spreads != null);
+				var spread = _spreads[_currentSpreadIndex];
+				if (spread.Fill is { } fill)
+					prevMain.SetImage(fill.Data);
+				else
+					prevMain.SetImage(spread.Left?.Data, spread.Right?.Data);
 			}
+		}
+
+		void MoveCurrentSpread(int offset)
+		{
+			Debug.Assert(_spreads != null);
+			var value = (_currentSpreadIndex + offset) % _spreads.Length;
+			if (value < 0)
+				value += _spreads.Length;
+			SetCurrentSpread(value);
 		}
 
 		void Open(string fileName)
@@ -80,23 +84,15 @@ namespace Comical
 				dialog.StartupLocation = CPDialogs.TaskDialogStartupLocation.CenterOwner;
 				dialog.Show();
 			}
-			conBookmarks.Items.AddRange(_comic.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (s, ev) => CurrentPage = Array.FindIndex(_spreads, x => x.Left == _comic.Images[b.Target] || x.Right == _comic.Images[b.Target]))).ToArray());
 			_spreads = _comic.ConstructSpreads().ToArray();
+			conBookmarks.Items.AddRange(_comic.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (s, ev) => SetCurrentSpread(Array.FindIndex(_spreads, x => x.Left == _comic.Images[b.Target] || x.Right == _comic.Images[b.Target])))).ToArray());
 			_openingFileName = "";
-			ViewCurrentPage();
+			SetCurrentSpread(0);
 		}
 
-		void ViewCurrentPage()
-		{
-			if (_spreads[CurrentPage].IsFillSpread)
-				prevMain.SetImage(_spreads[CurrentPage].Left.Data);
-			else
-				prevMain.SetImage(_spreads[CurrentPage].Left?.Data, _spreads[CurrentPage].Right?.Data);
-		}
+		void ViewPrevious() => MoveCurrentSpread(-1);
 
-		void ViewPrevious() => CurrentPage--;
-
-		void ViewNext() => CurrentPage++;
+		void ViewNext() => MoveCurrentSpread(1);
 
 		FocusMode _focusMode = FocusMode.None;
 		const int CloseHeight = 20;
@@ -104,7 +100,7 @@ namespace Comical
 
 		#region picPreview EventHandlers
 
-		void picPreview_MouseMove(object sender, MouseEventArgs e)
+		void picPreview_MouseMove(object? sender, MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.None && (_comic.BindingSide == BindingSide.Left ? e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - prevMain.AutoScrollPosition.X))
 			{
@@ -129,7 +125,7 @@ namespace Comical
 			prevMain.Invalidate();
 		}
 
-		void picPreview_MouseUp(object sender, MouseEventArgs e)
+		void picPreview_MouseUp(object? sender, MouseEventArgs e)
 		{
 			if ((e.Button & MouseButtons.Left) != 0)
 			{
@@ -148,14 +144,15 @@ namespace Comical
 				prevMain.StretchMode = prevMain.StretchMode == Comical.Controls.PreviewerStretchMode.Uniform ? Comical.Controls.PreviewerStretchMode.None : Comical.Controls.PreviewerStretchMode.Uniform;
 		}
 
-		void picPreview_Paint(object sender, PaintEventArgs e)
+		void picPreview_Paint(object? sender, PaintEventArgs e)
 		{
 			var g = e.Graphics;
 			if (_focusMode == FocusMode.Close)
 				g.FillRectangle(_closeBrush, -prevMain.AutoScrollPosition.X, prevMain.ClientSize.Height - CloseHeight - prevMain.AutoScrollPosition.Y, prevMain.ViewPane.ClientSize.Width, CloseHeight);
 			else if (_focusMode != FocusMode.None)
 			{
-				var img = (Bitmap)Properties.Resources.ResourceManager.GetObject(_focusMode.ToString(), Properties.Resources.Culture);
+				var img = (Bitmap?)Properties.Resources.ResourceManager.GetObject(_focusMode.ToString(), Properties.Resources.Culture);
+				Debug.Assert(img != null);
 				var y = (prevMain.ClientSize.Height - img.Height) / 2 - prevMain.AutoScrollPosition.Y;
 				if (_comic.BindingSide == BindingSide.Left ^ _focusMode == FocusMode.Next)
 					g.DrawImage(img, -prevMain.AutoScrollPosition.X, y);
@@ -164,7 +161,7 @@ namespace Comical
 			}
 		}
 
-		void picPreview_KeyDown(object sender, KeyEventArgs e)
+		void picPreview_KeyDown(object? sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Escape)
 				Close();
@@ -178,7 +175,7 @@ namespace Comical
 
 		protected override void OnClosing(CancelEventArgs e)
 		{
-			if (e != null && _comic.IsBusy)
+			if (_comic.IsBusy)
 				e.Cancel = true;
 			base.OnClosing(e);
 		}

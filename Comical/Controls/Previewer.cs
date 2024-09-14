@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using Comical.Core;
@@ -26,11 +27,10 @@ namespace Comical.Controls
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && ViewPane != null)
+			if (disposing)
 			{
 				ViewPane.Image?.Dispose();
 				ViewPane.Dispose();
-				ViewPane = null;
 			}
 			base.Dispose(disposing);
 		}
@@ -39,17 +39,17 @@ namespace Comical.Controls
 		bool avoidResizeMessage = false;
 		Cursor currentCursor = Cursors.Default;
 		bool cursorOverride = false;
-		Binary[] images;
+		Binary?[]? images;
 
 		public PictureBox ViewPane { get; private set; }
 
-		public Binary Image => images != null && images.Length > 0 ? images[0] : null;
+		public Binary? Image => images != null && images.Length > 0 ? images[0] : null;
 
-		public void SetImage(Binary image) => SetImage(image, null, false);
+		public void SetImage(Binary? image) => SetImage(image, null, false);
 
-		public void SetImage(Binary leftImage, Binary rightImage) => SetImage(leftImage, rightImage, true);
+		public void SetImage(Binary? leftImage, Binary? rightImage) => SetImage(leftImage, rightImage, true);
 
-		void SetImage(Binary primaryImage, Binary secondaryImage, bool useSecondary)
+		void SetImage(Binary? primaryImage, Binary? secondaryImage, bool useSecondary)
 		{
 			if (useSecondary)
 			{
@@ -64,7 +64,7 @@ namespace Comical.Controls
 			ViewPane.Image?.Dispose();
 			if (useSecondary)
 			{
-				Bitmap image = null;
+				Bitmap? image = null;
 				try
 				{
 					using (var left = primaryImage?.ToImage())
@@ -157,6 +157,7 @@ namespace Comical.Controls
 				ViewPane.Cursor = currentCursor;
 		}
 
+		[AllowNull]
 		public override Cursor Cursor
 		{
 			get => base.Cursor;
@@ -175,17 +176,17 @@ namespace Comical.Controls
 			}
 		}
 
-		void OnViewPaneMouseDown(object sender, MouseEventArgs e)
+		void OnViewPaneMouseDown(object? sender, MouseEventArgs e)
 		{
 			if (e.Button.HasFlag(MouseButtons.Left))
 			{
-				origin = ViewPane.Parent.PointToScreen(e.Location);
+				origin = ViewPane.PointToScreen(e.Location);
 				if (ViewPane.Dock == DockStyle.None)
 					SetCursor(true);
 			}
 		}
 
-		void OnViewPaneMouseMove(object sender, MouseEventArgs e)
+		void OnViewPaneMouseMove(object? sender, MouseEventArgs e)
 		{
 			if (e.Button.HasFlag(MouseButtons.Left) && (dragging || Math.Abs(origin.X - e.X) > SystemInformation.DragSize.Width / 2 || Math.Abs(origin.Y - e.Y) > SystemInformation.DragSize.Height / 2))
 			{
@@ -195,7 +196,7 @@ namespace Comical.Controls
 			}
 		}
 
-		void OnViewPaneMouseUp(object sender, MouseEventArgs e)
+		void OnViewPaneMouseUp(object? sender, MouseEventArgs e)
 		{
 			if (e.Button.HasFlag(MouseButtons.Left))
 			{
@@ -211,7 +212,7 @@ namespace Comical.Controls
 			ViewPane.Select();
 		}
 
-		public override ContextMenuStrip ContextMenuStrip
+		public override ContextMenuStrip? ContextMenuStrip
 		{
 			get => base.ContextMenuStrip;
 			set

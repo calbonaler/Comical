@@ -13,9 +13,12 @@
 		/// <param name="disposing">マネージ リソースが破棄される場合 true、破棄されない場合は false です。</param>
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && (components != null))
+			if (disposing)
 			{
-				components.Dispose();
+				_bookmarks.CollectionChanged -= Bookmarks_CollectionChanged;
+				_images.CollectionChanged -= Images_CollectionChanged;
+				if (components != null)
+					components.Dispose();
 			}
 			base.Dispose(disposing);
 		}
@@ -50,13 +53,13 @@
 			// 
 			resources.ApplyResources(conBookmark, "conBookmark");
 			conBookmark.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmSelectTarget,
-            this.sepBookmark1,
-            this.itmCreateNew,
-            this.itmInsertAbove,
-            this.itmInsertBelow,
-            this.sepBookmark2,
-            this.itmDelete});
+			this.itmSelectTarget,
+			this.sepBookmark1,
+			this.itmCreateNew,
+			this.itmInsertAbove,
+			this.itmInsertBelow,
+			this.sepBookmark2,
+			this.itmDelete});
 			conBookmark.Name = "conBookmark";
 			// 
 			// itmSelectTarget
@@ -114,8 +117,8 @@
 			this.dgvBookmarks.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 			this.dgvBookmarks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 			this.dgvBookmarks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmName,
-            this.clmTarget});
+			this.clmName,
+			this.clmTarget});
 			this.dgvBookmarks.ContextMenuStrip = conBookmark;
 			this.dgvBookmarks.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
 			this.dgvBookmarks.GridColor = System.Drawing.SystemColors.Control;

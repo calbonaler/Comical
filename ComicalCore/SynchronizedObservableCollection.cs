@@ -19,8 +19,10 @@ namespace Comical.Core
 		public SynchronizedObservableCollection(IEnumerable<T> collection) => _items = new List<T>(collection);
 
 		readonly List<T> _items;
-		[NonSerialized]ReaderWriterLockSlim _itemsLock = new();
+		[NonSerialized]ReaderWriterLockSlim? _itemsLock = new();
 		readonly SimpleMonitor _monitor = new();
+
+		public bool IsDisposed => _itemsLock == null;
 
 		public int Count { get { using (LockForRead()) return _items.Count; } }
 		
@@ -129,12 +131,14 @@ namespace Comical.Core
 		
 		IDisposable LockForRead()
 		{
+			ObjectDisposedException.ThrowIf(_itemsLock == null, this);
 			_itemsLock.EnterReadLock();
 			return new DelegateDisposable(_itemsLock.ExitReadLock);
 		}
 
 		IDisposable LockForWrite()
 		{
+			ObjectDisposedException.ThrowIf(_itemsLock == null, this);
 			_itemsLock.EnterWriteLock();
 			return new DelegateDisposable(_itemsLock.ExitWriteLock);
 		}
@@ -159,7 +163,7 @@ namespace Comical.Core
 
 		protected virtual void OnCollectionItemPropertyChanged(CollectionItemPropertyChangedEventArgs e) => CollectionItemPropertyChanged?.Invoke(this, e);
 
-		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e) => OnCollectionItemPropertyChanged(new CollectionItemPropertyChangedEventArgs(sender, e.PropertyName));
+		void OnItemPropertyChanged(object? sender, PropertyChangedEventArgs e) => OnCollectionItemPropertyChanged(new CollectionItemPropertyChangedEventArgs(sender, e.PropertyName));
 
 		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e) => PropertyChanged?.Invoke(this, e);
 
@@ -197,11 +201,11 @@ namespace Comical.Core
 			OnItemRemoved(index, item);
 		}
 
-		public event NotifyCollectionChangedEventHandler CollectionChanged;
-		public event EventHandler<CollectionItemPropertyChangedEventArgs> CollectionItemPropertyChanged;
-		protected event PropertyChangedEventHandler PropertyChanged;
+		public event NotifyCollectionChangedEventHandler? CollectionChanged;
+		public event EventHandler<CollectionItemPropertyChangedEventArgs>? CollectionItemPropertyChanged;
+		protected event PropertyChangedEventHandler? PropertyChanged;
 
-		event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+		event PropertyChangedEventHandler? INotifyPropertyChanged.PropertyChanged
 		{
 			add { PropertyChanged += value; }
 			remove { PropertyChanged -= value; }

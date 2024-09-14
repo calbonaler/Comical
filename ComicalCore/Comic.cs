@@ -44,17 +44,15 @@ namespace Comical.Core
 			{
 				using (EnterUndirtiableSection())
 				{
-					if (Images != null)
+					if (!Images.IsDisposed)
 					{
 						Images.Clear();
 						Images.Dispose();
-						Images = null;
 					}
-					if (Bookmarks != null)
+					if (!Bookmarks.IsDisposed)
 					{
 						Bookmarks.Clear();
 						Bookmarks.Dispose();
-						Bookmarks = null;
 					}
 					Thumbnail = null;
 					Title = Author = string.Empty;
@@ -173,10 +171,10 @@ namespace Comical.Core
 
 		public IEnumerable<Spread> ConstructSpreads()
 		{
-			var pages = new ImageReference[2];
+			var pages = new ImageReference?[2];
 			Spread Flush()
 			{
-				var spread = new Spread(pages[0], pages[1], false);
+				var spread = new Spread(pages[0], pages[1]);
 				pages[0] = pages[1] = null;
 				return spread;
 			}
@@ -186,7 +184,7 @@ namespace Comical.Core
 				{
 					if (pages.Any(x => x != null))
 						yield return Flush();
-					yield return new Spread(image, null, true);
+					yield return new Spread(image);
 				}
 				else
 				{
@@ -242,8 +240,8 @@ namespace Comical.Core
 			private set => Utils.SetProperty(ref _fileVersion, value, this, PropertyChanged);
 		}
 
-		Binary _thumbnail = null;
-		public Binary Thumbnail
+		Binary? _thumbnail = null;
+		public Binary? Thumbnail
 		{
 			get => _thumbnail;
 			set => Utils.SetProperty(ref _thumbnail, value, this, PropertyChanged);
@@ -277,16 +275,32 @@ namespace Comical.Core
 			set => Utils.SetProperty(ref _bindingSide, value, this, PropertyChanged);
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 	}
 
-	public class Spread(ImageReference left, ImageReference right, bool fillSpread)
+	public class Spread
 	{
-		public ImageReference Left { get; } = left;
+		public Spread(ImageReference? left, ImageReference? right)
+		{
+			_fillSpread = false;
+			Left = left;
+			Right = right;
+		}
 
-		public ImageReference Right { get; } = right;
+		public Spread(ImageReference fill)
+		{
+			_fillSpread = true;
+			Left = fill;
+			Right = null;
+		}
 
-		public bool IsFillSpread { get; } = fillSpread;
+		readonly bool _fillSpread;
+
+		public ImageReference? Fill => _fillSpread ? Left : null;
+
+		public ImageReference? Left { get; }
+
+		public ImageReference? Right { get; }
 	}
 
 	public enum ImageViewMode

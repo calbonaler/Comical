@@ -9,7 +9,7 @@ namespace Comical.Core
 {
 	public class FileHeader
 	{
-		public FileHeader(string title, string author, DateTime? published, BindingSide bindingSide, Binary thumbnail)
+		public FileHeader(string title, string author, DateTime? published, BindingSide bindingSide, Binary? thumbnail)
 			: this(
 				title,
 				author,
@@ -20,7 +20,7 @@ namespace Comical.Core
 			)
 		{ }
 
-		FileHeader(string title, string author, DateTime? published, BindingSide bindingSide, Binary thumbnail, Version fileVersion)
+		FileHeader(string title, string author, DateTime? published, BindingSide bindingSide, Binary? thumbnail, Version fileVersion)
 		{
 			Title = title ?? string.Empty;
 			Author = author ?? string.Empty;
@@ -30,17 +30,17 @@ namespace Comical.Core
 			FileVersion = fileVersion;
 		}
 
-		public static async Task<FileHeader> LoadAsync(string fileName)
+		public static async Task<FileHeader?> LoadAsync(string fileName)
 		{
 			using var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
 			return await LoadAsync(fs).ConfigureAwait(false);
 		}
 
-		public static async Task<FileHeader> LoadAsync(Stream stream)
+		public static async Task<FileHeader?> LoadAsync(Stream stream)
 		{
 			ArgumentNullException.ThrowIfNull(stream);
 
-			byte[] thumbnail = null;
+			byte[]? thumbnail = null;
 			var headerBuffer = ArrayPool<byte>.Shared.Rent(6);
 			try
 			{
@@ -90,10 +90,10 @@ namespace Comical.Core
 			return new FileHeader(title, author, published, bindingSide, new Binary(thumbnail), fileVersion);
 		}
 
-		public static readonly Version LatestSupportedFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+		public static readonly Version LatestSupportedFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version!;
 		static ReadOnlySpan<byte> FileIdentifier => "CIC"u8;
 
-		public Binary Thumbnail { get; }
+		public Binary? Thumbnail { get; }
 
 		public Version FileVersion { get; }
 

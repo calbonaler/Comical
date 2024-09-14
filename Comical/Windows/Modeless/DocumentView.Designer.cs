@@ -13,9 +13,12 @@
 		/// <param name="disposing">マネージ リソースが破棄される場合 true、破棄されない場合は false です。</param>
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && (components != null))
+			if (disposing)
 			{
-				components.Dispose();
+				_comic.PropertyChanged -= Comic_PropertyChanged;
+				_comic.Images.CollectionChanged -= ComicImageCollection_CollectionChanged;
+				if (components != null)
+					components.Dispose();
 			}
 			base.Dispose(disposing);
 		}

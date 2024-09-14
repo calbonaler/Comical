@@ -2,9 +2,9 @@
 
 namespace Comical.Core
 {
-	public sealed class DelegateDisposable(Action action) : IDisposable
+	public sealed class DelegateDisposable(Action? action) : IDisposable
 	{
-		Action _action = action;
+		Action? _action = action;
 
 		public void Dispose()
 		{

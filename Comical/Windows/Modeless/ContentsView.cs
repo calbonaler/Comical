@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -11,17 +12,22 @@ namespace Comical
 {
 	public partial class ContentsView : WeifenLuo.WinFormsUI.Docking.DockContent
 	{
-		public ContentsView()
+		public ContentsView(ImageReferenceCollection images)
 		{
 			InitializeComponent();
 			dgvImages.RowTemplate.Height = ThumbnailSize.Height;
 			clmViewMode.DataSource = Enum.GetNames(typeof(ImageViewMode));
+
+			_images = images;
+			_images.CollectionChanged += Images_CollectionChanged;
+			_images.CollectionItemPropertyChanged += Images_CollectionItemPropertyChanged;
+			Images_CollectionChanged(_images, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 		}
 
-		ImageReferenceCollection _images;
+		readonly ImageReferenceCollection _images;
 		static readonly Size ThumbnailSize = new(118, 118);
 
-		Viewer DefaultViewer => DockPanel?.Contents?.OfType<Viewer>()?.FirstOrDefault(v => v.Pane.IsActiveDocumentPane);
+		Viewer? DefaultViewer => DockPanel?.Contents?.OfType<Viewer>()?.FirstOrDefault(v => v.Pane.IsActiveDocumentPane);
 
 		public event EventHandler ImageReferenceSelected
 		{
@@ -47,7 +53,7 @@ namespace Comical
 			remove => itmAddToBookmark.Click -= value;
 		}
 
-		public event EventHandler<FileDroppedEventArgs> FileDropped;
+		public event EventHandler<FileDroppedEventArgs>? FileDropped;
 
 		public IDisposable BeginAsyncWork()
 		{
@@ -64,24 +70,6 @@ namespace Comical
 
 		public IEnumerable<ImageReference> SortedSelectedImages => SelectedIndicies.OrderBy(x => x).Select(x => _images[x]);
 
-		public void SetImages(ImageReferenceCollection value)
-		{
-			if (_images == value)
-				return;
-			if (_images != null)
-			{
-				_images.CollectionChanged -= Images_CollectionChanged;
-				_images.CollectionItemPropertyChanged -= Images_CollectionItemPropertyChanged;
-			}
-			_images = value;
-			if (value != null)
-			{
-				value.CollectionChanged += Images_CollectionChanged;
-				value.CollectionItemPropertyChanged += Images_CollectionItemPropertyChanged;
-				Images_CollectionChanged(value, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-			}
-		}
-
 		public void AddImages(IEnumerable<ImageReference> images)
 		{
 			ArgumentNullException.ThrowIfNull(images);
@@ -92,7 +80,7 @@ namespace Comical
 			}
 		}
 
-		void Images_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
+		void Images_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
 			dgvImages.RowCount = _images.Count;
 			if (_images.Count == 0 && DefaultViewer != null)
@@ -100,14 +88,15 @@ namespace Comical
 			dgvImages.Invalidate();
 		});
 
-		void Images_CollectionItemPropertyChanged(object sender, CollectionItemPropertyChangedEventArgs e) => this.InvokeIfNeeded(() =>
+		void Images_CollectionItemPropertyChanged(object? sender, CollectionItemPropertyChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
-		    foreach (var group in e.PropertyNames)
-		    {
-		  	  var index = _images.IndexOf((ImageReference)group.Key);
-		  	  if (index >= 0)
-		  		  dgvImages.UpdateCellValue(1, index);
-		    }
+			foreach (var group in e.PropertyNames)
+			{
+				Debug.Assert(group.Key != null, "sender of ImageReference's PropertyChanged event must not be null");
+				var index = _images.IndexOf((ImageReference)group.Key);
+				if (index >= 0)
+					dgvImages.UpdateCellValue(1, index);
+			}
 		});
 
 		protected override string GetPersistString() => "ImageList";
@@ -168,7 +157,7 @@ namespace Comical
 			}
 		}
 
-		void dgvImages_SelectionChanged(object sender, EventArgs e)
+		void dgvImages_SelectionChanged(object? sender, EventArgs e)
 		{
 			var count = dgvImages.SelectedRows.Count;
 			if (DefaultViewer != null && count == 1)
@@ -184,29 +173,35 @@ namespace Comical
 				itmDelete.Visible = count > 0;
 		}
 
-		void dgvImages_DragEnter(object sender, DragEventArgs e)
+		void dgvImages_DragEnter(object? sender, DragEventArgs e)
 		{
+			Debug.Assert(e.Data != null, "I think this never happens.");
 			if (e.Data.GetDataPresent(DataFormats.FileDrop))
 				e.Effect = DragDropEffects.Copy;
 		}
 
-		void dgvImages_DragDrop(object sender, DragEventArgs e)
+		void dgvImages_DragDrop(object? sender, DragEventArgs e)
 		{
+			Debug.Assert(e.Data != null, "I think this never happens.");
 			if (e.Data.GetDataPresent(DataFormats.FileDrop) && FileDropped != null)
-				FileDropped(this, new FileDroppedEventArgs(e.Data.GetData(DataFormats.FileDrop) as string[], e.KeyState, e.X, e.Y));
+			{
+				var fileNames = (string[]?)e.Data.GetData(DataFormats.FileDrop);
+				Debug.Assert(fileNames != null, "I think this never happens.");
+				FileDropped(this, new FileDroppedEventArgs(fileNames, e.KeyState, e.X, e.Y));
+			}
 		}
 
-		void dgvImages_RowMoving(object sender, Controls.RowMovingEventArgs e)
+		void dgvImages_RowMoving(object? sender, Controls.RowMovingEventArgs e)
 		{
 			if (e.Source == dgvImages)
 				_images.MoveRange(e.SourceRows[0].Index, e.SourceRows.Count, e.Destination);
 		}
 
-		void dgvImages_QueryRowDragDropEffect(object sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.Source == dgvImages ? DragDropEffects.Move : DragDropEffects.None;
+		void dgvImages_QueryRowDragDropEffect(object? sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.Source == dgvImages ? DragDropEffects.Move : DragDropEffects.None;
 
-		void dgvImages_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => OpenFirstSelectedImage();
+		void dgvImages_CellDoubleClick(object? sender, DataGridViewCellEventArgs e) => OpenFirstSelectedImage();
 
-		void dgvImages_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+		void dgvImages_CellValueNeeded(object? sender, DataGridViewCellValueEventArgs e)
 		{
 			if (e.RowIndex < 0 || e.RowIndex >= _images.Count)
 				return;
@@ -216,7 +211,7 @@ namespace Comical
 				e.Value = _images[e.RowIndex].Data;
 		}
 
-		void dgvImages_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+		void dgvImages_CellValuePushed(object? sender, DataGridViewCellValueEventArgs e)
 		{
 			if (e.RowIndex >= 0 && e.RowIndex < _images.Count && dgvImages.Columns[e.ColumnIndex] == clmViewMode && e.Value != null && Enum.TryParse(e.Value.ToString(), out ImageViewMode mode))
 				_images[e.RowIndex].ViewMode = mode;
@@ -224,9 +219,13 @@ namespace Comical
 
 		int rowIndex = -1;
 
-		void dgvImages_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e) => rowIndex = e.Row.Index;
+		void dgvImages_UserDeletingRow(object? sender, DataGridViewRowCancelEventArgs e)
+		{
+			Debug.Assert(e.Row != null, "I think this never happens.");
+			rowIndex = e.Row.Index;
+		}
 
-		void dgvImages_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+		void dgvImages_UserDeletedRow(object? sender, DataGridViewRowEventArgs e)
 		{
 			if (rowIndex >= 0)
 			{
@@ -235,13 +234,13 @@ namespace Comical
 			}
 		}
 
-		void itmOpen_Click(object sender, EventArgs e) => OpenFirstSelectedImage();
+		void itmOpen_Click(object? sender, EventArgs e) => OpenFirstSelectedImage();
 
-		void itmDelete_Click(object sender, EventArgs e) => DeleteSelectedImages();
+		void itmDelete_Click(object? sender, EventArgs e) => DeleteSelectedImages();
 
-		void itmStartViewModeSettingLeft_Click(object sender, EventArgs e) => SetViewModes(true);
+		void itmStartViewModeSettingLeft_Click(object? sender, EventArgs e) => SetViewModes(true);
 
-		void itmStartViewModeSettingRight_Click(object sender, EventArgs e) => SetViewModes(false);
+		void itmStartViewModeSettingRight_Click(object? sender, EventArgs e) => SetViewModes(false);
 	}
 
 	public class FileDroppedEventArgs(IEnumerable<string> fileNames, int keyState, int x, int y) : EventArgs

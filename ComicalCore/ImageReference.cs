@@ -38,14 +38,14 @@ namespace Comical.Core
 			await Data.WriteToAsync(writer.BaseStream).ConfigureAwait(false); // 画像データ
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 	}
 
 	public class ImageReferenceCollection : SynchronizedObservableCollection<ImageReference>
 	{
 		bool _notificationSuspended = false;
 		bool _collectionChanged = false;
-		readonly List<KeyValuePair<object, string>> _itemChanges = [];
+		readonly List<KeyValuePair<object?, string?>> _itemChanges = [];
 
 		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
 		{
@@ -67,7 +67,7 @@ namespace Comical.Core
 			foreach (var propertyNames in e.PropertyNames)
 			{
 				foreach (var propertyName in propertyNames)
-					_itemChanges.Add(new KeyValuePair<object, string>(propertyNames.Key, propertyName));
+					_itemChanges.Add(new KeyValuePair<object?, string?>(propertyNames.Key, propertyName));
 			}
 		}
 

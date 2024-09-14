@@ -13,9 +13,12 @@
 		/// <param name="disposing">マネージ リソースが破棄される場合 true、破棄されない場合は false です。</param>
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && (components != null))
+			if (disposing)
 			{
-				components.Dispose();
+				_images.CollectionChanged -= Images_CollectionChanged;
+				_images.CollectionItemPropertyChanged -= Images_CollectionItemPropertyChanged;
+				if (components != null)
+					components.Dispose();
 			}
 			base.Dispose(disposing);
 		}
@@ -53,17 +56,17 @@
 			// conImage
 			// 
 			conImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmOpen,
-            this.sepImage1,
-            this.itmAddToBookmark,
-            this.sepImage2,
-            this.itmExport,
-            this.itmExtract,
-            this.sepImage3,
-            this.itmStartViewModeSettingLeft,
-            this.itmStartViewModeSettingRight,
-            this.sepImage4,
-            this.itmDelete});
+			this.itmOpen,
+			this.sepImage1,
+			this.itmAddToBookmark,
+			this.sepImage2,
+			this.itmExport,
+			this.itmExtract,
+			this.sepImage3,
+			this.itmStartViewModeSettingLeft,
+			this.itmStartViewModeSettingRight,
+			this.sepImage4,
+			this.itmDelete});
 			conImage.Name = "conImage";
 			resources.ApplyResources(conImage, "conImage");
 			// 
@@ -140,8 +143,8 @@
 			this.dgvImages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvImages.ColumnHeadersVisible = false;
 			this.dgvImages.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmImage,
-            this.clmViewMode});
+			this.clmImage,
+			this.clmViewMode});
 			this.dgvImages.ContextMenuStrip = conImage;
 			resources.ApplyResources(this.dgvImages, "dgvImages");
 			this.dgvImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;

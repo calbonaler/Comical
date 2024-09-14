@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -18,18 +19,18 @@ namespace Comical
 			txtDefaultSavedFileName.Text = Properties.Settings.Default.DefaultSavedFileName;
 		}
 
-		void btnOK_Click(object sender, EventArgs e)
+		void btnOK_Click(object? sender, EventArgs e)
 		{
 			Properties.Settings.Default.DefaultSavedFileName = txtDefaultSavedFileName.Text;
 			Properties.Settings.Default.Save();
 		}
 
-		void btnInsertMask_Click(object sender, EventArgs e) => conInsertMask.Show(btnInsertMask, 0, btnInsertMask.Height);
+		void btnInsertMask_Click(object? sender, EventArgs e) => conInsertMask.Show(btnInsertMask, 0, btnInsertMask.Height);
 
-		void InsertMaskItem_Click(object sender, EventArgs e)
+		void InsertMaskItem_Click(object? sender, EventArgs e)
 		{
-			if (sender is not ToolStripItem senderMenuItem)
-				return;
+			var senderMenuItem = (ToolStripItem?)sender;
+			Debug.Assert(senderMenuItem != null && senderMenuItem.Text != null);
 			var insertedText = senderMenuItem.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries)[0];
 			var oldSelectionStart = txtDefaultSavedFileName.SelectionStart;
 			txtDefaultSavedFileName.Text = txtDefaultSavedFileName.Text.Insert(oldSelectionStart, insertedText);

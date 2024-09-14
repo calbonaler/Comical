@@ -41,6 +41,6 @@ namespace Comical
 			return new Binary(ms.ToArray());
 		}
 
-		public static ImageCodecInfo GetImageCodecInfo(this Image image) => Array.Find(ImageCodecInfo.GetImageDecoders(), item => item.FormatID == image.RawFormat.Guid);
+		public static ImageCodecInfo? GetImageCodecInfo(this Image image) => Array.Find(ImageCodecInfo.GetImageDecoders(), item => item.FormatID == image.RawFormat.Guid);
 	}
 }

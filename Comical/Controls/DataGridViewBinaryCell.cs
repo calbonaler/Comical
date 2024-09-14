@@ -23,17 +23,18 @@ namespace Comical.Controls
 
 	public class DataGridViewBinaryCell : DataGridViewCell
 	{
-		public override object DefaultNewRowValue => null;
+		public override object? DefaultNewRowValue => null;
 
-		public override Type EditType => null;
+		public override Type? EditType => null;
 
 		public override Type ValueType => typeof(Binary);
 
-		protected override void Paint(Graphics graphics, Rectangle clipBounds, Rectangle cellBounds, int rowIndex, DataGridViewElementStates cellState, object value, object formattedValue, string errorText, DataGridViewCellStyle cellStyle, DataGridViewAdvancedBorderStyle advancedBorderStyle, DataGridViewPaintParts paintParts)
+		protected override void Paint(Graphics graphics, Rectangle clipBounds, Rectangle cellBounds, int rowIndex, DataGridViewElementStates cellState, object value, object? formattedValue, string errorText, DataGridViewCellStyle cellStyle, DataGridViewAdvancedBorderStyle advancedBorderStyle, DataGridViewPaintParts paintParts)
 		{
+			if (DataGridView == null) return;
+
 			// 必要な場合は画像を準備
-			var showImage = (paintParts & DataGridViewPaintParts.ContentForeground) != 0 && formattedValue != null;
-			using var image = !showImage ? null : ((Binary)formattedValue).ToImage();
+			using var image = (paintParts & DataGridViewPaintParts.ContentForeground) == 0 || formattedValue == null ? null : ((Binary)formattedValue).ToImage();
 
 			// セルの境界線（枠）を描画する
 			if ((paintParts & DataGridViewPaintParts.Border) != 0)
@@ -68,7 +69,7 @@ namespace Comical.Controls
 			contentRect.Height -= cellStyle.Padding.Vertical;
 
 			// 画像を表示
-			if (showImage)
+			if (image != null)
 			{
 				var scaledSize = Utils.ScaleSize(image.Size, contentRect.Size);
 				var sizeDiff = contentRect.Size - scaledSize;

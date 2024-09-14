@@ -15,10 +15,9 @@
 		{
 			if (disposing)
 			{
-				_imageList.SetImages(null);
-				_bookmarkList.SetBookmarks(null);
-				_bookmarkList.SetImages(null);
-				_document.SetComic(null);
+				_imageList.Dispose();
+				_bookmarkList.Dispose();
+				_document.Dispose();
 				if (components != null)
 					components.Dispose();
 				_comic.Dispose();

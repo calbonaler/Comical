@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Reflection;
@@ -27,12 +28,14 @@ namespace Comical
 
 		#region SplashScreen EventHandlers
 
-		void SplashScreen_Click(object sender, System.EventArgs e) => Close();
+		void SplashScreen_Click(object? sender, System.EventArgs e) => Close();
 
 		protected override void OnLoad(System.EventArgs e)
 		{
 			base.OnLoad(e);
-			lblVersionHeader.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+			var version = Assembly.GetExecutingAssembly().GetName().Version;
+			Debug.Assert(version != null);
+			lblVersionHeader.Text = version.ToString(3);
 			lblCopyright.Text = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).FirstOrDefault() is AssemblyCopyrightAttribute ca
 				? string.Format(System.Globalization.CultureInfo.CurrentCulture, Properties.Resources.AboutDialog_CopyrightFormat, ca.Copyright)
 				: string.Empty;

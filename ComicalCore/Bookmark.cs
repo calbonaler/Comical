@@ -34,7 +34,7 @@ namespace Comical.Core
 			writer.Write(Target);
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 	}
 
 	public class BookmarkCollection : SynchronizedObservableCollection<Bookmark>
