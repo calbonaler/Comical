@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -117,94 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;itmInsertAbove.Name" xml:space="preserve">
-    <value>itmInsertAbove</value>
-  </data>
+  <metadata name="conBookmark.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="conBookmark.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="itmSelectTarget.Font" type="System.Drawing.Font, System.Drawing">
+    <value>メイリオ, 9pt, style=Bold</value>
+  </data>
+  <data name="itmSelectTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 22</value>
+  </data>
+  <data name="itmSelectTarget.Text" xml:space="preserve">
+    <value>&amp;Select target</value>
+  </data>
   <data name="sepBookmark1.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 6</value>
-  </data>
-  <data name="itmInsertBelow.Text" xml:space="preserve">
-    <value>Insert &amp;below</value>
-  </data>
-  <data name="&gt;&gt;itmSelectTarget.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="conBookmark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 126</value>
   </data>
   <data name="itmCreateNew.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 22</value>
   </data>
-  <data name="itmSelectTarget.Font" type="System.Drawing.Font, System.Drawing">
-    <value>メイリオ, 9pt, style=Bold</value>
-  </data>
-  <data name="&gt;&gt;itmInsertBelow.Name" xml:space="preserve">
-    <value>itmInsertBelow</value>
-  </data>
-  <data name="&gt;&gt;dgvBookmarks.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;itmSelectTarget.Name" xml:space="preserve">
-    <value>itmSelectTarget</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Version=2.9.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
-  </data>
-  <data name="dgvBookmarks.Size" type="System.Drawing.Size, System.Drawing">
-    <value>284, 262</value>
-  </data>
-  <data name="&gt;&gt;itmDelete.Name" xml:space="preserve">
-    <value>itmDelete</value>
-  </data>
-  <data name="clmTarget.HeaderText" xml:space="preserve">
-    <value>Target</value>
-  </data>
-  <data name="&gt;&gt;itmCreateNew.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="itmCreateNew.Text" xml:space="preserve">
     <value>&amp;New</value>
-  </data>
-  <data name="&gt;&gt;clmName.Name" xml:space="preserve">
-    <value>clmName</value>
-  </data>
-  <data name="&gt;&gt;itmDelete.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>284, 262</value>
-  </data>
-  <data name="&gt;&gt;clmName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dgvBookmarks.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="dgvBookmarks.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;itmInsertBelow.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="sepBookmark2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 6</value>
-  </data>
-  <data name="&gt;&gt;itmCreateNew.Name" xml:space="preserve">
-    <value>itmCreateNew</value>
-  </data>
-  <data name="&gt;&gt;clmTarget.Name" xml:space="preserve">
-    <value>clmTarget</value>
-  </data>
-  <data name="&gt;&gt;sepBookmark1.Name" xml:space="preserve">
-    <value>sepBookmark1</value>
-  </data>
-  <data name="&gt;&gt;sepBookmark2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>BookmarksView</value>
   </data>
   <data name="itmInsertAbove.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 22</value>
@@ -212,56 +148,101 @@
   <data name="itmInsertAbove.Text" xml:space="preserve">
     <value>Insert &amp;above</value>
   </data>
-  <data name="&gt;&gt;clmTarget.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="itmInsertBelow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 22</value>
+  </data>
+  <data name="itmInsertBelow.Text" xml:space="preserve">
+    <value>Insert &amp;below</value>
+  </data>
+  <data name="sepBookmark2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 6</value>
+  </data>
+  <data name="itmDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wQAADsEBuJFr7QAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
+        80110fkJViYHTbi5fBiKPFxTz2XFfPgxo/P/r2nt/791Vf2/EBewK1ZFRQOqDwweJsRafy9NP3YxI/ZL
+        mLxMjSgDAy9UioEhQF9fd254wIJnldm/fmaF/P8a7vD/ipXqnR4dDXOQ/NMI/8qvTpq/lhko33Tk4LAH
+        a8IG4uRlvdZa6R55Yizx/7U6+//TagJ3T1hq77gox/l/mRTXicky3GAD8QIjbl7uhfqaBReUub7cVuL8
+        f1mG+f8+ZYFLN3WEbKBKCINHqQk+e9SF3l5W4/3/UJvv/0E14eMpMuLiUGn84HlcePolA4mvDyzk/vcp
+        iW+aqiSy+rOR6P/FysLLoEpwgyfpCSnnjaR+3tMV+N+vIr2PmZGRGyQ+T1N2wTsz6f8ZkiIxYIXYwI7I
+        UPdbzrqfb+kJ/V+jInZXmJFZFSrFECgqzLlES2b7BT2Jl7rcvJJQYQRYYW4ue9rD/OYNI7H/p3XFfztz
+        c4dCpeBAgZ1b/Iy22J0WSZ4uqBACvPBy7LjrY/L/rrnM//UaEjdOGkjbQqVQQKiwgOdhVbE7yuwc8lAh
+        BoZrjjZ8DyK8Tz6JdPx/183w/3EDmRXnjGQVoNIYYJaS3Ix8YaEyKJeBYaKpAf+pSJ9zb2Lc/l80kftz
+        Ql/GHSqFFRgKCWplCgtVQ7kQ0Kytmvs4xOnHNkP5I0Wa8pxQYZxAjp0dkQ9AwIebmz9FTDhXk4PDGCpE
+        JGBgAACn9cedPOLjcAAAAABJRU5ErkJggg==
+</value>
   </data>
   <data name="itmDelete.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 22</value>
   </data>
-  <data name="clmTarget.Width" type="System.Int32, mscorlib">
-    <value>38</value>
-  </data>
   <data name="itmDelete.Text" xml:space="preserve">
     <value>&amp;Delete</value>
   </data>
-  <data name="&gt;&gt;sepBookmark2.Name" xml:space="preserve">
-    <value>sepBookmark2</value>
-  </data>
-  <data name="itmSelectTarget.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
-  </data>
-  <data name="&gt;&gt;itmInsertAbove.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dgvBookmarks.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;dgvBookmarks.Name" xml:space="preserve">
-    <value>dgvBookmarks</value>
-  </data>
-  <data name="dgvBookmarks.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 9pt</value>
-  </data>
-  <data name="clmName.HeaderText" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="itmSelectTarget.Text" xml:space="preserve">
-    <value>&amp;Select target</value>
-  </data>
-  <data name="itmInsertBelow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
-  </data>
-  <data name="&gt;&gt;sepBookmark1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;conBookmark.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="conBookmark.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 126</value>
   </data>
   <data name="&gt;&gt;conBookmark.Name" xml:space="preserve">
     <value>conBookmark</value>
   </data>
+  <data name="&gt;&gt;conBookmark.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="clmName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="clmName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <metadata name="clmTarget.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="clmTarget.HeaderText" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="clmTarget.Width" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="dgvBookmarks.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dgvBookmarks.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Yu Gothic UI, 9pt</value>
+  </data>
+  <data name="dgvBookmarks.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dgvBookmarks.Size" type="System.Drawing.Size, System.Drawing">
+    <value>284, 262</value>
+  </data>
+  <data name="dgvBookmarks.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dgvBookmarks.Name" xml:space="preserve">
+    <value>dgvBookmarks</value>
+  </data>
   <data name="&gt;&gt;dgvBookmarks.Type" xml:space="preserve">
-    <value>Comical.Controls.DraggableDataGridView, Comical, Version=4.4.16.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Comical.Controls.DraggableDataGridView, Comical, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dgvBookmarks.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;dgvBookmarks.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>284, 262</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -287,45 +268,67 @@
         AAD8AwAA/58AAA==
 </value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dgvBookmarks.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Bookmarks</value>
   </data>
-  <data name="itmDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
-        80110fkJViYHTbi5fBiKPFxTz2XFfPgxo/P/r2nt/791Vf2/EBewK1ZFRQOqDwweJsRafy9NP3YxI/ZL
-        mLxMjSgDAy9UioEhQF9fd254wIJnldm/fmaF/P8a7vD/ipXqnR4dDXOQ/NMI/8qvTpq/lhko33Tk4LAH
-        a8IG4uRlvdZa6R55Yizx/7U6+//TagJ3T1hq77gox/l/mRTXicky3GAD8QIjbl7uhfqaBReUub7cVuL8
-        f1mG+f8+ZYFLN3WEbKBKCINHqQk+e9SF3l5W4/3/UJvv/0E14eMpMuLiUGn84HlcePolA4mvDyzk/vcp
-        iW+aqiSy+rOR6P/FysLLoEpwgyfpCSnnjaR+3tMV+N+vIr2PmZGRGyQ+T1N2wTsz6f8ZkiIxYIXYwI7I
-        UPdbzrqfb+kJ/V+jInZXmJFZFSrFECgqzLlES2b7BT2Jl7rcvJJQYQRYYW4ue9rD/OYNI7H/p3XFfztz
-        c4dCpeBAgZ1b/Iy22J0WSZ4uqBACvPBy7LjrY/L/rrnM//UaEjdOGkjbQqVQQKiwgOdhVbE7yuwc8lAh
-        BoZrjjZ8DyK8Tz6JdPx/183w/3EDmRXnjGQVoNIYYJaS3Ix8YaEyKJeBYaKpAf+pSJ9zb2Lc/l80kftz
-        Ql/GHSqFFRgKCWplCgtVQ7kQ0Kytmvs4xOnHNkP5I0Wa8pxQYZxAjp0dkQ9AwIebmz9FTDhXk4PDGCpE
-        JGBgAACn9cedPOLjcAAAAABJRU5ErkJggg==
-</value>
+  <data name="&gt;&gt;itmSelectTarget.Name" xml:space="preserve">
+    <value>itmSelectTarget</value>
   </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>MS UI Gothic, 9pt</value>
+  <data name="&gt;&gt;itmSelectTarget.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="clmName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clmTarget.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="conBookmark.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="conBookmark.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="&gt;&gt;sepBookmark1.Name" xml:space="preserve">
+    <value>sepBookmark1</value>
+  </data>
+  <data name="&gt;&gt;sepBookmark1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;itmCreateNew.Name" xml:space="preserve">
+    <value>itmCreateNew</value>
+  </data>
+  <data name="&gt;&gt;itmCreateNew.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;itmInsertAbove.Name" xml:space="preserve">
+    <value>itmInsertAbove</value>
+  </data>
+  <data name="&gt;&gt;itmInsertAbove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;itmInsertBelow.Name" xml:space="preserve">
+    <value>itmInsertBelow</value>
+  </data>
+  <data name="&gt;&gt;itmInsertBelow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sepBookmark2.Name" xml:space="preserve">
+    <value>sepBookmark2</value>
+  </data>
+  <data name="&gt;&gt;sepBookmark2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;itmDelete.Name" xml:space="preserve">
+    <value>itmDelete</value>
+  </data>
+  <data name="&gt;&gt;itmDelete.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmName.Name" xml:space="preserve">
+    <value>clmName</value>
+  </data>
+  <data name="&gt;&gt;clmName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmTarget.Name" xml:space="preserve">
+    <value>clmTarget</value>
+  </data>
+  <data name="&gt;&gt;clmTarget.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>BookmarksView</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
+  </data>
 </root>

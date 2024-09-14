@@ -13,7 +13,7 @@ namespace Comical
 		{
 			InitializeComponent();
 			using var path = new GraphicsPath(FillMode.Winding);
-			const int round = 60;
+			int round = 60 * DeviceDpi / 96;
 			path.AddArc(0, 0, round, round, 180, 90);
 			path.AddLine(round, 0, Width - round, 0);
 			path.AddArc(Width - round, 0, round, round, 270, 90);

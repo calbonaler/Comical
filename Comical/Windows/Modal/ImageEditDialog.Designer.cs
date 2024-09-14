@@ -31,23 +31,23 @@
 		void InitializeComponent()
 		{
 			System.Windows.Forms.Label lblMagnifyRatio;
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageEditDialog));
+			var resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageEditDialog));
 			System.Windows.Forms.Button btnOK;
 			System.Windows.Forms.Button btnCancel;
 			System.Windows.Forms.TableLayoutPanel tlpPreview;
-			this.hsPreview = new System.Windows.Forms.HScrollBar();
-			this.picPreview = new Comical.Controls.FocusablePictureBox();
-			this.vsPreview = new System.Windows.Forms.VScrollBar();
-			this.numMagnifyRatio = new System.Windows.Forms.NumericUpDown();
-			this.lblSize = new System.Windows.Forms.Label();
+			hsPreview = new System.Windows.Forms.HScrollBar();
+			picPreview = new Controls.FocusablePictureBox();
+			vsPreview = new System.Windows.Forms.VScrollBar();
+			numMagnifyRatio = new System.Windows.Forms.NumericUpDown();
+			lblSize = new System.Windows.Forms.Label();
 			lblMagnifyRatio = new System.Windows.Forms.Label();
 			btnOK = new System.Windows.Forms.Button();
 			btnCancel = new System.Windows.Forms.Button();
 			tlpPreview = new System.Windows.Forms.TableLayoutPanel();
 			tlpPreview.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numMagnifyRatio)).BeginInit();
-			this.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)picPreview).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numMagnifyRatio).BeginInit();
+			SuspendLayout();
 			// 
 			// lblMagnifyRatio
 			// 
@@ -61,7 +61,7 @@
 			btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			btnOK.Name = "btnOK";
 			btnOK.UseVisualStyleBackColor = true;
-			btnOK.Click += new System.EventHandler(this.btnOK_Click);
+			btnOK.Click += btnOK_Click;
 			// 
 			// btnCancel
 			// 
@@ -74,11 +74,11 @@
 			// 
 			resources.ApplyResources(tlpPreview, "tlpPreview");
 			tlpPreview.BackColor = System.Drawing.Color.White;
-			tlpPreview.Controls.Add(this.hsPreview, 0, 1);
-			tlpPreview.Controls.Add(this.picPreview, 0, 0);
-			tlpPreview.Controls.Add(this.vsPreview, 1, 0);
+			tlpPreview.Controls.Add(hsPreview, 0, 1);
+			tlpPreview.Controls.Add(picPreview, 0, 0);
+			tlpPreview.Controls.Add(vsPreview, 1, 0);
 			tlpPreview.Name = "tlpPreview";
-			tlpPreview.Resize += new System.EventHandler(this.RecalculateRequested);
+			tlpPreview.Resize += RecalculateRequested;
 			// 
 			// hsPreview
 			// 
@@ -88,74 +88,65 @@
 			// 
 			// picPreview
 			// 
-			this.picPreview.BackColor = System.Drawing.Color.White;
-			resources.ApplyResources(this.picPreview, "picPreview");
-			this.picPreview.Name = "picPreview";
-			this.picPreview.TabStop = false;
-			this.picPreview.KeyDown += new System.Windows.Forms.KeyEventHandler(this.picPreview_KeyDown);
-			this.picPreview.KeyUp += new System.Windows.Forms.KeyEventHandler(this.picPreview_KeyUp);
-			this.picPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.picPreview_Paint);
-			this.picPreview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseDown);
-			this.picPreview.MouseLeave += new System.EventHandler(this.picPreview_MouseLeave);
-			this.picPreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseMove);
-			this.picPreview.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseUp);
+			picPreview.BackColor = System.Drawing.Color.White;
+			resources.ApplyResources(picPreview, "picPreview");
+			picPreview.Name = "picPreview";
+			picPreview.TabStop = false;
+			picPreview.KeyDown += picPreview_KeyDown;
+			picPreview.KeyUp += picPreview_KeyUp;
+			picPreview.Paint += picPreview_Paint;
+			picPreview.MouseDown += picPreview_MouseDown;
+			picPreview.MouseLeave += picPreview_MouseLeave;
+			picPreview.MouseMove += picPreview_MouseMove;
+			picPreview.MouseUp += picPreview_MouseUp;
 			// 
 			// vsPreview
 			// 
-			resources.ApplyResources(this.vsPreview, "vsPreview");
-			this.vsPreview.Name = "vsPreview";
-			this.vsPreview.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vsPreview_Scroll);
+			resources.ApplyResources(vsPreview, "vsPreview");
+			vsPreview.Name = "vsPreview";
+			vsPreview.Scroll += vsPreview_Scroll;
 			// 
 			// numMagnifyRatio
 			// 
-			resources.ApplyResources(this.numMagnifyRatio, "numMagnifyRatio");
-			this.numMagnifyRatio.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numMagnifyRatio.Name = "numMagnifyRatio";
-			this.numMagnifyRatio.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-			this.numMagnifyRatio.ValueChanged += new System.EventHandler(this.RecalculateRequested);
+			resources.ApplyResources(numMagnifyRatio, "numMagnifyRatio");
+			numMagnifyRatio.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			numMagnifyRatio.Name = "numMagnifyRatio";
+			numMagnifyRatio.Value = new decimal(new int[] { 100, 0, 0, 0 });
+			numMagnifyRatio.ValueChanged += RecalculateRequested;
 			// 
 			// lblSize
 			// 
-			resources.ApplyResources(this.lblSize, "lblSize");
-			this.lblSize.BackColor = System.Drawing.Color.Transparent;
-			this.lblSize.Name = "lblSize";
+			resources.ApplyResources(lblSize, "lblSize");
+			lblSize.BackColor = System.Drawing.Color.Transparent;
+			lblSize.Name = "lblSize";
 			// 
 			// ImageEditDialog
 			// 
-			this.AcceptButton = btnOK;
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-			this.CancelButton = btnCancel;
+			AcceptButton = btnOK;
+			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			CancelButton = btnCancel;
 			resources.ApplyResources(this, "$this");
-			this.Controls.Add(tlpPreview);
-			this.Controls.Add(this.lblSize);
-			this.Controls.Add(this.numMagnifyRatio);
-			this.Controls.Add(btnCancel);
-			this.Controls.Add(lblMagnifyRatio);
-			this.Controls.Add(btnOK);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
-			this.MaximizeBox = true;
-			this.Name = "ImageEditDialog";
-			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-			this.Controls.SetChildIndex(btnOK, 0);
-			this.Controls.SetChildIndex(lblMagnifyRatio, 0);
-			this.Controls.SetChildIndex(btnCancel, 0);
-			this.Controls.SetChildIndex(this.numMagnifyRatio, 0);
-			this.Controls.SetChildIndex(this.lblSize, 0);
-			this.Controls.SetChildIndex(tlpPreview, 0);
+			Controls.Add(tlpPreview);
+			Controls.Add(lblSize);
+			Controls.Add(numMagnifyRatio);
+			Controls.Add(btnCancel);
+			Controls.Add(lblMagnifyRatio);
+			Controls.Add(btnOK);
+			FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+			MaximizeBox = true;
+			Name = "ImageEditDialog";
+			SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+			Controls.SetChildIndex(btnOK, 0);
+			Controls.SetChildIndex(lblMagnifyRatio, 0);
+			Controls.SetChildIndex(btnCancel, 0);
+			Controls.SetChildIndex(numMagnifyRatio, 0);
+			Controls.SetChildIndex(lblSize, 0);
+			Controls.SetChildIndex(tlpPreview, 0);
 			tlpPreview.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numMagnifyRatio)).EndInit();
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			((System.ComponentModel.ISupportInitialize)picPreview).EndInit();
+			((System.ComponentModel.ISupportInitialize)numMagnifyRatio).EndInit();
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion

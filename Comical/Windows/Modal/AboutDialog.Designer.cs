@@ -29,59 +29,71 @@
 		void InitializeComponent()
 		{
 			System.Windows.Forms.Label lblLibraries;
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
-			this.lblVersionHeader = new System.Windows.Forms.Label();
-			this.lblCopyright = new System.Windows.Forms.Label();
-			this.txtLibraries = new System.Windows.Forms.TextBox();
+			var resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
+			lblVersionHeader = new System.Windows.Forms.Label();
+			lblCopyright = new System.Windows.Forms.Label();
+			txtLibraries = new System.Windows.Forms.TextBox();
+			tlpMain = new System.Windows.Forms.TableLayoutPanel();
 			lblLibraries = new System.Windows.Forms.Label();
-			this.SuspendLayout();
+			tlpMain.SuspendLayout();
+			SuspendLayout();
 			// 
 			// lblLibraries
 			// 
 			resources.ApplyResources(lblLibraries, "lblLibraries");
 			lblLibraries.BackColor = System.Drawing.Color.Transparent;
 			lblLibraries.Name = "lblLibraries";
-			lblLibraries.Click += new System.EventHandler(this.SplashScreen_Click);
+			lblLibraries.Click += SplashScreen_Click;
 			// 
 			// lblVersionHeader
 			// 
-			resources.ApplyResources(this.lblVersionHeader, "lblVersionHeader");
-			this.lblVersionHeader.BackColor = System.Drawing.Color.Transparent;
-			this.lblVersionHeader.ForeColor = System.Drawing.Color.White;
-			this.lblVersionHeader.Name = "lblVersionHeader";
-			this.lblVersionHeader.Click += new System.EventHandler(this.SplashScreen_Click);
+			resources.ApplyResources(lblVersionHeader, "lblVersionHeader");
+			lblVersionHeader.BackColor = System.Drawing.Color.Transparent;
+			lblVersionHeader.ForeColor = System.Drawing.Color.White;
+			lblVersionHeader.Name = "lblVersionHeader";
+			lblVersionHeader.Click += SplashScreen_Click;
 			// 
 			// lblCopyright
 			// 
-			resources.ApplyResources(this.lblCopyright, "lblCopyright");
-			this.lblCopyright.BackColor = System.Drawing.Color.Transparent;
-			this.lblCopyright.Name = "lblCopyright";
+			resources.ApplyResources(lblCopyright, "lblCopyright");
+			lblCopyright.BackColor = System.Drawing.Color.Transparent;
+			lblCopyright.Name = "lblCopyright";
 			// 
 			// txtLibraries
 			// 
-			resources.ApplyResources(this.txtLibraries, "txtLibraries");
-			this.txtLibraries.BackColor = System.Drawing.SystemColors.Window;
-			this.txtLibraries.Name = "txtLibraries";
-			this.txtLibraries.ReadOnly = true;
+			resources.ApplyResources(txtLibraries, "txtLibraries");
+			txtLibraries.BackColor = System.Drawing.SystemColors.Window;
+			txtLibraries.Name = "txtLibraries";
+			txtLibraries.ReadOnly = true;
+			// 
+			// tlpMain
+			// 
+			resources.ApplyResources(tlpMain, "tlpMain");
+			tlpMain.BackColor = System.Drawing.Color.White;
+			tlpMain.Controls.Add(lblLibraries, 0, 1);
+			tlpMain.Controls.Add(lblCopyright, 0, 0);
+			tlpMain.Controls.Add(txtLibraries, 0, 2);
+			tlpMain.Name = "tlpMain";
+			tlpMain.Click += SplashScreen_Click;
 			// 
 			// AboutDialog
 			// 
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			resources.ApplyResources(this, "$this");
-			this.Controls.Add(this.txtLibraries);
-			this.Controls.Add(this.lblCopyright);
-			this.Controls.Add(lblLibraries);
-			this.Controls.Add(this.lblVersionHeader);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "AboutDialog";
-			this.ShowIcon = false;
-			this.ShowInTaskbar = false;
-			this.Click += new System.EventHandler(this.SplashScreen_Click);
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			Controls.Add(lblVersionHeader);
+			Controls.Add(tlpMain);
+			DoubleBuffered = true;
+			FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			MaximizeBox = false;
+			MinimizeBox = false;
+			Name = "AboutDialog";
+			ShowIcon = false;
+			ShowInTaskbar = false;
+			Click += SplashScreen_Click;
+			tlpMain.ResumeLayout(false);
+			tlpMain.PerformLayout();
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
@@ -89,5 +101,6 @@
 		System.Windows.Forms.Label lblVersionHeader;
 		private System.Windows.Forms.Label lblCopyright;
 		private System.Windows.Forms.TextBox txtLibraries;
+		private System.Windows.Forms.TableLayoutPanel tlpMain;
 	}
 }

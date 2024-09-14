@@ -36,7 +36,7 @@ namespace Comical
 		readonly Comic _comic;
 		string _openingFileName = "";
 		Spread[]? _spreads;
-		int _currentSpreadIndex;
+		int _currentSpreadIndex = -1;
 
 		void SetCurrentSpread(int value)
 		{

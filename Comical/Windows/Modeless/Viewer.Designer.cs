@@ -28,68 +28,61 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
+			components = new System.ComponentModel.Container();
 			System.Windows.Forms.ContextMenuStrip conOption;
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Viewer));
-			Comical.Controls.ToolStripRadioMenuItem itmOriginalSize;
-			this.itmFitToWindow = new Comical.Controls.ToolStripRadioMenuItem();
-			this.preMain = new Comical.Controls.Previewer();
-			conOption = new System.Windows.Forms.ContextMenuStrip(this.components);
-			itmOriginalSize = new Comical.Controls.ToolStripRadioMenuItem();
+			var resources = new System.ComponentModel.ComponentResourceManager(typeof(Viewer));
+			Controls.ToolStripRadioMenuItem itmOriginalSize;
+			itmFitToWindow = new Controls.ToolStripRadioMenuItem();
+			preMain = new Controls.Previewer();
+			conOption = new System.Windows.Forms.ContextMenuStrip(components);
+			itmOriginalSize = new Controls.ToolStripRadioMenuItem();
 			conOption.SuspendLayout();
-			this.SuspendLayout();
+			SuspendLayout();
 			// 
 			// conOption
 			// 
-			conOption.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmFitToWindow,
-            itmOriginalSize});
+			conOption.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { itmFitToWindow, itmOriginalSize });
 			conOption.Name = "conOption";
 			resources.ApplyResources(conOption, "conOption");
 			// 
 			// itmFitToWindow
 			// 
-			this.itmFitToWindow.Checked = true;
-			this.itmFitToWindow.CheckOnClick = true;
-			this.itmFitToWindow.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.itmFitToWindow.Group = 0;
-			this.itmFitToWindow.Name = "itmFitToWindow";
-			resources.ApplyResources(this.itmFitToWindow, "itmFitToWindow");
-			this.itmFitToWindow.CheckedChanged += new System.EventHandler(this.itmFitToWindow_CheckedChanged);
+			itmFitToWindow.Checked = true;
+			itmFitToWindow.CheckState = System.Windows.Forms.CheckState.Indeterminate;
+			itmFitToWindow.Group = 0;
+			itmFitToWindow.Name = "itmFitToWindow";
+			resources.ApplyResources(itmFitToWindow, "itmFitToWindow");
+			itmFitToWindow.CheckedChanged += itmFitToWindow_CheckedChanged;
 			// 
 			// itmOriginalSize
 			// 
-			itmOriginalSize.CheckOnClick = true;
 			itmOriginalSize.Group = 0;
 			itmOriginalSize.Name = "itmOriginalSize";
 			resources.ApplyResources(itmOriginalSize, "itmOriginalSize");
-			itmOriginalSize.CheckedChanged += new System.EventHandler(this.itmFitToWindow_CheckedChanged);
+			itmOriginalSize.CheckedChanged += itmFitToWindow_CheckedChanged;
 			// 
 			// preMain
 			// 
-			resources.ApplyResources(this.preMain, "preMain");
-			this.preMain.BackColor = System.Drawing.Color.Transparent;
-			this.preMain.Font = System.Drawing.SystemFonts.MessageBoxFont;
-			this.preMain.ForeColor = System.Drawing.Color.White;
-			this.preMain.Name = "preMain";
-			this.preMain.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
+			resources.ApplyResources(preMain, "preMain");
+			preMain.BackColor = System.Drawing.Color.Transparent;
+			preMain.ContextMenuStrip = conOption;
+			preMain.ForeColor = System.Drawing.Color.White;
+			preMain.Name = "preMain";
+			preMain.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
 			// 
 			// Viewer
 			// 
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			resources.ApplyResources(this, "$this");
-			this.BackColor = System.Drawing.Color.Black;
-			this.ContextMenuStrip = conOption;
-			this.Controls.Add(this.preMain);
-			this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.Document)));
-			this.MinimizeBox = false;
-			this.Name = "Viewer";
-			this.ShowHint = WeifenLuo.WinFormsUI.Docking.DockState.Document;
-			this.ShowInTaskbar = false;
-			this.TabPageContextMenuStrip = conOption;
+			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			BackColor = System.Drawing.Color.Black;
+			Controls.Add(preMain);
+			DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.Document;
+			MinimizeBox = false;
+			Name = "Viewer";
+			ShowHint = WeifenLuo.WinFormsUI.Docking.DockState.Document;
+			ShowInTaskbar = false;
 			conOption.ResumeLayout(false);
-			this.ResumeLayout(false);
-
+			ResumeLayout(false);
 		}
 
 		#endregion

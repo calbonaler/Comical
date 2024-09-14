@@ -24,14 +24,7 @@ namespace Comical
 		Binary? image;
 		Image? internalImage;
 
-		Rectangle ImageBounds
-		{
-			get
-			{
-				Debug.Assert(internalImage != null);
-				return new(0, 0, internalImage.Width * (int)numMagnifyRatio.Value / 100, internalImage.Height * (int)numMagnifyRatio.Value / 100);
-			}
-		}
+		Rectangle ImageBounds => internalImage != null ? new(default, internalImage.Size * (int)numMagnifyRatio.Value / 100) : default;
 
 		Rectangle ClippedImageBounds => point1 == point2 ? ImageBounds : new Rectangle(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Abs(point2.X - point1.X) + 1, Math.Abs(point2.Y - point1.Y) + 1);
 
@@ -64,7 +57,7 @@ namespace Comical
 		{
 			using var ms = new System.IO.MemoryStream(Properties.Resources.Cross);
 			using var cursor = new Cursor(ms);
-			cursor.Draw(g, new Rectangle(center.X - 15, center.Y - 15, 32, 32));
+			cursor.Draw(g, new Rectangle(center - (Size)cursor.HotSpot, cursor.Size));
 		}
 
 		Point GetVerifiedLocation(Point loc)
@@ -220,6 +213,8 @@ namespace Comical
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
+			hsPreview.Height = SystemInformation.HorizontalScrollBarHeight;
+			vsPreview.Width = SystemInformation.VerticalScrollBarWidth;
 			using (var ms = new System.IO.MemoryStream(Properties.Resources.Cross))
 				picPreview.Cursor = new Cursor(ms);
 			RecalculateRequested(null, EventArgs.Empty);

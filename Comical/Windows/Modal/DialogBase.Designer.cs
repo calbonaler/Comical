@@ -28,32 +28,30 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DialogBase));
-			this.lblDescription = new System.Windows.Forms.Label();
-			this.SuspendLayout();
+			var resources = new System.ComponentModel.ComponentResourceManager(typeof(DialogBase));
+			lblDescription = new System.Windows.Forms.Label();
+			SuspendLayout();
 			// 
 			// lblDescription
 			// 
-			resources.ApplyResources(this.lblDescription, "lblDescription");
-			this.lblDescription.BackColor = System.Drawing.Color.Transparent;
-			this.lblDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(153)))));
-			this.lblDescription.Name = "lblDescription";
+			resources.ApplyResources(lblDescription, "lblDescription");
+			lblDescription.BackColor = System.Drawing.Color.Transparent;
+			lblDescription.ForeColor = System.Drawing.Color.FromArgb(0, 51, 153);
+			lblDescription.Name = "lblDescription";
 			// 
 			// DialogBase
 			// 
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-			this.Font = System.Drawing.SystemFonts.MessageBoxFont;
 			resources.ApplyResources(this, "$this");
-			this.Controls.Add(this.lblDescription);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "DialogBase";
-			this.ShowIcon = false;
-			this.ShowInTaskbar = false;
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			Controls.Add(lblDescription);
+			FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			MaximizeBox = false;
+			MinimizeBox = false;
+			Name = "DialogBase";
+			ShowIcon = false;
+			ShowInTaskbar = false;
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion

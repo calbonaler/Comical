@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -139,7 +139,7 @@
   <data name="itmNew.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="itmNew.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+N</value>
   </data>
@@ -155,21 +155,21 @@
   <data name="itmOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         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
-        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
+        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
         RK5CYII=
 </value>
   </data>
@@ -372,7 +372,7 @@
   <data name="itmExclude.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
+        wwAADsMBx2+oZAAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
         80110fkJViYHTbi5fBiKPFxTz2XFfPgxo/P/r2nt/791Vf2/EBewK1ZFRQOqDwweJsRafy9NP3YxI/ZL
         mLxMjSgDAy9UioEhQF9fd254wIJnldm/fmaF/P8a7vD/ipXqnR4dDXOQ/NMI/8qvTpq/lhko33Tk4LAH
         a8IG4uRlvdZa6R55Yizx/7U6+//TagJ3T1hq77gox/l/mRTXicky3GAD8QIjbl7uhfqaBReUub7cVuL8
@@ -502,7 +502,7 @@
   <data name="itmDeleteBookmark.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
+        wwAADsMBx2+oZAAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
         80110fkJViYHTbi5fBiKPFxTz2XFfPgxo/P/r2nt/791Vf2/EBewK1ZFRQOqDwweJsRafy9NP3YxI/ZL
         mLxMjSgDAy9UioEhQF9fd254wIJnldm/fmaF/P8a7vD/ipXqnR4dDXOQ/NMI/8qvTpq/lhko33Tk4LAH
         a8IG4uRlvdZa6R55Yizx/7U6+//TagJ3T1hq77gox/l/mRTXicky3GAD8QIjbl7uhfqaBReUub7cVuL8
@@ -599,6 +599,7 @@
   <data name="stsMain.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 359</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="stsMain.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>1, 0, 16, 0</value>
   </data>
@@ -612,7 +613,7 @@
     <value>stsMain</value>
   </data>
   <data name="&gt;&gt;stsMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;stsMain.Parent" xml:space="preserve">
     <value>$this</value>
@@ -702,21 +703,21 @@
   <data name="btnOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         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
-        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
+        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
         RK5CYII=
 </value>
   </data>
@@ -779,7 +780,7 @@
     <value>menMain</value>
   </data>
   <data name="&gt;&gt;menMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;menMain.Parent" xml:space="preserve">
     <value>$this</value>
@@ -803,7 +804,7 @@
     <value>tsMain</value>
   </data>
   <data name="&gt;&gt;tsMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsMain.Parent" xml:space="preserve">
     <value>$this</value>
@@ -827,7 +828,7 @@
     <value>dpMain</value>
   </data>
   <data name="&gt;&gt;dpMain.Type" xml:space="preserve">
-    <value>WeifenLuo.WinFormsUI.Docking.DockPanel, WeifenLuo.WinFormsUI.Docking, Version=3.0.6.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
+    <value>WeifenLuo.WinFormsUI.Docking.DockPanel, WeifenLuo.WinFormsUI.Docking, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
   </data>
   <data name="&gt;&gt;dpMain.Parent" xml:space="preserve">
     <value>$this</value>
@@ -838,6 +839,9 @@
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>587, 382</value>
   </data>
@@ -1816,252 +1820,252 @@
     <value>itmFile</value>
   </data>
   <data name="&gt;&gt;itmFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmNew.Name" xml:space="preserve">
     <value>itmNew</value>
   </data>
   <data name="&gt;&gt;itmNew.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmOpen.Name" xml:space="preserve">
     <value>itmOpen</value>
   </data>
   <data name="&gt;&gt;itmOpen.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;sepFile1.Name" xml:space="preserve">
     <value>sepFile1</value>
   </data>
   <data name="&gt;&gt;sepFile1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmSave.Name" xml:space="preserve">
     <value>itmSave</value>
   </data>
   <data name="&gt;&gt;itmSave.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmSaveAs.Name" xml:space="preserve">
     <value>itmSaveAs</value>
   </data>
   <data name="&gt;&gt;itmSaveAs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;sepFile2.Name" xml:space="preserve">
     <value>sepFile2</value>
   </data>
   <data name="&gt;&gt;sepFile2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmDocumentSettings.Name" xml:space="preserve">
     <value>itmDocumentSettings</value>
   </data>
   <data name="&gt;&gt;itmDocumentSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;sepFile3.Name" xml:space="preserve">
     <value>sepFile3</value>
   </data>
   <data name="&gt;&gt;sepFile3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmExit.Name" xml:space="preserve">
     <value>itmExit</value>
   </data>
   <data name="&gt;&gt;itmExit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmImage.Name" xml:space="preserve">
     <value>itmImage</value>
   </data>
   <data name="&gt;&gt;itmImage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmAdd.Name" xml:space="preserve">
     <value>itmAdd</value>
   </data>
   <data name="&gt;&gt;itmAdd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmFromFiles.Name" xml:space="preserve">
     <value>itmFromFiles</value>
   </data>
   <data name="&gt;&gt;itmFromFiles.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmFromFolder.Name" xml:space="preserve">
     <value>itmFromFolder</value>
   </data>
   <data name="&gt;&gt;itmFromFolder.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;sepImage1.Name" xml:space="preserve">
     <value>sepImage1</value>
   </data>
   <data name="&gt;&gt;sepImage1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmOpenImage.Name" xml:space="preserve">
     <value>itmOpenImage</value>
   </data>
   <data name="&gt;&gt;itmOpenImage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmExclude.Name" xml:space="preserve">
     <value>itmExclude</value>
   </data>
   <data name="&gt;&gt;itmExclude.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;sepImage2.Name" xml:space="preserve">
     <value>sepImage2</value>
   </data>
   <data name="&gt;&gt;sepImage2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmExport.Name" xml:space="preserve">
     <value>itmExport</value>
   </data>
   <data name="&gt;&gt;itmExport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmExtract.Name" xml:space="preserve">
     <value>itmExtract</value>
   </data>
   <data name="&gt;&gt;itmExtract.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;sepImage3.Name" xml:space="preserve">
     <value>sepImage3</value>
   </data>
   <data name="&gt;&gt;sepImage3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmSetViewMode.Name" xml:space="preserve">
     <value>itmSetViewMode</value>
   </data>
   <data name="&gt;&gt;itmSetViewMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmWithLeft.Name" xml:space="preserve">
     <value>itmWithLeft</value>
   </data>
   <data name="&gt;&gt;itmWithLeft.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmWithRight.Name" xml:space="preserve">
     <value>itmWithRight</value>
   </data>
   <data name="&gt;&gt;itmWithRight.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmInvertViewMode.Name" xml:space="preserve">
     <value>itmInvertViewMode</value>
   </data>
   <data name="&gt;&gt;itmInvertViewMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmBookmark.Name" xml:space="preserve">
     <value>itmBookmark</value>
   </data>
   <data name="&gt;&gt;itmBookmark.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmAddBookmark.Name" xml:space="preserve">
     <value>itmAddBookmark</value>
   </data>
   <data name="&gt;&gt;itmAddBookmark.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmDeleteBookmark.Name" xml:space="preserve">
     <value>itmDeleteBookmark</value>
   </data>
   <data name="&gt;&gt;itmDeleteBookmark.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmTool.Name" xml:space="preserve">
     <value>itmTool</value>
   </data>
   <data name="&gt;&gt;itmTool.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmOption.Name" xml:space="preserve">
     <value>itmOption</value>
   </data>
   <data name="&gt;&gt;itmOption.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmHelp.Name" xml:space="preserve">
     <value>itmHelp</value>
   </data>
   <data name="&gt;&gt;itmHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmAbout.Name" xml:space="preserve">
     <value>itmAbout</value>
   </data>
   <data name="&gt;&gt;itmAbout.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lblStatus.Name" xml:space="preserve">
     <value>lblStatus</value>
   </data>
   <data name="&gt;&gt;lblStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;prgStatus.Name" xml:space="preserve">
     <value>prgStatus</value>
   </data>
   <data name="&gt;&gt;prgStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripProgressBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lblImageCount.Name" xml:space="preserve">
     <value>lblImageCount</value>
   </data>
   <data name="&gt;&gt;lblImageCount.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmView.Name" xml:space="preserve">
     <value>itmView</value>
   </data>
   <data name="&gt;&gt;itmView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmContentsWindow.Name" xml:space="preserve">
     <value>itmContentsWindow</value>
   </data>
   <data name="&gt;&gt;itmContentsWindow.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itmBookmarksWindow.Name" xml:space="preserve">
     <value>itmBookmarksWindow</value>
   </data>
   <data name="&gt;&gt;itmBookmarksWindow.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnNew.Name" xml:space="preserve">
     <value>btnNew</value>
   </data>
   <data name="&gt;&gt;btnNew.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnOpen.Name" xml:space="preserve">
     <value>btnOpen</value>
   </data>
   <data name="&gt;&gt;btnOpen.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnSave.Name" xml:space="preserve">
     <value>btnSave</value>
   </data>
   <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>EditorForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

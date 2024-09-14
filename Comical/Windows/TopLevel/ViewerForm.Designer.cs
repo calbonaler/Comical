@@ -30,43 +30,44 @@
 		/// </summary>
 		void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewerForm));
-			this.conBookmarks = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.prevMain = new Comical.Controls.Previewer();
-			this.SuspendLayout();
+			components = new System.ComponentModel.Container();
+			var resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewerForm));
+			conBookmarks = new System.Windows.Forms.ContextMenuStrip(components);
+			prevMain = new Controls.Previewer();
+			SuspendLayout();
 			// 
 			// conBookmarks
 			// 
-			this.conBookmarks.Name = "contextMenuStrip1";
-			this.conBookmarks.ShowImageMargin = false;
-			this.conBookmarks.Size = new System.Drawing.Size(36, 4);
+			conBookmarks.Name = "contextMenuStrip1";
+			conBookmarks.ShowImageMargin = false;
+			conBookmarks.Size = new System.Drawing.Size(36, 4);
 			// 
 			// prevMain
 			// 
-			this.prevMain.AutoScroll = true;
-			this.prevMain.BackColor = System.Drawing.Color.Transparent;
-			this.prevMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.prevMain.Location = new System.Drawing.Point(0, 0);
-			this.prevMain.Name = "prevMain";
-			this.prevMain.Size = new System.Drawing.Size(284, 262);
-			this.prevMain.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
-			this.prevMain.TabIndex = 0;
+			prevMain.AutoScroll = true;
+			prevMain.BackColor = System.Drawing.Color.Transparent;
+			prevMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			prevMain.Location = new System.Drawing.Point(0, 0);
+			prevMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			prevMain.Name = "prevMain";
+			prevMain.Size = new System.Drawing.Size(331, 328);
+			prevMain.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
+			prevMain.TabIndex = 0;
 			// 
 			// ViewerForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.Black;
-			this.ClientSize = new System.Drawing.Size(284, 262);
-			this.ControlBox = false;
-			this.Controls.Add(this.prevMain);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "ViewerForm";
-			this.TopMost = true;
-			this.ResumeLayout(false);
-
+			AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			BackColor = System.Drawing.Color.Black;
+			ClientSize = new System.Drawing.Size(331, 328);
+			ControlBox = false;
+			Controls.Add(prevMain);
+			FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+			Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			Name = "ViewerForm";
+			TopMost = true;
+			ResumeLayout(false);
 		}
 
 		#endregion
