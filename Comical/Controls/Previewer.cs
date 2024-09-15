@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
@@ -180,7 +181,8 @@ namespace Comical.Controls
 		{
 			if (e.Button.HasFlag(MouseButtons.Left))
 			{
-				origin = ViewPane.PointToScreen(e.Location);
+				Debug.Assert(ViewPane.Parent != null);
+				origin = ViewPane.Parent.PointToScreen(e.Location);
 				if (ViewPane.Dock == DockStyle.None)
 					SetCursor(true);
 			}
