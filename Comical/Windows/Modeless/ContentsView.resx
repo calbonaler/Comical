@@ -413,7 +413,7 @@
     <value>clmImage</value>
   </data>
   <data name="&gt;&gt;clmImage.Type" xml:space="preserve">
-    <value>Comical.Controls.DataGridViewBinaryColumn, Comical, Culture=neutral, PublicKeyToken=null</value>
+    <value>System.Windows.Forms.DataGridViewImageColumn, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;clmViewMode.Name" xml:space="preserve">
     <value>clmViewMode</value>

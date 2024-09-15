@@ -25,6 +25,7 @@ namespace Comical
 		}
 
 		readonly ImageReferenceCollection _images;
+		readonly ThumbnailCache _thumbnailCache = new();
 		static readonly Size ThumbnailSize = new(118, 118);
 
 		IEnumerable<Viewer> Viewers => DockPanel?.Contents?.OfType<Viewer>() ?? [];
@@ -72,6 +73,17 @@ namespace Comical
 
 		void Images_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
+			switch (e.Action)
+			{
+				case NotifyCollectionChangedAction.Remove:
+					Debug.Assert(e.OldItems is not null);
+					foreach (ImageReference item in e.OldItems)
+						_thumbnailCache.Remove(item.Data);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					_thumbnailCache.Clear();
+					break;
+			}
 			dgvImages.RowCount = _images.Count;
 			if (e.Action == NotifyCollectionChangedAction.Reset)
 			{
@@ -200,7 +212,7 @@ namespace Comical
 			if (dgvImages.Columns[e.ColumnIndex] == clmViewMode)
 				e.Value = _images[e.RowIndex].ViewMode.ToString();
 			else if (dgvImages.Columns[e.ColumnIndex] == clmImage)
-				e.Value = _images[e.RowIndex].Data;
+				e.Value = _thumbnailCache.Get(_images[e.RowIndex].Data);
 		}
 
 		void dgvImages_CellValuePushed(object? sender, DataGridViewCellValueEventArgs e)
@@ -233,6 +245,36 @@ namespace Comical
 		void itmStartViewModeSettingLeft_Click(object? sender, EventArgs e) => SetSelectedImagesViewModes(true);
 
 		void itmStartViewModeSettingRight_Click(object? sender, EventArgs e) => SetSelectedImagesViewModes(false);
+
+		class ThumbnailCache : IDisposable
+		{
+			readonly Dictionary<Binary, Image> _cache = [];
+
+			public Image Get(Binary binary)
+			{
+				if (!_cache.TryGetValue(binary, out var image))
+				{
+					using var tmpImage = binary.ToImage();
+					_cache.Add(binary, image = new Bitmap(tmpImage, Utils.ScaleSize(tmpImage.Size, ThumbnailSize)));
+				}
+				return image;
+			}
+
+			public void Remove(Binary binary)
+			{
+				if (_cache.Remove(binary, out var image))
+					image.Dispose();
+			}
+
+			public void Clear()
+			{
+				foreach (var (_, value) in _cache)
+					value.Dispose();
+				_cache.Clear();
+			}
+
+			public void Dispose() => Clear();
+		}
 	}
 
 	public class FileDroppedEventArgs(IEnumerable<string> fileNames, int keyState, int x, int y) : EventArgs

@@ -17,6 +17,7 @@
 			{
 				_images.CollectionChanged -= Images_CollectionChanged;
 				_images.CollectionItemPropertyChanged -= Images_CollectionItemPropertyChanged;
+				_thumbnailCache.Dispose();
 				if (components != null)
 					components.Dispose();
 			}
@@ -46,7 +47,7 @@
 			sepImage4 = new System.Windows.Forms.ToolStripSeparator();
 			itmDelete = new System.Windows.Forms.ToolStripMenuItem();
 			dgvImages = new Controls.DraggableDataGridView();
-			clmImage = new Controls.DataGridViewBinaryColumn();
+			clmImage = new System.Windows.Forms.DataGridViewImageColumn();
 			clmViewMode = new System.Windows.Forms.DataGridViewComboBoxColumn();
 			conImage = new System.Windows.Forms.ContextMenuStrip(components);
 			conImage.SuspendLayout();
@@ -194,7 +195,7 @@
 		private System.Windows.Forms.ToolStripMenuItem itmStartViewModeSettingLeft;
 		private System.Windows.Forms.ToolStripMenuItem itmStartViewModeSettingRight;
 		private System.Windows.Forms.ToolStripSeparator sepImage4;
-		private Controls.DataGridViewBinaryColumn clmImage;
+		private System.Windows.Forms.DataGridViewImageColumn clmImage;
 		private System.Windows.Forms.DataGridViewComboBoxColumn clmViewMode;
 	}
 }
