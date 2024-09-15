@@ -40,7 +40,7 @@ namespace Comical.Core
 		{
 			ArgumentNullException.ThrowIfNull(stream);
 
-			byte[]? thumbnail = null;
+			Binary? thumbnail = null;
 			var headerBuffer = ArrayPool<byte>.Shared.Rent(6);
 			try
 			{
@@ -51,10 +51,8 @@ namespace Comical.Core
 					readHeaderLength += await stream.ReadExactlyNoThrowAsync(header[readHeaderLength..]).ConfigureAwait(false);
 					if (readHeaderLength < header.Length)
 						return null;
-					thumbnail = new byte[BitConverter.ToUInt32(header.Span[2..])];
-					header.CopyTo(thumbnail.AsMemory());
-					var readThumbnailLength = await stream.ReadExactlyNoThrowAsync(thumbnail.AsMemory(header.Length)).ConfigureAwait(false);
-					if (header.Length + readThumbnailLength < thumbnail.Length)
+					thumbnail = await Binary.TryFromStreamAsync(stream, (int)BitConverter.ToUInt32(header.Span[2..]) - header.Length, header).ConfigureAwait(false);
+					if (thumbnail == null)
 						return null;
 					readHeaderLength = await stream.ReadExactlyNoThrowAsync(header[..FileIdentifier.Length]).ConfigureAwait(false);
 				}
@@ -87,7 +85,7 @@ namespace Comical.Core
 				published = new DateTime(year, month, day);
 			var bindingSide = fileVersion.Major >= 4 ? (BindingSide)reader.ReadByte() : BindingSide.Right;
 
-			return new FileHeader(title, author, published, bindingSide, new Binary(thumbnail), fileVersion);
+			return new FileHeader(title, author, published, bindingSide, thumbnail, fileVersion);
 		}
 
 		public static readonly Version LatestSupportedFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version!;

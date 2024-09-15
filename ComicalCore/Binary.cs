@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Buffers;
+using System.Buffers.Binary;
 using System.IO;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace Comical.Core
 {
-	public class Binary(byte[] data)
+	public class Binary
 	{
-		readonly byte[] _data = data ?? throw new ArgumentNullException(nameof(data));
+		Binary(byte[] data) => _data = data;
+
+		readonly byte[] _data;
 
 		public int Length => _data.Length;
 
@@ -14,14 +19,28 @@ namespace Comical.Core
 
 		public MemoryStream ToStream() => new(_data, false);
 
+		public static Binary FromMemoryStream(MemoryStream memoryStream) => new(memoryStream.ToArray());
+
+		public static async Task<Binary?> TryFromStreamAsync(Stream stream, int bytesToRead, ReadOnlyMemory<byte> leadingBytes)
+		{
+			var array = new byte[leadingBytes.Length + bytesToRead];
+			leadingBytes.CopyTo(array);
+			var bytesRead = await stream.ReadAtLeastAsync(array.AsMemory(leadingBytes.Length), bytesToRead, false).ConfigureAwait(false);
+			return bytesRead == bytesToRead ? new Binary(array) : null;
+		}
+
+		public static async Task<Binary> FromStreamAsync(Stream stream, int bytesToRead, bool throwOnEndOfStream)
+		{
+			var array = new byte[bytesToRead];
+			await stream.ReadAtLeastAsync(array, bytesToRead, throwOnEndOfStream).ConfigureAwait(false);
+			return new Binary(array);
+		}
+
 		public static async Task<Binary> FromFileAsync(string path)
 		{
 			using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.None);
-			if (fileStream.Length > int.MaxValue)
-				throw new IOException(Properties.Resources.FileTooLong2GB);
-			var array = new byte[(int)fileStream.Length];
-			await fileStream.ReadExactlyAsync(array).ConfigureAwait(false);
-			return new Binary(array);
+			return fileStream.Length > int.MaxValue ? throw new IOException(Properties.Resources.FileTooLong2GB) :
+				await FromStreamAsync(fileStream, (int)fileStream.Length, true).ConfigureAwait(false);
 		}
 	}
 }

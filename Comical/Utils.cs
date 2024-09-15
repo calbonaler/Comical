@@ -38,7 +38,7 @@ namespace Comical
 		{
 			using var ms = new MemoryStream();
 			image.Save(ms, format);
-			return new Binary(ms.ToArray());
+			return Binary.FromMemoryStream(ms);
 		}
 
 		public static ImageCodecInfo? GetImageCodecInfo(this Image image) => Array.Find(ImageCodecInfo.GetImageDecoders(), item => item.FormatID == image.RawFormat.Guid);

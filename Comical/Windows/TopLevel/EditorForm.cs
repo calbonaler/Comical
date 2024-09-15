@@ -56,13 +56,13 @@ namespace Comical
 			LoadFromXml(dpMain, Properties.Settings.Default.DockPanelConfiguration, _imageList, _bookmarkList, _document);
 
 			_imageList.FileDropped += async (s, ev) => await AddAnythingLocalAsync(!ev.Control, ev.FileNames);
-			_imageList.ImageReferenceSelected += (s, ev) => itmAddBookmark.Enabled = itmOpenImage.Enabled = itmExclude.Enabled = itmExport.Enabled = itmExtract.Enabled = itmSetViewMode.Enabled = itmInvertViewMode.Enabled = _imageList.SelectedIndicies.Any();
+			_imageList.ImageReferenceSelected += (s, ev) => itmAddBookmark.Enabled = itmOpenImage.Enabled = itmExclude.Enabled = itmExport.Enabled = itmExtract.Enabled = itmSetViewMode.Enabled = itmInvertViewMode.Enabled = _imageList.SelectedIndices.Any();
 			_imageList.ExportRequested += itmExport_Click;
 			_imageList.ExtractRequested += itmExtract_Click;
 			_imageList.BookmarkRequested += itmAddBookmark_Click;
 
 			_bookmarkList.BookmarkSelected += (s, ev) => itmDeleteBookmark.Enabled = _bookmarkList.SelectedBookmarks.Any();
-			_bookmarkList.BookmarkNavigated += (s, ev) => _imageList.FirstSelectedRowIndex = ev.Bookmark.Target;
+			_bookmarkList.BookmarkNavigated += (s, ev) => _imageList.SelectSingleImage(ev.Bookmark.Target);
 		}
 
 		async Task<CPDialogs.TaskDialogResult> QuerySaveAsync(Action<CPDialogs.TaskDialogResult>? beforeSave = null)
@@ -166,7 +166,11 @@ namespace Comical
 				for (; i < comicFiles.Count; i++)
 					await _comic.AppendAsync(comicFiles[i], new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = (100 * i + x) / comicFiles.Count)));
 				lblStatus.Text = Properties.Resources.ImportingImages;
-				_imageList.AddImages(images);
+				using (_comic.Images.EnterUnnotifiedSection())
+				{
+					foreach (var image in images)
+						_comic.Images.Add(image);
+				}
 			}
 		}
 
@@ -298,7 +302,7 @@ namespace Comical
 				return;
 			using (BeginAsyncWork())
 			{
-				await _comic.ExportAsync(dialog.FileName, _imageList.SortedSelectedImages, data =>
+				await _comic.ExportAsync(dialog.FileName, _imageList.SelectedIndices.OrderBy(x => x).Select(x => _comic.Images[x]), data =>
 				{
 					using var image = data.ToImage();
 					var codecInfo = image.GetImageCodecInfo();
@@ -316,14 +320,15 @@ namespace Comical
 			if (dialog.ShowDialog(Handle) != CPDialogs.CommonFileDialogResult.Ok)
 				return;
 			using (BeginAsyncWork())
-				await _comic.ExtractAsync(dialog.FileName, _imageList.SortedSelectedImages, new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
+				await _comic.ExtractAsync(dialog.FileName, _imageList.SelectedIndices.OrderBy(x => x).Select(x => _comic.Images[x]),
+					new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
 		}
 
-		void itmWithLeft_Click(object? sender, EventArgs e) => _imageList.SetViewModes(true);
+		void itmWithLeft_Click(object? sender, EventArgs e) => _imageList.SetSelectedImagesViewModes(true);
 
-		void itmWithRight_Click(object? sender, EventArgs e) => _imageList.SetViewModes(false);
+		void itmWithRight_Click(object? sender, EventArgs e) => _imageList.SetSelectedImagesViewModes(false);
 
-		void itmInvertViewMode_Click(object? sender, EventArgs e) => _imageList.InvertViewMode();
+		void itmInvertViewMode_Click(object? sender, EventArgs e) => _imageList.InvertSelectedImagesViewModes();
 
 		#endregion
 
@@ -331,7 +336,7 @@ namespace Comical
 
 		void itmAddBookmark_Click(object? sender, EventArgs e)
 		{
-			foreach (var targetIndex in _imageList.SelectedIndicies.OrderBy(x => x))
+			foreach (var targetIndex in _imageList.SelectedIndices.OrderBy(x => x))
 				_comic.Bookmarks.Add(new Bookmark() { Target = targetIndex });
 		}
 

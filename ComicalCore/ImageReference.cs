@@ -26,9 +26,9 @@ namespace Comical.Core
 			if (fileVersion < new Version(4, 3))
 				reader.ReadString(); // フォーマット
 			var mode = (ImageViewMode)reader.ReadByte();
-			var buffer = new byte[reader.ReadInt32()]; // サイズ
-			await reader.BaseStream.ReadExactlyNoThrowAsync(buffer).ConfigureAwait(false);
-			return new ImageReference(new Binary(buffer)) { ViewMode = mode };
+			var size = reader.ReadInt32(); // サイズ
+			var binary = await Binary.FromStreamAsync(reader.BaseStream, size, false).ConfigureAwait(false);
+			return new ImageReference(binary) { ViewMode = mode };
 		}
 
 		internal async Task SaveAsync(BinaryWriter writer)

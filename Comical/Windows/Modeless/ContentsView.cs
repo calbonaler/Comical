@@ -27,7 +27,9 @@ namespace Comical
 		readonly ImageReferenceCollection _images;
 		static readonly Size ThumbnailSize = new(118, 118);
 
-		Viewer? DefaultViewer => DockPanel?.Contents?.OfType<Viewer>()?.FirstOrDefault(v => v.Pane.IsActiveDocumentPane);
+		IEnumerable<Viewer> Viewers => DockPanel?.Contents?.OfType<Viewer>() ?? [];
+
+		Viewer? ActiveViewer => DockPanel?.ActiveDocument as Viewer;
 
 		public event EventHandler ImageReferenceSelected
 		{
@@ -66,25 +68,16 @@ namespace Comical
 			});
 		}
 
-		public IEnumerable<int> SelectedIndicies => dgvImages.SelectedRows.Cast<DataGridViewRow>().Select(r => r.Index);
-
-		public IEnumerable<ImageReference> SortedSelectedImages => SelectedIndicies.OrderBy(x => x).Select(x => _images[x]);
-
-		public void AddImages(IEnumerable<ImageReference> images)
-		{
-			ArgumentNullException.ThrowIfNull(images);
-			using (_images.EnterUnnotifiedSection())
-			{
-				foreach (var image in images)
-					_images.Add(image);
-			}
-		}
+		public IEnumerable<int> SelectedIndices => dgvImages.SelectedRows.Cast<DataGridViewRow>().Select(r => r.Index);
 
 		void Images_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
 			dgvImages.RowCount = _images.Count;
-			if (_images.Count == 0 && DefaultViewer != null)
-				DefaultViewer.Image = null;
+			if (e.Action == NotifyCollectionChangedAction.Reset)
+			{
+				foreach (var viewer in Viewers.ToArray())
+					viewer.Close();
+			}
 			dgvImages.Invalidate();
 		});
 
@@ -101,27 +94,24 @@ namespace Comical
 
 		protected override string GetPersistString() => "ImageList";
 
-		public int FirstSelectedRowIndex
+		public void SelectSingleImage(int index)
 		{
-			get => dgvImages.SelectedRows.Count > 0 ? SelectedIndicies.Min() : -1;
-			set
-			{
-				for (var i = 0; i < _images.Count; i++)
-					dgvImages.Rows[i].Selected = i == value;
-				if (value >= 0 && value < _images.Count)
-					dgvImages.FirstDisplayedScrollingRowIndex = value;
-			}
+			for (var i = 0; i < _images.Count; i++)
+				dgvImages.Rows[i].Selected = i == index;
+			if (index >= 0 && index < _images.Count)
+				dgvImages.FirstDisplayedScrollingRowIndex = index;
 		}
 
 		public void OpenFirstSelectedImage()
 		{
-			if (FirstSelectedRowIndex >= 0)
+			if (dgvImages.SelectedRows.Count > 0)
 			{
 				var content = DockPanel.ActiveContent;
+				var firstSelectedIndex = SelectedIndices.Min();
 				var viewer = new Viewer
 				{
-					Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture),
-					Image = _images[FirstSelectedRowIndex].Data
+					Text = firstSelectedIndex.ToString(CultureInfo.CurrentCulture),
+					Image = _images[firstSelectedIndex].Data
 				};
 				viewer.Show(DockPanel);
 				content.DockHandler.Activate();
@@ -130,14 +120,14 @@ namespace Comical
 
 		public void DeleteSelectedImages()
 		{
-			foreach (var x in SortedSelectedImages.ToArray())
-				_images.Remove(x);
+			foreach (var x in SelectedIndices.OrderByDescending(x => x).ToArray())
+				_images.RemoveAt(x);
 		}
 
-		public void SetViewModes(bool startAtLeft)
+		public void SetSelectedImagesViewModes(bool startAtLeft)
 		{
-			var start = SelectedIndicies.Last();
-			var count = SelectedIndicies.First() - start + 1;
+			var start = SelectedIndices.Last();
+			var count = SelectedIndices.First() - start + 1;
 			if (count < 0)
 				count = 0;
 			else if (count > _images.Count - start)
@@ -146,10 +136,11 @@ namespace Comical
 				_images[i + start].ViewMode = i % 2 == (startAtLeft ? 0 : 1) ? ImageViewMode.Left : ImageViewMode.Right;
 		}
 
-		public void InvertViewMode()
+		public void InvertSelectedImagesViewModes()
 		{
-			foreach (var image in SortedSelectedImages)
+			foreach (var i in SelectedIndices)
 			{
+				var image = _images[i];
 				if (image.ViewMode == ImageViewMode.Left)
 					image.ViewMode = ImageViewMode.Right;
 				else if (image.ViewMode == ImageViewMode.Right)
@@ -160,10 +151,11 @@ namespace Comical
 		void dgvImages_SelectionChanged(object? sender, EventArgs e)
 		{
 			var count = dgvImages.SelectedRows.Count;
-			if (DefaultViewer != null && count == 1)
+			if (ActiveViewer != null && count == 1)
 			{
-				DefaultViewer.Text = FirstSelectedRowIndex.ToString(CultureInfo.CurrentCulture);
-				try { DefaultViewer.Image = _images[FirstSelectedRowIndex].Data; }
+				var firstSelectedIndex = SelectedIndices.Min();
+				ActiveViewer.Text = firstSelectedIndex.ToString(CultureInfo.CurrentCulture);
+				try { ActiveViewer.Image = _images[firstSelectedIndex].Data; }
 				catch (ArgumentException) { }
 			}
 			itmOpen.Visible = sepImage1.Visible = count == 1;
@@ -238,9 +230,9 @@ namespace Comical
 
 		void itmDelete_Click(object? sender, EventArgs e) => DeleteSelectedImages();
 
-		void itmStartViewModeSettingLeft_Click(object? sender, EventArgs e) => SetViewModes(true);
+		void itmStartViewModeSettingLeft_Click(object? sender, EventArgs e) => SetSelectedImagesViewModes(true);
 
-		void itmStartViewModeSettingRight_Click(object? sender, EventArgs e) => SetViewModes(false);
+		void itmStartViewModeSettingRight_Click(object? sender, EventArgs e) => SetSelectedImagesViewModes(false);
 	}
 
 	public class FileDroppedEventArgs(IEnumerable<string> fileNames, int keyState, int x, int y) : EventArgs
