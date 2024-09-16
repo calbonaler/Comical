@@ -29,21 +29,21 @@
 		private void InitializeComponent()
 		{
 			var resources = new System.ComponentModel.ComponentResourceManager(typeof(DialogBase));
-			lblDescription = new System.Windows.Forms.Label();
+			DescriptionLabel = new System.Windows.Forms.Label();
 			SuspendLayout();
 			// 
-			// lblDescription
+			// DescriptionLabel
 			// 
-			resources.ApplyResources(lblDescription, "lblDescription");
-			lblDescription.BackColor = System.Drawing.Color.Transparent;
-			lblDescription.ForeColor = System.Drawing.Color.FromArgb(0, 51, 153);
-			lblDescription.Name = "lblDescription";
+			resources.ApplyResources(DescriptionLabel, "DescriptionLabel");
+			DescriptionLabel.BackColor = System.Drawing.Color.Transparent;
+			DescriptionLabel.ForeColor = System.Drawing.Color.FromArgb(0, 51, 153);
+			DescriptionLabel.Name = "DescriptionLabel";
 			// 
 			// DialogBase
 			// 
 			resources.ApplyResources(this, "$this");
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-			Controls.Add(lblDescription);
+			Controls.Add(DescriptionLabel);
 			FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			MaximizeBox = false;
 			MinimizeBox = false;
@@ -56,6 +56,6 @@
 
 		#endregion
 
-		private System.Windows.Forms.Label lblDescription;
+		private System.Windows.Forms.Label DescriptionLabel;
 	}
 }

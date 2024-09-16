@@ -29,111 +29,111 @@
 		void InitializeComponent()
 		{
 			components = new System.ComponentModel.Container();
-			System.Windows.Forms.Button btnOK;
+			System.Windows.Forms.Button OKButton;
 			var resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionDialog));
-			System.Windows.Forms.Button btnCancel;
-			System.Windows.Forms.Label lblDefaultSavedFileName;
-			System.Windows.Forms.ToolStripMenuItem itmTitle;
-			System.Windows.Forms.ToolStripMenuItem itmAuthor;
-			System.Windows.Forms.ToolStripMenuItem itmFormattedDate;
-			btnInsertMask = new System.Windows.Forms.Button();
-			txtDefaultSavedFileName = new System.Windows.Forms.TextBox();
-			conInsertMask = new System.Windows.Forms.ContextMenuStrip(components);
-			btnOK = new System.Windows.Forms.Button();
-			btnCancel = new System.Windows.Forms.Button();
-			lblDefaultSavedFileName = new System.Windows.Forms.Label();
-			itmTitle = new System.Windows.Forms.ToolStripMenuItem();
-			itmAuthor = new System.Windows.Forms.ToolStripMenuItem();
-			itmFormattedDate = new System.Windows.Forms.ToolStripMenuItem();
-			conInsertMask.SuspendLayout();
+			System.Windows.Forms.Button CancelButton;
+			System.Windows.Forms.Label DefaultSavedFileNameLabel;
+			System.Windows.Forms.ToolStripMenuItem TitleMenuItem;
+			System.Windows.Forms.ToolStripMenuItem AuthorMenuItem;
+			System.Windows.Forms.ToolStripMenuItem FormattedDateMenuItem;
+			InsertMaskButton = new System.Windows.Forms.Button();
+			DefaultSavedFileNameTextBox = new System.Windows.Forms.TextBox();
+			InsertMaskContextMenu = new System.Windows.Forms.ContextMenuStrip(components);
+			OKButton = new System.Windows.Forms.Button();
+			CancelButton = new System.Windows.Forms.Button();
+			DefaultSavedFileNameLabel = new System.Windows.Forms.Label();
+			TitleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			AuthorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			FormattedDateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			InsertMaskContextMenu.SuspendLayout();
 			SuspendLayout();
 			// 
-			// btnOK
+			// OKButton
 			// 
-			resources.ApplyResources(btnOK, "btnOK");
-			btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-			btnOK.Name = "btnOK";
-			btnOK.UseVisualStyleBackColor = true;
-			btnOK.Click += btnOK_Click;
+			resources.ApplyResources(OKButton, "OKButton");
+			OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+			OKButton.Name = "OKButton";
+			OKButton.UseVisualStyleBackColor = true;
+			OKButton.Click += OnOKButtonClick;
 			// 
-			// btnCancel
+			// CancelButton
 			// 
-			resources.ApplyResources(btnCancel, "btnCancel");
-			btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			btnCancel.Name = "btnCancel";
-			btnCancel.UseVisualStyleBackColor = true;
+			resources.ApplyResources(CancelButton, "CancelButton");
+			CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			CancelButton.Name = "CancelButton";
+			CancelButton.UseVisualStyleBackColor = true;
 			// 
-			// lblDefaultSavedFileName
+			// DefaultSavedFileNameLabel
 			// 
-			resources.ApplyResources(lblDefaultSavedFileName, "lblDefaultSavedFileName");
-			lblDefaultSavedFileName.Name = "lblDefaultSavedFileName";
+			resources.ApplyResources(DefaultSavedFileNameLabel, "DefaultSavedFileNameLabel");
+			DefaultSavedFileNameLabel.Name = "DefaultSavedFileNameLabel";
 			// 
-			// itmTitle
+			// TitleMenuItem
 			// 
-			itmTitle.Name = "itmTitle";
-			resources.ApplyResources(itmTitle, "itmTitle");
-			itmTitle.Tag = "";
-			itmTitle.Click += InsertMaskItem_Click;
+			TitleMenuItem.Name = "TitleMenuItem";
+			resources.ApplyResources(TitleMenuItem, "TitleMenuItem");
+			TitleMenuItem.Tag = "";
+			TitleMenuItem.Click += OnInsertMaskMenuItemsClick;
 			// 
-			// itmAuthor
+			// AuthorMenuItem
 			// 
-			itmAuthor.Name = "itmAuthor";
-			resources.ApplyResources(itmAuthor, "itmAuthor");
-			itmAuthor.Tag = "";
-			itmAuthor.Click += InsertMaskItem_Click;
+			AuthorMenuItem.Name = "AuthorMenuItem";
+			resources.ApplyResources(AuthorMenuItem, "AuthorMenuItem");
+			AuthorMenuItem.Tag = "";
+			AuthorMenuItem.Click += OnInsertMaskMenuItemsClick;
 			// 
-			// itmFormattedDate
+			// FormattedDateMenuItem
 			// 
-			itmFormattedDate.Name = "itmFormattedDate";
-			resources.ApplyResources(itmFormattedDate, "itmFormattedDate");
-			itmFormattedDate.Tag = "";
-			itmFormattedDate.Click += InsertMaskItem_Click;
+			FormattedDateMenuItem.Name = "FormattedDateMenuItem";
+			resources.ApplyResources(FormattedDateMenuItem, "FormattedDateMenuItem");
+			FormattedDateMenuItem.Tag = "";
+			FormattedDateMenuItem.Click += OnInsertMaskMenuItemsClick;
 			// 
-			// btnInsertMask
+			// InsertMaskButton
 			// 
-			resources.ApplyResources(btnInsertMask, "btnInsertMask");
-			btnInsertMask.Name = "btnInsertMask";
-			btnInsertMask.UseVisualStyleBackColor = true;
-			btnInsertMask.Click += btnInsertMask_Click;
+			resources.ApplyResources(InsertMaskButton, "InsertMaskButton");
+			InsertMaskButton.Name = "InsertMaskButton";
+			InsertMaskButton.UseVisualStyleBackColor = true;
+			InsertMaskButton.Click += OnInsertMaskButtonClick;
 			// 
-			// txtDefaultSavedFileName
+			// DefaultSavedFileNameTextBox
 			// 
-			resources.ApplyResources(txtDefaultSavedFileName, "txtDefaultSavedFileName");
-			txtDefaultSavedFileName.Name = "txtDefaultSavedFileName";
+			resources.ApplyResources(DefaultSavedFileNameTextBox, "DefaultSavedFileNameTextBox");
+			DefaultSavedFileNameTextBox.Name = "DefaultSavedFileNameTextBox";
 			// 
-			// conInsertMask
+			// InsertMaskContextMenu
 			// 
-			conInsertMask.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { itmTitle, itmAuthor, itmFormattedDate });
-			conInsertMask.Name = "conInsertMask";
-			conInsertMask.ShowImageMargin = false;
-			resources.ApplyResources(conInsertMask, "conInsertMask");
+			InsertMaskContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { TitleMenuItem, AuthorMenuItem, FormattedDateMenuItem });
+			InsertMaskContextMenu.Name = "conInsertMask";
+			InsertMaskContextMenu.ShowImageMargin = false;
+			resources.ApplyResources(InsertMaskContextMenu, "InsertMaskContextMenu");
 			// 
 			// OptionDialog
 			// 
-			AcceptButton = btnOK;
+			AcceptButton = OKButton;
 			resources.ApplyResources(this, "$this");
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-			CancelButton = btnCancel;
-			Controls.Add(btnInsertMask);
-			Controls.Add(txtDefaultSavedFileName);
-			Controls.Add(lblDefaultSavedFileName);
-			Controls.Add(btnCancel);
-			Controls.Add(btnOK);
+			this.CancelButton = CancelButton;
+			Controls.Add(InsertMaskButton);
+			Controls.Add(DefaultSavedFileNameTextBox);
+			Controls.Add(DefaultSavedFileNameLabel);
+			Controls.Add(CancelButton);
+			Controls.Add(OKButton);
 			FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			MaximizeBox = false;
 			MinimizeBox = false;
 			Name = "OptionDialog";
 			ShowIcon = false;
 			ShowInTaskbar = false;
-			conInsertMask.ResumeLayout(false);
+			InsertMaskContextMenu.ResumeLayout(false);
 			ResumeLayout(false);
 			PerformLayout();
 		}
 
 		#endregion
 
-		System.Windows.Forms.TextBox txtDefaultSavedFileName;
-		System.Windows.Forms.Button btnInsertMask;
-		System.Windows.Forms.ContextMenuStrip conInsertMask;
+		System.Windows.Forms.TextBox DefaultSavedFileNameTextBox;
+		System.Windows.Forms.Button InsertMaskButton;
+		System.Windows.Forms.ContextMenuStrip InsertMaskContextMenu;
 	}
 }

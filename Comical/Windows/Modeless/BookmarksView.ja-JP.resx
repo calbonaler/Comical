@@ -118,53 +118,53 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="itmSelectTarget.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SelectTargetMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="itmSelectTarget.Text" xml:space="preserve">
+  <data name="SelectTargetMenuItem.Text" xml:space="preserve">
     <value>対象を選択(&amp;S)</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="itmSelectTarget.Visible" type="System.Boolean, mscorlib">
+  <data name="SelectTargetMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="sepBookmark1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="BookmarkMenuSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 6</value>
   </data>
-  <data name="sepBookmark1.Visible" type="System.Boolean, mscorlib">
+  <data name="BookmarkMenuSeparator1.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmCreateNew.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CreateNewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="itmCreateNew.Text" xml:space="preserve">
+  <data name="CreateNewMenuItem.Text" xml:space="preserve">
     <value>新規(&amp;N)</value>
   </data>
-  <data name="itmInsertAbove.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="InsertAboveMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="itmInsertAbove.Text" xml:space="preserve">
+  <data name="InsertAboveMenuItem.Text" xml:space="preserve">
     <value>上に挿入(&amp;A)</value>
   </data>
-  <data name="itmInsertAbove.Visible" type="System.Boolean, mscorlib">
+  <data name="InsertAboveMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmInsertBelow.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="InsertBelowMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="itmInsertBelow.Text" xml:space="preserve">
+  <data name="InsertBelowMenuItem.Text" xml:space="preserve">
     <value>下に挿入(&amp;B)</value>
   </data>
-  <data name="itmInsertBelow.Visible" type="System.Boolean, mscorlib">
+  <data name="InsertBelowMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="sepBookmark2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="BookmarkMenuSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 6</value>
   </data>
-  <data name="sepBookmark2.Visible" type="System.Boolean, mscorlib">
+  <data name="BookmarkMenuSeparator2.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="DeleteMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
@@ -180,19 +180,19 @@
         JGBgAACn9cedPOLjcAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmDelete.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DeleteMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="itmDelete.Text" xml:space="preserve">
+  <data name="DeleteMenuItem.Text" xml:space="preserve">
     <value>削除(&amp;D)</value>
   </data>
-  <data name="conBookmark.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="BookmarkContextMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 126</value>
   </data>
-  <data name="clmName.HeaderText" xml:space="preserve">
+  <data name="NameDataGridViewColumn.HeaderText" xml:space="preserve">
     <value>名前</value>
   </data>
-  <data name="clmTarget.HeaderText" xml:space="preserve">
+  <data name="TargetDataGridViewColumn.HeaderText" xml:space="preserve">
     <value>対象</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">

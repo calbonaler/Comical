@@ -13,7 +13,7 @@ namespace Comical
 		public ImageEditDialog()
 		{
 			InitializeComponent();
-			picPreview.MouseWheel += picPreview_MouseWheel;
+			PreviewBox.MouseWheel += OnPreviewBoxMouseWheel;
 		}
 
 		Point point1;
@@ -24,7 +24,7 @@ namespace Comical
 		Binary? image;
 		Image? internalImage;
 
-		Rectangle ImageBounds => internalImage != null ? new(default, internalImage.Size * (int)numMagnifyRatio.Value / 100) : default;
+		Rectangle ImageBounds => internalImage != null ? new(default, internalImage.Size * (int)MagnifyRatioNumericUpDown.Value / 100) : default;
 
 		Rectangle ClippedImageBounds => point1 == point2 ? ImageBounds : new Rectangle(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Abs(point2.X - point1.X) + 1, Math.Abs(point2.Y - point1.Y) + 1);
 
@@ -36,7 +36,7 @@ namespace Comical
 				if (point1 == point2)
 					return new Rectangle(Point.Empty, internalImage.Size);
 				var bounds = new Rectangle(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Abs(point2.X - point1.X) + 1, Math.Abs(point2.Y - point1.Y) + 1);
-				return new Rectangle(bounds.X * 100 / (int)numMagnifyRatio.Value, bounds.Y * 100 / (int)numMagnifyRatio.Value, bounds.Width * 100 / (int)numMagnifyRatio.Value, bounds.Height * 100 / (int)numMagnifyRatio.Value);
+				return new Rectangle(bounds.X * 100 / (int)MagnifyRatioNumericUpDown.Value, bounds.Y * 100 / (int)MagnifyRatioNumericUpDown.Value, bounds.Width * 100 / (int)MagnifyRatioNumericUpDown.Value, bounds.Height * 100 / (int)MagnifyRatioNumericUpDown.Value);
 			}
 		}
 
@@ -74,76 +74,70 @@ namespace Comical
 			return loc;
 		}
 
-		void RecalculateRequested(object? sender, EventArgs e)
+		void OnRecalculateRequested(object? sender, EventArgs e)
 		{
 			var magSz = ImageBounds.Size;
-			hsPreview.LargeChange = picPreview.ClientSize.Width;
-			hsPreview.Maximum = magSz.Width;
-			hsPreview.Visible = hsPreview.Maximum > hsPreview.LargeChange - 1;
-			vsPreview.LargeChange = picPreview.ClientSize.Height;
-			vsPreview.Maximum = magSz.Height;
-			vsPreview.Visible = vsPreview.Maximum > vsPreview.LargeChange - 1;
-			picPreview.Invalidate();
+			PreviewHScrollBar.LargeChange = PreviewBox.ClientSize.Width;
+			PreviewHScrollBar.Maximum = magSz.Width;
+			PreviewHScrollBar.Visible = PreviewHScrollBar.Maximum > PreviewHScrollBar.LargeChange - 1;
+			PreviewVScrollBar.LargeChange = PreviewBox.ClientSize.Height;
+			PreviewVScrollBar.Maximum = magSz.Height;
+			PreviewVScrollBar.Visible = PreviewVScrollBar.Maximum > PreviewVScrollBar.LargeChange - 1;
+			PreviewBox.Invalidate();
 		}
 
-		void vsPreview_Scroll(object? sender, ScrollEventArgs e)
+		void OnPreviewScrollBarsScroll(object? sender, ScrollEventArgs e)
 		{
-			picPreview.Invalidate();
-			picPreview.Focus();
+			PreviewBox.Invalidate();
+			PreviewBox.Focus();
 		}
 
-		void hsPreview_Scroll(object? sender, ScrollEventArgs e)
-		{
-			picPreview.Invalidate();
-			picPreview.Focus();
-		}
+		#region PreviewBox EventHandlers
 
-		#region picPreview EventHandlers
-
-		void picPreview_MouseDown(object? sender, MouseEventArgs e)
+		void OnPreviewBoxMouseDown(object? sender, MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Left)
 			{
-				point1 = point2 = GetVerifiedLocation(e.Location + new Size(hsPreview.Value, vsPreview.Value));
+				point1 = point2 = GetVerifiedLocation(e.Location + new Size(PreviewHScrollBar.Value, PreviewVScrollBar.Value));
 				leftMouseDown = true;
 			}
 		}
 
-		void picPreview_MouseMove(object? sender, MouseEventArgs e)
+		void OnPreviewBoxMouseMove(object? sender, MouseEventArgs e)
 		{
 			if (leftMouseDown && e.Button == MouseButtons.Left)
 			{
-				point2 = GetVerifiedLocation(e.Location + new Size(hsPreview.Value, vsPreview.Value));
-				picPreview.Invalidate();
+				point2 = GetVerifiedLocation(e.Location + new Size(PreviewHScrollBar.Value, PreviewVScrollBar.Value));
+				PreviewBox.Invalidate();
 			}
 		}
 
-		void picPreview_MouseUp(object? sender, MouseEventArgs e)
+		void OnPreviewBoxMouseUp(object? sender, MouseEventArgs e)
 		{
 			if (leftMouseDown && e.Button == MouseButtons.Left)
 			{
-				point2 = GetVerifiedLocation(e.Location + new Size(hsPreview.Value, vsPreview.Value));
-				picPreview.Invalidate();
+				point2 = GetVerifiedLocation(e.Location + new Size(PreviewHScrollBar.Value, PreviewVScrollBar.Value));
+				PreviewBox.Invalidate();
 				leftMouseDown = false;
 			}
 		}
 
-		void picPreview_Paint(object? sender, PaintEventArgs e)
+		void OnPreviewBoxPaint(object? sender, PaintEventArgs e)
 		{
 			Debug.Assert(internalImage != null);
-			e.Graphics.TranslateTransform(-hsPreview.Value, -vsPreview.Value);
+			e.Graphics.TranslateTransform(-PreviewHScrollBar.Value, -PreviewVScrollBar.Value);
 			e.Graphics.DrawImage(internalImage, ImageBounds);
 			using (var reg = new Region(ImageBounds))
 			{
 				reg.Xor(ClippedImageBounds);
-				lblSize.Text = string.Format(System.Globalization.CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, ClippedImageBounds.Width, ClippedImageBounds.Height);
+				SizeLabel.Text = string.Format(System.Globalization.CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, ClippedImageBounds.Width, ClippedImageBounds.Height);
 				e.Graphics.FillRegion(Brushes.Blue, reg);
 			}
 			DrawCross(e.Graphics, point2);
 			DrawCross(e.Graphics, point1);
 		}
 
-		void picPreview_KeyDown(object? sender, KeyEventArgs e)
+		void OnPreviewBoxKeyDown(object? sender, KeyEventArgs e)
 		{
 			if (e.KeyCode is Keys.ShiftKey or Keys.Menu or Keys.ControlKey)
 				return;
@@ -169,10 +163,10 @@ namespace Comical
 				point2 = loc;
 			else
 				point1 = loc;
-			picPreview.Invalidate();
+			PreviewBox.Invalidate();
 		}
 
-		void picPreview_KeyUp(object? sender, KeyEventArgs e)
+		void OnPreviewBoxKeyUp(object? sender, KeyEventArgs e)
 		{
 			if (e.KeyCode is Keys.Left or Keys.Right)
 				shiftScale.X = 0;
@@ -180,24 +174,24 @@ namespace Comical
 				shiftScale.Y = 0;
 		}
 
-		void picPreview_MouseLeave(object? sender, EventArgs e) => picPreview.Invalidate();
+		void OnPreviewBoxMouseLeave(object? sender, EventArgs e) => PreviewBox.Invalidate();
 
-		void picPreview_MouseWheel(object? sender, MouseEventArgs e)
+		void OnPreviewBoxMouseWheel(object? sender, MouseEventArgs e)
 		{
 			if ((ModifierKeys & Keys.Control) != 0)
-				numMagnifyRatio.Value = RoundInteger((int)numMagnifyRatio.Value + SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 1, 100);
+				MagnifyRatioNumericUpDown.Value = RoundInteger((int)MagnifyRatioNumericUpDown.Value + SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 1, 100);
 			else if ((ModifierKeys & Keys.Shift) != 0)
-				hsPreview.Value = RoundInteger(hsPreview.Value - 10 * SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 0, hsPreview.Maximum - hsPreview.LargeChange + 1);
+				PreviewHScrollBar.Value = RoundInteger(PreviewHScrollBar.Value - 10 * SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 0, PreviewHScrollBar.Maximum - PreviewHScrollBar.LargeChange + 1);
 			else
-				vsPreview.Value = RoundInteger(vsPreview.Value - 10 * SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 0, vsPreview.Maximum - vsPreview.LargeChange + 1);
-			picPreview.Invalidate();
+				PreviewVScrollBar.Value = RoundInteger(PreviewVScrollBar.Value - 10 * SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 0, PreviewVScrollBar.Maximum - PreviewVScrollBar.LargeChange + 1);
+			PreviewBox.Invalidate();
 		}
 
 		static int RoundInteger(int value, int min, int max) => value < min ? min : value > max ? max : value;
 
 		#endregion
 
-		void btnOK_Click(object? sender, EventArgs e)
+		void OnOKButtonClick(object? sender, EventArgs e)
 		{
 			Debug.Assert(internalImage != null);
 			using (var image = new Bitmap(ClippedImageBounds.Width, ClippedImageBounds.Height))
@@ -213,12 +207,12 @@ namespace Comical
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			hsPreview.Height = SystemInformation.HorizontalScrollBarHeight;
-			vsPreview.Width = SystemInformation.VerticalScrollBarWidth;
+			PreviewHScrollBar.Height = SystemInformation.HorizontalScrollBarHeight;
+			PreviewVScrollBar.Width = SystemInformation.VerticalScrollBarWidth;
 			using (var ms = new System.IO.MemoryStream(Properties.Resources.Cross))
-				picPreview.Cursor = new Cursor(ms);
-			RecalculateRequested(null, EventArgs.Empty);
-			picPreview.Select();
+				PreviewBox.Cursor = new Cursor(ms);
+			OnRecalculateRequested(null, EventArgs.Empty);
+			PreviewBox.Select();
 		}
 
 		protected override void SetVisibleCore(bool value)

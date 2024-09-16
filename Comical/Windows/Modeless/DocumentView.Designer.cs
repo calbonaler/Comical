@@ -15,8 +15,8 @@
 		{
 			if (disposing)
 			{
-				_comic.PropertyChanged -= Comic_PropertyChanged;
-				_comic.Images.CollectionChanged -= ComicImageCollection_CollectionChanged;
+				_comic.PropertyChanged -= OnComicPropertyChanged;
+				_comic.Images.CollectionChanged -= OnComicImagesCollectionChanged;
 				if (components != null)
 					components.Dispose();
 			}
@@ -31,233 +31,233 @@
 		/// </summary>
 		void InitializeComponent()
 		{
-			System.Windows.Forms.SplitContainer splMain;
+			System.Windows.Forms.SplitContainer MainSplitContainer;
 			var resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentView));
-			System.Windows.Forms.TableLayoutPanel tplPanel1;
-			System.Windows.Forms.Label lblBindingSide;
-			System.Windows.Forms.Label lblCultureDependingPublished;
-			System.Windows.Forms.Label lblTitle;
-			System.Windows.Forms.Label lblPublished;
-			System.Windows.Forms.Label lblAuthor;
-			System.Windows.Forms.Button btnSearchOnBrowser;
-			System.Windows.Forms.TableLayoutPanel tplPanel2;
-			System.Windows.Forms.Button btnEdit;
-			cmbBindingSide = new System.Windows.Forms.ComboBox();
-			txtCultureDependingPublished = new System.Windows.Forms.TextBox();
-			txtTitle = new System.Windows.Forms.TextBox();
-			cmbAuthor = new System.Windows.Forms.ComboBox();
-			dtpPublished = new System.Windows.Forms.DateTimePicker();
-			lblThumbnail = new System.Windows.Forms.Label();
-			preThumbnail = new Controls.Previewer();
-			btnUpdate = new System.Windows.Forms.Button();
-			lblSize = new System.Windows.Forms.Label();
-			numThumbnailIndex = new System.Windows.Forms.NumericUpDown();
-			splMain = new System.Windows.Forms.SplitContainer();
-			tplPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			lblBindingSide = new System.Windows.Forms.Label();
-			lblCultureDependingPublished = new System.Windows.Forms.Label();
-			lblTitle = new System.Windows.Forms.Label();
-			lblPublished = new System.Windows.Forms.Label();
-			lblAuthor = new System.Windows.Forms.Label();
-			btnSearchOnBrowser = new System.Windows.Forms.Button();
-			tplPanel2 = new System.Windows.Forms.TableLayoutPanel();
-			btnEdit = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)splMain).BeginInit();
-			splMain.Panel1.SuspendLayout();
-			splMain.Panel2.SuspendLayout();
-			splMain.SuspendLayout();
-			tplPanel1.SuspendLayout();
-			tplPanel2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)numThumbnailIndex).BeginInit();
+			System.Windows.Forms.TableLayoutPanel Panel1TableLayoutPanel;
+			System.Windows.Forms.Label BindingSideLabel;
+			System.Windows.Forms.Label CultureDependingPublishedLabel;
+			System.Windows.Forms.Label TitleLabel;
+			System.Windows.Forms.Label PublishedLabel;
+			System.Windows.Forms.Label AuthorLabel;
+			System.Windows.Forms.Button SearchOnBrowserButton;
+			System.Windows.Forms.TableLayoutPanel Panel2TableLayoutPanel;
+			System.Windows.Forms.Button EditButton;
+			BindingSideComboBox = new System.Windows.Forms.ComboBox();
+			CultureDependingPublishedTextBox = new System.Windows.Forms.TextBox();
+			TitleTextBox = new System.Windows.Forms.TextBox();
+			AuthorComboBox = new System.Windows.Forms.ComboBox();
+			PublishedDateTimePicker = new System.Windows.Forms.DateTimePicker();
+			ThumbnailLabel = new System.Windows.Forms.Label();
+			ThumbnailPreviewer = new Controls.Previewer();
+			UpdateButton = new System.Windows.Forms.Button();
+			SizeLabel = new System.Windows.Forms.Label();
+			ThumbnailIndexNumericUpDown = new System.Windows.Forms.NumericUpDown();
+			MainSplitContainer = new System.Windows.Forms.SplitContainer();
+			Panel1TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+			BindingSideLabel = new System.Windows.Forms.Label();
+			CultureDependingPublishedLabel = new System.Windows.Forms.Label();
+			TitleLabel = new System.Windows.Forms.Label();
+			PublishedLabel = new System.Windows.Forms.Label();
+			AuthorLabel = new System.Windows.Forms.Label();
+			SearchOnBrowserButton = new System.Windows.Forms.Button();
+			Panel2TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+			EditButton = new System.Windows.Forms.Button();
+			((System.ComponentModel.ISupportInitialize)MainSplitContainer).BeginInit();
+			MainSplitContainer.Panel1.SuspendLayout();
+			MainSplitContainer.Panel2.SuspendLayout();
+			MainSplitContainer.SuspendLayout();
+			Panel1TableLayoutPanel.SuspendLayout();
+			Panel2TableLayoutPanel.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)ThumbnailIndexNumericUpDown).BeginInit();
 			SuspendLayout();
 			// 
-			// splMain
+			// MainSplitContainer
 			// 
-			resources.ApplyResources(splMain, "splMain");
-			splMain.Name = "splMain";
+			resources.ApplyResources(MainSplitContainer, "MainSplitContainer");
+			MainSplitContainer.Name = "MainSplitContainer";
 			// 
-			// splMain.Panel1
+			// MainSplitContainer.Panel1
 			// 
-			resources.ApplyResources(splMain.Panel1, "splMain.Panel1");
-			splMain.Panel1.Controls.Add(tplPanel1);
+			resources.ApplyResources(MainSplitContainer.Panel1, "MainSplitContainer.Panel1");
+			MainSplitContainer.Panel1.Controls.Add(Panel1TableLayoutPanel);
 			// 
-			// splMain.Panel2
+			// MainSplitContainer.Panel2
 			// 
-			resources.ApplyResources(splMain.Panel2, "splMain.Panel2");
-			splMain.Panel2.Controls.Add(tplPanel2);
+			resources.ApplyResources(MainSplitContainer.Panel2, "MainSplitContainer.Panel2");
+			MainSplitContainer.Panel2.Controls.Add(Panel2TableLayoutPanel);
 			// 
-			// tplPanel1
+			// Panel1TableLayoutPanel
 			// 
-			resources.ApplyResources(tplPanel1, "tplPanel1");
-			tplPanel1.Controls.Add(cmbBindingSide, 0, 9);
-			tplPanel1.Controls.Add(lblBindingSide, 0, 8);
-			tplPanel1.Controls.Add(txtCultureDependingPublished, 0, 7);
-			tplPanel1.Controls.Add(lblCultureDependingPublished, 0, 6);
-			tplPanel1.Controls.Add(lblTitle, 0, 0);
-			tplPanel1.Controls.Add(txtTitle, 0, 1);
-			tplPanel1.Controls.Add(lblPublished, 0, 4);
-			tplPanel1.Controls.Add(lblAuthor, 0, 2);
-			tplPanel1.Controls.Add(btnSearchOnBrowser, 1, 5);
-			tplPanel1.Controls.Add(cmbAuthor, 0, 3);
-			tplPanel1.Controls.Add(dtpPublished, 0, 5);
-			tplPanel1.Name = "tplPanel1";
+			resources.ApplyResources(Panel1TableLayoutPanel, "Panel1TableLayoutPanel");
+			Panel1TableLayoutPanel.Controls.Add(BindingSideComboBox, 0, 9);
+			Panel1TableLayoutPanel.Controls.Add(BindingSideLabel, 0, 8);
+			Panel1TableLayoutPanel.Controls.Add(CultureDependingPublishedTextBox, 0, 7);
+			Panel1TableLayoutPanel.Controls.Add(CultureDependingPublishedLabel, 0, 6);
+			Panel1TableLayoutPanel.Controls.Add(TitleLabel, 0, 0);
+			Panel1TableLayoutPanel.Controls.Add(TitleTextBox, 0, 1);
+			Panel1TableLayoutPanel.Controls.Add(PublishedLabel, 0, 4);
+			Panel1TableLayoutPanel.Controls.Add(AuthorLabel, 0, 2);
+			Panel1TableLayoutPanel.Controls.Add(SearchOnBrowserButton, 1, 5);
+			Panel1TableLayoutPanel.Controls.Add(AuthorComboBox, 0, 3);
+			Panel1TableLayoutPanel.Controls.Add(PublishedDateTimePicker, 0, 5);
+			Panel1TableLayoutPanel.Name = "Panel1TableLayoutPanel";
 			// 
-			// cmbBindingSide
+			// BindingSideComboBox
 			// 
-			resources.ApplyResources(cmbBindingSide, "cmbBindingSide");
-			tplPanel1.SetColumnSpan(cmbBindingSide, 2);
-			cmbBindingSide.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			cmbBindingSide.FormattingEnabled = true;
-			cmbBindingSide.Items.AddRange(new object[] { resources.GetString("cmbBindingSide.Items"), resources.GetString("cmbBindingSide.Items1"), resources.GetString("cmbBindingSide.Items2") });
-			cmbBindingSide.Name = "cmbBindingSide";
-			cmbBindingSide.SelectedIndexChanged += cmbBindingSide_SelectedIndexChanged;
+			resources.ApplyResources(BindingSideComboBox, "BindingSideComboBox");
+			Panel1TableLayoutPanel.SetColumnSpan(BindingSideComboBox, 2);
+			BindingSideComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			BindingSideComboBox.FormattingEnabled = true;
+			BindingSideComboBox.Items.AddRange(new object[] { resources.GetString("BindingSideComboBox.Items"), resources.GetString("BindingSideComboBox.Items1"), resources.GetString("BindingSideComboBox.Items2") });
+			BindingSideComboBox.Name = "BindingSideComboBox";
+			BindingSideComboBox.SelectedIndexChanged += OnBindingSideComboBoxSelectedIndexChanged;
 			// 
-			// lblBindingSide
+			// BindingSideLabel
 			// 
-			resources.ApplyResources(lblBindingSide, "lblBindingSide");
-			tplPanel1.SetColumnSpan(lblBindingSide, 2);
-			lblBindingSide.Name = "lblBindingSide";
+			resources.ApplyResources(BindingSideLabel, "BindingSideLabel");
+			Panel1TableLayoutPanel.SetColumnSpan(BindingSideLabel, 2);
+			BindingSideLabel.Name = "BindingSideLabel";
 			// 
-			// txtCultureDependingPublished
+			// CultureDependingPublishedTextBox
 			// 
-			resources.ApplyResources(txtCultureDependingPublished, "txtCultureDependingPublished");
-			tplPanel1.SetColumnSpan(txtCultureDependingPublished, 2);
-			txtCultureDependingPublished.Name = "txtCultureDependingPublished";
-			txtCultureDependingPublished.TextChanged += txtCultureDependingPublished_TextChanged;
+			resources.ApplyResources(CultureDependingPublishedTextBox, "CultureDependingPublishedTextBox");
+			Panel1TableLayoutPanel.SetColumnSpan(CultureDependingPublishedTextBox, 2);
+			CultureDependingPublishedTextBox.Name = "CultureDependingPublishedTextBox";
+			CultureDependingPublishedTextBox.TextChanged += OnCultureDependingPublishedTextBoxTextChanged;
 			// 
-			// lblCultureDependingPublished
+			// CultureDependingPublishedLabel
 			// 
-			resources.ApplyResources(lblCultureDependingPublished, "lblCultureDependingPublished");
-			tplPanel1.SetColumnSpan(lblCultureDependingPublished, 2);
-			lblCultureDependingPublished.Name = "lblCultureDependingPublished";
+			resources.ApplyResources(CultureDependingPublishedLabel, "CultureDependingPublishedLabel");
+			Panel1TableLayoutPanel.SetColumnSpan(CultureDependingPublishedLabel, 2);
+			CultureDependingPublishedLabel.Name = "CultureDependingPublishedLabel";
 			// 
-			// lblTitle
+			// TitleLabel
 			// 
-			resources.ApplyResources(lblTitle, "lblTitle");
-			tplPanel1.SetColumnSpan(lblTitle, 2);
-			lblTitle.Name = "lblTitle";
+			resources.ApplyResources(TitleLabel, "TitleLabel");
+			Panel1TableLayoutPanel.SetColumnSpan(TitleLabel, 2);
+			TitleLabel.Name = "TitleLabel";
 			// 
-			// txtTitle
+			// TitleTextBox
 			// 
-			resources.ApplyResources(txtTitle, "txtTitle");
-			tplPanel1.SetColumnSpan(txtTitle, 2);
-			txtTitle.Name = "txtTitle";
-			txtTitle.TextChanged += txtTitle_TextChanged;
+			resources.ApplyResources(TitleTextBox, "TitleTextBox");
+			Panel1TableLayoutPanel.SetColumnSpan(TitleTextBox, 2);
+			TitleTextBox.Name = "TitleTextBox";
+			TitleTextBox.TextChanged += OnTitleTextBoxTextChanged;
 			// 
-			// lblPublished
+			// PublishedLabel
 			// 
-			resources.ApplyResources(lblPublished, "lblPublished");
-			tplPanel1.SetColumnSpan(lblPublished, 2);
-			lblPublished.Name = "lblPublished";
+			resources.ApplyResources(PublishedLabel, "PublishedLabel");
+			Panel1TableLayoutPanel.SetColumnSpan(PublishedLabel, 2);
+			PublishedLabel.Name = "PublishedLabel";
 			// 
-			// lblAuthor
+			// AuthorLabel
 			// 
-			resources.ApplyResources(lblAuthor, "lblAuthor");
-			tplPanel1.SetColumnSpan(lblAuthor, 2);
-			lblAuthor.Name = "lblAuthor";
+			resources.ApplyResources(AuthorLabel, "AuthorLabel");
+			Panel1TableLayoutPanel.SetColumnSpan(AuthorLabel, 2);
+			AuthorLabel.Name = "AuthorLabel";
 			// 
-			// btnSearchOnBrowser
+			// SearchOnBrowserButton
 			// 
-			resources.ApplyResources(btnSearchOnBrowser, "btnSearchOnBrowser");
-			btnSearchOnBrowser.Name = "btnSearchOnBrowser";
-			btnSearchOnBrowser.UseVisualStyleBackColor = true;
-			btnSearchOnBrowser.Click += btnSearchOnBrowser_Click;
+			resources.ApplyResources(SearchOnBrowserButton, "SearchOnBrowserButton");
+			SearchOnBrowserButton.Name = "SearchOnBrowserButton";
+			SearchOnBrowserButton.UseVisualStyleBackColor = true;
+			SearchOnBrowserButton.Click += OnSearchOnBrowserButtonClick;
 			// 
-			// cmbAuthor
+			// AuthorComboBox
 			// 
-			resources.ApplyResources(cmbAuthor, "cmbAuthor");
-			tplPanel1.SetColumnSpan(cmbAuthor, 2);
-			cmbAuthor.DropDownHeight = 256;
-			cmbAuthor.FormattingEnabled = true;
-			cmbAuthor.Name = "cmbAuthor";
-			cmbAuthor.TextChanged += cmbAuthor_TextChanged;
+			resources.ApplyResources(AuthorComboBox, "AuthorComboBox");
+			Panel1TableLayoutPanel.SetColumnSpan(AuthorComboBox, 2);
+			AuthorComboBox.DropDownHeight = 256;
+			AuthorComboBox.FormattingEnabled = true;
+			AuthorComboBox.Name = "AuthorComboBox";
+			AuthorComboBox.TextChanged += OnAuthorComboBoxTextChanged;
 			// 
-			// dtpPublished
+			// PublishedDateTimePicker
 			// 
-			resources.ApplyResources(dtpPublished, "dtpPublished");
-			dtpPublished.Checked = false;
-			dtpPublished.Name = "dtpPublished";
-			dtpPublished.ShowCheckBox = true;
-			dtpPublished.ValueChanged += dtpPublished_ValueChanged;
+			resources.ApplyResources(PublishedDateTimePicker, "PublishedDateTimePicker");
+			PublishedDateTimePicker.Checked = false;
+			PublishedDateTimePicker.Name = "PublishedDateTimePicker";
+			PublishedDateTimePicker.ShowCheckBox = true;
+			PublishedDateTimePicker.ValueChanged += OnPublishedDateTimePickerValueChanged;
 			// 
-			// tplPanel2
+			// Panel2TableLayoutPanel
 			// 
-			resources.ApplyResources(tplPanel2, "tplPanel2");
-			tplPanel2.Controls.Add(lblThumbnail, 0, 0);
-			tplPanel2.Controls.Add(preThumbnail, 0, 2);
-			tplPanel2.Controls.Add(btnUpdate, 1, 1);
-			tplPanel2.Controls.Add(lblSize, 0, 3);
-			tplPanel2.Controls.Add(numThumbnailIndex, 0, 1);
-			tplPanel2.Controls.Add(btnEdit, 1, 3);
-			tplPanel2.Name = "tplPanel2";
+			resources.ApplyResources(Panel2TableLayoutPanel, "Panel2TableLayoutPanel");
+			Panel2TableLayoutPanel.Controls.Add(ThumbnailLabel, 0, 0);
+			Panel2TableLayoutPanel.Controls.Add(ThumbnailPreviewer, 0, 2);
+			Panel2TableLayoutPanel.Controls.Add(UpdateButton, 1, 1);
+			Panel2TableLayoutPanel.Controls.Add(SizeLabel, 0, 3);
+			Panel2TableLayoutPanel.Controls.Add(ThumbnailIndexNumericUpDown, 0, 1);
+			Panel2TableLayoutPanel.Controls.Add(EditButton, 1, 3);
+			Panel2TableLayoutPanel.Name = "Panel2TableLayoutPanel";
 			// 
-			// lblThumbnail
+			// ThumbnailLabel
 			// 
-			resources.ApplyResources(lblThumbnail, "lblThumbnail");
-			tplPanel2.SetColumnSpan(lblThumbnail, 2);
-			lblThumbnail.Name = "lblThumbnail";
+			resources.ApplyResources(ThumbnailLabel, "ThumbnailLabel");
+			Panel2TableLayoutPanel.SetColumnSpan(ThumbnailLabel, 2);
+			ThumbnailLabel.Name = "ThumbnailLabel";
 			// 
-			// preThumbnail
+			// ThumbnailPreviewer
 			// 
-			resources.ApplyResources(preThumbnail, "preThumbnail");
-			tplPanel2.SetColumnSpan(preThumbnail, 2);
-			preThumbnail.Name = "preThumbnail";
-			preThumbnail.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
+			resources.ApplyResources(ThumbnailPreviewer, "ThumbnailPreviewer");
+			Panel2TableLayoutPanel.SetColumnSpan(ThumbnailPreviewer, 2);
+			ThumbnailPreviewer.Name = "ThumbnailPreviewer";
+			ThumbnailPreviewer.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
 			// 
-			// btnUpdate
+			// UpdateButton
 			// 
-			resources.ApplyResources(btnUpdate, "btnUpdate");
-			btnUpdate.Name = "btnUpdate";
-			btnUpdate.UseVisualStyleBackColor = true;
-			btnUpdate.Click += btnUpdate_Click;
+			resources.ApplyResources(UpdateButton, "UpdateButton");
+			UpdateButton.Name = "UpdateButton";
+			UpdateButton.UseVisualStyleBackColor = true;
+			UpdateButton.Click += OnUpdateButtonClick;
 			// 
-			// lblSize
+			// SizeLabel
 			// 
-			resources.ApplyResources(lblSize, "lblSize");
-			lblSize.Name = "lblSize";
+			resources.ApplyResources(SizeLabel, "SizeLabel");
+			SizeLabel.Name = "SizeLabel";
 			// 
-			// numThumbnailIndex
+			// ThumbnailIndexNumericUpDown
 			// 
-			resources.ApplyResources(numThumbnailIndex, "numThumbnailIndex");
-			numThumbnailIndex.Name = "numThumbnailIndex";
+			resources.ApplyResources(ThumbnailIndexNumericUpDown, "ThumbnailIndexNumericUpDown");
+			ThumbnailIndexNumericUpDown.Name = "ThumbnailIndexNumericUpDown";
 			// 
-			// btnEdit
+			// EditButton
 			// 
-			resources.ApplyResources(btnEdit, "btnEdit");
-			btnEdit.Name = "btnEdit";
-			btnEdit.UseVisualStyleBackColor = true;
-			btnEdit.Click += btnEdit_Click;
+			resources.ApplyResources(EditButton, "EditButton");
+			EditButton.Name = "EditButton";
+			EditButton.UseVisualStyleBackColor = true;
+			EditButton.Click += OnEditButtonClick;
 			// 
 			// DocumentView
 			// 
 			resources.ApplyResources(this, "$this");
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-			Controls.Add(splMain);
+			Controls.Add(MainSplitContainer);
 			HideOnClose = true;
 			Name = "DocumentView";
-			splMain.Panel1.ResumeLayout(false);
-			splMain.Panel2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)splMain).EndInit();
-			splMain.ResumeLayout(false);
-			tplPanel1.ResumeLayout(false);
-			tplPanel1.PerformLayout();
-			tplPanel2.ResumeLayout(false);
-			tplPanel2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)numThumbnailIndex).EndInit();
+			MainSplitContainer.Panel1.ResumeLayout(false);
+			MainSplitContainer.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)MainSplitContainer).EndInit();
+			MainSplitContainer.ResumeLayout(false);
+			Panel1TableLayoutPanel.ResumeLayout(false);
+			Panel1TableLayoutPanel.PerformLayout();
+			Panel2TableLayoutPanel.ResumeLayout(false);
+			Panel2TableLayoutPanel.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)ThumbnailIndexNumericUpDown).EndInit();
 			ResumeLayout(false);
 		}
 
 		#endregion
 
-		System.Windows.Forms.TextBox txtTitle;
-		System.Windows.Forms.ComboBox cmbAuthor;
-		System.Windows.Forms.DateTimePicker dtpPublished;
-		System.Windows.Forms.Label lblSize;
-		private System.Windows.Forms.ComboBox cmbBindingSide;
-		private System.Windows.Forms.Label lblThumbnail;
-		private Controls.Previewer preThumbnail;
-		private System.Windows.Forms.NumericUpDown numThumbnailIndex;
-		private System.Windows.Forms.Button btnUpdate;
-		private System.Windows.Forms.TextBox txtCultureDependingPublished;
+		System.Windows.Forms.TextBox TitleTextBox;
+		System.Windows.Forms.ComboBox AuthorComboBox;
+		System.Windows.Forms.DateTimePicker PublishedDateTimePicker;
+		System.Windows.Forms.Label SizeLabel;
+		private System.Windows.Forms.ComboBox BindingSideComboBox;
+		private System.Windows.Forms.Label ThumbnailLabel;
+		private Controls.Previewer ThumbnailPreviewer;
+		private System.Windows.Forms.NumericUpDown ThumbnailIndexNumericUpDown;
+		private System.Windows.Forms.Button UpdateButton;
+		private System.Windows.Forms.TextBox CultureDependingPublishedTextBox;
 	}
 }

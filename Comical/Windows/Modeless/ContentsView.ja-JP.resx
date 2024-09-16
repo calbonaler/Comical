@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="itmOpen.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OpenMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 22</value>
   </data>
-  <data name="itmOpen.Text" xml:space="preserve">
+  <data name="OpenMenuItem.Text" xml:space="preserve">
     <value>開く(&amp;O)</value>
   </data>
-  <data name="sepImage1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImageMenuSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 6</value>
   </data>
-  <data name="itmAddToBookmark.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AddToBookmarkMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 22</value>
   </data>
-  <data name="itmAddToBookmark.Text" xml:space="preserve">
+  <data name="AddToBookmarkMenuItem.Text" xml:space="preserve">
     <value>ブックマークに追加(&amp;B)</value>
   </data>
-  <data name="sepImage2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImageMenuSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 6</value>
   </data>
-  <data name="itmExport.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ExportMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAM1JREFUOE+tjDEOgkAQRTmFJ7Cz8QhWHkAvYOIlrGhopKXcGjsst9qGgAlXUEoj
@@ -145,13 +145,13 @@
         nMeV2D4jEgQBFBMKvB/J9EKt8X0fCk8TgfbC8zztum7vWeXfcJwH064gPOUKp8QAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="itmExport.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ExportMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 22</value>
   </data>
-  <data name="itmExport.Text" xml:space="preserve">
+  <data name="ExportMenuItem.Text" xml:space="preserve">
     <value>エクスポート(&amp;T)...</value>
   </data>
-  <data name="itmExtract.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ExtractMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAWBJREFUOE+tkT1Lw1AYhYOI+APcnf0DjvpPXMSls4ODVG2gWOzUUvoxOIVmKUKH
@@ -163,31 +163,31 @@
         k5VloSg/CC1OG5AV66gAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="itmExtract.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ExtractMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 22</value>
   </data>
-  <data name="itmExtract.Text" xml:space="preserve">
+  <data name="ExtractMenuItem.Text" xml:space="preserve">
     <value>抽出(&amp;C)...</value>
   </data>
-  <data name="sepImage3.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImageMenuSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 6</value>
   </data>
-  <data name="itmStartViewModeSettingLeft.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="StartViewModeSettingLeftMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 22</value>
   </data>
-  <data name="itmStartViewModeSettingLeft.Text" xml:space="preserve">
+  <data name="StartViewModeSettingLeftMenuItem.Text" xml:space="preserve">
     <value>表示設定を左で開始(&amp;L)</value>
   </data>
-  <data name="itmStartViewModeSettingRight.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="StartViewModeSettingRightMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 22</value>
   </data>
-  <data name="itmStartViewModeSettingRight.Text" xml:space="preserve">
+  <data name="StartViewModeSettingRightMenuItem.Text" xml:space="preserve">
     <value>表示設定を右で開始(&amp;R)</value>
   </data>
-  <data name="sepImage4.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImageMenuSeparator4.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 6</value>
   </data>
-  <data name="itmDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="DeleteMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
@@ -203,19 +203,19 @@
         JGBgAACn9cedPOLjcAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmDelete.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DeleteMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 22</value>
   </data>
-  <data name="itmDelete.Text" xml:space="preserve">
+  <data name="DeleteMenuItem.Text" xml:space="preserve">
     <value>削除(&amp;D)</value>
   </data>
-  <data name="conImage.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImageContextMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>193, 182</value>
   </data>
-  <data name="clmImage.HeaderText" xml:space="preserve">
+  <data name="ImageDataGridViewColumn.HeaderText" xml:space="preserve">
     <value>画像</value>
   </data>
-  <data name="clmViewMode.HeaderText" xml:space="preserve">
+  <data name="ViewModeDataGridViewColumn.HeaderText" xml:space="preserve">
     <value>表示</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

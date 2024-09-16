@@ -118,29 +118,29 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lblDescription.AutoSize" type="System.Boolean, mscorlib">
+  <data name="DescriptionLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lblDescription.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="DescriptionLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 10</value>
   </data>
-  <data name="lblDescription.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DescriptionLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>0, 15</value>
   </data>
-  <data name="lblDescription.TabIndex" type="System.Int32, mscorlib">
+  <data name="DescriptionLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;lblDescription.Name" xml:space="preserve">
-    <value>lblDescription</value>
+  <data name="&gt;&gt;DescriptionLabel.Name" xml:space="preserve">
+    <value>DescriptionLabel</value>
   </data>
-  <data name="&gt;&gt;lblDescription.Type" xml:space="preserve">
+  <data name="&gt;&gt;DescriptionLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblDescription.Parent" xml:space="preserve">
+  <data name="&gt;&gt;DescriptionLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;lblDescription.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;DescriptionLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

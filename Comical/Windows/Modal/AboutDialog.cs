@@ -28,7 +28,7 @@ namespace Comical
 
 		#region SplashScreen EventHandlers
 
-		void SplashScreen_Click(object? sender, System.EventArgs e) => Close();
+		void OnClick(object? sender, System.EventArgs e) => Close();
 
 		protected override void OnLoad(System.EventArgs e)
 		{
@@ -36,10 +36,10 @@ namespace Comical
 			var version = Assembly.GetExecutingAssembly().GetName().Version;
 			Debug.Assert(version != null);
 			lblVersionHeader.Text = version.ToString(3);
-			lblCopyright.Text = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).FirstOrDefault() is AssemblyCopyrightAttribute ca
+			CopyrightLabel.Text = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).FirstOrDefault() is AssemblyCopyrightAttribute ca
 				? string.Format(System.Globalization.CultureInfo.CurrentCulture, Properties.Resources.AboutDialog_CopyrightFormat, ca.Copyright)
 				: string.Empty;
-			txtLibraries.Select(0, 0);
+			LibrariesTextBox.Select(0, 0);
 		}
 
 		#endregion

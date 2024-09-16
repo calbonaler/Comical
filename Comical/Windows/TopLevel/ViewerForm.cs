@@ -14,11 +14,11 @@ namespace Comical
 		public ViewerForm(string fileName)
 		{
 			InitializeComponent();
-			prevMain.ContextMenuStrip = conBookmarks;
-			prevMain.ViewPane.MouseMove += picPreview_MouseMove;
-			prevMain.ViewPane.MouseUp += picPreview_MouseUp;
-			prevMain.ViewPane.Paint += picPreview_Paint;
-			prevMain.ViewPane.KeyDown += picPreview_KeyDown;
+			MainPreviewer.ContextMenuStrip = BookmarksContextMenu;
+			MainPreviewer.ViewPane.MouseMove += OnMainPreviewerViewPaneMouseMove;
+			MainPreviewer.ViewPane.MouseUp += OnMainPreviewerViewPaneMouseUp;
+			MainPreviewer.ViewPane.Paint += OnMainPreviewerViewPanePaint;
+			MainPreviewer.ViewPane.KeyDown += OnMainPreviewerViewPaneKeyDown;
 			_comic = new Comic();
 			_openingFileName = fileName;
 		}
@@ -46,9 +46,9 @@ namespace Comical
 				Debug.Assert(_spreads != null);
 				var spread = _spreads[_currentSpreadIndex];
 				if (spread.Fill is { } fill)
-					prevMain.SetImage(fill.Data);
+					MainPreviewer.SetImage(fill.Data);
 				else
-					prevMain.SetImage(spread.Left?.Data, spread.Right?.Data);
+					MainPreviewer.SetImage(spread.Left?.Data, spread.Right?.Data);
 			}
 		}
 
@@ -64,7 +64,7 @@ namespace Comical
 		void Open(string fileName)
 		{
 			Activate();
-			prevMain.Select();
+			MainPreviewer.Select();
 			using (var dialog = new CPDialogs.TaskDialog())
 			{
 				dialog.Cancelable = false;
@@ -85,7 +85,7 @@ namespace Comical
 				dialog.Show();
 			}
 			_spreads = _comic.ConstructSpreads().ToArray();
-			conBookmarks.Items.AddRange(_comic.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (s, ev) => SetCurrentSpread(Array.FindIndex(_spreads, x => x.Left == _comic.Images[b.Target] || x.Right == _comic.Images[b.Target])))).ToArray());
+			BookmarksContextMenu.Items.AddRange(_comic.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (s, ev) => SetCurrentSpread(Array.FindIndex(_spreads, x => x.Left == _comic.Images[b.Target] || x.Right == _comic.Images[b.Target])))).ToArray());
 			_openingFileName = "";
 			SetCurrentSpread(0);
 		}
@@ -98,34 +98,34 @@ namespace Comical
 		const int CloseHeight = 20;
 		readonly SolidBrush _closeBrush = new(Color.FromArgb(64, 255, 0, 0));
 
-		#region picPreview EventHandlers
+		#region MainPreviewer ViewPane EventHandlers
 
-		void picPreview_MouseMove(object? sender, MouseEventArgs e)
+		void OnMainPreviewerViewPaneMouseMove(object? sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.None && (_comic.BindingSide == BindingSide.Left ? e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - prevMain.AutoScrollPosition.X))
+			if (e.Button == MouseButtons.None && (_comic.BindingSide == BindingSide.Left ? e.X >= Math.Min(MainPreviewer.ViewPane.ClientSize.Width, MainPreviewer.ClientSize.Width) - MainPreviewer.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - MainPreviewer.AutoScrollPosition.X))
 			{
 				_focusMode = FocusMode.Next;
-				prevMain.Cursor = Cursors.Default;
+				MainPreviewer.Cursor = Cursors.Default;
 			}
-			else if (e.Button == MouseButtons.None && (_comic.BindingSide == BindingSide.Left ? e.X <= Properties.Resources.Previous.Width - prevMain.AutoScrollPosition.X : e.X >= Math.Min(prevMain.ViewPane.ClientSize.Width, prevMain.ClientSize.Width) - prevMain.AutoScrollPosition.X - Properties.Resources.Previous.Width))
+			else if (e.Button == MouseButtons.None && (_comic.BindingSide == BindingSide.Left ? e.X <= Properties.Resources.Previous.Width - MainPreviewer.AutoScrollPosition.X : e.X >= Math.Min(MainPreviewer.ViewPane.ClientSize.Width, MainPreviewer.ClientSize.Width) - MainPreviewer.AutoScrollPosition.X - Properties.Resources.Previous.Width))
 			{
 				_focusMode = FocusMode.Previous;
-				prevMain.Cursor = Cursors.Default;
+				MainPreviewer.Cursor = Cursors.Default;
 			}
-			else if (e.Button == MouseButtons.None && e.Y >= prevMain.ClientSize.Height - CloseHeight - prevMain.AutoScrollPosition.Y)
+			else if (e.Button == MouseButtons.None && e.Y >= MainPreviewer.ClientSize.Height - CloseHeight - MainPreviewer.AutoScrollPosition.Y)
 			{
 				_focusMode = FocusMode.Close;
-				prevMain.Cursor = Cursors.Default;
+				MainPreviewer.Cursor = Cursors.Default;
 			}
 			else
 			{
 				_focusMode = FocusMode.None;
-				prevMain.Cursor = null;
+				MainPreviewer.Cursor = null;
 			}
-			prevMain.Invalidate();
+			MainPreviewer.Invalidate();
 		}
 
-		void picPreview_MouseUp(object? sender, MouseEventArgs e)
+		void OnMainPreviewerViewPaneMouseUp(object? sender, MouseEventArgs e)
 		{
 			if ((e.Button & MouseButtons.Left) != 0)
 			{
@@ -141,27 +141,27 @@ namespace Comical
 			else if (e.Button == MouseButtons.XButton1)
 				ViewNext();
 			else if (e.Button == MouseButtons.Middle)
-				prevMain.StretchMode = prevMain.StretchMode == Comical.Controls.PreviewerStretchMode.Uniform ? Comical.Controls.PreviewerStretchMode.None : Comical.Controls.PreviewerStretchMode.Uniform;
+				MainPreviewer.StretchMode = MainPreviewer.StretchMode == Comical.Controls.PreviewerStretchMode.Uniform ? Comical.Controls.PreviewerStretchMode.None : Comical.Controls.PreviewerStretchMode.Uniform;
 		}
 
-		void picPreview_Paint(object? sender, PaintEventArgs e)
+		void OnMainPreviewerViewPanePaint(object? sender, PaintEventArgs e)
 		{
 			var g = e.Graphics;
 			if (_focusMode == FocusMode.Close)
-				g.FillRectangle(_closeBrush, -prevMain.AutoScrollPosition.X, prevMain.ClientSize.Height - CloseHeight - prevMain.AutoScrollPosition.Y, prevMain.ViewPane.ClientSize.Width, CloseHeight);
+				g.FillRectangle(_closeBrush, -MainPreviewer.AutoScrollPosition.X, MainPreviewer.ClientSize.Height - CloseHeight - MainPreviewer.AutoScrollPosition.Y, MainPreviewer.ViewPane.ClientSize.Width, CloseHeight);
 			else if (_focusMode != FocusMode.None)
 			{
 				var img = (Bitmap?)Properties.Resources.ResourceManager.GetObject(_focusMode.ToString(), Properties.Resources.Culture);
 				Debug.Assert(img != null);
-				var y = (prevMain.ClientSize.Height - img.Height) / 2 - prevMain.AutoScrollPosition.Y;
+				var y = (MainPreviewer.ClientSize.Height - img.Height) / 2 - MainPreviewer.AutoScrollPosition.Y;
 				if (_comic.BindingSide == BindingSide.Left ^ _focusMode == FocusMode.Next)
-					g.DrawImage(img, -prevMain.AutoScrollPosition.X, y);
+					g.DrawImage(img, -MainPreviewer.AutoScrollPosition.X, y);
 				else
-					g.DrawImage(img, Math.Min(prevMain.ClientSize.Width, prevMain.ViewPane.ClientSize.Width) - img.Width - prevMain.AutoScrollPosition.X, y);
+					g.DrawImage(img, Math.Min(MainPreviewer.ClientSize.Width, MainPreviewer.ViewPane.ClientSize.Width) - img.Width - MainPreviewer.AutoScrollPosition.X, y);
 			}
 		}
 
-		void picPreview_KeyDown(object? sender, KeyEventArgs e)
+		void OnMainPreviewerViewPaneKeyDown(object? sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Escape)
 				Close();

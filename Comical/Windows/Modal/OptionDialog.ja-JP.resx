@@ -117,42 +117,42 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnCancel.Text" xml:space="preserve">
+  <data name="CancelButton.Text" xml:space="preserve">
     <value>キャンセル</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lblDefaultSavedFileName.GenerateMember" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="DefaultSavedFileNameLabel.GenerateMember" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="lblDefaultSavedFileName.AutoSize" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="DefaultSavedFileNameLabel.AutoSize" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lblDefaultSavedFileName.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DefaultSavedFileNameLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>306, 18</value>
   </data>
-  <data name="lblDefaultSavedFileName.Text" xml:space="preserve">
+  <data name="DefaultSavedFileNameLabel.Text" xml:space="preserve">
     <value>「名前を付けて保存」で使用する既定のファイル名(&amp;F):</value>
   </data>
-  <data name="itmTitle.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="TitleMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>175, 22</value>
   </data>
-  <data name="itmTitle.Text" xml:space="preserve">
+  <data name="TitleMenuItem.Text" xml:space="preserve">
     <value>{0}  タイトル</value>
   </data>
-  <data name="itmAuthor.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AuthorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>175, 22</value>
   </data>
-  <data name="itmAuthor.Text" xml:space="preserve">
+  <data name="AuthorMenuItem.Text" xml:space="preserve">
     <value>{1}  作者</value>
   </data>
-  <data name="itmFormattedDate.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FormattedDateMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>175, 22</value>
   </data>
-  <data name="itmFormattedDate.Text" xml:space="preserve">
+  <data name="FormattedDateMenuItem.Text" xml:space="preserve">
     <value>{2}  フォーマット済み日付</value>
   </data>
-  <data name="conInsertMask.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="InsertMaskContextMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>176, 70</value>
   </data>
   <data name="$this.Text" xml:space="preserve">

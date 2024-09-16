@@ -15,12 +15,12 @@ namespace Comical
 			InitializeComponent();
 
 			_images = images;
-			_images.CollectionChanged += Images_CollectionChanged;
-			Images_CollectionChanged(_images, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+			_images.CollectionChanged += OnImagesCollectionChanged;
+			OnImagesCollectionChanged(_images, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
 			_bookmarks = bookmarks;
-			_bookmarks.CollectionChanged += Bookmarks_CollectionChanged;
-			Bookmarks_CollectionChanged(_bookmarks, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+			_bookmarks.CollectionChanged += OnBookmarksCollectionChanged;
+			OnBookmarksCollectionChanged(_bookmarks, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 		}
 
 		readonly ImageReferenceCollection _images;
@@ -28,18 +28,18 @@ namespace Comical
 
 		public event EventHandler BookmarkSelected
 		{
-			add => dgvBookmarks.SelectionChanged += value;
-			remove => dgvBookmarks.SelectionChanged -= value;
+			add => BookmarksDataGridView.SelectionChanged += value;
+			remove => BookmarksDataGridView.SelectionChanged -= value;
 		}
 
 		public event EventHandler<BookmarkNavigatedEventArgs>? BookmarkNavigated;
 
-		public IEnumerable<Bookmark> SelectedBookmarks => dgvBookmarks.SelectedRows.Cast<DataGridViewRow>().Select(row => _bookmarks[row.Index]);
+		public IEnumerable<Bookmark> SelectedBookmarks => BookmarksDataGridView.SelectedRows.Cast<DataGridViewRow>().Select(row => _bookmarks[row.Index]);
 
 		public IDisposable BeginAsyncWork()
 		{
-			dgvBookmarks.ReadOnly = true;
-			return new DelegateDisposable(() => dgvBookmarks.ReadOnly = false);
+			BookmarksDataGridView.ReadOnly = true;
+			return new DelegateDisposable(() => BookmarksDataGridView.ReadOnly = false);
 		}
 
 		public void DeleteSelectedBookmarks()
@@ -55,21 +55,21 @@ namespace Comical
 		void RefreshMenuVisibility()
 		{
 			var count = SelectedBookmarks.Count();
-			itmSelectTarget.Visible = count == 1;
-			sepBookmark1.Visible = count == 1;
-			itmCreateNew.Visible = _images.Count > 0;
-			itmInsertAbove.Visible = count == 1;
-			itmInsertBelow.Visible = count == 1;
-			sepBookmark2.Visible = count > 0;
-			itmDelete.Visible = count > 0;
+			SelectTargetMenuItem.Visible = count == 1;
+			BookmarkMenuSeparator1.Visible = count == 1;
+			CreateNewMenuItem.Visible = _images.Count > 0;
+			InsertAboveMenuItem.Visible = count == 1;
+			InsertBelowMenuItem.Visible = count == 1;
+			BookmarkMenuSeparator2.Visible = count > 0;
+			DeleteMenuItem.Visible = count > 0;
 		}
 
-		void dgvBookmarks_CellErrorTextNeeded(object? sender, DataGridViewCellErrorTextNeededEventArgs e)
+		void OnBookmarksDataGridViewCellErrorTextNeeded(object? sender, DataGridViewCellErrorTextNeededEventArgs e)
 		{
 			e.ErrorText = string.Empty;
 			if (e.RowIndex < 0 || e.RowIndex >= _bookmarks.Count)
 				return;
-			if (dgvBookmarks.Columns[e.ColumnIndex] == clmTarget)
+			if (BookmarksDataGridView.Columns[e.ColumnIndex] == TargetDataGridViewColumn)
 			{
 				if (_bookmarks[e.RowIndex].Target < _images.Count)
 					return;
@@ -77,17 +77,17 @@ namespace Comical
 			}
 		}
 
-		void dgvBookmarks_CellValueNeeded(object? sender, DataGridViewCellValueEventArgs e)
+		void OnBookmarksDataGridViewCellValueNeeded(object? sender, DataGridViewCellValueEventArgs e)
 		{
 			if (e.RowIndex >= 0 && e.RowIndex < _bookmarks.Count)
-				e.Value = dgvBookmarks.Columns[e.ColumnIndex] == clmName ? _bookmarks[e.RowIndex].Name : _bookmarks[e.RowIndex].Target;
+				e.Value = BookmarksDataGridView.Columns[e.ColumnIndex] == NameDataGridViewColumn ? _bookmarks[e.RowIndex].Name : _bookmarks[e.RowIndex].Target;
 		}
 
-		void dgvBookmarks_CellValuePushed(object? sender, DataGridViewCellValueEventArgs e)
+		void OnBookmarksDataGridViewCellValuePushed(object? sender, DataGridViewCellValueEventArgs e)
 		{
 			if (e.RowIndex < 0 || e.RowIndex >= _bookmarks.Count || e.Value is not string value)
 				return;
-			if (dgvBookmarks.Columns[e.ColumnIndex] == clmName)
+			if (BookmarksDataGridView.Columns[e.ColumnIndex] == NameDataGridViewColumn)
 			{
 				_bookmarks[e.RowIndex].Name = value;
 				return;
@@ -96,11 +96,11 @@ namespace Comical
 				_bookmarks[e.RowIndex].Target = target;
 		}
 
-		void dgvBookmarks_QueryRowDragDropEffect(object? sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.Source == dgvBookmarks ? DragDropEffects.Move : DragDropEffects.Link;
+		void OnBookmarksDataGridViewQueryRowDragDropEffect(object? sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.Source == BookmarksDataGridView ? DragDropEffects.Move : DragDropEffects.Link;
 
-		void dgvBookmarks_RowMoving(object? sender, Controls.RowMovingEventArgs e)
+		void OnBookmarksDataGridViewRowMoving(object? sender, Controls.RowMovingEventArgs e)
 		{
-			if (e.Source == dgvBookmarks)
+			if (e.Source == BookmarksDataGridView)
 				_bookmarks.Move(e.SourceRows[0].Index, e.Destination);
 			else
 			{
@@ -109,45 +109,45 @@ namespace Comical
 			}
 		}
 
-		void Images_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
+		void OnImagesCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
 			RefreshMenuVisibility();
-			dgvBookmarks.Invalidate();
+			BookmarksDataGridView.Invalidate();
 		});
 
-		void dgvBookmarks_SelectionChanged(object? sender, EventArgs e) => RefreshMenuVisibility();
+		void OnBookmarksDataGridViewSelectionChanged(object? sender, EventArgs e) => RefreshMenuVisibility();
 
-		void Bookmarks_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
+		void OnBookmarksCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
-			dgvBookmarks.RowCount = _bookmarks.Count;
-			dgvBookmarks.Invalidate();
+			BookmarksDataGridView.RowCount = _bookmarks.Count;
+			BookmarksDataGridView.Invalidate();
 		});
 
-		void dgvBookmarks_CellDoubleClick(object? sender, DataGridViewCellEventArgs e) => OnBookmarkNavigated(new BookmarkNavigatedEventArgs(_bookmarks[e.RowIndex]));
+		void OnBookmarksDataGridViewCellDoubleClick(object? sender, DataGridViewCellEventArgs e) => OnBookmarkNavigated(new BookmarkNavigatedEventArgs(_bookmarks[e.RowIndex]));
 
 		int rowIndex = -1;
 
-		void dgvBookmarks_UserDeletingRow(object? sender, DataGridViewRowCancelEventArgs e)
+		void OnBookmarksDataGridViewUserDeletingRow(object? sender, DataGridViewRowCancelEventArgs e)
 		{
 			Debug.Assert(e.Row != null, "I think this never happens.");
 			rowIndex = e.Row.Index;
 		}
 
-		void dgvBookmarks_UserDeletedRow(object? sender, DataGridViewRowEventArgs e)
+		void OnBookmarksDataGridViewUserDeletedRow(object? sender, DataGridViewRowEventArgs e)
 		{
 			if (rowIndex >= 0 && rowIndex < _bookmarks.Count)
 				_bookmarks.RemoveAt(rowIndex);
 		}
 
-		void itmSelectTarget_Click(object? sender, EventArgs e) => OnBookmarkNavigated(new BookmarkNavigatedEventArgs(_bookmarks[dgvBookmarks.SelectedRows[0].Index]));
+		void OnSelectTargetMenuItemClick(object? sender, EventArgs e) => OnBookmarkNavigated(new BookmarkNavigatedEventArgs(_bookmarks[BookmarksDataGridView.SelectedRows[0].Index]));
 
-		void itmAdd_Click(object? sender, EventArgs e) => _bookmarks.Add(new Bookmark());
+		void OnCreateNewMenuItemClick(object? sender, EventArgs e) => _bookmarks.Add(new Bookmark());
 
-		void itmInsertAbove_Click(object? sender, EventArgs e) => _bookmarks.Insert(dgvBookmarks.SelectedRows[0].Index, new Bookmark());
+		void OnInsertAboveMenuItemClick(object? sender, EventArgs e) => _bookmarks.Insert(BookmarksDataGridView.SelectedRows[0].Index, new Bookmark());
 
-		void itmInsertBelow_Click(object? sender, EventArgs e) => _bookmarks.Insert(dgvBookmarks.SelectedRows[0].Index + 1, new Bookmark());
+		void OnInsertBelowMenuItemClick(object? sender, EventArgs e) => _bookmarks.Insert(BookmarksDataGridView.SelectedRows[0].Index + 1, new Bookmark());
 
-		void itmRemove_Click(object? sender, EventArgs e) => DeleteSelectedBookmarks();
+		void OnDeleteMenuItemClick(object? sender, EventArgs e) => DeleteSelectedBookmarks();
 	}
 
 	public class BookmarkNavigatedEventArgs(Bookmark bookmark) : EventArgs

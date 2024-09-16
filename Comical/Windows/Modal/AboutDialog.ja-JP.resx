@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lblLibraries.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="LibrariesLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>145, 18</value>
   </data>
-  <data name="lblLibraries.Text" xml:space="preserve">
+  <data name="LibrariesLabel.Text" xml:space="preserve">
     <value>使用しているライブラリ:</value>
   </data>
-  <data name="lblCopyright.Text" xml:space="preserve">
+  <data name="CopyrightLabel.Text" xml:space="preserve">
     <value>Copyright (C) takumi 2010 All Rights Reserved</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

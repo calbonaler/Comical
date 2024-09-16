@@ -15,13 +15,13 @@ namespace Comical
 		public ContentsView(ImageReferenceCollection images)
 		{
 			InitializeComponent();
-			dgvImages.RowTemplate.Height = ThumbnailSize.Height;
-			clmViewMode.DataSource = Enum.GetNames(typeof(ImageViewMode));
+			ImagesDataGridView.RowTemplate.Height = ThumbnailSize.Height;
+			ViewModeDataGridViewColumn.DataSource = Enum.GetNames(typeof(ImageViewMode));
 
 			_images = images;
-			_images.CollectionChanged += Images_CollectionChanged;
-			_images.CollectionItemPropertyChanged += Images_CollectionItemPropertyChanged;
-			Images_CollectionChanged(_images, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+			_images.CollectionChanged += OnImagesCollectionChanged;
+			_images.CollectionItemPropertyChanged += OnImagesCollectionItemPropertyChanged;
+			OnImagesCollectionChanged(_images, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 		}
 
 		readonly ImageReferenceCollection _images;
@@ -34,44 +34,44 @@ namespace Comical
 
 		public event EventHandler ImageReferenceSelected
 		{
-			add => dgvImages.SelectionChanged += value;
-			remove => dgvImages.SelectionChanged -= value;
+			add => ImagesDataGridView.SelectionChanged += value;
+			remove => ImagesDataGridView.SelectionChanged -= value;
 		}
 
 		public event EventHandler ExportRequested
 		{
-			add => itmExport.Click += value;
-			remove => itmExport.Click -= value;
+			add => ExportMenuItem.Click += value;
+			remove => ExportMenuItem.Click -= value;
 		}
 
 		public event EventHandler ExtractRequested
 		{
-			add => itmExtract.Click += value;
-			remove => itmExport.Click -= value;
+			add => ExtractMenuItem.Click += value;
+			remove => ExportMenuItem.Click -= value;
 		}
 
 		public event EventHandler BookmarkRequested
 		{
-			add => itmAddToBookmark.Click += value;
-			remove => itmAddToBookmark.Click -= value;
+			add => AddToBookmarkMenuItem.Click += value;
+			remove => AddToBookmarkMenuItem.Click -= value;
 		}
 
 		public event EventHandler<FileDroppedEventArgs>? FileDropped;
 
 		public IDisposable BeginAsyncWork()
 		{
-			dgvImages.ReadOnly = true;
-			dgvImages.Refresh();
+			ImagesDataGridView.ReadOnly = true;
+			ImagesDataGridView.Refresh();
 			return new DelegateDisposable(() =>
 			{
-				dgvImages.ReadOnly = false;
-				dgvImages.Refresh();
+				ImagesDataGridView.ReadOnly = false;
+				ImagesDataGridView.Refresh();
 			});
 		}
 
-		public IEnumerable<int> SelectedIndices => dgvImages.SelectedRows.Cast<DataGridViewRow>().Select(r => r.Index);
+		public IEnumerable<int> SelectedIndices => ImagesDataGridView.SelectedRows.Cast<DataGridViewRow>().Select(r => r.Index);
 
-		void Images_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
+		void OnImagesCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
 			switch (e.Action)
 			{
@@ -84,23 +84,23 @@ namespace Comical
 					_thumbnailCache.Clear();
 					break;
 			}
-			dgvImages.RowCount = _images.Count;
+			ImagesDataGridView.RowCount = _images.Count;
 			if (e.Action == NotifyCollectionChangedAction.Reset)
 			{
 				foreach (var viewer in Viewers.ToArray())
 					viewer.Close();
 			}
-			dgvImages.Invalidate();
+			ImagesDataGridView.Invalidate();
 		});
 
-		void Images_CollectionItemPropertyChanged(object? sender, CollectionItemPropertyChangedEventArgs e) => this.InvokeIfNeeded(() =>
+		void OnImagesCollectionItemPropertyChanged(object? sender, CollectionItemPropertyChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
 			foreach (var group in e.PropertyNames)
 			{
 				Debug.Assert(group.Key != null, "sender of ImageReference's PropertyChanged event must not be null");
 				var index = _images.IndexOf((ImageReference)group.Key);
 				if (index >= 0)
-					dgvImages.UpdateCellValue(1, index);
+					ImagesDataGridView.UpdateCellValue(1, index);
 			}
 		});
 
@@ -109,14 +109,14 @@ namespace Comical
 		public void SelectSingleImage(int index)
 		{
 			for (var i = 0; i < _images.Count; i++)
-				dgvImages.Rows[i].Selected = i == index;
+				ImagesDataGridView.Rows[i].Selected = i == index;
 			if (index >= 0 && index < _images.Count)
-				dgvImages.FirstDisplayedScrollingRowIndex = index;
+				ImagesDataGridView.FirstDisplayedScrollingRowIndex = index;
 		}
 
 		public void OpenFirstSelectedImage()
 		{
-			if (dgvImages.SelectedRows.Count > 0)
+			if (ImagesDataGridView.SelectedRows.Count > 0)
 			{
 				var content = DockPanel.ActiveContent;
 				var firstSelectedIndex = SelectedIndices.Min();
@@ -160,9 +160,9 @@ namespace Comical
 			}
 		}
 
-		void dgvImages_SelectionChanged(object? sender, EventArgs e)
+		void OnImagesDataGridViewSelectionChanged(object? sender, EventArgs e)
 		{
-			var count = dgvImages.SelectedRows.Count;
+			var count = ImagesDataGridView.SelectedRows.Count;
 			if (ActiveViewer != null && count == 1)
 			{
 				var firstSelectedIndex = SelectedIndices.Min();
@@ -170,21 +170,21 @@ namespace Comical
 				try { ActiveViewer.Image = _images[firstSelectedIndex].Data; }
 				catch (ArgumentException) { }
 			}
-			itmOpen.Visible = sepImage1.Visible = count == 1;
-			itmAddToBookmark.Visible = sepImage2.Visible =
-				itmExport.Visible = itmExtract.Visible = sepImage3.Visible =
-				itmStartViewModeSettingLeft.Visible = itmStartViewModeSettingRight.Visible = sepImage4.Visible =
-				itmDelete.Visible = count > 0;
+			OpenMenuItem.Visible = ImageMenuSeparator1.Visible = count == 1;
+			AddToBookmarkMenuItem.Visible = ImageMenuSeparator2.Visible =
+				ExportMenuItem.Visible = ExtractMenuItem.Visible = ImageMenuSeparator3.Visible =
+				StartViewModeSettingLeftMenuItem.Visible = StartViewModeSettingRightMenuItem.Visible = ImageMenuSeparator4.Visible =
+				DeleteMenuItem.Visible = count > 0;
 		}
 
-		void dgvImages_DragEnter(object? sender, DragEventArgs e)
+		void OnImagesDataGridViewDragEnter(object? sender, DragEventArgs e)
 		{
 			Debug.Assert(e.Data != null, "I think this never happens.");
 			if (e.Data.GetDataPresent(DataFormats.FileDrop))
 				e.Effect = DragDropEffects.Copy;
 		}
 
-		void dgvImages_DragDrop(object? sender, DragEventArgs e)
+		void OnImagesDataGridViewDragDrop(object? sender, DragEventArgs e)
 		{
 			Debug.Assert(e.Data != null, "I think this never happens.");
 			if (e.Data.GetDataPresent(DataFormats.FileDrop) && FileDropped != null)
@@ -195,41 +195,41 @@ namespace Comical
 			}
 		}
 
-		void dgvImages_RowMoving(object? sender, Controls.RowMovingEventArgs e)
+		void OnImagesDataGridViewRowMoving(object? sender, Controls.RowMovingEventArgs e)
 		{
-			if (e.Source == dgvImages)
+			if (e.Source == ImagesDataGridView)
 				_images.MoveRange(e.SourceRows[0].Index, e.SourceRows.Count, e.Destination);
 		}
 
-		void dgvImages_QueryRowDragDropEffect(object? sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.Source == dgvImages ? DragDropEffects.Move : DragDropEffects.None;
+		void OnImagesDataGridViewQueryRowDragDropEffect(object? sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.Source == ImagesDataGridView ? DragDropEffects.Move : DragDropEffects.None;
 
-		void dgvImages_CellDoubleClick(object? sender, DataGridViewCellEventArgs e) => OpenFirstSelectedImage();
+		void OnImagesDataGridViewCellDoubleClick(object? sender, DataGridViewCellEventArgs e) => OpenFirstSelectedImage();
 
-		void dgvImages_CellValueNeeded(object? sender, DataGridViewCellValueEventArgs e)
+		void OnImagesDataGridViewCellValueNeeded(object? sender, DataGridViewCellValueEventArgs e)
 		{
 			if (e.RowIndex < 0 || e.RowIndex >= _images.Count)
 				return;
-			if (dgvImages.Columns[e.ColumnIndex] == clmViewMode)
+			if (ImagesDataGridView.Columns[e.ColumnIndex] == ViewModeDataGridViewColumn)
 				e.Value = _images[e.RowIndex].ViewMode.ToString();
-			else if (dgvImages.Columns[e.ColumnIndex] == clmImage)
+			else if (ImagesDataGridView.Columns[e.ColumnIndex] == ImageDataGridViewColumn)
 				e.Value = _thumbnailCache.Get(_images[e.RowIndex].Data);
 		}
 
-		void dgvImages_CellValuePushed(object? sender, DataGridViewCellValueEventArgs e)
+		void OnImagesDataGridViewCellValuePushed(object? sender, DataGridViewCellValueEventArgs e)
 		{
-			if (e.RowIndex >= 0 && e.RowIndex < _images.Count && dgvImages.Columns[e.ColumnIndex] == clmViewMode && e.Value != null && Enum.TryParse(e.Value.ToString(), out ImageViewMode mode))
+			if (e.RowIndex >= 0 && e.RowIndex < _images.Count && ImagesDataGridView.Columns[e.ColumnIndex] == ViewModeDataGridViewColumn && e.Value != null && Enum.TryParse(e.Value.ToString(), out ImageViewMode mode))
 				_images[e.RowIndex].ViewMode = mode;
 		}
 
 		int rowIndex = -1;
 
-		void dgvImages_UserDeletingRow(object? sender, DataGridViewRowCancelEventArgs e)
+		void OnImagesDataGridViewUserDeletingRow(object? sender, DataGridViewRowCancelEventArgs e)
 		{
 			Debug.Assert(e.Row != null, "I think this never happens.");
 			rowIndex = e.Row.Index;
 		}
 
-		void dgvImages_UserDeletedRow(object? sender, DataGridViewRowEventArgs e)
+		void OnImagesDataGridViewUserDeletedRow(object? sender, DataGridViewRowEventArgs e)
 		{
 			if (rowIndex >= 0)
 			{
@@ -238,13 +238,13 @@ namespace Comical
 			}
 		}
 
-		void itmOpen_Click(object? sender, EventArgs e) => OpenFirstSelectedImage();
+		void OnOpenMenuItemClick(object? sender, EventArgs e) => OpenFirstSelectedImage();
 
-		void itmDelete_Click(object? sender, EventArgs e) => DeleteSelectedImages();
+		void OnDeleteMenuItemClick(object? sender, EventArgs e) => DeleteSelectedImages();
 
-		void itmStartViewModeSettingLeft_Click(object? sender, EventArgs e) => SetSelectedImagesViewModes(true);
+		void OnStartViewModeSettingLeftMenuItemClick(object? sender, EventArgs e) => SetSelectedImagesViewModes(true);
 
-		void itmStartViewModeSettingRight_Click(object? sender, EventArgs e) => SetSelectedImagesViewModes(false);
+		void OnStartViewModeSettingRightMenuItemClick(object? sender, EventArgs e) => SetSelectedImagesViewModes(false);
 
 		class ThumbnailCache : IDisposable
 		{

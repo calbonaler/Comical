@@ -29,64 +29,64 @@
 		private void InitializeComponent()
 		{
 			components = new System.ComponentModel.Container();
-			System.Windows.Forms.ContextMenuStrip conOption;
+			System.Windows.Forms.ContextMenuStrip OptionContextMenu;
 			var resources = new System.ComponentModel.ComponentResourceManager(typeof(Viewer));
-			Controls.ToolStripRadioMenuItem itmOriginalSize;
-			itmFitToWindow = new Controls.ToolStripRadioMenuItem();
-			preMain = new Controls.Previewer();
-			conOption = new System.Windows.Forms.ContextMenuStrip(components);
-			itmOriginalSize = new Controls.ToolStripRadioMenuItem();
-			conOption.SuspendLayout();
+			Controls.ToolStripRadioMenuItem OriginalSizeMenuItem;
+			FitToWindowMenuItem = new Controls.ToolStripRadioMenuItem();
+			MainPreviewer = new Controls.Previewer();
+			OptionContextMenu = new System.Windows.Forms.ContextMenuStrip(components);
+			OriginalSizeMenuItem = new Controls.ToolStripRadioMenuItem();
+			OptionContextMenu.SuspendLayout();
 			SuspendLayout();
 			// 
-			// conOption
+			// OptionContextMenu
 			// 
-			conOption.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { itmFitToWindow, itmOriginalSize });
-			conOption.Name = "conOption";
-			resources.ApplyResources(conOption, "conOption");
+			OptionContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { FitToWindowMenuItem, OriginalSizeMenuItem });
+			OptionContextMenu.Name = "conOption";
+			resources.ApplyResources(OptionContextMenu, "OptionContextMenu");
 			// 
-			// itmFitToWindow
+			// FitToWindowMenuItem
 			// 
-			itmFitToWindow.Checked = true;
-			itmFitToWindow.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-			itmFitToWindow.Group = 0;
-			itmFitToWindow.Name = "itmFitToWindow";
-			resources.ApplyResources(itmFitToWindow, "itmFitToWindow");
-			itmFitToWindow.CheckedChanged += itmFitToWindow_CheckedChanged;
+			FitToWindowMenuItem.Checked = true;
+			FitToWindowMenuItem.CheckState = System.Windows.Forms.CheckState.Indeterminate;
+			FitToWindowMenuItem.Group = 0;
+			FitToWindowMenuItem.Name = "FitToWindowMenuItem";
+			resources.ApplyResources(FitToWindowMenuItem, "FitToWindowMenuItem");
+			FitToWindowMenuItem.CheckedChanged += OnSizeMenuItemsCheckedChanged;
 			// 
-			// itmOriginalSize
+			// OriginalSizeMenuItem
 			// 
-			itmOriginalSize.Group = 0;
-			itmOriginalSize.Name = "itmOriginalSize";
-			resources.ApplyResources(itmOriginalSize, "itmOriginalSize");
-			itmOriginalSize.CheckedChanged += itmFitToWindow_CheckedChanged;
+			OriginalSizeMenuItem.Group = 0;
+			OriginalSizeMenuItem.Name = "OriginalSizeMenuItem";
+			resources.ApplyResources(OriginalSizeMenuItem, "OriginalSizeMenuItem");
+			OriginalSizeMenuItem.CheckedChanged += OnSizeMenuItemsCheckedChanged;
 			// 
-			// preMain
+			// MainPreviewer
 			// 
-			resources.ApplyResources(preMain, "preMain");
-			preMain.BackColor = System.Drawing.Color.Transparent;
-			preMain.ContextMenuStrip = conOption;
-			preMain.ForeColor = System.Drawing.Color.White;
-			preMain.Name = "preMain";
-			preMain.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
+			resources.ApplyResources(MainPreviewer, "MainPreviewer");
+			MainPreviewer.BackColor = System.Drawing.Color.Transparent;
+			MainPreviewer.ContextMenuStrip = OptionContextMenu;
+			MainPreviewer.ForeColor = System.Drawing.Color.White;
+			MainPreviewer.Name = "MainPreviewer";
+			MainPreviewer.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
 			// 
 			// Viewer
 			// 
 			resources.ApplyResources(this, "$this");
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			BackColor = System.Drawing.Color.Black;
-			Controls.Add(preMain);
+			Controls.Add(MainPreviewer);
 			DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.Document;
 			MinimizeBox = false;
 			Name = "Viewer";
 			ShowHint = WeifenLuo.WinFormsUI.Docking.DockState.Document;
 			ShowInTaskbar = false;
-			conOption.ResumeLayout(false);
+			OptionContextMenu.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
 		#endregion
-		private Controls.ToolStripRadioMenuItem itmFitToWindow;
-		private Controls.Previewer preMain;
+		private Controls.ToolStripRadioMenuItem FitToWindowMenuItem;
+		private Controls.Previewer MainPreviewer;
 	}
 }

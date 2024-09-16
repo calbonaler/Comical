@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
+  <!-- 
+    Microsoft ResX Schema 
+    
     Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
     associated with the data types.
-
+    
     Example:
-
+    
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-
-    There are any number of "resheader" rows that contain simple
+                
+    There are any number of "resheader" rows that contain simple 
     name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
     mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
     extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
     read any of the formats listed below.
-
+    
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-
+    
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
+    value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -117,285 +117,286 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="lblMagnifyRatio.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MagnifyRatioLabel.GenerateMember" type="System.Boolean, mscorlib">
     <value>False</value>
-  </metadata>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lblMagnifyRatio.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="MagnifyRatioLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="lblMagnifyRatio.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="MagnifyRatioLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lblMagnifyRatio.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="MagnifyRatioLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>220, 240</value>
   </data>
-  <data name="lblMagnifyRatio.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MagnifyRatioLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 18</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lblMagnifyRatio.TabIndex" type="System.Int32, mscorlib">
+  <data name="MagnifyRatioLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="lblMagnifyRatio.Text" xml:space="preserve">
+  <data name="MagnifyRatioLabel.Text" xml:space="preserve">
     <value>&amp;Magnification:</value>
   </data>
-  <data name="lblMagnifyRatio.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="MagnifyRatioLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="&gt;&gt;lblMagnifyRatio.Name" xml:space="preserve">
-    <value>lblMagnifyRatio</value>
+  <data name="&gt;&gt;MagnifyRatioLabel.Name" xml:space="preserve">
+    <value>MagnifyRatioLabel</value>
   </data>
-  <data name="&gt;&gt;lblMagnifyRatio.Type" xml:space="preserve">
+  <data name="&gt;&gt;MagnifyRatioLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblMagnifyRatio.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MagnifyRatioLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;lblMagnifyRatio.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MagnifyRatioLabel.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <metadata name="btnOK.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="OKButton.GenerateMember" type="System.Boolean, mscorlib">
     <value>False</value>
-  </metadata>
-  <data name="btnOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  </data>
+  <data name="OKButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="btnOK.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="OKButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="OKButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>173, 284</value>
   </data>
-  <data name="btnOK.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OKButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 26</value>
   </data>
-  <data name="btnOK.TabIndex" type="System.Int32, mscorlib">
+  <data name="OKButton.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="btnOK.Text" xml:space="preserve">
+  <data name="OKButton.Text" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="&gt;&gt;btnOK.Name" xml:space="preserve">
-    <value>btnOK</value>
+  <data name="&gt;&gt;OKButton.Name" xml:space="preserve">
+    <value>OKButton</value>
   </data>
-  <data name="&gt;&gt;btnOK.Type" xml:space="preserve">
+  <data name="&gt;&gt;OKButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnOK.Parent" xml:space="preserve">
+  <data name="&gt;&gt;OKButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;btnOK.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;OKButton.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <metadata name="btnCancel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="CancelButton.GenerateMember" type="System.Boolean, mscorlib">
     <value>False</value>
-  </metadata>
-  <data name="btnCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  </data>
+  <data name="CancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="btnCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="CancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="CancelButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>277, 284</value>
   </data>
-  <data name="btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CancelButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 1, 0</value>
   </data>
-  <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 26</value>
   </data>
-  <data name="btnCancel.TabIndex" type="System.Int32, mscorlib">
+  <data name="CancelButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="btnCancel.Text" xml:space="preserve">
+  <data name="CancelButton.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="&gt;&gt;btnCancel.Name" xml:space="preserve">
-    <value>btnCancel</value>
+  <data name="&gt;&gt;CancelButton.Name" xml:space="preserve">
+    <value>CancelButton</value>
   </data>
-  <data name="&gt;&gt;btnCancel.Type" xml:space="preserve">
+  <data name="&gt;&gt;CancelButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnCancel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;CancelButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;CancelButton.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <metadata name="tlpPreview.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="PreviewPanel.GenerateMember" type="System.Boolean, mscorlib">
     <value>False</value>
-  </metadata>
-  <data name="tlpPreview.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  </data>
+  <data name="PreviewPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="tlpPreview.ColumnCount" type="System.Int32, mscorlib">
+  <data name="PreviewPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="hsPreview.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="PreviewHScrollBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="hsPreview.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="PreviewHScrollBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 186</value>
   </data>
-  <data name="hsPreview.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="PreviewHScrollBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>348, 17</value>
   </data>
-  <data name="hsPreview.TabIndex" type="System.Int32, mscorlib">
+  <data name="PreviewHScrollBar.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;hsPreview.Name" xml:space="preserve">
-    <value>hsPreview</value>
+  <data name="&gt;&gt;PreviewHScrollBar.Name" xml:space="preserve">
+    <value>PreviewHScrollBar</value>
   </data>
-  <data name="&gt;&gt;hsPreview.Type" xml:space="preserve">
-    <value>System.Windows.Forms.HScrollBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;PreviewHScrollBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.HScrollBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;hsPreview.Parent" xml:space="preserve">
-    <value>tlpPreview</value>
+  <data name="&gt;&gt;PreviewHScrollBar.Parent" xml:space="preserve">
+    <value>PreviewPanel</value>
   </data>
-  <data name="&gt;&gt;hsPreview.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;PreviewHScrollBar.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="picPreview.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="PreviewBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="picPreview.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="PreviewBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="picPreview.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="PreviewBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="picPreview.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="PreviewBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="picPreview.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="PreviewBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>348, 186</value>
   </data>
-  <data name="picPreview.TabIndex" type="System.Int32, mscorlib">
+  <data name="PreviewBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;picPreview.Name" xml:space="preserve">
-    <value>picPreview</value>
+  <data name="&gt;&gt;PreviewBox.Name" xml:space="preserve">
+    <value>PreviewBox</value>
   </data>
-  <data name="&gt;&gt;picPreview.Type" xml:space="preserve">
+  <data name="&gt;&gt;PreviewBox.Type" xml:space="preserve">
     <value>Comical.Controls.FocusablePictureBox, Comical, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;picPreview.Parent" xml:space="preserve">
-    <value>tlpPreview</value>
+  <data name="&gt;&gt;PreviewBox.Parent" xml:space="preserve">
+    <value>PreviewPanel</value>
   </data>
-  <data name="&gt;&gt;picPreview.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;PreviewBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="vsPreview.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="PreviewVScrollBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="vsPreview.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="PreviewVScrollBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>348, 0</value>
   </data>
-  <data name="vsPreview.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="PreviewVScrollBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>17, 186</value>
   </data>
-  <data name="vsPreview.TabIndex" type="System.Int32, mscorlib">
+  <data name="PreviewVScrollBar.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="&gt;&gt;vsPreview.Name" xml:space="preserve">
-    <value>vsPreview</value>
+  <data name="&gt;&gt;PreviewVScrollBar.Name" xml:space="preserve">
+    <value>PreviewVScrollBar</value>
   </data>
-  <data name="&gt;&gt;vsPreview.Type" xml:space="preserve">
-    <value>System.Windows.Forms.VScrollBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;PreviewVScrollBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.VScrollBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;vsPreview.Parent" xml:space="preserve">
-    <value>tlpPreview</value>
+  <data name="&gt;&gt;PreviewVScrollBar.Parent" xml:space="preserve">
+    <value>PreviewPanel</value>
   </data>
-  <data name="&gt;&gt;vsPreview.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;PreviewVScrollBar.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="tlpPreview.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="PreviewPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 31</value>
   </data>
-  <data name="tlpPreview.RowCount" type="System.Int32, mscorlib">
+  <data name="PreviewPanel.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="tlpPreview.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="PreviewPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>365, 203</value>
   </data>
-  <data name="tlpPreview.TabIndex" type="System.Int32, mscorlib">
+  <data name="PreviewPanel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;tlpPreview.Name" xml:space="preserve">
-    <value>tlpPreview</value>
+  <data name="&gt;&gt;PreviewPanel.Name" xml:space="preserve">
+    <value>PreviewPanel</value>
   </data>
-  <data name="&gt;&gt;tlpPreview.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;PreviewPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tlpPreview.Parent" xml:space="preserve">
+  <data name="&gt;&gt;PreviewPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;tlpPreview.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;PreviewPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="tlpPreview.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="hsPreview" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="picPreview" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="vsPreview" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="Percent,100,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  <data name="PreviewPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="PreviewHScrollBar" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="PreviewBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="PreviewVScrollBar" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="Percent,100,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="numMagnifyRatio.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="MagnifyRatioNumericUpDown.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="numMagnifyRatio.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="MagnifyRatioNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
     <value>325, 240</value>
   </data>
-  <data name="numMagnifyRatio.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MagnifyRatioNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 23</value>
   </data>
-  <data name="numMagnifyRatio.TabIndex" type="System.Int32, mscorlib">
+  <data name="MagnifyRatioNumericUpDown.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;numMagnifyRatio.Name" xml:space="preserve">
-    <value>numMagnifyRatio</value>
+  <data name="&gt;&gt;MagnifyRatioNumericUpDown.Name" xml:space="preserve">
+    <value>MagnifyRatioNumericUpDown</value>
   </data>
-  <data name="&gt;&gt;numMagnifyRatio.Type" xml:space="preserve">
+  <data name="&gt;&gt;MagnifyRatioNumericUpDown.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;numMagnifyRatio.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MagnifyRatioNumericUpDown.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;numMagnifyRatio.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MagnifyRatioNumericUpDown.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="lblSize.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="SizeLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="lblSize.AutoSize" type="System.Boolean, mscorlib">
+  <data name="SizeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="lblSize.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="SizeLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 242</value>
   </data>
-  <data name="lblSize.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SizeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>31, 15</value>
   </data>
-  <data name="lblSize.TabIndex" type="System.Int32, mscorlib">
+  <data name="SizeLabel.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="lblSize.Text" xml:space="preserve">
+  <data name="SizeLabel.Text" xml:space="preserve">
     <value>0 x 0</value>
   </data>
-  <data name="&gt;&gt;lblSize.Name" xml:space="preserve">
-    <value>lblSize</value>
+  <data name="&gt;&gt;SizeLabel.Name" xml:space="preserve">
+    <value>SizeLabel</value>
   </data>
-  <data name="&gt;&gt;lblSize.Type" xml:space="preserve">
+  <data name="&gt;&gt;SizeLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblSize.Parent" xml:space="preserve">
+  <data name="&gt;&gt;SizeLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;lblSize.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;SizeLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>96, 96</value>
   </data>

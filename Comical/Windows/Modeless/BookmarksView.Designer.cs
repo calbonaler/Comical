@@ -15,8 +15,8 @@
 		{
 			if (disposing)
 			{
-				_bookmarks.CollectionChanged -= Bookmarks_CollectionChanged;
-				_images.CollectionChanged -= Images_CollectionChanged;
+				_bookmarks.CollectionChanged -= OnBookmarksCollectionChanged;
+				_images.CollectionChanged -= OnImagesCollectionChanged;
 				if (components != null)
 					components.Dispose();
 			}
@@ -32,145 +32,145 @@
 		private void InitializeComponent()
 		{
 			components = new System.ComponentModel.Container();
-			System.Windows.Forms.ContextMenuStrip conBookmark;
+			System.Windows.Forms.ContextMenuStrip BookmarkContextMenu;
 			var resources = new System.ComponentModel.ComponentResourceManager(typeof(BookmarksView));
-			itmSelectTarget = new System.Windows.Forms.ToolStripMenuItem();
-			sepBookmark1 = new System.Windows.Forms.ToolStripSeparator();
-			itmCreateNew = new System.Windows.Forms.ToolStripMenuItem();
-			itmInsertAbove = new System.Windows.Forms.ToolStripMenuItem();
-			itmInsertBelow = new System.Windows.Forms.ToolStripMenuItem();
-			sepBookmark2 = new System.Windows.Forms.ToolStripSeparator();
-			itmDelete = new System.Windows.Forms.ToolStripMenuItem();
-			dgvBookmarks = new Controls.DraggableDataGridView();
-			clmName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			clmTarget = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			conBookmark = new System.Windows.Forms.ContextMenuStrip(components);
-			conBookmark.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)dgvBookmarks).BeginInit();
+			SelectTargetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			BookmarkMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			CreateNewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			InsertAboveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			InsertBelowMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			BookmarkMenuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			DeleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			BookmarksDataGridView = new Controls.DraggableDataGridView();
+			NameDataGridViewColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			TargetDataGridViewColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			BookmarkContextMenu = new System.Windows.Forms.ContextMenuStrip(components);
+			BookmarkContextMenu.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)BookmarksDataGridView).BeginInit();
 			SuspendLayout();
 			// 
-			// conBookmark
+			// BookmarkContextMenu
 			// 
-			conBookmark.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { itmSelectTarget, sepBookmark1, itmCreateNew, itmInsertAbove, itmInsertBelow, sepBookmark2, itmDelete });
-			conBookmark.Name = "conBookmark";
-			resources.ApplyResources(conBookmark, "conBookmark");
+			BookmarkContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { SelectTargetMenuItem, BookmarkMenuSeparator1, CreateNewMenuItem, InsertAboveMenuItem, InsertBelowMenuItem, BookmarkMenuSeparator2, DeleteMenuItem });
+			BookmarkContextMenu.Name = "conBookmark";
+			resources.ApplyResources(BookmarkContextMenu, "BookmarkContextMenu");
 			// 
-			// itmSelectTarget
+			// SelectTargetMenuItem
 			// 
-			resources.ApplyResources(itmSelectTarget, "itmSelectTarget");
-			itmSelectTarget.Name = "itmSelectTarget";
-			itmSelectTarget.Click += itmSelectTarget_Click;
+			resources.ApplyResources(SelectTargetMenuItem, "SelectTargetMenuItem");
+			SelectTargetMenuItem.Name = "SelectTargetMenuItem";
+			SelectTargetMenuItem.Click += OnSelectTargetMenuItemClick;
 			// 
-			// sepBookmark1
+			// BookmarkMenuSeparator1
 			// 
-			sepBookmark1.Name = "sepBookmark1";
-			resources.ApplyResources(sepBookmark1, "sepBookmark1");
+			BookmarkMenuSeparator1.Name = "BookmarkMenuSeparator1";
+			resources.ApplyResources(BookmarkMenuSeparator1, "BookmarkMenuSeparator1");
 			// 
-			// itmCreateNew
+			// CreateNewMenuItem
 			// 
-			itmCreateNew.Name = "itmCreateNew";
-			resources.ApplyResources(itmCreateNew, "itmCreateNew");
-			itmCreateNew.Click += itmAdd_Click;
+			CreateNewMenuItem.Name = "CreateNewMenuItem";
+			resources.ApplyResources(CreateNewMenuItem, "CreateNewMenuItem");
+			CreateNewMenuItem.Click += OnCreateNewMenuItemClick;
 			// 
-			// itmInsertAbove
+			// InsertAboveMenuItem
 			// 
-			itmInsertAbove.Name = "itmInsertAbove";
-			resources.ApplyResources(itmInsertAbove, "itmInsertAbove");
-			itmInsertAbove.Click += itmInsertAbove_Click;
+			InsertAboveMenuItem.Name = "InsertAboveMenuItem";
+			resources.ApplyResources(InsertAboveMenuItem, "InsertAboveMenuItem");
+			InsertAboveMenuItem.Click += OnInsertAboveMenuItemClick;
 			// 
-			// itmInsertBelow
+			// InsertBelowMenuItem
 			// 
-			itmInsertBelow.Name = "itmInsertBelow";
-			resources.ApplyResources(itmInsertBelow, "itmInsertBelow");
-			itmInsertBelow.Click += itmInsertBelow_Click;
+			InsertBelowMenuItem.Name = "InsertBelowMenuItem";
+			resources.ApplyResources(InsertBelowMenuItem, "InsertBelowMenuItem");
+			InsertBelowMenuItem.Click += OnInsertBelowMenuItemClick;
 			// 
-			// sepBookmark2
+			// BookmarkMenuSeparator2
 			// 
-			sepBookmark2.Name = "sepBookmark2";
-			resources.ApplyResources(sepBookmark2, "sepBookmark2");
+			BookmarkMenuSeparator2.Name = "BookmarkMenuSeparator2";
+			resources.ApplyResources(BookmarkMenuSeparator2, "BookmarkMenuSeparator2");
 			// 
-			// itmDelete
+			// DeleteMenuItem
 			// 
-			resources.ApplyResources(itmDelete, "itmDelete");
-			itmDelete.Name = "itmDelete";
-			itmDelete.Click += itmRemove_Click;
+			resources.ApplyResources(DeleteMenuItem, "DeleteMenuItem");
+			DeleteMenuItem.Name = "DeleteMenuItem";
+			DeleteMenuItem.Click += OnDeleteMenuItemClick;
 			// 
-			// dgvBookmarks
+			// BookmarksDataGridView
 			// 
-			dgvBookmarks.AllowDrop = true;
-			dgvBookmarks.AllowUserToAddRows = false;
-			dgvBookmarks.AllowUserToMoveRows = true;
-			dgvBookmarks.AllowUserToResizeColumns = false;
-			dgvBookmarks.AllowUserToResizeRows = false;
-			dgvBookmarks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			dgvBookmarks.BackgroundColor = System.Drawing.SystemColors.Control;
-			dgvBookmarks.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			dgvBookmarks.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-			dgvBookmarks.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-			dgvBookmarks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-			dgvBookmarks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { clmName, clmTarget });
-			dgvBookmarks.ContextMenuStrip = conBookmark;
-			resources.ApplyResources(dgvBookmarks, "dgvBookmarks");
-			dgvBookmarks.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
-			dgvBookmarks.GridColor = System.Drawing.SystemColors.Control;
-			dgvBookmarks.Name = "dgvBookmarks";
-			dgvBookmarks.RowHeadersVisible = false;
-			dgvBookmarks.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-			dgvBookmarks.RowTemplate.Height = 21;
-			dgvBookmarks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			dgvBookmarks.ShowCellToolTips = false;
-			dgvBookmarks.VirtualMode = true;
-			dgvBookmarks.RowMoving += dgvBookmarks_RowMoving;
-			dgvBookmarks.QueryRowDragDropEffect += dgvBookmarks_QueryRowDragDropEffect;
-			dgvBookmarks.CellDoubleClick += dgvBookmarks_CellDoubleClick;
-			dgvBookmarks.CellErrorTextNeeded += dgvBookmarks_CellErrorTextNeeded;
-			dgvBookmarks.CellValueNeeded += dgvBookmarks_CellValueNeeded;
-			dgvBookmarks.CellValuePushed += dgvBookmarks_CellValuePushed;
-			dgvBookmarks.SelectionChanged += dgvBookmarks_SelectionChanged;
-			dgvBookmarks.UserDeletedRow += dgvBookmarks_UserDeletedRow;
-			dgvBookmarks.UserDeletingRow += dgvBookmarks_UserDeletingRow;
+			BookmarksDataGridView.AllowDrop = true;
+			BookmarksDataGridView.AllowUserToAddRows = false;
+			BookmarksDataGridView.AllowUserToMoveRows = true;
+			BookmarksDataGridView.AllowUserToResizeColumns = false;
+			BookmarksDataGridView.AllowUserToResizeRows = false;
+			BookmarksDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			BookmarksDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+			BookmarksDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			BookmarksDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+			BookmarksDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+			BookmarksDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+			BookmarksDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { NameDataGridViewColumn, TargetDataGridViewColumn });
+			BookmarksDataGridView.ContextMenuStrip = BookmarkContextMenu;
+			resources.ApplyResources(BookmarksDataGridView, "BookmarksDataGridView");
+			BookmarksDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
+			BookmarksDataGridView.GridColor = System.Drawing.SystemColors.Control;
+			BookmarksDataGridView.Name = "BookmarksDataGridView";
+			BookmarksDataGridView.RowHeadersVisible = false;
+			BookmarksDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+			BookmarksDataGridView.RowTemplate.Height = 21;
+			BookmarksDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			BookmarksDataGridView.ShowCellToolTips = false;
+			BookmarksDataGridView.VirtualMode = true;
+			BookmarksDataGridView.RowMoving += OnBookmarksDataGridViewRowMoving;
+			BookmarksDataGridView.QueryRowDragDropEffect += OnBookmarksDataGridViewQueryRowDragDropEffect;
+			BookmarksDataGridView.CellDoubleClick += OnBookmarksDataGridViewCellDoubleClick;
+			BookmarksDataGridView.CellErrorTextNeeded += OnBookmarksDataGridViewCellErrorTextNeeded;
+			BookmarksDataGridView.CellValueNeeded += OnBookmarksDataGridViewCellValueNeeded;
+			BookmarksDataGridView.CellValuePushed += OnBookmarksDataGridViewCellValuePushed;
+			BookmarksDataGridView.SelectionChanged += OnBookmarksDataGridViewSelectionChanged;
+			BookmarksDataGridView.UserDeletedRow += OnBookmarksDataGridViewUserDeletedRow;
+			BookmarksDataGridView.UserDeletingRow += OnBookmarksDataGridViewUserDeletingRow;
 			// 
-			// clmName
+			// NameDataGridViewColumn
 			// 
-			clmName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			clmName.DataPropertyName = "Name";
-			resources.ApplyResources(clmName, "clmName");
-			clmName.Name = "clmName";
-			clmName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-			clmName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			NameDataGridViewColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			NameDataGridViewColumn.DataPropertyName = "Name";
+			resources.ApplyResources(NameDataGridViewColumn, "NameDataGridViewColumn");
+			NameDataGridViewColumn.Name = "NameDataGridViewColumn";
+			NameDataGridViewColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+			NameDataGridViewColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
 			// 
-			// clmTarget
+			// TargetDataGridViewColumn
 			// 
-			clmTarget.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			clmTarget.DataPropertyName = "Target";
-			resources.ApplyResources(clmTarget, "clmTarget");
-			clmTarget.Name = "clmTarget";
-			clmTarget.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-			clmTarget.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			TargetDataGridViewColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+			TargetDataGridViewColumn.DataPropertyName = "Target";
+			resources.ApplyResources(TargetDataGridViewColumn, "TargetDataGridViewColumn");
+			TargetDataGridViewColumn.Name = "TargetDataGridViewColumn";
+			TargetDataGridViewColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+			TargetDataGridViewColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
 			// 
 			// BookmarksView
 			// 
 			resources.ApplyResources(this, "$this");
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-			Controls.Add(dgvBookmarks);
+			Controls.Add(BookmarksDataGridView);
 			HideOnClose = true;
 			Name = "BookmarksView";
-			conBookmark.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)dgvBookmarks).EndInit();
+			BookmarkContextMenu.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)BookmarksDataGridView).EndInit();
 			ResumeLayout(false);
 		}
 
 		#endregion
 
-		private Controls.DraggableDataGridView dgvBookmarks;
-		private System.Windows.Forms.ToolStripMenuItem itmSelectTarget;
-		private System.Windows.Forms.ToolStripSeparator sepBookmark1;
-		private System.Windows.Forms.ToolStripMenuItem itmCreateNew;
-		private System.Windows.Forms.ToolStripMenuItem itmDelete;
-		private System.Windows.Forms.ToolStripMenuItem itmInsertAbove;
-		private System.Windows.Forms.ToolStripMenuItem itmInsertBelow;
-		private System.Windows.Forms.ToolStripSeparator sepBookmark2;
-		private System.Windows.Forms.DataGridViewTextBoxColumn clmName;
-		private System.Windows.Forms.DataGridViewTextBoxColumn clmTarget;
+		private Controls.DraggableDataGridView BookmarksDataGridView;
+		private System.Windows.Forms.ToolStripMenuItem SelectTargetMenuItem;
+		private System.Windows.Forms.ToolStripSeparator BookmarkMenuSeparator1;
+		private System.Windows.Forms.ToolStripMenuItem CreateNewMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DeleteMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem InsertAboveMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem InsertBelowMenuItem;
+		private System.Windows.Forms.ToolStripSeparator BookmarkMenuSeparator2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn NameDataGridViewColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn TargetDataGridViewColumn;
 	}
 }

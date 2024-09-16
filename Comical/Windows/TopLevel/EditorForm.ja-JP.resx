@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="itmNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="NewMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAE+SURBVDhPldJPaoNQEAZwb9p1j1AP4NoLeANdiAREFN24
@@ -130,13 +130,13 @@
         RK5CYII=
 </value>
   </data>
-  <data name="itmNew.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="NewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 22</value>
   </data>
-  <data name="itmNew.Text" xml:space="preserve">
+  <data name="NewMenuItem.Text" xml:space="preserve">
     <value>新規作成(&amp;N)</value>
   </data>
-  <data name="itmOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="OpenMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANbSURBVDhPbZN9TNR1HMd/tfUHf7S2HrbWetia1WbpnMay
@@ -157,16 +157,16 @@
         TkSuQmCC
 </value>
   </data>
-  <data name="itmOpen.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OpenMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 22</value>
   </data>
-  <data name="itmOpen.Text" xml:space="preserve">
+  <data name="OpenMenuItem.Text" xml:space="preserve">
     <value>開く(&amp;O)...</value>
   </data>
-  <data name="sepFile1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FileMenuSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 6</value>
   </data>
-  <data name="itmSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="SaveMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALxSURBVDhPjZHrS1NhHMfPP9F/UEIEIYRIvQnMS5KFt9Rc
@@ -185,22 +185,22 @@
         w+oJHgmYboAAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="itmSave.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SaveMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 22</value>
   </data>
-  <data name="itmSave.Text" xml:space="preserve">
+  <data name="SaveMenuItem.Text" xml:space="preserve">
     <value>上書き保存(&amp;S)</value>
   </data>
-  <data name="itmSaveAs.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SaveAsMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 22</value>
   </data>
-  <data name="itmSaveAs.Text" xml:space="preserve">
+  <data name="SaveAsMenuItem.Text" xml:space="preserve">
     <value>名前を付けて保存(&amp;A)...</value>
   </data>
-  <data name="sepFile2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FileMenuSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 6</value>
   </data>
-  <data name="itmDocumentSettings.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ConfigureDocumentMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAjFJREFUOE+F
         kk1rE1EUhvNj/AFWXLar+lF34qJQEBWyaBVsKWZjiou2mqotSZRarTZUQgTRBBtjaBITEtFgzKISMNYs
@@ -215,58 +215,46 @@
         d/YMt9vt4r1fSdJm+wOx1cA7GKORlAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmDocumentSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ConfigureDocumentMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 22</value>
   </data>
-  <data name="itmDocumentSettings.Text" xml:space="preserve">
+  <data name="ConfigureDocumentMenuItem.Text" xml:space="preserve">
     <value>ドキュメントの設定(&amp;D)</value>
   </data>
-  <data name="sepFile3.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FileMenuSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 6</value>
   </data>
-  <data name="itmExit.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ExitMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 22</value>
   </data>
-  <data name="itmExit.Text" xml:space="preserve">
+  <data name="ExitMenuItem.Text" xml:space="preserve">
     <value>終了(&amp;X)</value>
   </data>
-  <data name="itmFile.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FileMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>66, 19</value>
   </data>
-  <data name="itmFile.Text" xml:space="preserve">
+  <data name="FileMenuItem.Text" xml:space="preserve">
     <value>ファイル(&amp;F)</value>
   </data>
-  <data name="itmEdit.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="EditMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 19</value>
   </data>
-  <data name="itmEdit.Text" xml:space="preserve">
+  <data name="EditMenuItem.Text" xml:space="preserve">
     <value>編集(&amp;E)</value>
   </data>
-  <data name="itmSelectAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="itmSelectAll.Text" xml:space="preserve">
-    <value>すべて選択(&amp;A)</value>
-  </data>
-  <data name="itmInvertSelections.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="itmInvertSelections.Text" xml:space="preserve">
-    <value>選択の切り替え(&amp;I)</value>
-  </data>
-  <data name="itmImage.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 19</value>
   </data>
-  <data name="itmImage.Text" xml:space="preserve">
+  <data name="ImagesMenuItem.Text" xml:space="preserve">
     <value>画像(&amp;I)</value>
   </data>
-  <data name="itmAdd.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AddImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 22</value>
   </data>
-  <data name="itmAdd.Text" xml:space="preserve">
+  <data name="AddImagesMenuItem.Text" xml:space="preserve">
     <value>追加(&amp;A)</value>
   </data>
-  <data name="itmFromFiles.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="AddImagesFromFilesMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAqZJREFUOE+l
         kulLFHEch+d1/0Gv6kWHFHRouRWkGaEoZUgHWFFkB10SXokSapJpZYe1Wruumrq1uO1qiqZWppaWiXRo
@@ -283,13 +271,13 @@
         09c/MGN66TeRpG8cNsyElnsiRwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmFromFiles.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AddImagesFromFilesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>158, 22</value>
   </data>
-  <data name="itmFromFiles.Text" xml:space="preserve">
+  <data name="AddImagesFromFilesMenuItem.Text" xml:space="preserve">
     <value>ファイルから(&amp;F)...</value>
   </data>
-  <data name="itmFromFolder.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="AddImagesFromFolderMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAvVJREFUOE9t
         0vlL03Ecx/GB9Et/QBFBERT+EBQUWNkvmWZ5ZKVkdOgUFZU85rk0Lc2ZTlKjSElzQalIHiWWd/PrkW46
@@ -307,26 +295,26 @@
         C8pzz4VIPnkcWbt+wM712u3EnIAxzeReAsgwGH8AbQh1g7N1s7AAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="itmFromFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AddImagesFromFolderMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>158, 22</value>
   </data>
-  <data name="itmFromFolder.Text" xml:space="preserve">
+  <data name="AddImagesFromFolderMenuItem.Text" xml:space="preserve">
     <value>フォルダーから(&amp;L)...</value>
   </data>
-  <data name="sepImage1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImageMenuSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>168, 6</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="itmOpenImage.Enabled" type="System.Boolean, mscorlib">
+  <data name="OpenImageMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmOpenImage.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OpenImageMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 22</value>
   </data>
-  <data name="itmOpenImage.Text" xml:space="preserve">
+  <data name="OpenImageMenuItem.Text" xml:space="preserve">
     <value>開く(&amp;O)</value>
   </data>
-  <data name="itmExclude.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="DeleteImagesMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
@@ -342,16 +330,16 @@
         JGBgAACn9cedPOLjcAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmExclude.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DeleteImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 22</value>
   </data>
-  <data name="itmExclude.Text" xml:space="preserve">
+  <data name="DeleteImagesMenuItem.Text" xml:space="preserve">
     <value>削除(&amp;D)</value>
   </data>
-  <data name="sepImage2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImageMenuSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>168, 6</value>
   </data>
-  <data name="itmExport.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ExportImagesMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAM1JREFUOE+tjDEOgkAQRTmFJ7Cz8QhWHkAvYOIlrGhopKXcGjsst9qGgAlXUEoj
@@ -360,13 +348,13 @@
         nMeV2D4jEgQBFBMKvB/J9EKt8X0fCk8TgfbC8zztum7vWeXfcJwH064gPOUKp8QAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="itmExport.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ExportImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 22</value>
   </data>
-  <data name="itmExport.Text" xml:space="preserve">
+  <data name="ExportImagesMenuItem.Text" xml:space="preserve">
     <value>エクスポート(&amp;T)...</value>
   </data>
-  <data name="itmExtract.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ExtractImagesMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAWBJREFUOE+tkT1Lw1AYhYOI+APcnf0DjvpPXMSls4ODVG2gWOzUUvoxOIVmKUKH
@@ -378,52 +366,52 @@
         k5VloSg/CC1OG5AV66gAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="itmExtract.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ExtractImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 22</value>
   </data>
-  <data name="itmExtract.Text" xml:space="preserve">
+  <data name="ExtractImagesMenuItem.Text" xml:space="preserve">
     <value>抽出(&amp;C)...</value>
   </data>
-  <data name="sepImage3.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImageMenuSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>168, 6</value>
   </data>
-  <data name="itmSetViewMode.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="StartViewModeSettingMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 22</value>
   </data>
-  <data name="itmSetViewMode.Text" xml:space="preserve">
+  <data name="StartViewModeSettingMenuItem.Text" xml:space="preserve">
     <value>表示の自動設定(&amp;V)</value>
   </data>
-  <data name="itmWithLeft.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="StartViewModeSettingLeftMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 22</value>
   </data>
-  <data name="itmWithLeft.Text" xml:space="preserve">
+  <data name="StartViewModeSettingLeftMenuItem.Text" xml:space="preserve">
     <value>左で開始(&amp;L)</value>
   </data>
-  <data name="itmWithRight.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="StartViewModeSettingRightMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 22</value>
   </data>
-  <data name="itmWithRight.Text" xml:space="preserve">
+  <data name="StartViewModeSettingRightMenuItem.Text" xml:space="preserve">
     <value>右で開始(&amp;R)</value>
   </data>
-  <data name="itmInvertViewMode.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="InvertViewModeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 22</value>
   </data>
-  <data name="itmInvertViewMode.Text" xml:space="preserve">
+  <data name="InvertViewModeMenuItem.Text" xml:space="preserve">
     <value>表示の切り替え(&amp;N)</value>
   </data>
-  <data name="itmBookmark.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="BookmarksMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 19</value>
   </data>
-  <data name="itmBookmark.Text" xml:space="preserve">
+  <data name="BookmarksMenuItem.Text" xml:space="preserve">
     <value>ブックマーク(&amp;B)</value>
   </data>
-  <data name="itmAddBookmark.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AddBookmarksMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>200, 22</value>
   </data>
-  <data name="itmAddBookmark.Text" xml:space="preserve">
+  <data name="AddBookmarksMenuItem.Text" xml:space="preserve">
     <value>選択された画像の追加(&amp;A)</value>
   </data>
-  <data name="itmDeleteBookmark.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="DeleteBookmarksMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
@@ -439,52 +427,52 @@
         JGBgAACn9cedPOLjcAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmDeleteBookmark.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DeleteBookmarksMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>200, 22</value>
   </data>
-  <data name="itmDeleteBookmark.Text" xml:space="preserve">
+  <data name="DeleteBookmarksMenuItem.Text" xml:space="preserve">
     <value>削除(&amp;D)</value>
   </data>
-  <data name="itmTool.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ToolMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 19</value>
   </data>
-  <data name="itmTool.Text" xml:space="preserve">
+  <data name="ToolMenuItem.Text" xml:space="preserve">
     <value>ツール(&amp;T)</value>
   </data>
-  <data name="itmOption.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OptionMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 22</value>
   </data>
-  <data name="itmOption.Text" xml:space="preserve">
+  <data name="OptionMenuItem.Text" xml:space="preserve">
     <value>オプション(&amp;O)</value>
   </data>
-  <data name="itmHelp.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="HelpMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 19</value>
   </data>
-  <data name="itmHelp.Text" xml:space="preserve">
+  <data name="HelpMenuItem.Text" xml:space="preserve">
     <value>ヘルプ(&amp;H)</value>
   </data>
-  <data name="itmAbout.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AboutMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>158, 22</value>
   </data>
-  <data name="itmAbout.Text" xml:space="preserve">
+  <data name="AboutMenuItem.Text" xml:space="preserve">
     <value>バージョン情報(&amp;A)</value>
   </data>
-  <data name="lblStatus.Text" xml:space="preserve">
+  <data name="StatusLabel.Text" xml:space="preserve">
     <value>待機</value>
   </data>
-  <data name="prgStatus.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="StatusProgressBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>160, 17</value>
   </data>
-  <data name="lblImageCount.Text" xml:space="preserve">
+  <data name="ImageCountLabel.Text" xml:space="preserve">
     <value>0 個の項目</value>
   </data>
-  <data name="itmView.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ViewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 19</value>
   </data>
-  <data name="itmView.Text" xml:space="preserve">
+  <data name="ViewMenuItem.Text" xml:space="preserve">
     <value>表示(&amp;V)</value>
   </data>
-  <data name="itmContentsWindow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ContentsWindowMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAQhJREFUOE+l
         kUtKxFAQRbNIF+EWegtOREFchHNHDjLIIEiEgBnEmaP8v+T/Lbkl3bz3mk5Dp+AQqEfdW3WjPT6/0h5Y
@@ -494,13 +482,13 @@
         82QB/G8x9WvDksAetH2laX8JKTBuUAzQlQAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmContentsWindow.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ContentsWindowMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 22</value>
   </data>
-  <data name="itmContentsWindow.Text" xml:space="preserve">
+  <data name="ContentsWindowMenuItem.Text" xml:space="preserve">
     <value>コンテンツ(&amp;C)</value>
   </data>
-  <data name="itmBookmarksWindow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BookmarksWindowMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAh5JREFUOE+VUl1Ik2EUfuc2GHQRTMu80KsKr6JAHAwSb7sY1K3dehNdhF1FJPtW
@@ -515,13 +503,13 @@
         ZIEBufp/8PL28KmRUKDUbybeZ/vXAkUuAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="itmBookmarksWindow.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="BookmarksWindowMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 22</value>
   </data>
-  <data name="itmBookmarksWindow.Text" xml:space="preserve">
+  <data name="BookmarksWindowMenuItem.Text" xml:space="preserve">
     <value>ブックマーク(&amp;B)</value>
   </data>
-  <data name="btnNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="NewButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAE+SURBVDhPldJPaoNQEAZwb9p1j1AP4NoLeANdiAREFN24
@@ -533,10 +521,10 @@
         RK5CYII=
 </value>
   </data>
-  <data name="btnNew.Text" xml:space="preserve">
+  <data name="NewButton.Text" xml:space="preserve">
     <value>新規作成(&amp;N)</value>
   </data>
-  <data name="btnOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="OpenButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANbSURBVDhPbZN9TNR1HMd/tfUHf7S2HrbWetia1WbpnMay
@@ -557,10 +545,10 @@
         TkSuQmCC
 </value>
   </data>
-  <data name="btnOpen.Text" xml:space="preserve">
+  <data name="OpenButton.Text" xml:space="preserve">
     <value>開く(&amp;O)...</value>
   </data>
-  <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="SaveButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALxSURBVDhPjZHrS1NhHMfPP9F/UEIEIYRIvQnMS5KFt9Rc
@@ -579,7 +567,7 @@
         w+oJHgmYboAAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="btnSave.Text" xml:space="preserve">
+  <data name="SaveButton.Text" xml:space="preserve">
     <value>上書き保存(&amp;S)</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

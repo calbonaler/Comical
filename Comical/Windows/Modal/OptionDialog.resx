@@ -117,191 +117,191 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="btnOK.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="OKButton.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btnOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="OKButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="OKButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>153, 66</value>
   </data>
-  <data name="btnOK.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OKButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 26</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btnOK.TabIndex" type="System.Int32, mscorlib">
+  <data name="OKButton.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="btnOK.Text" xml:space="preserve">
+  <data name="OKButton.Text" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="&gt;&gt;btnOK.Name" xml:space="preserve">
-    <value>btnOK</value>
+  <data name="&gt;&gt;OKButton.Name" xml:space="preserve">
+    <value>OKButton</value>
   </data>
-  <data name="&gt;&gt;btnOK.Type" xml:space="preserve">
+  <data name="&gt;&gt;OKButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnOK.Parent" xml:space="preserve">
+  <data name="&gt;&gt;OKButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;btnOK.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;OKButton.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <metadata name="btnCancel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="CancelButton.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="btnCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="CancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="CancelButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>257, 66</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="CancelButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 1, 0</value>
   </data>
-  <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 26</value>
   </data>
-  <data name="btnCancel.TabIndex" type="System.Int32, mscorlib">
+  <data name="CancelButton.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="btnCancel.Text" xml:space="preserve">
+  <data name="CancelButton.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="&gt;&gt;btnCancel.Name" xml:space="preserve">
-    <value>btnCancel</value>
+  <data name="&gt;&gt;CancelButton.Name" xml:space="preserve">
+    <value>CancelButton</value>
   </data>
-  <data name="&gt;&gt;btnCancel.Type" xml:space="preserve">
+  <data name="&gt;&gt;CancelButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnCancel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;CancelButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;CancelButton.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <metadata name="lblDefaultSavedFileName.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="DefaultSavedFileNameLabel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="lblDefaultSavedFileName.AutoSize" type="System.Boolean, mscorlib">
+  <data name="DefaultSavedFileNameLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="lblDefaultSavedFileName.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="DefaultSavedFileNameLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 9</value>
   </data>
-  <data name="lblDefaultSavedFileName.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DefaultSavedFileNameLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>113, 15</value>
   </data>
-  <data name="lblDefaultSavedFileName.TabIndex" type="System.Int32, mscorlib">
+  <data name="DefaultSavedFileNameLabel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="lblDefaultSavedFileName.Text" xml:space="preserve">
+  <data name="DefaultSavedFileNameLabel.Text" xml:space="preserve">
     <value>&amp;File name in default:</value>
   </data>
-  <data name="&gt;&gt;lblDefaultSavedFileName.Name" xml:space="preserve">
-    <value>lblDefaultSavedFileName</value>
+  <data name="&gt;&gt;DefaultSavedFileNameLabel.Name" xml:space="preserve">
+    <value>DefaultSavedFileNameLabel</value>
   </data>
-  <data name="&gt;&gt;lblDefaultSavedFileName.Type" xml:space="preserve">
+  <data name="&gt;&gt;DefaultSavedFileNameLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblDefaultSavedFileName.Parent" xml:space="preserve">
+  <data name="&gt;&gt;DefaultSavedFileNameLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;lblDefaultSavedFileName.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;DefaultSavedFileNameLabel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <metadata name="itmTitle.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="TitleMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmTitle.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="TitleMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 22</value>
   </data>
-  <data name="itmTitle.Text" xml:space="preserve">
+  <data name="TitleMenuItem.Text" xml:space="preserve">
     <value>{0} Title</value>
   </data>
-  <metadata name="itmAuthor.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="AuthorMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmAuthor.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AuthorMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 22</value>
   </data>
-  <data name="itmAuthor.Text" xml:space="preserve">
+  <data name="AuthorMenuItem.Text" xml:space="preserve">
     <value>{1} Author</value>
   </data>
-  <metadata name="itmFormattedDate.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="FormattedDateMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmFormattedDate.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FormattedDateMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 22</value>
   </data>
-  <data name="itmFormattedDate.Text" xml:space="preserve">
+  <data name="FormattedDateMenuItem.Text" xml:space="preserve">
     <value>{2} Formatted Date</value>
   </data>
-  <data name="btnInsertMask.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="InsertMaskButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="btnInsertMask.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="InsertMaskButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>327, 29</value>
   </data>
-  <data name="btnInsertMask.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="InsertMaskButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 26</value>
   </data>
-  <data name="btnInsertMask.TabIndex" type="System.Int32, mscorlib">
+  <data name="InsertMaskButton.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="btnInsertMask.Text" xml:space="preserve">
+  <data name="InsertMaskButton.Text" xml:space="preserve">
     <value>▼</value>
   </data>
-  <data name="&gt;&gt;btnInsertMask.Name" xml:space="preserve">
-    <value>btnInsertMask</value>
+  <data name="&gt;&gt;InsertMaskButton.Name" xml:space="preserve">
+    <value>InsertMaskButton</value>
   </data>
-  <data name="&gt;&gt;btnInsertMask.Type" xml:space="preserve">
+  <data name="&gt;&gt;InsertMaskButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnInsertMask.Parent" xml:space="preserve">
+  <data name="&gt;&gt;InsertMaskButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;btnInsertMask.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;InsertMaskButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="txtDefaultSavedFileName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="DefaultSavedFileNameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="txtDefaultSavedFileName.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="DefaultSavedFileNameTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 30</value>
   </data>
-  <data name="txtDefaultSavedFileName.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DefaultSavedFileNameTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>309, 23</value>
   </data>
-  <data name="txtDefaultSavedFileName.TabIndex" type="System.Int32, mscorlib">
+  <data name="DefaultSavedFileNameTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;txtDefaultSavedFileName.Name" xml:space="preserve">
-    <value>txtDefaultSavedFileName</value>
+  <data name="&gt;&gt;DefaultSavedFileNameTextBox.Name" xml:space="preserve">
+    <value>DefaultSavedFileNameTextBox</value>
   </data>
-  <data name="&gt;&gt;txtDefaultSavedFileName.Type" xml:space="preserve">
+  <data name="&gt;&gt;DefaultSavedFileNameTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;txtDefaultSavedFileName.Parent" xml:space="preserve">
+  <data name="&gt;&gt;DefaultSavedFileNameTextBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;txtDefaultSavedFileName.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;DefaultSavedFileNameTextBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="conInsertMask.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="InsertMaskContextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="conInsertMask.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="InsertMaskContextMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 70</value>
   </data>
-  <data name="&gt;&gt;conInsertMask.Name" xml:space="preserve">
-    <value>conInsertMask</value>
+  <data name="&gt;&gt;InsertMaskContextMenu.Name" xml:space="preserve">
+    <value>InsertMaskContextMenu</value>
   </data>
-  <data name="&gt;&gt;conInsertMask.Type" xml:space="preserve">
+  <data name="&gt;&gt;InsertMaskContextMenu.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -325,22 +325,22 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Options</value>
   </data>
-  <data name="&gt;&gt;itmTitle.Name" xml:space="preserve">
-    <value>itmTitle</value>
+  <data name="&gt;&gt;TitleMenuItem.Name" xml:space="preserve">
+    <value>TitleMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmTitle.Type" xml:space="preserve">
+  <data name="&gt;&gt;TitleMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmAuthor.Name" xml:space="preserve">
-    <value>itmAuthor</value>
+  <data name="&gt;&gt;AuthorMenuItem.Name" xml:space="preserve">
+    <value>AuthorMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmAuthor.Type" xml:space="preserve">
+  <data name="&gt;&gt;AuthorMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmFormattedDate.Name" xml:space="preserve">
-    <value>itmFormattedDate</value>
+  <data name="&gt;&gt;FormattedDateMenuItem.Name" xml:space="preserve">
+    <value>FormattedDateMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmFormattedDate.Type" xml:space="preserve">
+  <data name="&gt;&gt;FormattedDateMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

@@ -28,22 +28,22 @@
 		/// </summary>
 		void InitializeComponent()
 		{
-			System.Windows.Forms.Label lblLibraries;
+			System.Windows.Forms.Label LibrariesLabel;
 			var resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
 			lblVersionHeader = new System.Windows.Forms.Label();
-			lblCopyright = new System.Windows.Forms.Label();
-			txtLibraries = new System.Windows.Forms.TextBox();
-			tlpMain = new System.Windows.Forms.TableLayoutPanel();
-			lblLibraries = new System.Windows.Forms.Label();
-			tlpMain.SuspendLayout();
+			CopyrightLabel = new System.Windows.Forms.Label();
+			LibrariesTextBox = new System.Windows.Forms.TextBox();
+			MainPanel = new System.Windows.Forms.TableLayoutPanel();
+			LibrariesLabel = new System.Windows.Forms.Label();
+			MainPanel.SuspendLayout();
 			SuspendLayout();
 			// 
-			// lblLibraries
+			// LibrariesLabel
 			// 
-			resources.ApplyResources(lblLibraries, "lblLibraries");
-			lblLibraries.BackColor = System.Drawing.Color.Transparent;
-			lblLibraries.Name = "lblLibraries";
-			lblLibraries.Click += SplashScreen_Click;
+			resources.ApplyResources(LibrariesLabel, "LibrariesLabel");
+			LibrariesLabel.BackColor = System.Drawing.Color.Transparent;
+			LibrariesLabel.Name = "LibrariesLabel";
+			LibrariesLabel.Click += OnClick;
 			// 
 			// lblVersionHeader
 			// 
@@ -51,37 +51,37 @@
 			lblVersionHeader.BackColor = System.Drawing.Color.Transparent;
 			lblVersionHeader.ForeColor = System.Drawing.Color.White;
 			lblVersionHeader.Name = "lblVersionHeader";
-			lblVersionHeader.Click += SplashScreen_Click;
+			lblVersionHeader.Click += OnClick;
 			// 
-			// lblCopyright
+			// CopyrightLabel
 			// 
-			resources.ApplyResources(lblCopyright, "lblCopyright");
-			lblCopyright.BackColor = System.Drawing.Color.Transparent;
-			lblCopyright.Name = "lblCopyright";
+			resources.ApplyResources(CopyrightLabel, "CopyrightLabel");
+			CopyrightLabel.BackColor = System.Drawing.Color.Transparent;
+			CopyrightLabel.Name = "CopyrightLabel";
 			// 
-			// txtLibraries
+			// LibrariesTextBox
 			// 
-			resources.ApplyResources(txtLibraries, "txtLibraries");
-			txtLibraries.BackColor = System.Drawing.SystemColors.Window;
-			txtLibraries.Name = "txtLibraries";
-			txtLibraries.ReadOnly = true;
+			resources.ApplyResources(LibrariesTextBox, "LibrariesTextBox");
+			LibrariesTextBox.BackColor = System.Drawing.SystemColors.Window;
+			LibrariesTextBox.Name = "LibrariesTextBox";
+			LibrariesTextBox.ReadOnly = true;
 			// 
-			// tlpMain
+			// MainPanel
 			// 
-			resources.ApplyResources(tlpMain, "tlpMain");
-			tlpMain.BackColor = System.Drawing.Color.White;
-			tlpMain.Controls.Add(lblLibraries, 0, 1);
-			tlpMain.Controls.Add(lblCopyright, 0, 0);
-			tlpMain.Controls.Add(txtLibraries, 0, 2);
-			tlpMain.Name = "tlpMain";
-			tlpMain.Click += SplashScreen_Click;
+			resources.ApplyResources(MainPanel, "MainPanel");
+			MainPanel.BackColor = System.Drawing.Color.White;
+			MainPanel.Controls.Add(LibrariesLabel, 0, 1);
+			MainPanel.Controls.Add(CopyrightLabel, 0, 0);
+			MainPanel.Controls.Add(LibrariesTextBox, 0, 2);
+			MainPanel.Name = "MainPanel";
+			MainPanel.Click += OnClick;
 			// 
 			// AboutDialog
 			// 
 			resources.ApplyResources(this, "$this");
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			Controls.Add(lblVersionHeader);
-			Controls.Add(tlpMain);
+			Controls.Add(MainPanel);
 			DoubleBuffered = true;
 			FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			MaximizeBox = false;
@@ -89,9 +89,9 @@
 			Name = "AboutDialog";
 			ShowIcon = false;
 			ShowInTaskbar = false;
-			Click += SplashScreen_Click;
-			tlpMain.ResumeLayout(false);
-			tlpMain.PerformLayout();
+			Click += OnClick;
+			MainPanel.ResumeLayout(false);
+			MainPanel.PerformLayout();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -99,8 +99,8 @@
 		#endregion
 
 		System.Windows.Forms.Label lblVersionHeader;
-		private System.Windows.Forms.Label lblCopyright;
-		private System.Windows.Forms.TextBox txtLibraries;
-		private System.Windows.Forms.TableLayoutPanel tlpMain;
+		private System.Windows.Forms.Label CopyrightLabel;
+		private System.Windows.Forms.TextBox LibrariesTextBox;
+		private System.Windows.Forms.TableLayoutPanel MainPanel;
 	}
 }

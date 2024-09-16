@@ -117,71 +117,74 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="conOption.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="OptionContextMenu.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="conOption.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="OptionContextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="itmFitToWindow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="itmFitToWindow.Text" xml:space="preserve">
-    <value>Fit to &amp;Window</value>
-  </data>
-  <metadata name="itmOriginalSize.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="OriginalSizeMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmOriginalSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="OptionContextMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 48</value>
   </data>
-  <data name="itmOriginalSize.Text" xml:space="preserve">
-    <value>&amp;Original Size</value>
+  <data name="&gt;&gt;OptionContextMenu.Name" xml:space="preserve">
+    <value>OptionContextMenu</value>
   </data>
-  <data name="conOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 70</value>
-  </data>
-  <data name="&gt;&gt;conOption.Name" xml:space="preserve">
-    <value>conOption</value>
-  </data>
-  <data name="&gt;&gt;conOption.Type" xml:space="preserve">
+  <data name="&gt;&gt;OptionContextMenu.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="FitToWindowMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 22</value>
+  </data>
+  <data name="FitToWindowMenuItem.Text" xml:space="preserve">
+    <value>Fit to &amp;Window</value>
+  </data>
+  <metadata name="OriginalSizeMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="OriginalSizeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 22</value>
+  </data>
+  <data name="OriginalSizeMenuItem.Text" xml:space="preserve">
+    <value>&amp;Original Size</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="preMain.AutoScroll" type="System.Boolean, mscorlib">
+  <data name="MainPreviewer.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="preMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="MainPreviewer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="preMain.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="MainPreviewer.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 9pt</value>
   </data>
-  <data name="preMain.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="MainPreviewer.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="preMain.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="MainPreviewer.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
-  <data name="preMain.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MainPreviewer.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 262</value>
   </data>
-  <data name="preMain.TabIndex" type="System.Int32, mscorlib">
+  <data name="MainPreviewer.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;preMain.Name" xml:space="preserve">
-    <value>preMain</value>
+  <data name="&gt;&gt;MainPreviewer.Name" xml:space="preserve">
+    <value>MainPreviewer</value>
   </data>
-  <data name="&gt;&gt;preMain.Type" xml:space="preserve">
+  <data name="&gt;&gt;MainPreviewer.Type" xml:space="preserve">
     <value>Comical.Controls.Previewer, Comical, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;preMain.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MainPreviewer.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;preMain.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MainPreviewer.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1599,16 +1602,16 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Image</value>
   </data>
-  <data name="&gt;&gt;itmFitToWindow.Name" xml:space="preserve">
-    <value>itmFitToWindow</value>
+  <data name="&gt;&gt;FitToWindowMenuItem.Name" xml:space="preserve">
+    <value>FitToWindowMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmFitToWindow.Type" xml:space="preserve">
+  <data name="&gt;&gt;FitToWindowMenuItem.Type" xml:space="preserve">
     <value>Comical.Controls.ToolStripRadioMenuItem, Comical, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;itmOriginalSize.Name" xml:space="preserve">
-    <value>itmOriginalSize</value>
+  <data name="&gt;&gt;OriginalSizeMenuItem.Name" xml:space="preserve">
+    <value>OriginalSizeMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmOriginalSize.Type" xml:space="preserve">
+  <data name="&gt;&gt;OriginalSizeMenuItem.Type" xml:space="preserve">
     <value>Comical.Controls.ToolStripRadioMenuItem, Comical, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

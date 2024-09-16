@@ -11,10 +11,10 @@ namespace Comical
 
 		public Binary? Image
 		{
-			get => preMain.Image;
-			set => preMain.SetImage(value);
+			get => MainPreviewer.Image;
+			set => MainPreviewer.SetImage(value);
 		}
 
-		void itmFitToWindow_CheckedChanged(object? sender, EventArgs e) => preMain.StretchMode = itmFitToWindow.Checked ? Comical.Controls.PreviewerStretchMode.Uniform : Comical.Controls.PreviewerStretchMode.None;
+		void OnSizeMenuItemsCheckedChanged(object? sender, EventArgs e) => MainPreviewer.StretchMode = FitToWindowMenuItem.Checked ? Comical.Controls.PreviewerStretchMode.Uniform : Comical.Controls.PreviewerStretchMode.None;
 	}
 }

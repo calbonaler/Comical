@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="itmFitToWindow.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FitToWindowMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>218, 22</value>
   </data>
-  <data name="itmFitToWindow.Text" xml:space="preserve">
+  <data name="FitToWindowMenuItem.Text" xml:space="preserve">
     <value>ウィンドウに合わせる(&amp;W)</value>
   </data>
-  <data name="conOption.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OptionContextMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 48</value>
   </data>
-  <data name="itmOriginalSize.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OriginalSizeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>218, 22</value>
   </data>
-  <data name="itmOriginalSize.Text" xml:space="preserve">
+  <data name="OriginalSizeMenuItem.Text" xml:space="preserve">
     <value>原寸大(&amp;O)</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

@@ -17,8 +17,8 @@ namespace Comical
 			_imageList = new ContentsView(_comic.Images);
 			_bookmarkList = new BookmarksView(_comic.Images, _comic.Bookmarks);
 			_document = new DocumentView(_comic);
-			_comic.PropertyChanged += Comic_PropertyChanged;
-			_comic.Images.CollectionChanged += Comic_CountChanged;
+			_comic.PropertyChanged += OnComicPropertyChanged;
+			_comic.Images.CollectionChanged += OnComicImagesCollectionChanged;
 			InitializeComponent();
 			InitializeDockingWindows();
 			WindowState = Properties.Settings.Default.EditorWindowState;
@@ -51,17 +51,17 @@ namespace Comical
 
 		void InitializeDockingWindows()
 		{
-			dpMain.Theme = new WeifenLuo.WinFormsUI.Docking.VS2015LightTheme();
+			MainDockPanel.Theme = new WeifenLuo.WinFormsUI.Docking.VS2015LightTheme();
 
-			LoadFromXml(dpMain, Properties.Settings.Default.DockPanelConfiguration, _imageList, _bookmarkList, _document);
+			LoadFromXml(MainDockPanel, Properties.Settings.Default.DockPanelConfiguration, _imageList, _bookmarkList, _document);
 
 			_imageList.FileDropped += async (s, ev) => await AddAnythingLocalAsync(!ev.Control, ev.FileNames);
-			_imageList.ImageReferenceSelected += (s, ev) => itmAddBookmark.Enabled = itmOpenImage.Enabled = itmExclude.Enabled = itmExport.Enabled = itmExtract.Enabled = itmSetViewMode.Enabled = itmInvertViewMode.Enabled = _imageList.SelectedIndices.Any();
-			_imageList.ExportRequested += itmExport_Click;
-			_imageList.ExtractRequested += itmExtract_Click;
-			_imageList.BookmarkRequested += itmAddBookmark_Click;
+			_imageList.ImageReferenceSelected += (s, ev) => AddBookmarksMenuItem.Enabled = OpenImageMenuItem.Enabled = DeleteImagesMenuItem.Enabled = ExportImagesMenuItem.Enabled = ExtractImagesMenuItem.Enabled = StartViewModeSettingMenuItem.Enabled = InvertViewModeMenuItem.Enabled = _imageList.SelectedIndices.Any();
+			_imageList.ExportRequested += OnExportImagesMenuItemClick;
+			_imageList.ExtractRequested += OnExtractImagesMenuItemClick;
+			_imageList.BookmarkRequested += OnAddBookmarksMenuItemClick;
 
-			_bookmarkList.BookmarkSelected += (s, ev) => itmDeleteBookmark.Enabled = _bookmarkList.SelectedBookmarks.Any();
+			_bookmarkList.BookmarkSelected += (s, ev) => DeleteBookmarksMenuItem.Enabled = _bookmarkList.SelectedBookmarks.Any();
 			_bookmarkList.BookmarkNavigated += (s, ev) => _imageList.SelectSingleImage(ev.Bookmark.Target);
 		}
 
@@ -93,14 +93,14 @@ namespace Comical
 
 		IDisposable BeginAsyncWork()
 		{
-			prgStatus.Value = 0;
-			prgStatus.Visible = !(menMain.Enabled = tsMain.Enabled = false);
+			StatusProgressBar.Value = 0;
+			StatusProgressBar.Visible = !(MainMenu.Enabled = MainToolBar.Enabled = false);
 			return new CompositeDisposable()
 			{
 				() =>
 				{
-					prgStatus.Visible = !(menMain.Enabled = tsMain.Enabled = true);
-					lblStatus.Text = string.Empty;
+					StatusProgressBar.Visible = !(MainMenu.Enabled = MainToolBar.Enabled = true);
+					StatusLabel.Text = string.Empty;
 				},
 				_imageList.BeginAsyncWork(),
 				_bookmarkList.BeginAsyncWork(),
@@ -147,25 +147,25 @@ namespace Comical
 		{
 			using (BeginAsyncWork())
 			{
-				prgStatus.Style = ProgressBarStyle.Marquee;
-				lblStatus.Text = Properties.Resources.ScanningFiles;
+				StatusProgressBar.Style = ProgressBarStyle.Marquee;
+				StatusLabel.Text = Properties.Resources.ScanningFiles;
 				var comicFiles = new List<string>();
 				var images = new List<ImageReference>();
 				await CollectFilesAsync(paths, comicFiles, images);
-				prgStatus.Style = ProgressBarStyle.Blocks;
+				StatusProgressBar.Style = ProgressBarStyle.Blocks;
 				var i = 0;
 				if (canOpen && comicFiles.Count > 0)
 				{
-					lblStatus.Text = Properties.Resources.OpeningFile;
-					await _comic.OpenAsync(comicFiles[i], new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x / comicFiles.Count)));
+					StatusLabel.Text = Properties.Resources.OpeningFile;
+					await _comic.OpenAsync(comicFiles[i], new Progress<int>(x => this.InvokeIfNeeded(() => StatusProgressBar.Value = x / comicFiles.Count)));
 					AddAuthorToHistory(_comic.Author);
 					SavedFilePath = comicFiles[i];
 					i++;
 				}
-				lblStatus.Text = Properties.Resources.AppendingFile;
+				StatusLabel.Text = Properties.Resources.AppendingFile;
 				for (; i < comicFiles.Count; i++)
-					await _comic.AppendAsync(comicFiles[i], new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = (100 * i + x) / comicFiles.Count)));
-				lblStatus.Text = Properties.Resources.ImportingImages;
+					await _comic.AppendAsync(comicFiles[i], new Progress<int>(x => this.InvokeIfNeeded(() => StatusProgressBar.Value = (100 * i + x) / comicFiles.Count)));
+				StatusLabel.Text = Properties.Resources.ImportingImages;
 				using (_comic.Images.EnterUnnotifiedSection())
 				{
 					foreach (var image in images)
@@ -180,7 +180,7 @@ namespace Comical
 			{
 				using (BeginAsyncWork())
 				{
-					await _comic.SaveAsync(fileName, new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
+					await _comic.SaveAsync(fileName, new Progress<int>(x => this.InvokeIfNeeded(() => StatusProgressBar.Value = x)));
 					AddAuthorToHistory(_comic.Author);
 					return true;
 				}
@@ -232,7 +232,7 @@ namespace Comical
 
 		#region FileMenu
 
-		async void itmNew_Click(object? sender, EventArgs e)
+		async void OnNewMenuItemClick(object? sender, EventArgs e)
 		{
 			if (await QuerySaveAsync() != CPDialogs.TaskDialogResult.Cancel)
 			{
@@ -241,7 +241,7 @@ namespace Comical
 			}
 		}
 
-		async void itmOpen_Click(object? sender, EventArgs e)
+		async void OnOpenMenuItemClick(object? sender, EventArgs e)
 		{
 			if (await QuerySaveAsync() == CPDialogs.TaskDialogResult.Cancel)
 				return;
@@ -252,27 +252,27 @@ namespace Comical
 				await AddAnythingLocalAsync(true, Enumerable.Repeat(dialog.FileName, 1));
 		}
 
-		async void itmSave_Click(object? sender, EventArgs e) => await SaveAsync();
+		async void OnSaveMenuItemClick(object? sender, EventArgs e) => await SaveAsync();
 
-		async void itmSaveAs_Click(object? sender, EventArgs e) => await SaveAsAsync();
+		async void OnSaveAsMenuItemClick(object? sender, EventArgs e) => await SaveAsAsync();
 
-		void itmDocumentSettings_Click(object? sender, EventArgs e) => _document.Show(dpMain);
+		void OnConfigureDocumentMenuItemClick(object? sender, EventArgs e) => _document.Show(MainDockPanel);
 
-		void itmExit_Click(object? sender, EventArgs e) => Close();
+		void OnExitMenuItemClick(object? sender, EventArgs e) => Close();
 
 		#endregion
 
 		#region ViewMenu
 
-		void itmContentsWindow_Click(object? sender, EventArgs e) => _imageList.Show(dpMain);
+		void OnContentsWindowMenuItemClick(object? sender, EventArgs e) => _imageList.Show(MainDockPanel);
 
-		void itmBookmarksWindow_Click(object? sender, EventArgs e) => _bookmarkList.Show(dpMain);
+		void OnBookmarksWindowMenuItemClick(object? sender, EventArgs e) => _bookmarkList.Show(MainDockPanel);
 
 		#endregion
 
 		#region ImageMenu
 
-		async void itmFromFile_Click(object? sender, EventArgs e)
+		async void OnAddImagesFromFilesMenuItemClick(object? sender, EventArgs e)
 		{
 			using var dialog = new CPDialogs.CommonOpenFileDialog();
 			dialog.Multiselect = true;
@@ -280,7 +280,7 @@ namespace Comical
 				await AddAnythingLocalAsync(false, dialog.FileNames);
 		}
 
-		async void itmFromFolder_Click(object? sender, EventArgs e)
+		async void OnAddImagesFromFolderMenuItemClick(object? sender, EventArgs e)
 		{
 			using var dialog = new CPDialogs.CommonOpenFileDialog();
 			dialog.Multiselect = true;
@@ -289,11 +289,11 @@ namespace Comical
 				await AddAnythingLocalAsync(false, dialog.FileNames);
 		}
 
-		void itmOpenImage_Click(object? sender, EventArgs e) => _imageList.OpenFirstSelectedImage();
+		void OnOpenImageMenuItemClick(object? sender, EventArgs e) => _imageList.OpenFirstSelectedImage();
 
-		void itmDelete_Click(object? sender, EventArgs e) => _imageList.DeleteSelectedImages();
+		void OnDeleteImagesMenuItemClick(object? sender, EventArgs e) => _imageList.DeleteSelectedImages();
 
-		async void itmExport_Click(object? sender, EventArgs e)
+		async void OnExportImagesMenuItemClick(object? sender, EventArgs e)
 		{
 			using var dialog = new CPDialogs.CommonOpenFileDialog();
 			dialog.IsFolderPicker = true;
@@ -307,11 +307,11 @@ namespace Comical
 					using var image = data.ToImage();
 					var codecInfo = image.GetImageCodecInfo();
 					return codecInfo == null || codecInfo.FilenameExtension == null ? string.Empty : codecInfo.FilenameExtension.Split(';')[0].Remove(0, 1);
-				}, new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
+				}, new Progress<int>(x => this.InvokeIfNeeded(() => StatusProgressBar.Value = x)));
 			}
 		}
 
-		async void itmExtract_Click(object? sender, EventArgs e)
+		async void OnExtractImagesMenuItemClick(object? sender, EventArgs e)
 		{
 			using var dialog = new CPDialogs.CommonSaveFileDialog();
 			dialog.DefaultExtension = ".cic";
@@ -321,42 +321,42 @@ namespace Comical
 				return;
 			using (BeginAsyncWork())
 				await _comic.ExtractAsync(dialog.FileName, _imageList.SelectedIndices.OrderBy(x => x).Select(x => _comic.Images[x]),
-					new Progress<int>(x => this.InvokeIfNeeded(() => prgStatus.Value = x)));
+					new Progress<int>(x => this.InvokeIfNeeded(() => StatusProgressBar.Value = x)));
 		}
 
-		void itmWithLeft_Click(object? sender, EventArgs e) => _imageList.SetSelectedImagesViewModes(true);
+		void OnStartViewModeSettingLeftMenuItemClick(object? sender, EventArgs e) => _imageList.SetSelectedImagesViewModes(true);
 
-		void itmWithRight_Click(object? sender, EventArgs e) => _imageList.SetSelectedImagesViewModes(false);
+		void OnStartViewModeSettingRightMenuItemClick(object? sender, EventArgs e) => _imageList.SetSelectedImagesViewModes(false);
 
-		void itmInvertViewMode_Click(object? sender, EventArgs e) => _imageList.InvertSelectedImagesViewModes();
+		void OnInvertViewModeMenuItemClick(object? sender, EventArgs e) => _imageList.InvertSelectedImagesViewModes();
 
 		#endregion
 
 		#region BookmarkMenu
 
-		void itmAddBookmark_Click(object? sender, EventArgs e)
+		void OnAddBookmarksMenuItemClick(object? sender, EventArgs e)
 		{
 			foreach (var targetIndex in _imageList.SelectedIndices.OrderBy(x => x))
 				_comic.Bookmarks.Add(new Bookmark() { Target = targetIndex });
 		}
 
-		void itmDeleteBookmark_Click(object? sender, EventArgs e) => _bookmarkList.DeleteSelectedBookmarks();
+		void OnDeleteBookmarksMenuItemClick(object? sender, EventArgs e) => _bookmarkList.DeleteSelectedBookmarks();
 
 		#endregion
 
-		void itmOption_Click(object? sender, EventArgs e)
+		void OnOptionMenuItemClick(object? sender, EventArgs e)
 		{
 			using var dialog = new OptionDialog();
 			dialog.ShowDialog(this);
 		}
 
-		void itmAbout_Click(object? sender, EventArgs e)
+		void OnAboutMenuItemClick(object? sender, EventArgs e)
 		{
 			using var ss = new AboutDialog();
 			ss.ShowDialog(this);
 		}
 
-		#region frmEditor EventHandlers
+		#region EditorForm EventHandlers
 
 		protected override async void OnShown(EventArgs e)
 		{
@@ -373,7 +373,7 @@ namespace Comical
 			if (e == null) return;
 			if (e.CloseReason != CloseReason.WindowsShutDown)
 			{
-				if (prgStatus.Visible)
+				if (StatusProgressBar.Visible)
 					e.Cancel = true;
 				else if (await QuerySaveAsync(res => e.Cancel = res != CPDialogs.TaskDialogResult.No) == CPDialogs.TaskDialogResult.Yes)
 					Close();
@@ -385,7 +385,7 @@ namespace Comical
 			base.OnFormClosed(e);
 			using (var ms = new System.IO.MemoryStream())
 			{
-				dpMain.SaveAsXml(ms, System.Text.Encoding.UTF8);
+				MainDockPanel.SaveAsXml(ms, System.Text.Encoding.UTF8);
 				Properties.Settings.Default.DockPanelConfiguration = System.Text.Encoding.UTF8.GetString(ms.ToArray());
 			}
 			Properties.Settings.Default.EditorWindowState = WindowState;
@@ -396,8 +396,8 @@ namespace Comical
 
 		#endregion
 
-		void Comic_CountChanged(object? sender, EventArgs e) => this.InvokeIfNeeded(() => lblImageCount.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageCountStringRepresentation, _comic.Images.Count));
+		void OnComicImagesCollectionChanged(object? sender, EventArgs e) => this.InvokeIfNeeded(() => ImageCountLabel.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageCountStringRepresentation, _comic.Images.Count));
 
-		void Comic_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e) => this.InvokeIfNeeded(UpdateTitle);
+		void OnComicPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e) => this.InvokeIfNeeded(UpdateTitle);
 	}
 }

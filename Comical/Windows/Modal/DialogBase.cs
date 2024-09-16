@@ -14,8 +14,8 @@ namespace Comical
 		[Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
 		public string Description
 		{
-			get => lblDescription.Text;
-			set => lblDescription.Text = value;
+			get => DescriptionLabel.Text;
+			set => DescriptionLabel.Text = value;
 		}
 
 		protected override void OnPaint(PaintEventArgs e)

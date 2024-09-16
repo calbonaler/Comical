@@ -117,14 +117,47 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="itmFile.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="FileMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="itmNew.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="NewMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="OpenMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="FileMenuSeparator1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="SaveMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="SaveAsMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="FileMenuSeparator2.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="ConfigureDocumentMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="FileMenuSeparator3.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="ExitMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="itmNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="FileMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 19</value>
+  </data>
+  <data name="FileMenuItem.Text" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <metadata name="NewMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="NewMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAE+SURBVDhPldJPaoNQEAZwb9p1j1AP4NoLeANdiAREFN24
@@ -136,65 +169,65 @@
         RK5CYII=
 </value>
   </data>
-  <data name="itmNew.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+  <data name="NewMenuItem.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="itmNew.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+  <data name="NewMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+N</value>
   </data>
-  <data name="itmNew.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="NewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 22</value>
   </data>
-  <data name="itmNew.Text" xml:space="preserve">
+  <data name="NewMenuItem.Text" xml:space="preserve">
     <value>&amp;New</value>
   </data>
-  <metadata name="itmOpen.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="OpenMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="OpenMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         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
-        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
+        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
         RK5CYII=
 </value>
   </data>
-  <data name="itmOpen.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+  <data name="OpenMenuItem.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="itmOpen.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+  <data name="OpenMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+O</value>
   </data>
-  <data name="itmOpen.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OpenMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 22</value>
   </data>
-  <data name="itmOpen.Text" xml:space="preserve">
+  <data name="OpenMenuItem.Text" xml:space="preserve">
     <value>&amp;Open...</value>
   </data>
-  <metadata name="sepFile1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="FileMenuSeparator1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="sepFile1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FileMenuSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 6</value>
   </data>
-  <metadata name="itmSave.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="SaveMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="SaveMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALxSURBVDhPjZHrS1NhHMfPP9F/UEIEIYRIvQnMS5KFt9Rc
@@ -213,37 +246,37 @@
         w+oJHgmYboAAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="itmSave.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+  <data name="SaveMenuItem.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="itmSave.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+  <data name="SaveMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+S</value>
   </data>
-  <data name="itmSave.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SaveMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 22</value>
   </data>
-  <data name="itmSave.Text" xml:space="preserve">
+  <data name="SaveMenuItem.Text" xml:space="preserve">
     <value>&amp;Save</value>
   </data>
-  <metadata name="itmSaveAs.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="SaveAsMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmSaveAs.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SaveAsMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 22</value>
   </data>
-  <data name="itmSaveAs.Text" xml:space="preserve">
+  <data name="SaveAsMenuItem.Text" xml:space="preserve">
     <value>Save &amp;as...</value>
   </data>
-  <metadata name="sepFile2.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="FileMenuSeparator2.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="sepFile2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FileMenuSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 6</value>
   </data>
-  <metadata name="itmDocumentSettings.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="ConfigureDocumentMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmDocumentSettings.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ConfigureDocumentMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAjFJREFUOE+F
         kk1rE1EUhvNj/AFWXLar+lF34qJQEBWyaBVsKWZjiou2mqotSZRarTZUQgTRBBtjaBITEtFgzKISMNYs
@@ -258,43 +291,67 @@
         d/YMt9vt4r1fSdJm+wOx1cA7GKORlAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmDocumentSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ConfigureDocumentMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 22</value>
   </data>
-  <data name="itmDocumentSettings.Text" xml:space="preserve">
+  <data name="ConfigureDocumentMenuItem.Text" xml:space="preserve">
     <value>&amp;Configure document</value>
   </data>
-  <metadata name="sepFile3.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="FileMenuSeparator3.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="sepFile3.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FileMenuSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 6</value>
   </data>
-  <metadata name="itmExit.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="ExitMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmExit.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ExitMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 22</value>
   </data>
-  <data name="itmExit.Text" xml:space="preserve">
+  <data name="ExitMenuItem.Text" xml:space="preserve">
     <value>E&amp;xit</value>
   </data>
-  <data name="itmFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 19</value>
+  <metadata name="ImagesMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="AddImagesMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="ImageMenuSeparator1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="ImageMenuSeparator2.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="ImageMenuSeparator3.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="ImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 19</value>
   </data>
-  <data name="itmFile.Text" xml:space="preserve">
-    <value>&amp;File</value>
+  <data name="ImagesMenuItem.Text" xml:space="preserve">
+    <value>&amp;Images</value>
   </data>
-  <metadata name="itmImage.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="AddImagesMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="itmAdd.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="AddImagesFromFilesMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="itmFromFiles.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="AddImagesFromFolderMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmFromFiles.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="AddImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 22</value>
+  </data>
+  <data name="AddImagesMenuItem.Text" xml:space="preserve">
+    <value>&amp;Add</value>
+  </data>
+  <metadata name="AddImagesFromFilesMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="AddImagesFromFilesMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAqZJREFUOE+l
         kulLFHEch+d1/0Gv6kWHFHRouRWkGaEoZUgHWFFkB10SXokSapJpZYe1Wruumrq1uO1qiqZWppaWiXRo
@@ -311,16 +368,16 @@
         09c/MGN66TeRpG8cNsyElnsiRwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmFromFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 22</value>
+  <data name="AddImagesFromFilesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="itmFromFiles.Text" xml:space="preserve">
+  <data name="AddImagesFromFilesMenuItem.Text" xml:space="preserve">
     <value>From &amp;file...</value>
   </data>
-  <metadata name="itmFromFolder.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="AddImagesFromFolderMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmFromFolder.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="AddImagesFromFolderMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAvVJREFUOE9t
         0vlL03Ecx/GB9Et/QBFBERT+EBQUWNkvmWZ5ZKVkdOgUFZU85rk0Lc2ZTlKjSElzQalIHiWWd/PrkW46
@@ -338,41 +395,35 @@
         C8pzz4VIPnkcWbt+wM712u3EnIAxzeReAsgwGH8AbQh1g7N1s7AAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="itmFromFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 22</value>
+  <data name="AddImagesFromFolderMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="itmFromFolder.Text" xml:space="preserve">
+  <data name="AddImagesFromFolderMenuItem.Text" xml:space="preserve">
     <value>From fo&amp;lder...</value>
   </data>
-  <data name="itmAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
-  </data>
-  <data name="itmAdd.Text" xml:space="preserve">
-    <value>&amp;Add</value>
-  </data>
-  <metadata name="sepImage1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="ImageMenuSeparator1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="sepImage1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImageMenuSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>194, 6</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="itmOpenImage.Enabled" type="System.Boolean, mscorlib">
+  <data name="OpenImageMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmOpenImage.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OpenImageMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>197, 22</value>
   </data>
-  <data name="itmOpenImage.Text" xml:space="preserve">
+  <data name="OpenImageMenuItem.Text" xml:space="preserve">
     <value>&amp;Open</value>
   </data>
-  <data name="itmExclude.Enabled" type="System.Boolean, mscorlib">
+  <data name="DeleteImagesMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmExclude.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="DeleteImagesMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
+        wgAADsIBFShKgAAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
         80110fkJViYHTbi5fBiKPFxTz2XFfPgxo/P/r2nt/791Vf2/EBewK1ZFRQOqDwweJsRafy9NP3YxI/ZL
         mLxMjSgDAy9UioEhQF9fd254wIJnldm/fmaF/P8a7vD/ipXqnR4dDXOQ/NMI/8qvTpq/lhko33Tk4LAH
         a8IG4uRlvdZa6R55Yizx/7U6+//TagJ3T1hq77gox/l/mRTXicky3GAD8QIjbl7uhfqaBReUub7cVuL8
@@ -385,22 +436,22 @@
         JGBgAACn9cedPOLjcAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmExclude.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DeleteImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>197, 22</value>
   </data>
-  <data name="itmExclude.Text" xml:space="preserve">
+  <data name="DeleteImagesMenuItem.Text" xml:space="preserve">
     <value>&amp;Delete</value>
   </data>
-  <metadata name="sepImage2.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="ImageMenuSeparator2.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="sepImage2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImageMenuSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>194, 6</value>
   </data>
-  <data name="itmExport.Enabled" type="System.Boolean, mscorlib">
+  <data name="ExportImagesMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmExport.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ExportImagesMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAM1JREFUOE+tjDEOgkAQRTmFJ7Cz8QhWHkAvYOIlrGhopKXcGjsst9qGgAlXUEoj
@@ -409,16 +460,16 @@
         nMeV2D4jEgQBFBMKvB/J9EKt8X0fCk8TgfbC8zztum7vWeXfcJwH064gPOUKp8QAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="itmExport.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ExportImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>197, 22</value>
   </data>
-  <data name="itmExport.Text" xml:space="preserve">
+  <data name="ExportImagesMenuItem.Text" xml:space="preserve">
     <value>Expor&amp;t...</value>
   </data>
-  <data name="itmExtract.Enabled" type="System.Boolean, mscorlib">
+  <data name="ExtractImagesMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmExtract.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="ExtractImagesMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAWBJREFUOE+tkT1Lw1AYhYOI+APcnf0DjvpPXMSls4ODVG2gWOzUUvoxOIVmKUKH
@@ -430,79 +481,85 @@
         k5VloSg/CC1OG5AV66gAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="itmExtract.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ExtractImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>197, 22</value>
   </data>
-  <data name="itmExtract.Text" xml:space="preserve">
+  <data name="ExtractImagesMenuItem.Text" xml:space="preserve">
     <value>Extra&amp;ct...</value>
   </data>
-  <metadata name="sepImage3.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="ImageMenuSeparator3.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="sepImage3.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ImageMenuSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>194, 6</value>
   </data>
-  <metadata name="itmWithLeft.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="StartViewModeSettingLeftMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmWithLeft.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 22</value>
-  </data>
-  <data name="itmWithLeft.Text" xml:space="preserve">
-    <value>With &amp;left</value>
-  </data>
-  <metadata name="itmWithRight.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="StartViewModeSettingRightMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmWithRight.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 22</value>
-  </data>
-  <data name="itmWithRight.Text" xml:space="preserve">
-    <value>With &amp;right</value>
-  </data>
-  <data name="itmSetViewMode.Enabled" type="System.Boolean, mscorlib">
+  <data name="StartViewModeSettingMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmSetViewMode.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="StartViewModeSettingMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>197, 22</value>
   </data>
-  <data name="itmSetViewMode.Text" xml:space="preserve">
+  <data name="StartViewModeSettingMenuItem.Text" xml:space="preserve">
     <value>Start &amp;view mode setting</value>
   </data>
-  <data name="itmInvertViewMode.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="itmInvertViewMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 22</value>
-  </data>
-  <data name="itmInvertViewMode.Text" xml:space="preserve">
-    <value>I&amp;nvert view modes</value>
-  </data>
-  <data name="itmImage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 19</value>
-  </data>
-  <data name="itmImage.Text" xml:space="preserve">
-    <value>&amp;Images</value>
-  </data>
-  <metadata name="itmBookmark.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="StartViewModeSettingLeftMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmAddBookmark.Enabled" type="System.Boolean, mscorlib">
+  <data name="StartViewModeSettingLeftMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="StartViewModeSettingLeftMenuItem.Text" xml:space="preserve">
+    <value>With &amp;left</value>
+  </data>
+  <metadata name="StartViewModeSettingRightMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="StartViewModeSettingRightMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="StartViewModeSettingRightMenuItem.Text" xml:space="preserve">
+    <value>With &amp;right</value>
+  </data>
+  <data name="InvertViewModeMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmAddBookmark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+  <data name="InvertViewModeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 22</value>
   </data>
-  <data name="itmAddBookmark.Text" xml:space="preserve">
+  <data name="InvertViewModeMenuItem.Text" xml:space="preserve">
+    <value>I&amp;nvert view modes</value>
+  </data>
+  <metadata name="BookmarksMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="BookmarksMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 19</value>
+  </data>
+  <data name="BookmarksMenuItem.Text" xml:space="preserve">
+    <value>&amp;Bookmarks</value>
+  </data>
+  <data name="AddBookmarksMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="AddBookmarksMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="AddBookmarksMenuItem.Text" xml:space="preserve">
     <value>&amp;Add selected image</value>
   </data>
-  <data name="itmDeleteBookmark.Enabled" type="System.Boolean, mscorlib">
+  <data name="DeleteBookmarksMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="itmDeleteBookmark.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="DeleteBookmarksMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
+        wgAADsIBFShKgAAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
         80110fkJViYHTbi5fBiKPFxTz2XFfPgxo/P/r2nt/791Vf2/EBewK1ZFRQOqDwweJsRafy9NP3YxI/ZL
         mLxMjSgDAy9UioEhQF9fd254wIJnldm/fmaF/P8a7vD/ipXqnR4dDXOQ/NMI/8qvTpq/lhko33Tk4LAH
         a8IG4uRlvdZa6R55Yizx/7U6+//TagJ3T1hq77gox/l/mRTXicky3GAD8QIjbl7uhfqaBReUub7cVuL8
@@ -515,119 +572,131 @@
         JGBgAACn9cedPOLjcAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmDeleteBookmark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+  <data name="DeleteBookmarksMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="itmDeleteBookmark.Text" xml:space="preserve">
+  <data name="DeleteBookmarksMenuItem.Text" xml:space="preserve">
     <value>&amp;Delete</value>
   </data>
-  <data name="itmBookmark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 19</value>
-  </data>
-  <data name="itmBookmark.Text" xml:space="preserve">
-    <value>&amp;Bookmarks</value>
-  </data>
-  <metadata name="itmTool.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="ToolMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="itmOption.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="OptionMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
-  </data>
-  <data name="itmOption.Text" xml:space="preserve">
-    <value>&amp;Options</value>
-  </data>
-  <data name="itmTool.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ToolMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 19</value>
   </data>
-  <data name="itmTool.Text" xml:space="preserve">
+  <data name="ToolMenuItem.Text" xml:space="preserve">
     <value>&amp;Tools</value>
   </data>
-  <metadata name="itmHelp.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="OptionMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="itmAbout.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="OptionMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="OptionMenuItem.Text" xml:space="preserve">
+    <value>&amp;Options</value>
+  </data>
+  <metadata name="HelpMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 22</value>
-  </data>
-  <data name="itmAbout.Text" xml:space="preserve">
-    <value>&amp;About</value>
-  </data>
-  <data name="itmHelp.Size" type="System.Drawing.Size, System.Drawing">
+  <metadata name="AboutMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="HelpMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 19</value>
   </data>
-  <data name="itmHelp.Text" xml:space="preserve">
+  <data name="HelpMenuItem.Text" xml:space="preserve">
     <value>&amp;Help</value>
   </data>
-  <metadata name="stsMain.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="AboutMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="stsMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="AboutMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="AboutMenuItem.Text" xml:space="preserve">
+    <value>&amp;About</value>
+  </data>
+  <metadata name="MainStatusBar.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="MainStatusBar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>249, 17</value>
   </metadata>
-  <data name="lblStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>480, 18</value>
-  </data>
-  <data name="lblStatus.Text" xml:space="preserve">
-    <value>Idle</value>
-  </data>
-  <data name="lblStatus.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="prgStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 17</value>
-  </data>
-  <data name="prgStatus.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="lblImageCount.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="lblImageCount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 18</value>
-  </data>
-  <data name="lblImageCount.Text" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="lblImageCount.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="stsMain.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="MainStatusBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 359</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="stsMain.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="MainStatusBar.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>1, 0, 16, 0</value>
   </data>
-  <data name="stsMain.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MainStatusBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>587, 23</value>
   </data>
-  <data name="stsMain.TabIndex" type="System.Int32, mscorlib">
+  <data name="MainStatusBar.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;stsMain.Name" xml:space="preserve">
-    <value>stsMain</value>
+  <data name="&gt;&gt;MainStatusBar.Name" xml:space="preserve">
+    <value>MainStatusBar</value>
   </data>
-  <data name="&gt;&gt;stsMain.Type" xml:space="preserve">
+  <data name="&gt;&gt;MainStatusBar.Type" xml:space="preserve">
     <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;stsMain.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MainStatusBar.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;stsMain.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MainStatusBar.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="itmView.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="StatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>480, 18</value>
+  </data>
+  <data name="StatusLabel.Text" xml:space="preserve">
+    <value>Idle</value>
+  </data>
+  <data name="StatusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="StatusProgressBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 17</value>
+  </data>
+  <data name="StatusProgressBar.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ImageCountLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ImageCountLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 18</value>
+  </data>
+  <data name="ImageCountLabel.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ImageCountLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <metadata name="ViewMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="itmContentsWindow.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="ContentsWindowMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmContentsWindow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <metadata name="BookmarksWindowMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="ViewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 19</value>
+  </data>
+  <data name="ViewMenuItem.Text" xml:space="preserve">
+    <value>&amp;View</value>
+  </data>
+  <metadata name="ContentsWindowMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="ContentsWindowMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAQhJREFUOE+l
         kUtKxFAQRbNIF+EWegtOREFchHNHDjLIIEiEgBnEmaP8v+T/Lbkl3bz3mk5Dp+AQqEfdW3WjPT6/0h5Y
@@ -637,16 +706,16 @@
         82QB/G8x9WvDksAetH2laX8JKTBuUAzQlQAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="itmContentsWindow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+  <data name="ContentsWindowMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="itmContentsWindow.Text" xml:space="preserve">
+  <data name="ContentsWindowMenuItem.Text" xml:space="preserve">
     <value>&amp;Contents window</value>
   </data>
-  <metadata name="itmBookmarksWindow.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="BookmarksWindowMenuItem.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="itmBookmarksWindow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BookmarksWindowMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAh5JREFUOE+VUl1Ik2EUfuc2GHQRTMu80KsKr6JAHAwSb7sY1K3dehNdhF1FJPtW
@@ -661,22 +730,16 @@
         ZIEBufp/8PL28KmRUKDUbybeZ/vXAkUuAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="itmBookmarksWindow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+  <data name="BookmarksWindowMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="itmBookmarksWindow.Text" xml:space="preserve">
+  <data name="BookmarksWindowMenuItem.Text" xml:space="preserve">
     <value>&amp;Bookmarks window</value>
   </data>
-  <data name="itmView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 19</value>
-  </data>
-  <data name="itmView.Text" xml:space="preserve">
-    <value>&amp;View</value>
-  </data>
-  <metadata name="btnNew.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="NewButton.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="btnNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="NewButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAE+SURBVDhPldJPaoNQEAZwb9p1j1AP4NoLeANdiAREFN24
@@ -688,52 +751,52 @@
         RK5CYII=
 </value>
   </data>
-  <data name="btnNew.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+  <data name="NewButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="btnNew.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="NewButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
   </data>
-  <data name="btnNew.Text" xml:space="preserve">
+  <data name="NewButton.Text" xml:space="preserve">
     <value>New</value>
   </data>
-  <metadata name="btnOpen.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="OpenButton.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="btnOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="OpenButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANaSURBVDhPbZNrTNNnFIf/W7IPfFiW7JIsyy7J4rbETWN0
-        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
+        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
         RK5CYII=
 </value>
   </data>
-  <data name="btnOpen.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+  <data name="OpenButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="btnOpen.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OpenButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
   </data>
-  <data name="btnOpen.Text" xml:space="preserve">
+  <data name="OpenButton.Text" xml:space="preserve">
     <value>Open</value>
   </data>
-  <metadata name="btnSave.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="SaveButton.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="SaveButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALxSURBVDhPjZHrS1NhHMfPP9F/UEIEIYRIvQnMS5KFt9Rc
@@ -752,88 +815,88 @@
         w+oJHgmYboAAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="btnSave.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+  <data name="SaveButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="btnSave.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SaveButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
   </data>
-  <data name="btnSave.Text" xml:space="preserve">
+  <data name="SaveButton.Text" xml:space="preserve">
     <value>Save</value>
   </data>
-  <metadata name="menMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="MainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="menMain.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="MainMenu.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="menMain.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="MainMenu.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>7, 3, 0, 3</value>
   </data>
-  <data name="menMain.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MainMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>587, 25</value>
   </data>
-  <data name="menMain.TabIndex" type="System.Int32, mscorlib">
+  <data name="MainMenu.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;menMain.Name" xml:space="preserve">
-    <value>menMain</value>
+  <data name="&gt;&gt;MainMenu.Name" xml:space="preserve">
+    <value>MainMenu</value>
   </data>
-  <data name="&gt;&gt;menMain.Type" xml:space="preserve">
+  <data name="&gt;&gt;MainMenu.Type" xml:space="preserve">
     <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;menMain.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MainMenu.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;menMain.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MainMenu.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <metadata name="tsMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="MainToolBar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 19</value>
   </metadata>
-  <data name="tsMain.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="MainToolBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 25</value>
   </data>
-  <data name="tsMain.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MainToolBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>587, 25</value>
   </data>
-  <data name="tsMain.TabIndex" type="System.Int32, mscorlib">
+  <data name="MainToolBar.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;tsMain.Name" xml:space="preserve">
-    <value>tsMain</value>
+  <data name="&gt;&gt;MainToolBar.Name" xml:space="preserve">
+    <value>MainToolBar</value>
   </data>
-  <data name="&gt;&gt;tsMain.Type" xml:space="preserve">
+  <data name="&gt;&gt;MainToolBar.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tsMain.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MainToolBar.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;tsMain.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MainToolBar.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="dpMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="MainDockPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="dpMain.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="MainDockPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 50</value>
   </data>
-  <data name="dpMain.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MainDockPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>587, 309</value>
   </data>
-  <data name="dpMain.TabIndex" type="System.Int32, mscorlib">
+  <data name="MainDockPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;dpMain.Name" xml:space="preserve">
-    <value>dpMain</value>
+  <data name="&gt;&gt;MainDockPanel.Name" xml:space="preserve">
+    <value>MainDockPanel</value>
   </data>
-  <data name="&gt;&gt;dpMain.Type" xml:space="preserve">
+  <data name="&gt;&gt;MainDockPanel.Type" xml:space="preserve">
     <value>WeifenLuo.WinFormsUI.Docking.DockPanel, WeifenLuo.WinFormsUI.Docking, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
   </data>
-  <data name="&gt;&gt;dpMain.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MainDockPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;dpMain.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MainDockPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1816,250 +1879,250 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Comical</value>
   </data>
-  <data name="&gt;&gt;itmFile.Name" xml:space="preserve">
-    <value>itmFile</value>
+  <data name="&gt;&gt;FileMenuItem.Name" xml:space="preserve">
+    <value>FileMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmFile.Type" xml:space="preserve">
+  <data name="&gt;&gt;FileMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmNew.Name" xml:space="preserve">
-    <value>itmNew</value>
+  <data name="&gt;&gt;NewMenuItem.Name" xml:space="preserve">
+    <value>NewMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmNew.Type" xml:space="preserve">
+  <data name="&gt;&gt;NewMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmOpen.Name" xml:space="preserve">
-    <value>itmOpen</value>
+  <data name="&gt;&gt;OpenMenuItem.Name" xml:space="preserve">
+    <value>OpenMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmOpen.Type" xml:space="preserve">
+  <data name="&gt;&gt;OpenMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;sepFile1.Name" xml:space="preserve">
-    <value>sepFile1</value>
+  <data name="&gt;&gt;FileMenuSeparator1.Name" xml:space="preserve">
+    <value>FileMenuSeparator1</value>
   </data>
-  <data name="&gt;&gt;sepFile1.Type" xml:space="preserve">
+  <data name="&gt;&gt;FileMenuSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmSave.Name" xml:space="preserve">
-    <value>itmSave</value>
+  <data name="&gt;&gt;SaveMenuItem.Name" xml:space="preserve">
+    <value>SaveMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmSave.Type" xml:space="preserve">
+  <data name="&gt;&gt;SaveMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmSaveAs.Name" xml:space="preserve">
-    <value>itmSaveAs</value>
+  <data name="&gt;&gt;SaveAsMenuItem.Name" xml:space="preserve">
+    <value>SaveAsMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmSaveAs.Type" xml:space="preserve">
+  <data name="&gt;&gt;SaveAsMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;sepFile2.Name" xml:space="preserve">
-    <value>sepFile2</value>
+  <data name="&gt;&gt;FileMenuSeparator2.Name" xml:space="preserve">
+    <value>FileMenuSeparator2</value>
   </data>
-  <data name="&gt;&gt;sepFile2.Type" xml:space="preserve">
+  <data name="&gt;&gt;FileMenuSeparator2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmDocumentSettings.Name" xml:space="preserve">
-    <value>itmDocumentSettings</value>
+  <data name="&gt;&gt;ConfigureDocumentMenuItem.Name" xml:space="preserve">
+    <value>ConfigureDocumentMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmDocumentSettings.Type" xml:space="preserve">
+  <data name="&gt;&gt;ConfigureDocumentMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;sepFile3.Name" xml:space="preserve">
-    <value>sepFile3</value>
+  <data name="&gt;&gt;FileMenuSeparator3.Name" xml:space="preserve">
+    <value>FileMenuSeparator3</value>
   </data>
-  <data name="&gt;&gt;sepFile3.Type" xml:space="preserve">
+  <data name="&gt;&gt;FileMenuSeparator3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmExit.Name" xml:space="preserve">
-    <value>itmExit</value>
+  <data name="&gt;&gt;ExitMenuItem.Name" xml:space="preserve">
+    <value>ExitMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmExit.Type" xml:space="preserve">
+  <data name="&gt;&gt;ExitMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmImage.Name" xml:space="preserve">
-    <value>itmImage</value>
+  <data name="&gt;&gt;ImagesMenuItem.Name" xml:space="preserve">
+    <value>ImagesMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmImage.Type" xml:space="preserve">
+  <data name="&gt;&gt;ImagesMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmAdd.Name" xml:space="preserve">
-    <value>itmAdd</value>
+  <data name="&gt;&gt;AddImagesMenuItem.Name" xml:space="preserve">
+    <value>AddImagesMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmAdd.Type" xml:space="preserve">
+  <data name="&gt;&gt;AddImagesMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmFromFiles.Name" xml:space="preserve">
-    <value>itmFromFiles</value>
+  <data name="&gt;&gt;AddImagesFromFilesMenuItem.Name" xml:space="preserve">
+    <value>AddImagesFromFilesMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmFromFiles.Type" xml:space="preserve">
+  <data name="&gt;&gt;AddImagesFromFilesMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmFromFolder.Name" xml:space="preserve">
-    <value>itmFromFolder</value>
+  <data name="&gt;&gt;AddImagesFromFolderMenuItem.Name" xml:space="preserve">
+    <value>AddImagesFromFolderMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmFromFolder.Type" xml:space="preserve">
+  <data name="&gt;&gt;AddImagesFromFolderMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;sepImage1.Name" xml:space="preserve">
-    <value>sepImage1</value>
+  <data name="&gt;&gt;ImageMenuSeparator1.Name" xml:space="preserve">
+    <value>ImageMenuSeparator1</value>
   </data>
-  <data name="&gt;&gt;sepImage1.Type" xml:space="preserve">
+  <data name="&gt;&gt;ImageMenuSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmOpenImage.Name" xml:space="preserve">
-    <value>itmOpenImage</value>
+  <data name="&gt;&gt;OpenImageMenuItem.Name" xml:space="preserve">
+    <value>OpenImageMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmOpenImage.Type" xml:space="preserve">
+  <data name="&gt;&gt;OpenImageMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmExclude.Name" xml:space="preserve">
-    <value>itmExclude</value>
+  <data name="&gt;&gt;DeleteImagesMenuItem.Name" xml:space="preserve">
+    <value>DeleteImagesMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmExclude.Type" xml:space="preserve">
+  <data name="&gt;&gt;DeleteImagesMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;sepImage2.Name" xml:space="preserve">
-    <value>sepImage2</value>
+  <data name="&gt;&gt;ImageMenuSeparator2.Name" xml:space="preserve">
+    <value>ImageMenuSeparator2</value>
   </data>
-  <data name="&gt;&gt;sepImage2.Type" xml:space="preserve">
+  <data name="&gt;&gt;ImageMenuSeparator2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmExport.Name" xml:space="preserve">
-    <value>itmExport</value>
+  <data name="&gt;&gt;ExportImagesMenuItem.Name" xml:space="preserve">
+    <value>ExportImagesMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmExport.Type" xml:space="preserve">
+  <data name="&gt;&gt;ExportImagesMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmExtract.Name" xml:space="preserve">
-    <value>itmExtract</value>
+  <data name="&gt;&gt;ExtractImagesMenuItem.Name" xml:space="preserve">
+    <value>ExtractImagesMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmExtract.Type" xml:space="preserve">
+  <data name="&gt;&gt;ExtractImagesMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;sepImage3.Name" xml:space="preserve">
-    <value>sepImage3</value>
+  <data name="&gt;&gt;ImageMenuSeparator3.Name" xml:space="preserve">
+    <value>ImageMenuSeparator3</value>
   </data>
-  <data name="&gt;&gt;sepImage3.Type" xml:space="preserve">
+  <data name="&gt;&gt;ImageMenuSeparator3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmSetViewMode.Name" xml:space="preserve">
-    <value>itmSetViewMode</value>
+  <data name="&gt;&gt;StartViewModeSettingMenuItem.Name" xml:space="preserve">
+    <value>StartViewModeSettingMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmSetViewMode.Type" xml:space="preserve">
+  <data name="&gt;&gt;StartViewModeSettingMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmWithLeft.Name" xml:space="preserve">
-    <value>itmWithLeft</value>
+  <data name="&gt;&gt;StartViewModeSettingLeftMenuItem.Name" xml:space="preserve">
+    <value>StartViewModeSettingLeftMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmWithLeft.Type" xml:space="preserve">
+  <data name="&gt;&gt;StartViewModeSettingLeftMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmWithRight.Name" xml:space="preserve">
-    <value>itmWithRight</value>
+  <data name="&gt;&gt;StartViewModeSettingRightMenuItem.Name" xml:space="preserve">
+    <value>StartViewModeSettingRightMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmWithRight.Type" xml:space="preserve">
+  <data name="&gt;&gt;StartViewModeSettingRightMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmInvertViewMode.Name" xml:space="preserve">
-    <value>itmInvertViewMode</value>
+  <data name="&gt;&gt;InvertViewModeMenuItem.Name" xml:space="preserve">
+    <value>InvertViewModeMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmInvertViewMode.Type" xml:space="preserve">
+  <data name="&gt;&gt;InvertViewModeMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmBookmark.Name" xml:space="preserve">
-    <value>itmBookmark</value>
+  <data name="&gt;&gt;BookmarksMenuItem.Name" xml:space="preserve">
+    <value>BookmarksMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmBookmark.Type" xml:space="preserve">
+  <data name="&gt;&gt;BookmarksMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmAddBookmark.Name" xml:space="preserve">
-    <value>itmAddBookmark</value>
+  <data name="&gt;&gt;AddBookmarksMenuItem.Name" xml:space="preserve">
+    <value>AddBookmarksMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmAddBookmark.Type" xml:space="preserve">
+  <data name="&gt;&gt;AddBookmarksMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmDeleteBookmark.Name" xml:space="preserve">
-    <value>itmDeleteBookmark</value>
+  <data name="&gt;&gt;DeleteBookmarksMenuItem.Name" xml:space="preserve">
+    <value>DeleteBookmarksMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmDeleteBookmark.Type" xml:space="preserve">
+  <data name="&gt;&gt;DeleteBookmarksMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmTool.Name" xml:space="preserve">
-    <value>itmTool</value>
+  <data name="&gt;&gt;ToolMenuItem.Name" xml:space="preserve">
+    <value>ToolMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmTool.Type" xml:space="preserve">
+  <data name="&gt;&gt;ToolMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmOption.Name" xml:space="preserve">
-    <value>itmOption</value>
+  <data name="&gt;&gt;OptionMenuItem.Name" xml:space="preserve">
+    <value>OptionMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmOption.Type" xml:space="preserve">
+  <data name="&gt;&gt;OptionMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmHelp.Name" xml:space="preserve">
-    <value>itmHelp</value>
+  <data name="&gt;&gt;HelpMenuItem.Name" xml:space="preserve">
+    <value>HelpMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmHelp.Type" xml:space="preserve">
+  <data name="&gt;&gt;HelpMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmAbout.Name" xml:space="preserve">
-    <value>itmAbout</value>
+  <data name="&gt;&gt;AboutMenuItem.Name" xml:space="preserve">
+    <value>AboutMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmAbout.Type" xml:space="preserve">
+  <data name="&gt;&gt;AboutMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblStatus.Name" xml:space="preserve">
-    <value>lblStatus</value>
+  <data name="&gt;&gt;StatusLabel.Name" xml:space="preserve">
+    <value>StatusLabel</value>
   </data>
-  <data name="&gt;&gt;lblStatus.Type" xml:space="preserve">
+  <data name="&gt;&gt;StatusLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;prgStatus.Name" xml:space="preserve">
-    <value>prgStatus</value>
+  <data name="&gt;&gt;StatusProgressBar.Name" xml:space="preserve">
+    <value>StatusProgressBar</value>
   </data>
-  <data name="&gt;&gt;prgStatus.Type" xml:space="preserve">
+  <data name="&gt;&gt;StatusProgressBar.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripProgressBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblImageCount.Name" xml:space="preserve">
-    <value>lblImageCount</value>
+  <data name="&gt;&gt;ImageCountLabel.Name" xml:space="preserve">
+    <value>ImageCountLabel</value>
   </data>
-  <data name="&gt;&gt;lblImageCount.Type" xml:space="preserve">
+  <data name="&gt;&gt;ImageCountLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmView.Name" xml:space="preserve">
-    <value>itmView</value>
+  <data name="&gt;&gt;ViewMenuItem.Name" xml:space="preserve">
+    <value>ViewMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmView.Type" xml:space="preserve">
+  <data name="&gt;&gt;ViewMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmContentsWindow.Name" xml:space="preserve">
-    <value>itmContentsWindow</value>
+  <data name="&gt;&gt;ContentsWindowMenuItem.Name" xml:space="preserve">
+    <value>ContentsWindowMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmContentsWindow.Type" xml:space="preserve">
+  <data name="&gt;&gt;ContentsWindowMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;itmBookmarksWindow.Name" xml:space="preserve">
-    <value>itmBookmarksWindow</value>
+  <data name="&gt;&gt;BookmarksWindowMenuItem.Name" xml:space="preserve">
+    <value>BookmarksWindowMenuItem</value>
   </data>
-  <data name="&gt;&gt;itmBookmarksWindow.Type" xml:space="preserve">
+  <data name="&gt;&gt;BookmarksWindowMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnNew.Name" xml:space="preserve">
-    <value>btnNew</value>
+  <data name="&gt;&gt;NewButton.Name" xml:space="preserve">
+    <value>NewButton</value>
   </data>
-  <data name="&gt;&gt;btnNew.Type" xml:space="preserve">
+  <data name="&gt;&gt;NewButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnOpen.Name" xml:space="preserve">
-    <value>btnOpen</value>
+  <data name="&gt;&gt;OpenButton.Name" xml:space="preserve">
+    <value>OpenButton</value>
   </data>
-  <data name="&gt;&gt;btnOpen.Type" xml:space="preserve">
+  <data name="&gt;&gt;OpenButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnSave.Name" xml:space="preserve">
-    <value>btnSave</value>
+  <data name="&gt;&gt;SaveButton.Name" xml:space="preserve">
+    <value>SaveButton</value>
   </data>
-  <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
+  <data name="&gt;&gt;SaveButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

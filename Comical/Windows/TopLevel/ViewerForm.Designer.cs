@@ -32,27 +32,27 @@
 		{
 			components = new System.ComponentModel.Container();
 			var resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewerForm));
-			conBookmarks = new System.Windows.Forms.ContextMenuStrip(components);
-			prevMain = new Controls.Previewer();
+			BookmarksContextMenu = new System.Windows.Forms.ContextMenuStrip(components);
+			MainPreviewer = new Controls.Previewer();
 			SuspendLayout();
 			// 
-			// conBookmarks
+			// BookmarksContextMenu
 			// 
-			conBookmarks.Name = "contextMenuStrip1";
-			conBookmarks.ShowImageMargin = false;
-			conBookmarks.Size = new System.Drawing.Size(36, 4);
+			BookmarksContextMenu.Name = "contextMenuStrip1";
+			BookmarksContextMenu.ShowImageMargin = false;
+			BookmarksContextMenu.Size = new System.Drawing.Size(36, 4);
 			// 
-			// prevMain
+			// MainPreviewer
 			// 
-			prevMain.AutoScroll = true;
-			prevMain.BackColor = System.Drawing.Color.Transparent;
-			prevMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			prevMain.Location = new System.Drawing.Point(0, 0);
-			prevMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			prevMain.Name = "prevMain";
-			prevMain.Size = new System.Drawing.Size(331, 328);
-			prevMain.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
-			prevMain.TabIndex = 0;
+			MainPreviewer.AutoScroll = true;
+			MainPreviewer.BackColor = System.Drawing.Color.Transparent;
+			MainPreviewer.Dock = System.Windows.Forms.DockStyle.Fill;
+			MainPreviewer.Location = new System.Drawing.Point(0, 0);
+			MainPreviewer.Margin = new System.Windows.Forms.Padding(4);
+			MainPreviewer.Name = "MainPreviewer";
+			MainPreviewer.Size = new System.Drawing.Size(331, 328);
+			MainPreviewer.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
+			MainPreviewer.TabIndex = 0;
 			// 
 			// ViewerForm
 			// 
@@ -61,10 +61,10 @@
 			BackColor = System.Drawing.Color.Black;
 			ClientSize = new System.Drawing.Size(331, 328);
 			ControlBox = false;
-			Controls.Add(prevMain);
+			Controls.Add(MainPreviewer);
 			FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-			Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			Margin = new System.Windows.Forms.Padding(4);
 			Name = "ViewerForm";
 			TopMost = true;
 			ResumeLayout(false);
@@ -72,8 +72,8 @@
 
 		#endregion
 
-		private Controls.Previewer prevMain;
-		private System.Windows.Forms.ContextMenuStrip conBookmarks;
+		private Controls.Previewer MainPreviewer;
+		private System.Windows.Forms.ContextMenuStrip BookmarksContextMenu;
 
 
 	}

@@ -16,26 +16,26 @@ namespace Comical
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			txtDefaultSavedFileName.Text = Properties.Settings.Default.DefaultSavedFileName;
+			DefaultSavedFileNameTextBox.Text = Properties.Settings.Default.DefaultSavedFileName;
 		}
 
-		void btnOK_Click(object? sender, EventArgs e)
+		void OnOKButtonClick(object? sender, EventArgs e)
 		{
-			Properties.Settings.Default.DefaultSavedFileName = txtDefaultSavedFileName.Text;
+			Properties.Settings.Default.DefaultSavedFileName = DefaultSavedFileNameTextBox.Text;
 			Properties.Settings.Default.Save();
 		}
 
-		void btnInsertMask_Click(object? sender, EventArgs e) => conInsertMask.Show(btnInsertMask, 0, btnInsertMask.Height);
+		void OnInsertMaskButtonClick(object? sender, EventArgs e) => InsertMaskContextMenu.Show(InsertMaskButton, 0, InsertMaskButton.Height);
 
-		void InsertMaskItem_Click(object? sender, EventArgs e)
+		void OnInsertMaskMenuItemsClick(object? sender, EventArgs e)
 		{
 			var senderMenuItem = (ToolStripItem?)sender;
 			Debug.Assert(senderMenuItem != null && senderMenuItem.Text != null);
 			var insertedText = senderMenuItem.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries)[0];
-			var oldSelectionStart = txtDefaultSavedFileName.SelectionStart;
-			txtDefaultSavedFileName.Text = txtDefaultSavedFileName.Text.Insert(oldSelectionStart, insertedText);
-			txtDefaultSavedFileName.SelectionStart = oldSelectionStart + insertedText.Length;
-			txtDefaultSavedFileName.Focus();
+			var oldSelectionStart = DefaultSavedFileNameTextBox.SelectionStart;
+			DefaultSavedFileNameTextBox.Text = DefaultSavedFileNameTextBox.Text.Insert(oldSelectionStart, insertedText);
+			DefaultSavedFileNameTextBox.SelectionStart = oldSelectionStart + insertedText.Length;
+			DefaultSavedFileNameTextBox.Focus();
 		}
 	}
 }

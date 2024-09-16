@@ -15,8 +15,8 @@
 		{
 			if (disposing)
 			{
-				_images.CollectionChanged -= Images_CollectionChanged;
-				_images.CollectionItemPropertyChanged -= Images_CollectionItemPropertyChanged;
+				_images.CollectionChanged -= OnImagesCollectionChanged;
+				_images.CollectionItemPropertyChanged -= OnImagesCollectionItemPropertyChanged;
 				_thumbnailCache.Dispose();
 				if (components != null)
 					components.Dispose();
@@ -33,169 +33,169 @@
 		private void InitializeComponent()
 		{
 			components = new System.ComponentModel.Container();
-			System.Windows.Forms.ContextMenuStrip conImage;
+			System.Windows.Forms.ContextMenuStrip ImageContextMenu;
 			var resources = new System.ComponentModel.ComponentResourceManager(typeof(ContentsView));
-			itmOpen = new System.Windows.Forms.ToolStripMenuItem();
-			sepImage1 = new System.Windows.Forms.ToolStripSeparator();
-			itmAddToBookmark = new System.Windows.Forms.ToolStripMenuItem();
-			sepImage2 = new System.Windows.Forms.ToolStripSeparator();
-			itmExport = new System.Windows.Forms.ToolStripMenuItem();
-			itmExtract = new System.Windows.Forms.ToolStripMenuItem();
-			sepImage3 = new System.Windows.Forms.ToolStripSeparator();
-			itmStartViewModeSettingLeft = new System.Windows.Forms.ToolStripMenuItem();
-			itmStartViewModeSettingRight = new System.Windows.Forms.ToolStripMenuItem();
-			sepImage4 = new System.Windows.Forms.ToolStripSeparator();
-			itmDelete = new System.Windows.Forms.ToolStripMenuItem();
-			dgvImages = new Controls.DraggableDataGridView();
-			clmImage = new System.Windows.Forms.DataGridViewImageColumn();
-			clmViewMode = new System.Windows.Forms.DataGridViewComboBoxColumn();
-			conImage = new System.Windows.Forms.ContextMenuStrip(components);
-			conImage.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)dgvImages).BeginInit();
+			OpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ImageMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			AddToBookmarkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ImageMenuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			ExportMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ExtractMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ImageMenuSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			StartViewModeSettingLeftMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			StartViewModeSettingRightMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ImageMenuSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+			DeleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ImagesDataGridView = new Controls.DraggableDataGridView();
+			ImageDataGridViewColumn = new System.Windows.Forms.DataGridViewImageColumn();
+			ViewModeDataGridViewColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+			ImageContextMenu = new System.Windows.Forms.ContextMenuStrip(components);
+			ImageContextMenu.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)ImagesDataGridView).BeginInit();
 			SuspendLayout();
 			// 
-			// conImage
+			// ImageContextMenu
 			// 
-			conImage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { itmOpen, sepImage1, itmAddToBookmark, sepImage2, itmExport, itmExtract, sepImage3, itmStartViewModeSettingLeft, itmStartViewModeSettingRight, sepImage4, itmDelete });
-			conImage.Name = "conImage";
-			resources.ApplyResources(conImage, "conImage");
+			ImageContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { OpenMenuItem, ImageMenuSeparator1, AddToBookmarkMenuItem, ImageMenuSeparator2, ExportMenuItem, ExtractMenuItem, ImageMenuSeparator3, StartViewModeSettingLeftMenuItem, StartViewModeSettingRightMenuItem, ImageMenuSeparator4, DeleteMenuItem });
+			ImageContextMenu.Name = "conImage";
+			resources.ApplyResources(ImageContextMenu, "ImageContextMenu");
 			// 
-			// itmOpen
+			// OpenMenuItem
 			// 
-			resources.ApplyResources(itmOpen, "itmOpen");
-			itmOpen.Name = "itmOpen";
-			itmOpen.Click += itmOpen_Click;
+			resources.ApplyResources(OpenMenuItem, "OpenMenuItem");
+			OpenMenuItem.Name = "OpenMenuItem";
+			OpenMenuItem.Click += OnOpenMenuItemClick;
 			// 
-			// sepImage1
+			// ImageMenuSeparator1
 			// 
-			sepImage1.Name = "sepImage1";
-			resources.ApplyResources(sepImage1, "sepImage1");
+			ImageMenuSeparator1.Name = "ImageMenuSeparator1";
+			resources.ApplyResources(ImageMenuSeparator1, "ImageMenuSeparator1");
 			// 
-			// itmAddToBookmark
+			// AddToBookmarkMenuItem
 			// 
-			itmAddToBookmark.Name = "itmAddToBookmark";
-			resources.ApplyResources(itmAddToBookmark, "itmAddToBookmark");
+			AddToBookmarkMenuItem.Name = "AddToBookmarkMenuItem";
+			resources.ApplyResources(AddToBookmarkMenuItem, "AddToBookmarkMenuItem");
 			// 
-			// sepImage2
+			// ImageMenuSeparator2
 			// 
-			sepImage2.Name = "sepImage2";
-			resources.ApplyResources(sepImage2, "sepImage2");
+			ImageMenuSeparator2.Name = "ImageMenuSeparator2";
+			resources.ApplyResources(ImageMenuSeparator2, "ImageMenuSeparator2");
 			// 
-			// itmExport
+			// ExportMenuItem
 			// 
-			resources.ApplyResources(itmExport, "itmExport");
-			itmExport.Name = "itmExport";
+			resources.ApplyResources(ExportMenuItem, "ExportMenuItem");
+			ExportMenuItem.Name = "ExportMenuItem";
 			// 
-			// itmExtract
+			// ExtractMenuItem
 			// 
-			resources.ApplyResources(itmExtract, "itmExtract");
-			itmExtract.Name = "itmExtract";
+			resources.ApplyResources(ExtractMenuItem, "ExtractMenuItem");
+			ExtractMenuItem.Name = "ExtractMenuItem";
 			// 
-			// sepImage3
+			// ImageMenuSeparator3
 			// 
-			sepImage3.Name = "sepImage3";
-			resources.ApplyResources(sepImage3, "sepImage3");
+			ImageMenuSeparator3.Name = "ImageMenuSeparator3";
+			resources.ApplyResources(ImageMenuSeparator3, "ImageMenuSeparator3");
 			// 
-			// itmStartViewModeSettingLeft
+			// StartViewModeSettingLeftMenuItem
 			// 
-			itmStartViewModeSettingLeft.Name = "itmStartViewModeSettingLeft";
-			resources.ApplyResources(itmStartViewModeSettingLeft, "itmStartViewModeSettingLeft");
-			itmStartViewModeSettingLeft.Click += itmStartViewModeSettingLeft_Click;
+			StartViewModeSettingLeftMenuItem.Name = "StartViewModeSettingLeftMenuItem";
+			resources.ApplyResources(StartViewModeSettingLeftMenuItem, "StartViewModeSettingLeftMenuItem");
+			StartViewModeSettingLeftMenuItem.Click += OnStartViewModeSettingLeftMenuItemClick;
 			// 
-			// itmStartViewModeSettingRight
+			// StartViewModeSettingRightMenuItem
 			// 
-			itmStartViewModeSettingRight.Name = "itmStartViewModeSettingRight";
-			resources.ApplyResources(itmStartViewModeSettingRight, "itmStartViewModeSettingRight");
-			itmStartViewModeSettingRight.Click += itmStartViewModeSettingRight_Click;
+			StartViewModeSettingRightMenuItem.Name = "StartViewModeSettingRightMenuItem";
+			resources.ApplyResources(StartViewModeSettingRightMenuItem, "StartViewModeSettingRightMenuItem");
+			StartViewModeSettingRightMenuItem.Click += OnStartViewModeSettingRightMenuItemClick;
 			// 
-			// sepImage4
+			// ImageMenuSeparator4
 			// 
-			sepImage4.Name = "sepImage4";
-			resources.ApplyResources(sepImage4, "sepImage4");
+			ImageMenuSeparator4.Name = "ImageMenuSeparator4";
+			resources.ApplyResources(ImageMenuSeparator4, "ImageMenuSeparator4");
 			// 
-			// itmDelete
+			// DeleteMenuItem
 			// 
-			resources.ApplyResources(itmDelete, "itmDelete");
-			itmDelete.Name = "itmDelete";
-			itmDelete.Click += itmDelete_Click;
+			resources.ApplyResources(DeleteMenuItem, "DeleteMenuItem");
+			DeleteMenuItem.Name = "DeleteMenuItem";
+			DeleteMenuItem.Click += OnDeleteMenuItemClick;
 			// 
-			// dgvImages
+			// ImagesDataGridView
 			// 
-			dgvImages.AllowDrop = true;
-			dgvImages.AllowUserToAddRows = false;
-			dgvImages.AllowUserToMoveRows = true;
-			dgvImages.AllowUserToResizeColumns = false;
-			dgvImages.AllowUserToResizeRows = false;
-			dgvImages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			dgvImages.BackgroundColor = System.Drawing.SystemColors.Control;
-			dgvImages.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			dgvImages.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-			dgvImages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dgvImages.ColumnHeadersVisible = false;
-			dgvImages.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { clmImage, clmViewMode });
-			dgvImages.ContextMenuStrip = conImage;
-			resources.ApplyResources(dgvImages, "dgvImages");
-			dgvImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-			dgvImages.GridColor = System.Drawing.SystemColors.Control;
-			dgvImages.MultiDrag = true;
-			dgvImages.Name = "dgvImages";
-			dgvImages.RowHeadersVisible = false;
-			dgvImages.RowTemplate.Height = 42;
-			dgvImages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			dgvImages.ShowCellToolTips = false;
-			dgvImages.VirtualMode = true;
-			dgvImages.RowMoving += dgvImages_RowMoving;
-			dgvImages.QueryRowDragDropEffect += dgvImages_QueryRowDragDropEffect;
-			dgvImages.CellDoubleClick += dgvImages_CellDoubleClick;
-			dgvImages.CellValueNeeded += dgvImages_CellValueNeeded;
-			dgvImages.CellValuePushed += dgvImages_CellValuePushed;
-			dgvImages.SelectionChanged += dgvImages_SelectionChanged;
-			dgvImages.UserDeletedRow += dgvImages_UserDeletedRow;
-			dgvImages.UserDeletingRow += dgvImages_UserDeletingRow;
-			dgvImages.DragDrop += dgvImages_DragDrop;
-			dgvImages.DragEnter += dgvImages_DragEnter;
+			ImagesDataGridView.AllowDrop = true;
+			ImagesDataGridView.AllowUserToAddRows = false;
+			ImagesDataGridView.AllowUserToMoveRows = true;
+			ImagesDataGridView.AllowUserToResizeColumns = false;
+			ImagesDataGridView.AllowUserToResizeRows = false;
+			ImagesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			ImagesDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+			ImagesDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			ImagesDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+			ImagesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			ImagesDataGridView.ColumnHeadersVisible = false;
+			ImagesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { ImageDataGridViewColumn, ViewModeDataGridViewColumn });
+			ImagesDataGridView.ContextMenuStrip = ImageContextMenu;
+			resources.ApplyResources(ImagesDataGridView, "ImagesDataGridView");
+			ImagesDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+			ImagesDataGridView.GridColor = System.Drawing.SystemColors.Control;
+			ImagesDataGridView.MultiDrag = true;
+			ImagesDataGridView.Name = "ImagesDataGridView";
+			ImagesDataGridView.RowHeadersVisible = false;
+			ImagesDataGridView.RowTemplate.Height = 42;
+			ImagesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			ImagesDataGridView.ShowCellToolTips = false;
+			ImagesDataGridView.VirtualMode = true;
+			ImagesDataGridView.RowMoving += OnImagesDataGridViewRowMoving;
+			ImagesDataGridView.QueryRowDragDropEffect += OnImagesDataGridViewQueryRowDragDropEffect;
+			ImagesDataGridView.CellDoubleClick += OnImagesDataGridViewCellDoubleClick;
+			ImagesDataGridView.CellValueNeeded += OnImagesDataGridViewCellValueNeeded;
+			ImagesDataGridView.CellValuePushed += OnImagesDataGridViewCellValuePushed;
+			ImagesDataGridView.SelectionChanged += OnImagesDataGridViewSelectionChanged;
+			ImagesDataGridView.UserDeletedRow += OnImagesDataGridViewUserDeletedRow;
+			ImagesDataGridView.UserDeletingRow += OnImagesDataGridViewUserDeletingRow;
+			ImagesDataGridView.DragDrop += OnImagesDataGridViewDragDrop;
+			ImagesDataGridView.DragEnter += OnImagesDataGridViewDragEnter;
 			// 
-			// clmImage
+			// ImageDataGridViewColumn
 			// 
-			clmImage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			resources.ApplyResources(clmImage, "clmImage");
-			clmImage.Name = "clmImage";
-			clmImage.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+			ImageDataGridViewColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			resources.ApplyResources(ImageDataGridViewColumn, "ImageDataGridViewColumn");
+			ImageDataGridViewColumn.Name = "ImageDataGridViewColumn";
+			ImageDataGridViewColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
 			// 
-			// clmViewMode
+			// ViewModeDataGridViewColumn
 			// 
-			clmViewMode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			clmViewMode.FillWeight = 80F;
-			resources.ApplyResources(clmViewMode, "clmViewMode");
-			clmViewMode.Name = "clmViewMode";
+			ViewModeDataGridViewColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+			ViewModeDataGridViewColumn.FillWeight = 80F;
+			resources.ApplyResources(ViewModeDataGridViewColumn, "ViewModeDataGridViewColumn");
+			ViewModeDataGridViewColumn.Name = "ViewModeDataGridViewColumn";
 			// 
 			// ContentsView
 			// 
 			AllowDrop = true;
 			resources.ApplyResources(this, "$this");
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-			Controls.Add(dgvImages);
+			Controls.Add(ImagesDataGridView);
 			HideOnClose = true;
 			Name = "ContentsView";
-			conImage.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)dgvImages).EndInit();
+			ImageContextMenu.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)ImagesDataGridView).EndInit();
 			ResumeLayout(false);
 		}
 
 		#endregion
-		private Controls.DraggableDataGridView dgvImages;
-		private System.Windows.Forms.ToolStripMenuItem itmOpen;
-		private System.Windows.Forms.ToolStripMenuItem itmDelete;
-		private System.Windows.Forms.ToolStripSeparator sepImage1;
-		private System.Windows.Forms.ToolStripMenuItem itmExport;
-		private System.Windows.Forms.ToolStripMenuItem itmExtract;
-		private System.Windows.Forms.ToolStripSeparator sepImage2;
-		private System.Windows.Forms.ToolStripMenuItem itmAddToBookmark;
-		private System.Windows.Forms.ToolStripSeparator sepImage3;
-		private System.Windows.Forms.ToolStripMenuItem itmStartViewModeSettingLeft;
-		private System.Windows.Forms.ToolStripMenuItem itmStartViewModeSettingRight;
-		private System.Windows.Forms.ToolStripSeparator sepImage4;
-		private System.Windows.Forms.DataGridViewImageColumn clmImage;
-		private System.Windows.Forms.DataGridViewComboBoxColumn clmViewMode;
+		private Controls.DraggableDataGridView ImagesDataGridView;
+		private System.Windows.Forms.ToolStripMenuItem OpenMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DeleteMenuItem;
+		private System.Windows.Forms.ToolStripSeparator ImageMenuSeparator1;
+		private System.Windows.Forms.ToolStripMenuItem ExportMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ExtractMenuItem;
+		private System.Windows.Forms.ToolStripSeparator ImageMenuSeparator2;
+		private System.Windows.Forms.ToolStripMenuItem AddToBookmarkMenuItem;
+		private System.Windows.Forms.ToolStripSeparator ImageMenuSeparator3;
+		private System.Windows.Forms.ToolStripMenuItem StartViewModeSettingLeftMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem StartViewModeSettingRightMenuItem;
+		private System.Windows.Forms.ToolStripSeparator ImageMenuSeparator4;
+		private System.Windows.Forms.DataGridViewImageColumn ImageDataGridViewColumn;
+		private System.Windows.Forms.DataGridViewComboBoxColumn ViewModeDataGridViewColumn;
 	}
 }

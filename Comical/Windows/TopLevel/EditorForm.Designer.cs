@@ -33,391 +33,391 @@
 		/// </summary>
 		void InitializeComponent()
 		{
-			System.Windows.Forms.ToolStripMenuItem itmFile;
-			System.Windows.Forms.ToolStripMenuItem itmNew;
+			System.Windows.Forms.ToolStripMenuItem FileMenuItem;
+			System.Windows.Forms.ToolStripMenuItem NewMenuItem;
 			var resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
-			System.Windows.Forms.ToolStripMenuItem itmOpen;
-			System.Windows.Forms.ToolStripSeparator sepFile1;
-			System.Windows.Forms.ToolStripMenuItem itmSave;
-			System.Windows.Forms.ToolStripMenuItem itmSaveAs;
-			System.Windows.Forms.ToolStripSeparator sepFile2;
-			System.Windows.Forms.ToolStripMenuItem itmDocumentSettings;
-			System.Windows.Forms.ToolStripSeparator sepFile3;
-			System.Windows.Forms.ToolStripMenuItem itmExit;
-			System.Windows.Forms.ToolStripMenuItem itmImage;
-			System.Windows.Forms.ToolStripMenuItem itmAdd;
-			System.Windows.Forms.ToolStripMenuItem itmFromFiles;
-			System.Windows.Forms.ToolStripMenuItem itmFromFolder;
-			System.Windows.Forms.ToolStripSeparator sepImage1;
-			System.Windows.Forms.ToolStripSeparator sepImage2;
-			System.Windows.Forms.ToolStripSeparator sepImage3;
-			System.Windows.Forms.ToolStripMenuItem itmWithLeft;
-			System.Windows.Forms.ToolStripMenuItem itmWithRight;
-			System.Windows.Forms.ToolStripMenuItem itmBookmark;
-			System.Windows.Forms.ToolStripMenuItem itmTool;
-			System.Windows.Forms.ToolStripMenuItem itmOption;
-			System.Windows.Forms.ToolStripMenuItem itmHelp;
-			System.Windows.Forms.ToolStripMenuItem itmAbout;
-			System.Windows.Forms.StatusStrip stsMain;
-			System.Windows.Forms.ToolStripMenuItem itmView;
-			System.Windows.Forms.ToolStripMenuItem itmContentsWindow;
-			System.Windows.Forms.ToolStripMenuItem itmBookmarksWindow;
-			System.Windows.Forms.ToolStripButton btnNew;
-			System.Windows.Forms.ToolStripButton btnOpen;
-			System.Windows.Forms.ToolStripButton btnSave;
-			itmOpenImage = new System.Windows.Forms.ToolStripMenuItem();
-			itmExclude = new System.Windows.Forms.ToolStripMenuItem();
-			itmExport = new System.Windows.Forms.ToolStripMenuItem();
-			itmExtract = new System.Windows.Forms.ToolStripMenuItem();
-			itmSetViewMode = new System.Windows.Forms.ToolStripMenuItem();
-			itmInvertViewMode = new System.Windows.Forms.ToolStripMenuItem();
-			itmAddBookmark = new System.Windows.Forms.ToolStripMenuItem();
-			itmDeleteBookmark = new System.Windows.Forms.ToolStripMenuItem();
-			lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-			prgStatus = new System.Windows.Forms.ToolStripProgressBar();
-			lblImageCount = new System.Windows.Forms.ToolStripStatusLabel();
-			menMain = new System.Windows.Forms.MenuStrip();
-			tsMain = new System.Windows.Forms.ToolStrip();
-			dpMain = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-			itmFile = new System.Windows.Forms.ToolStripMenuItem();
-			itmNew = new System.Windows.Forms.ToolStripMenuItem();
-			itmOpen = new System.Windows.Forms.ToolStripMenuItem();
-			sepFile1 = new System.Windows.Forms.ToolStripSeparator();
-			itmSave = new System.Windows.Forms.ToolStripMenuItem();
-			itmSaveAs = new System.Windows.Forms.ToolStripMenuItem();
-			sepFile2 = new System.Windows.Forms.ToolStripSeparator();
-			itmDocumentSettings = new System.Windows.Forms.ToolStripMenuItem();
-			sepFile3 = new System.Windows.Forms.ToolStripSeparator();
-			itmExit = new System.Windows.Forms.ToolStripMenuItem();
-			itmImage = new System.Windows.Forms.ToolStripMenuItem();
-			itmAdd = new System.Windows.Forms.ToolStripMenuItem();
-			itmFromFiles = new System.Windows.Forms.ToolStripMenuItem();
-			itmFromFolder = new System.Windows.Forms.ToolStripMenuItem();
-			sepImage1 = new System.Windows.Forms.ToolStripSeparator();
-			sepImage2 = new System.Windows.Forms.ToolStripSeparator();
-			sepImage3 = new System.Windows.Forms.ToolStripSeparator();
-			itmWithLeft = new System.Windows.Forms.ToolStripMenuItem();
-			itmWithRight = new System.Windows.Forms.ToolStripMenuItem();
-			itmBookmark = new System.Windows.Forms.ToolStripMenuItem();
-			itmTool = new System.Windows.Forms.ToolStripMenuItem();
-			itmOption = new System.Windows.Forms.ToolStripMenuItem();
-			itmHelp = new System.Windows.Forms.ToolStripMenuItem();
-			itmAbout = new System.Windows.Forms.ToolStripMenuItem();
-			stsMain = new System.Windows.Forms.StatusStrip();
-			itmView = new System.Windows.Forms.ToolStripMenuItem();
-			itmContentsWindow = new System.Windows.Forms.ToolStripMenuItem();
-			itmBookmarksWindow = new System.Windows.Forms.ToolStripMenuItem();
-			btnNew = new System.Windows.Forms.ToolStripButton();
-			btnOpen = new System.Windows.Forms.ToolStripButton();
-			btnSave = new System.Windows.Forms.ToolStripButton();
-			stsMain.SuspendLayout();
-			menMain.SuspendLayout();
-			tsMain.SuspendLayout();
+			System.Windows.Forms.ToolStripMenuItem OpenMenuItem;
+			System.Windows.Forms.ToolStripSeparator FileMenuSeparator1;
+			System.Windows.Forms.ToolStripMenuItem SaveMenuItem;
+			System.Windows.Forms.ToolStripMenuItem SaveAsMenuItem;
+			System.Windows.Forms.ToolStripSeparator FileMenuSeparator2;
+			System.Windows.Forms.ToolStripMenuItem ConfigureDocumentMenuItem;
+			System.Windows.Forms.ToolStripSeparator FileMenuSeparator3;
+			System.Windows.Forms.ToolStripMenuItem ExitMenuItem;
+			System.Windows.Forms.ToolStripMenuItem ImagesMenuItem;
+			System.Windows.Forms.ToolStripMenuItem AddImagesMenuItem;
+			System.Windows.Forms.ToolStripMenuItem AddImagesFromFilesMenuItem;
+			System.Windows.Forms.ToolStripMenuItem AddImagesFromFolderMenuItem;
+			System.Windows.Forms.ToolStripSeparator ImageMenuSeparator1;
+			System.Windows.Forms.ToolStripSeparator ImageMenuSeparator2;
+			System.Windows.Forms.ToolStripSeparator ImageMenuSeparator3;
+			System.Windows.Forms.ToolStripMenuItem StartViewModeSettingLeftMenuItem;
+			System.Windows.Forms.ToolStripMenuItem StartViewModeSettingRightMenuItem;
+			System.Windows.Forms.ToolStripMenuItem BookmarksMenuItem;
+			System.Windows.Forms.ToolStripMenuItem ToolMenuItem;
+			System.Windows.Forms.ToolStripMenuItem OptionMenuItem;
+			System.Windows.Forms.ToolStripMenuItem HelpMenuItem;
+			System.Windows.Forms.ToolStripMenuItem AboutMenuItem;
+			System.Windows.Forms.StatusStrip MainStatusBar;
+			System.Windows.Forms.ToolStripMenuItem ViewMenuItem;
+			System.Windows.Forms.ToolStripMenuItem ContentsWindowMenuItem;
+			System.Windows.Forms.ToolStripMenuItem BookmarksWindowMenuItem;
+			System.Windows.Forms.ToolStripButton NewButton;
+			System.Windows.Forms.ToolStripButton OpenButton;
+			System.Windows.Forms.ToolStripButton SaveButton;
+			OpenImageMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			DeleteImagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ExportImagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ExtractImagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			StartViewModeSettingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			InvertViewModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			AddBookmarksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			DeleteBookmarksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			StatusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+			ImageCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			MainMenu = new System.Windows.Forms.MenuStrip();
+			MainToolBar = new System.Windows.Forms.ToolStrip();
+			MainDockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+			FileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			NewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			OpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			FileMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			SaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			SaveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			FileMenuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			ConfigureDocumentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			FileMenuSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ImagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			AddImagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			AddImagesFromFilesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			AddImagesFromFolderMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ImageMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			ImageMenuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			ImageMenuSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			StartViewModeSettingLeftMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			StartViewModeSettingRightMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			BookmarksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			OptionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			MainStatusBar = new System.Windows.Forms.StatusStrip();
+			ViewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ContentsWindowMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			BookmarksWindowMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			NewButton = new System.Windows.Forms.ToolStripButton();
+			OpenButton = new System.Windows.Forms.ToolStripButton();
+			SaveButton = new System.Windows.Forms.ToolStripButton();
+			MainStatusBar.SuspendLayout();
+			MainMenu.SuspendLayout();
+			MainToolBar.SuspendLayout();
 			SuspendLayout();
 			// 
-			// itmFile
+			// FileMenuItem
 			// 
-			itmFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { itmNew, itmOpen, sepFile1, itmSave, itmSaveAs, sepFile2, itmDocumentSettings, sepFile3, itmExit });
-			itmFile.Name = "itmFile";
-			resources.ApplyResources(itmFile, "itmFile");
+			FileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { NewMenuItem, OpenMenuItem, FileMenuSeparator1, SaveMenuItem, SaveAsMenuItem, FileMenuSeparator2, ConfigureDocumentMenuItem, FileMenuSeparator3, ExitMenuItem });
+			FileMenuItem.Name = "FileMenuItem";
+			resources.ApplyResources(FileMenuItem, "FileMenuItem");
 			// 
-			// itmNew
+			// NewMenuItem
 			// 
-			resources.ApplyResources(itmNew, "itmNew");
-			itmNew.Name = "itmNew";
-			itmNew.Click += itmNew_Click;
+			resources.ApplyResources(NewMenuItem, "NewMenuItem");
+			NewMenuItem.Name = "NewMenuItem";
+			NewMenuItem.Click += OnNewMenuItemClick;
 			// 
-			// itmOpen
+			// OpenMenuItem
 			// 
-			resources.ApplyResources(itmOpen, "itmOpen");
-			itmOpen.Name = "itmOpen";
-			itmOpen.Click += itmOpen_Click;
+			resources.ApplyResources(OpenMenuItem, "OpenMenuItem");
+			OpenMenuItem.Name = "OpenMenuItem";
+			OpenMenuItem.Click += OnOpenMenuItemClick;
 			// 
-			// sepFile1
+			// FileMenuSeparator1
 			// 
-			sepFile1.Name = "sepFile1";
-			resources.ApplyResources(sepFile1, "sepFile1");
+			FileMenuSeparator1.Name = "FileMenuSeparator1";
+			resources.ApplyResources(FileMenuSeparator1, "FileMenuSeparator1");
 			// 
-			// itmSave
+			// SaveMenuItem
 			// 
-			resources.ApplyResources(itmSave, "itmSave");
-			itmSave.Name = "itmSave";
-			itmSave.Click += itmSave_Click;
+			resources.ApplyResources(SaveMenuItem, "SaveMenuItem");
+			SaveMenuItem.Name = "SaveMenuItem";
+			SaveMenuItem.Click += OnSaveMenuItemClick;
 			// 
-			// itmSaveAs
+			// SaveAsMenuItem
 			// 
-			itmSaveAs.Name = "itmSaveAs";
-			resources.ApplyResources(itmSaveAs, "itmSaveAs");
-			itmSaveAs.Click += itmSaveAs_Click;
+			SaveAsMenuItem.Name = "SaveAsMenuItem";
+			resources.ApplyResources(SaveAsMenuItem, "SaveAsMenuItem");
+			SaveAsMenuItem.Click += OnSaveAsMenuItemClick;
 			// 
-			// sepFile2
+			// FileMenuSeparator2
 			// 
-			sepFile2.Name = "sepFile2";
-			resources.ApplyResources(sepFile2, "sepFile2");
+			FileMenuSeparator2.Name = "FileMenuSeparator2";
+			resources.ApplyResources(FileMenuSeparator2, "FileMenuSeparator2");
 			// 
-			// itmDocumentSettings
+			// ConfigureDocumentMenuItem
 			// 
-			resources.ApplyResources(itmDocumentSettings, "itmDocumentSettings");
-			itmDocumentSettings.Name = "itmDocumentSettings";
-			itmDocumentSettings.Click += itmDocumentSettings_Click;
+			resources.ApplyResources(ConfigureDocumentMenuItem, "ConfigureDocumentMenuItem");
+			ConfigureDocumentMenuItem.Name = "ConfigureDocumentMenuItem";
+			ConfigureDocumentMenuItem.Click += OnConfigureDocumentMenuItemClick;
 			// 
-			// sepFile3
+			// FileMenuSeparator3
 			// 
-			sepFile3.Name = "sepFile3";
-			resources.ApplyResources(sepFile3, "sepFile3");
+			FileMenuSeparator3.Name = "FileMenuSeparator3";
+			resources.ApplyResources(FileMenuSeparator3, "FileMenuSeparator3");
 			// 
-			// itmExit
+			// ExitMenuItem
 			// 
-			itmExit.Name = "itmExit";
-			resources.ApplyResources(itmExit, "itmExit");
-			itmExit.Click += itmExit_Click;
+			ExitMenuItem.Name = "ExitMenuItem";
+			resources.ApplyResources(ExitMenuItem, "ExitMenuItem");
+			ExitMenuItem.Click += OnExitMenuItemClick;
 			// 
-			// itmImage
+			// ImagesMenuItem
 			// 
-			itmImage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { itmAdd, sepImage1, itmOpenImage, itmExclude, sepImage2, itmExport, itmExtract, sepImage3, itmSetViewMode, itmInvertViewMode });
-			itmImage.Name = "itmImage";
-			resources.ApplyResources(itmImage, "itmImage");
+			ImagesMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { AddImagesMenuItem, ImageMenuSeparator1, OpenImageMenuItem, DeleteImagesMenuItem, ImageMenuSeparator2, ExportImagesMenuItem, ExtractImagesMenuItem, ImageMenuSeparator3, StartViewModeSettingMenuItem, InvertViewModeMenuItem });
+			ImagesMenuItem.Name = "ImagesMenuItem";
+			resources.ApplyResources(ImagesMenuItem, "ImagesMenuItem");
 			// 
-			// itmAdd
+			// AddImagesMenuItem
 			// 
-			itmAdd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { itmFromFiles, itmFromFolder });
-			itmAdd.Name = "itmAdd";
-			resources.ApplyResources(itmAdd, "itmAdd");
+			AddImagesMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { AddImagesFromFilesMenuItem, AddImagesFromFolderMenuItem });
+			AddImagesMenuItem.Name = "AddImagesMenuItem";
+			resources.ApplyResources(AddImagesMenuItem, "AddImagesMenuItem");
 			// 
-			// itmFromFiles
+			// AddImagesFromFilesMenuItem
 			// 
-			resources.ApplyResources(itmFromFiles, "itmFromFiles");
-			itmFromFiles.Name = "itmFromFiles";
-			itmFromFiles.Click += itmFromFile_Click;
+			resources.ApplyResources(AddImagesFromFilesMenuItem, "AddImagesFromFilesMenuItem");
+			AddImagesFromFilesMenuItem.Name = "AddImagesFromFilesMenuItem";
+			AddImagesFromFilesMenuItem.Click += OnAddImagesFromFilesMenuItemClick;
 			// 
-			// itmFromFolder
+			// AddImagesFromFolderMenuItem
 			// 
-			resources.ApplyResources(itmFromFolder, "itmFromFolder");
-			itmFromFolder.Name = "itmFromFolder";
-			itmFromFolder.Click += itmFromFolder_Click;
+			resources.ApplyResources(AddImagesFromFolderMenuItem, "AddImagesFromFolderMenuItem");
+			AddImagesFromFolderMenuItem.Name = "AddImagesFromFolderMenuItem";
+			AddImagesFromFolderMenuItem.Click += OnAddImagesFromFolderMenuItemClick;
 			// 
-			// sepImage1
+			// ImageMenuSeparator1
 			// 
-			sepImage1.Name = "sepImage1";
-			resources.ApplyResources(sepImage1, "sepImage1");
+			ImageMenuSeparator1.Name = "ImageMenuSeparator1";
+			resources.ApplyResources(ImageMenuSeparator1, "ImageMenuSeparator1");
 			// 
-			// itmOpenImage
+			// OpenImageMenuItem
 			// 
-			resources.ApplyResources(itmOpenImage, "itmOpenImage");
-			itmOpenImage.Name = "itmOpenImage";
-			itmOpenImage.Click += itmOpenImage_Click;
+			resources.ApplyResources(OpenImageMenuItem, "OpenImageMenuItem");
+			OpenImageMenuItem.Name = "OpenImageMenuItem";
+			OpenImageMenuItem.Click += OnOpenImageMenuItemClick;
 			// 
-			// itmExclude
+			// DeleteImagesMenuItem
 			// 
-			resources.ApplyResources(itmExclude, "itmExclude");
-			itmExclude.Name = "itmExclude";
-			itmExclude.Click += itmDelete_Click;
+			resources.ApplyResources(DeleteImagesMenuItem, "DeleteImagesMenuItem");
+			DeleteImagesMenuItem.Name = "DeleteImagesMenuItem";
+			DeleteImagesMenuItem.Click += OnDeleteImagesMenuItemClick;
 			// 
-			// sepImage2
+			// ImageMenuSeparator2
 			// 
-			sepImage2.Name = "sepImage2";
-			resources.ApplyResources(sepImage2, "sepImage2");
+			ImageMenuSeparator2.Name = "ImageMenuSeparator2";
+			resources.ApplyResources(ImageMenuSeparator2, "ImageMenuSeparator2");
 			// 
-			// itmExport
+			// ExportImagesMenuItem
 			// 
-			resources.ApplyResources(itmExport, "itmExport");
-			itmExport.Name = "itmExport";
-			itmExport.Click += itmExport_Click;
+			resources.ApplyResources(ExportImagesMenuItem, "ExportImagesMenuItem");
+			ExportImagesMenuItem.Name = "ExportImagesMenuItem";
+			ExportImagesMenuItem.Click += OnExportImagesMenuItemClick;
 			// 
-			// itmExtract
+			// ExtractImagesMenuItem
 			// 
-			resources.ApplyResources(itmExtract, "itmExtract");
-			itmExtract.Name = "itmExtract";
-			itmExtract.Click += itmExtract_Click;
+			resources.ApplyResources(ExtractImagesMenuItem, "ExtractImagesMenuItem");
+			ExtractImagesMenuItem.Name = "ExtractImagesMenuItem";
+			ExtractImagesMenuItem.Click += OnExtractImagesMenuItemClick;
 			// 
-			// sepImage3
+			// ImageMenuSeparator3
 			// 
-			sepImage3.Name = "sepImage3";
-			resources.ApplyResources(sepImage3, "sepImage3");
+			ImageMenuSeparator3.Name = "ImageMenuSeparator3";
+			resources.ApplyResources(ImageMenuSeparator3, "ImageMenuSeparator3");
 			// 
-			// itmSetViewMode
+			// StartViewModeSettingMenuItem
 			// 
-			itmSetViewMode.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { itmWithLeft, itmWithRight });
-			resources.ApplyResources(itmSetViewMode, "itmSetViewMode");
-			itmSetViewMode.Name = "itmSetViewMode";
+			StartViewModeSettingMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { StartViewModeSettingLeftMenuItem, StartViewModeSettingRightMenuItem });
+			resources.ApplyResources(StartViewModeSettingMenuItem, "StartViewModeSettingMenuItem");
+			StartViewModeSettingMenuItem.Name = "StartViewModeSettingMenuItem";
 			// 
-			// itmWithLeft
+			// StartViewModeSettingLeftMenuItem
 			// 
-			itmWithLeft.Name = "itmWithLeft";
-			resources.ApplyResources(itmWithLeft, "itmWithLeft");
-			itmWithLeft.Click += itmWithLeft_Click;
+			StartViewModeSettingLeftMenuItem.Name = "StartViewModeSettingLeftMenuItem";
+			resources.ApplyResources(StartViewModeSettingLeftMenuItem, "StartViewModeSettingLeftMenuItem");
+			StartViewModeSettingLeftMenuItem.Click += OnStartViewModeSettingLeftMenuItemClick;
 			// 
-			// itmWithRight
+			// StartViewModeSettingRightMenuItem
 			// 
-			itmWithRight.Name = "itmWithRight";
-			resources.ApplyResources(itmWithRight, "itmWithRight");
-			itmWithRight.Click += itmWithRight_Click;
+			StartViewModeSettingRightMenuItem.Name = "StartViewModeSettingRightMenuItem";
+			resources.ApplyResources(StartViewModeSettingRightMenuItem, "StartViewModeSettingRightMenuItem");
+			StartViewModeSettingRightMenuItem.Click += OnStartViewModeSettingRightMenuItemClick;
 			// 
-			// itmInvertViewMode
+			// InvertViewModeMenuItem
 			// 
-			resources.ApplyResources(itmInvertViewMode, "itmInvertViewMode");
-			itmInvertViewMode.Name = "itmInvertViewMode";
-			itmInvertViewMode.Click += itmInvertViewMode_Click;
+			resources.ApplyResources(InvertViewModeMenuItem, "InvertViewModeMenuItem");
+			InvertViewModeMenuItem.Name = "InvertViewModeMenuItem";
+			InvertViewModeMenuItem.Click += OnInvertViewModeMenuItemClick;
 			// 
-			// itmBookmark
+			// BookmarksMenuItem
 			// 
-			itmBookmark.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { itmAddBookmark, itmDeleteBookmark });
-			itmBookmark.Name = "itmBookmark";
-			resources.ApplyResources(itmBookmark, "itmBookmark");
+			BookmarksMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { AddBookmarksMenuItem, DeleteBookmarksMenuItem });
+			BookmarksMenuItem.Name = "BookmarksMenuItem";
+			resources.ApplyResources(BookmarksMenuItem, "BookmarksMenuItem");
 			// 
-			// itmAddBookmark
+			// AddBookmarksMenuItem
 			// 
-			resources.ApplyResources(itmAddBookmark, "itmAddBookmark");
-			itmAddBookmark.Name = "itmAddBookmark";
-			itmAddBookmark.Click += itmAddBookmark_Click;
+			resources.ApplyResources(AddBookmarksMenuItem, "AddBookmarksMenuItem");
+			AddBookmarksMenuItem.Name = "AddBookmarksMenuItem";
+			AddBookmarksMenuItem.Click += OnAddBookmarksMenuItemClick;
 			// 
-			// itmDeleteBookmark
+			// DeleteBookmarksMenuItem
 			// 
-			resources.ApplyResources(itmDeleteBookmark, "itmDeleteBookmark");
-			itmDeleteBookmark.Name = "itmDeleteBookmark";
-			itmDeleteBookmark.Click += itmDeleteBookmark_Click;
+			resources.ApplyResources(DeleteBookmarksMenuItem, "DeleteBookmarksMenuItem");
+			DeleteBookmarksMenuItem.Name = "DeleteBookmarksMenuItem";
+			DeleteBookmarksMenuItem.Click += OnDeleteBookmarksMenuItemClick;
 			// 
-			// itmTool
+			// ToolMenuItem
 			// 
-			itmTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { itmOption });
-			itmTool.Name = "itmTool";
-			resources.ApplyResources(itmTool, "itmTool");
+			ToolMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { OptionMenuItem });
+			ToolMenuItem.Name = "ToolMenuItem";
+			resources.ApplyResources(ToolMenuItem, "ToolMenuItem");
 			// 
-			// itmOption
+			// OptionMenuItem
 			// 
-			itmOption.Name = "itmOption";
-			resources.ApplyResources(itmOption, "itmOption");
-			itmOption.Click += itmOption_Click;
+			OptionMenuItem.Name = "OptionMenuItem";
+			resources.ApplyResources(OptionMenuItem, "OptionMenuItem");
+			OptionMenuItem.Click += OnOptionMenuItemClick;
 			// 
-			// itmHelp
+			// HelpMenuItem
 			// 
-			itmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { itmAbout });
-			itmHelp.Name = "itmHelp";
-			resources.ApplyResources(itmHelp, "itmHelp");
+			HelpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { AboutMenuItem });
+			HelpMenuItem.Name = "HelpMenuItem";
+			resources.ApplyResources(HelpMenuItem, "HelpMenuItem");
 			// 
-			// itmAbout
+			// AboutMenuItem
 			// 
-			itmAbout.Name = "itmAbout";
-			resources.ApplyResources(itmAbout, "itmAbout");
-			itmAbout.Click += itmAbout_Click;
+			AboutMenuItem.Name = "AboutMenuItem";
+			resources.ApplyResources(AboutMenuItem, "AboutMenuItem");
+			AboutMenuItem.Click += OnAboutMenuItemClick;
 			// 
-			// stsMain
+			// MainStatusBar
 			// 
-			stsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { lblStatus, prgStatus, lblImageCount });
-			resources.ApplyResources(stsMain, "stsMain");
-			stsMain.Name = "stsMain";
-			stsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+			MainStatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { StatusLabel, StatusProgressBar, ImageCountLabel });
+			resources.ApplyResources(MainStatusBar, "MainStatusBar");
+			MainStatusBar.Name = "MainStatusBar";
+			MainStatusBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			// 
-			// lblStatus
+			// StatusLabel
 			// 
-			lblStatus.Name = "lblStatus";
-			resources.ApplyResources(lblStatus, "lblStatus");
-			lblStatus.Spring = true;
+			StatusLabel.Name = "StatusLabel";
+			resources.ApplyResources(StatusLabel, "StatusLabel");
+			StatusLabel.Spring = true;
 			// 
-			// prgStatus
+			// StatusProgressBar
 			// 
-			prgStatus.Name = "prgStatus";
-			resources.ApplyResources(prgStatus, "prgStatus");
+			StatusProgressBar.Name = "StatusProgressBar";
+			resources.ApplyResources(StatusProgressBar, "StatusProgressBar");
 			// 
-			// lblImageCount
+			// ImageCountLabel
 			// 
-			resources.ApplyResources(lblImageCount, "lblImageCount");
-			lblImageCount.Name = "lblImageCount";
+			resources.ApplyResources(ImageCountLabel, "ImageCountLabel");
+			ImageCountLabel.Name = "ImageCountLabel";
 			// 
-			// itmView
+			// ViewMenuItem
 			// 
-			itmView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { itmContentsWindow, itmBookmarksWindow });
-			itmView.Name = "itmView";
-			resources.ApplyResources(itmView, "itmView");
+			ViewMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { ContentsWindowMenuItem, BookmarksWindowMenuItem });
+			ViewMenuItem.Name = "ViewMenuItem";
+			resources.ApplyResources(ViewMenuItem, "ViewMenuItem");
 			// 
-			// itmContentsWindow
+			// ContentsWindowMenuItem
 			// 
-			resources.ApplyResources(itmContentsWindow, "itmContentsWindow");
-			itmContentsWindow.Name = "itmContentsWindow";
-			itmContentsWindow.Click += itmContentsWindow_Click;
+			resources.ApplyResources(ContentsWindowMenuItem, "ContentsWindowMenuItem");
+			ContentsWindowMenuItem.Name = "ContentsWindowMenuItem";
+			ContentsWindowMenuItem.Click += OnContentsWindowMenuItemClick;
 			// 
-			// itmBookmarksWindow
+			// BookmarksWindowMenuItem
 			// 
-			resources.ApplyResources(itmBookmarksWindow, "itmBookmarksWindow");
-			itmBookmarksWindow.Name = "itmBookmarksWindow";
-			itmBookmarksWindow.Click += itmBookmarksWindow_Click;
+			resources.ApplyResources(BookmarksWindowMenuItem, "BookmarksWindowMenuItem");
+			BookmarksWindowMenuItem.Name = "BookmarksWindowMenuItem";
+			BookmarksWindowMenuItem.Click += OnBookmarksWindowMenuItemClick;
 			// 
-			// btnNew
+			// NewButton
 			// 
-			btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			resources.ApplyResources(btnNew, "btnNew");
-			btnNew.Name = "btnNew";
-			btnNew.Click += itmNew_Click;
+			NewButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			resources.ApplyResources(NewButton, "NewButton");
+			NewButton.Name = "NewButton";
+			NewButton.Click += OnNewMenuItemClick;
 			// 
-			// btnOpen
+			// OpenButton
 			// 
-			btnOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			resources.ApplyResources(btnOpen, "btnOpen");
-			btnOpen.Name = "btnOpen";
-			btnOpen.Click += itmOpen_Click;
+			OpenButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			resources.ApplyResources(OpenButton, "OpenButton");
+			OpenButton.Name = "OpenButton";
+			OpenButton.Click += OnOpenMenuItemClick;
 			// 
-			// btnSave
+			// SaveButton
 			// 
-			btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			resources.ApplyResources(btnSave, "btnSave");
-			btnSave.Name = "btnSave";
-			btnSave.Click += itmSave_Click;
+			SaveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			resources.ApplyResources(SaveButton, "SaveButton");
+			SaveButton.Name = "SaveButton";
+			SaveButton.Click += OnSaveMenuItemClick;
 			// 
-			// menMain
+			// MainMenu
 			// 
-			menMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { itmFile, itmView, itmImage, itmBookmark, itmTool, itmHelp });
-			resources.ApplyResources(menMain, "menMain");
-			menMain.Name = "menMain";
-			menMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+			MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { FileMenuItem, ViewMenuItem, ImagesMenuItem, BookmarksMenuItem, ToolMenuItem, HelpMenuItem });
+			resources.ApplyResources(MainMenu, "MainMenu");
+			MainMenu.Name = "MainMenu";
+			MainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			// 
-			// tsMain
+			// MainToolBar
 			// 
-			tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnNew, btnOpen, btnSave });
-			resources.ApplyResources(tsMain, "tsMain");
-			tsMain.Name = "tsMain";
-			tsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+			MainToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { NewButton, OpenButton, SaveButton });
+			resources.ApplyResources(MainToolBar, "MainToolBar");
+			MainToolBar.Name = "MainToolBar";
+			MainToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			// 
-			// dpMain
+			// MainDockPanel
 			// 
-			resources.ApplyResources(dpMain, "dpMain");
-			dpMain.DockBackColor = System.Drawing.SystemColors.Control;
-			dpMain.Name = "dpMain";
+			resources.ApplyResources(MainDockPanel, "MainDockPanel");
+			MainDockPanel.DockBackColor = System.Drawing.SystemColors.Control;
+			MainDockPanel.Name = "MainDockPanel";
 			// 
 			// EditorForm
 			// 
 			resources.ApplyResources(this, "$this");
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-			Controls.Add(dpMain);
-			Controls.Add(stsMain);
-			Controls.Add(tsMain);
-			Controls.Add(menMain);
-			MainMenuStrip = menMain;
+			Controls.Add(MainDockPanel);
+			Controls.Add(MainStatusBar);
+			Controls.Add(MainToolBar);
+			Controls.Add(MainMenu);
+			MainMenuStrip = MainMenu;
 			Name = "EditorForm";
-			stsMain.ResumeLayout(false);
-			stsMain.PerformLayout();
-			menMain.ResumeLayout(false);
-			menMain.PerformLayout();
-			tsMain.ResumeLayout(false);
-			tsMain.PerformLayout();
+			MainStatusBar.ResumeLayout(false);
+			MainStatusBar.PerformLayout();
+			MainMenu.ResumeLayout(false);
+			MainMenu.PerformLayout();
+			MainToolBar.ResumeLayout(false);
+			MainToolBar.PerformLayout();
 			ResumeLayout(false);
 			PerformLayout();
 		}
 
 		#endregion
 
-		System.Windows.Forms.ToolStripStatusLabel lblStatus;
-		System.Windows.Forms.ToolStripStatusLabel lblImageCount;
-		System.Windows.Forms.ToolStripProgressBar prgStatus;
-		System.Windows.Forms.ToolStripMenuItem itmExclude;
-		System.Windows.Forms.ToolStripMenuItem itmDeleteBookmark;
-		System.Windows.Forms.ToolStripMenuItem itmAddBookmark;
-		private System.Windows.Forms.ToolStrip tsMain;
-		private System.Windows.Forms.ToolStripMenuItem itmExport;
-		private System.Windows.Forms.ToolStripMenuItem itmExtract;
-		private System.Windows.Forms.MenuStrip menMain;
-		private WeifenLuo.WinFormsUI.Docking.DockPanel dpMain;
-		private System.Windows.Forms.ToolStripMenuItem itmOpenImage;
-		private System.Windows.Forms.ToolStripMenuItem itmSetViewMode;
-		private System.Windows.Forms.ToolStripMenuItem itmInvertViewMode;
+		System.Windows.Forms.ToolStripStatusLabel StatusLabel;
+		System.Windows.Forms.ToolStripStatusLabel ImageCountLabel;
+		System.Windows.Forms.ToolStripProgressBar StatusProgressBar;
+		System.Windows.Forms.ToolStripMenuItem DeleteImagesMenuItem;
+		System.Windows.Forms.ToolStripMenuItem DeleteBookmarksMenuItem;
+		System.Windows.Forms.ToolStripMenuItem AddBookmarksMenuItem;
+		private System.Windows.Forms.ToolStrip MainToolBar;
+		private System.Windows.Forms.ToolStripMenuItem ExportImagesMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ExtractImagesMenuItem;
+		private System.Windows.Forms.MenuStrip MainMenu;
+		private WeifenLuo.WinFormsUI.Docking.DockPanel MainDockPanel;
+		private System.Windows.Forms.ToolStripMenuItem OpenImageMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem StartViewModeSettingMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem InvertViewModeMenuItem;
 	}
 }
