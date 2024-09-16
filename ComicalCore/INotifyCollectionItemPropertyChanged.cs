@@ -9,12 +9,9 @@ namespace Comical.Core
 		event EventHandler<CollectionItemPropertyChangedEventArgs>? CollectionItemPropertyChanged;
 	}
 
-	public class CollectionItemPropertyChangedEventArgs(IEnumerable<KeyValuePair<object?, string?>> propertyNames) : EventArgs
+	public class CollectionItemPropertyChangedEventArgs(object? item, string? propertyName) : EventArgs
 	{
-		public CollectionItemPropertyChangedEventArgs(params KeyValuePair<object?, string?>[] propertyNames) : this((IEnumerable<KeyValuePair<object?, string?>>)propertyNames) { }
-
-		public CollectionItemPropertyChangedEventArgs(object? originalSender, string? propertyName) : this(new KeyValuePair<object?, string?>(originalSender, propertyName)) { }
-
-		public ILookup<object?, string?> PropertyNames { get; } = propertyNames.ToLookup(x => x.Key, x => x.Value);
+		public object? Item { get; } = item;
+		public string? PropertyName { get; } = propertyName;
 	}
 }

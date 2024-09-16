@@ -34,7 +34,7 @@ namespace Comical
 
 		public event EventHandler<BookmarkNavigatedEventArgs>? BookmarkNavigated;
 
-		public IEnumerable<Bookmark> SelectedBookmarks => BookmarksDataGridView.SelectedRows.Cast<DataGridViewRow>().Select(row => _bookmarks[row.Index]);
+		public IEnumerable<int> SelectedIndices => BookmarksDataGridView.SelectedRows.Cast<DataGridViewRow>().Select(row => row.Index);
 
 		public IDisposable BeginAsyncWork()
 		{
@@ -44,8 +44,8 @@ namespace Comical
 
 		public void DeleteSelectedBookmarks()
 		{
-			foreach (var bookmark in SelectedBookmarks.ToArray())
-				_bookmarks.Remove(bookmark);
+			foreach (var index in SelectedIndices.OrderByDescending(x => x).ToArray())
+				_bookmarks.RemoveAt(index);
 		}
 
 		protected override string GetPersistString() => "BookmarkList";
@@ -54,7 +54,7 @@ namespace Comical
 
 		void RefreshMenuVisibility()
 		{
-			var count = SelectedBookmarks.Count();
+			var count = SelectedIndices.Count();
 			SelectTargetMenuItem.Visible = count == 1;
 			BookmarkMenuSeparator1.Visible = count == 1;
 			CreateNewMenuItem.Visible = _images.Count > 0;

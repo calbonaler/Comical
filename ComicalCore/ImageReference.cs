@@ -43,59 +43,15 @@ namespace Comical.Core
 
 	public class ImageReferenceCollection : SynchronizedObservableCollection<ImageReference>
 	{
-		bool _notificationSuspended = false;
-		bool _collectionChanged = false;
-		readonly List<KeyValuePair<object?, string?>> _itemChanges = [];
-
-		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
-		{
-			if (_notificationSuspended)
-				_collectionChanged = true;
-			else
-				base.OnCollectionChanged(e);
-		}
-
-		protected override void OnCollectionItemPropertyChanged(CollectionItemPropertyChangedEventArgs e)
-		{
-			if (!_notificationSuspended)
-			{
-				base.OnCollectionItemPropertyChanged(e);
-				return;
-			}
-			if (e == null)
-				return;
-			foreach (var propertyNames in e.PropertyNames)
-			{
-				foreach (var propertyName in propertyNames)
-					_itemChanges.Add(new KeyValuePair<object?, string?>(propertyNames.Key, propertyName));
-			}
-		}
-
-		public IDisposable EnterUnnotifiedSection()
-		{
-			_notificationSuspended = true;
-			return new DelegateDisposable(() =>
-			{
-				_notificationSuspended = false;
-				if (_collectionChanged)
-					OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-				_collectionChanged = false;
-				if (_itemChanges.Count > 0)
-				{
-					OnCollectionItemPropertyChanged(new CollectionItemPropertyChangedEventArgs(_itemChanges));
-					_itemChanges.Clear();
-				}
-			});
-		}
-
 		internal async Task LoadAsync(BinaryReader reader, Version fileVersion, IProgress<int> progress)
 		{
-			var imageCount = reader.ReadInt32();
-			for (var i = 0; i < imageCount; i++)
+			var images = new ImageReference[reader.ReadInt32()];
+			for (var i = 0; i < images.Length; i++)
 			{
-				Add(await ImageReference.LoadAsync(reader, fileVersion).ConfigureAwait(false));
-				progress?.Report((i + 1) * 100 / imageCount);
+				images[i] = await ImageReference.LoadAsync(reader, fileVersion).ConfigureAwait(false);
+				progress?.Report((i + 1) * 100 / images.Length);
 			}
+			AddRange(images);
 		}
 
 		internal static async Task SaveAsync(IReadOnlyList<ImageReference> images, BinaryWriter writer, IProgress<int> progress)

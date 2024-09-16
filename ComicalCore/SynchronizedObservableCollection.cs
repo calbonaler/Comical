@@ -54,6 +54,18 @@ namespace Comical.Core
 			OnPropertyChanged(new PropertyChangedEventArgs("Item[]"));
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
 		}
+
+		void OnItemsInserted(int index, T[] items)
+		{
+			foreach (var item in items)
+				item.PropertyChanged += OnItemPropertyChanged;
+			if (items.Length > 0)
+			{
+				OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
+				OnPropertyChanged(new PropertyChangedEventArgs("Item[]"));
+				OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items, index));
+			}
+		}
 		
 		public void Add(T item)
 		{
@@ -65,6 +77,21 @@ namespace Comical.Core
 				_items.Insert(index, item);
 			}
 			OnItemInserted(index, item);
+		}
+
+		public void AddRange(IEnumerable<T> items)
+		{
+			int index;
+			T[] addedItems;
+			using (LockForWrite())
+			{
+				CheckReentrancy();
+				index = _items.Count;
+				_items.InsertRange(index, items);
+				addedItems = new T[_items.Count - index];
+				_items.CopyTo(index, addedItems, 0, addedItems.Length);
+			}
+			OnItemsInserted(index, addedItems);
 		}
 		
 		protected IDisposable BlockReentrancy()

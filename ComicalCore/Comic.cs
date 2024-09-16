@@ -110,7 +110,6 @@ namespace Comical.Core
 		{
 			using (EnterSingleOperation())
 			using (EnterUndirtiableSection())
-			using (Images.EnterUnnotifiedSection())
 			{
 				Images.Clear();
 				Bookmarks.Clear();
@@ -143,7 +142,6 @@ namespace Comical.Core
 		public async Task AppendAsync(string fileName, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
-			using (Images.EnterUnnotifiedSection())
 			using (var bookmarks = new BookmarkCollection())
 				await ReadFileAsync(fileName, bookmarks, progress).ConfigureAwait(false);
 		}

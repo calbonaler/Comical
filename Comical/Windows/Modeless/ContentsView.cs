@@ -95,13 +95,10 @@ namespace Comical
 
 		void OnImagesCollectionItemPropertyChanged(object? sender, CollectionItemPropertyChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
-			foreach (var group in e.PropertyNames)
-			{
-				Debug.Assert(group.Key != null, "sender of ImageReference's PropertyChanged event must not be null");
-				var index = _images.IndexOf((ImageReference)group.Key);
-				if (index >= 0)
-					ImagesDataGridView.UpdateCellValue(1, index);
-			}
+			Debug.Assert(e.Item != null, "sender of ImageReference's PropertyChanged event must not be null");
+			var index = _images.IndexOf((ImageReference)e.Item);
+			if (index >= 0)
+				ImagesDataGridView.UpdateCellValue(1, index);
 		});
 
 		protected override string GetPersistString() => "ImageList";

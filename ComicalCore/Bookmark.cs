@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 
 namespace Comical.Core
 {
@@ -39,12 +40,7 @@ namespace Comical.Core
 
 	public class BookmarkCollection : SynchronizedObservableCollection<Bookmark>
 	{
-		internal void Load(BinaryReader reader)
-		{
-			var count = reader.ReadInt32();
-			for (var i = 0; i < count; i++)
-				Add(Bookmark.Load(reader));
-		}
+		internal void Load(BinaryReader reader) => AddRange(Enumerable.Repeat(0, reader.ReadInt32()).Select(_ => Bookmark.Load(reader)));
 
 		internal static void Save(IReadOnlyList<Bookmark> bookmarks, BinaryWriter writer)
 		{

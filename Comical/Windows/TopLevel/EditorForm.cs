@@ -61,7 +61,7 @@ namespace Comical
 			_imageList.ExtractRequested += OnExtractImagesMenuItemClick;
 			_imageList.BookmarkRequested += OnAddBookmarksMenuItemClick;
 
-			_bookmarkList.BookmarkSelected += (s, ev) => DeleteBookmarksMenuItem.Enabled = _bookmarkList.SelectedBookmarks.Any();
+			_bookmarkList.BookmarkSelected += (s, ev) => DeleteBookmarksMenuItem.Enabled = _bookmarkList.SelectedIndices.Any();
 			_bookmarkList.BookmarkNavigated += (s, ev) => _imageList.SelectSingleImage(ev.Bookmark.Target);
 		}
 
@@ -166,11 +166,7 @@ namespace Comical
 				for (; i < comicFiles.Count; i++)
 					await _comic.AppendAsync(comicFiles[i], new Progress<int>(x => this.InvokeIfNeeded(() => StatusProgressBar.Value = (100 * i + x) / comicFiles.Count)));
 				StatusLabel.Text = Properties.Resources.ImportingImages;
-				using (_comic.Images.EnterUnnotifiedSection())
-				{
-					foreach (var image in images)
-						_comic.Images.Add(image);
-				}
+				_comic.Images.AddRange(images);
 			}
 		}
 
@@ -336,8 +332,7 @@ namespace Comical
 
 		void OnAddBookmarksMenuItemClick(object? sender, EventArgs e)
 		{
-			foreach (var targetIndex in _imageList.SelectedIndices.OrderBy(x => x))
-				_comic.Bookmarks.Add(new Bookmark() { Target = targetIndex });
+			_comic.Bookmarks.AddRange(_imageList.SelectedIndices.OrderBy(x => x).Select(x => new Bookmark() { Target = x }));
 		}
 
 		void OnDeleteBookmarksMenuItemClick(object? sender, EventArgs e) => _bookmarkList.DeleteSelectedBookmarks();
