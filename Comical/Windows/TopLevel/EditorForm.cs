@@ -181,11 +181,11 @@ namespace Comical
 					return true;
 				}
 			}
-			catch (InconsistentDataException ex)
+			catch (InconsistentDataException)
 			{
 				using var dialog = new CPDialogs.TaskDialog();
 				dialog.InstructionText = Properties.Resources.InconsistentData_Instruction;
-				dialog.Text = string.Format(Properties.Resources.InconsistentData_Text, string.Join(", ", SplitEnumValue(ex.DataTypes).Select(x => Properties.Resources.ResourceManager.GetString("InconsistentData_DataTypes_" + x.ToString(), Properties.Resources.Culture))));
+				dialog.Text = Properties.Resources.InconsistentData_Text;
 				dialog.Caption = Application.ProductName;
 				dialog.StandardButtons = CPDialogs.TaskDialogStandardButtons.Close;
 				dialog.Icon = CPDialogs.TaskDialogStandardIcon.Error;
@@ -218,12 +218,6 @@ namespace Comical
 				return;
 			using var ms = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(xml));
 			panel.LoadFromXml(ms, persistString => Array.Find(contents, x => string.Equals(persistString, x.DockHandler.GetPersistStringCallback(), StringComparison.Ordinal)));
-		}
-
-		static IEnumerable<T> SplitEnumValue<T>(T value) where T : Enum
-		{
-			var enumZero = Enum.ToObject(typeof(T), 0);
-			return value.Equals(enumZero) ? [] : ((T[])Enum.GetValues(typeof(T))).Where(x => !x.Equals(enumZero) && value.HasFlag(x));
 		}
 
 		#region FileMenu

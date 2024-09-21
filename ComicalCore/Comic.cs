@@ -95,15 +95,14 @@ namespace Comical.Core
 			}
 		}
 
-		public ConsistencyValidatedDataTypes CheckInconsistency()
+		bool IsInconsistent()
 		{
 			for (var i = 0; i < Bookmarks.Count; i++)
 			{
-				if (Bookmarks[i].Target < Images.Count && Bookmarks[i].Target >= 0)
-					continue;
-				return ConsistencyValidatedDataTypes.Images | ConsistencyValidatedDataTypes.Bookmarks;
+				if (Bookmarks[i].Target < 0 || Bookmarks[i].Target >= Images.Count)
+					return true;
 			}
-			return ConsistencyValidatedDataTypes.None;
+			return false;
 		}
 
 		public async Task OpenAsync(string fileName, IProgress<int> progress)
@@ -129,9 +128,8 @@ namespace Comical.Core
 			using (EnterSingleOperation())
 			using (EnterUndirtiableSection())
 			{
-				var inconsistency = CheckInconsistency();
-				if (inconsistency != ConsistencyValidatedDataTypes.None)
-					throw new InconsistentDataException(Properties.Resources.InconsistentData, inconsistency);
+				if (IsInconsistent())
+					throw new InconsistentDataException(Properties.Resources.InconsistentData);
 				var header = new FileHeader(Title, Author, Published, BindingSide, Thumbnail);
 				await WriteFileAsync(fileName, header, Images.ToArray(), Bookmarks, progress).ConfigureAwait(false);
 				FileVersion = header.FileVersion;
@@ -315,21 +313,10 @@ namespace Comical.Core
 		Right = 2,
 	}
 
-	[Flags]
-	public enum ConsistencyValidatedDataTypes
-	{
-		None = 0,
-		Images = 1,
-		Bookmarks = 2,
-	}
-
 	public class InconsistentDataException : Exception
 	{
-		public InconsistentDataException() : this(ConsistencyValidatedDataTypes.None) { }
-		public InconsistentDataException(ConsistencyValidatedDataTypes dataTypes) => DataTypes = dataTypes;
-		public InconsistentDataException(string message) : this(message, ConsistencyValidatedDataTypes.None) { }
-		public InconsistentDataException(string message, ConsistencyValidatedDataTypes dataTypes) : base(message) => DataTypes = dataTypes;
+		public InconsistentDataException() { }
+		public InconsistentDataException(string message) : base(message) { }
 		public InconsistentDataException(string message, Exception inner) : base(message, inner) { }
-		public ConsistencyValidatedDataTypes DataTypes { get; private set; }
 	}
 }
