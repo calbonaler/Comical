@@ -15,18 +15,12 @@ namespace Comical.Core
 	{
 		public Comic()
 		{
-			Images.CollectionChanged += (s, ev) => IsDirty = true;
-			Images.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
-			Bookmarks.CollectionChanged += (s, ev) => IsDirty = true;
-			Bookmarks.CollectionItemPropertyChanged += (s, ev) => IsDirty = true;
-			PropertyChanged += (s, ev) =>
-			{
-				if (ev.PropertyName is nameof(Thumbnail) or nameof(Title) or nameof(Author) or nameof(Published) or nameof(BindingSide))
-					IsDirty = true;
-			};
+			Images.CollectionChanged += OnCollectionsChanged;
+			Images.CollectionItemPropertyChanged += OnCollectionsChanged;
+			Bookmarks.CollectionChanged += OnCollectionsChanged;
+			Bookmarks.CollectionItemPropertyChanged += OnCollectionsChanged;
+			PropertyChanged += OnSelfPropertyChanged;
 		}
-
-		bool _canDirty = true;
 
 		public ImageReferenceCollection Images { get; private set; } = [];
 
@@ -42,22 +36,24 @@ namespace Comical.Core
 		{
 			if (disposing)
 			{
-				using (EnterUndirtiableSection())
+				PropertyChanged -= OnSelfPropertyChanged;
+				Bookmarks.CollectionItemPropertyChanged -= OnCollectionsChanged;
+				Bookmarks.CollectionChanged -= OnCollectionsChanged;
+				Images.CollectionItemPropertyChanged -= OnCollectionsChanged;
+				Images.CollectionChanged -= OnCollectionsChanged;
+				if (!Images.IsDisposed)
 				{
-					if (!Images.IsDisposed)
-					{
-						Images.Clear();
-						Images.Dispose();
-					}
-					if (!Bookmarks.IsDisposed)
-					{
-						Bookmarks.Clear();
-						Bookmarks.Dispose();
-					}
-					Thumbnail = null;
-					Title = Author = string.Empty;
-					IsDirty = false;
+					Images.Clear();
+					Images.Dispose();
 				}
+				if (!Bookmarks.IsDisposed)
+				{
+					Bookmarks.Clear();
+					Bookmarks.Dispose();
+				}
+				Thumbnail = null;
+				Title = Author = string.Empty;
+				IsDirty = false;
 			}
 		}
 
@@ -82,17 +78,15 @@ namespace Comical.Core
 			await ImageReferenceCollection.SaveAsync(images, writer, progress).ConfigureAwait(false);
 		}
 
-		public void Clear()
+		public void Clear(BindingSide bindingSide)
 		{
-			using (EnterUndirtiableSection())
-			{
-				Thumbnail = null;
-				Published = null;
-				Title = Author = "";
-				Images.Clear();
-				Bookmarks.Clear();
-				IsDirty = false;
-			}
+			Thumbnail = null;
+			Published = null;
+			Title = Author = "";
+			BindingSide = bindingSide;
+			Images.Clear();
+			Bookmarks.Clear();
+			IsDirty = false;
 		}
 
 		bool IsInconsistent()
@@ -108,11 +102,9 @@ namespace Comical.Core
 		public async Task OpenAsync(string fileName, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
-			using (EnterUndirtiableSection())
 			{
 				Images.Clear();
 				Bookmarks.Clear();
-				IsDirty = false;
 				var res = await ReadFileAsync(fileName, Bookmarks, progress).ConfigureAwait(false);
 				Thumbnail = res.Thumbnail;
 				FileVersion = res.FileVersion;
@@ -120,13 +112,13 @@ namespace Comical.Core
 				Author = res.Author;
 				Published = res.Published;
 				BindingSide = res.BindingSide;
+				IsDirty = false;
 			}
 		}
 
 		public async Task SaveAsync(string fileName, IProgress<int> progress)
 		{
 			using (EnterSingleOperation())
-			using (EnterUndirtiableSection())
 			{
 				if (IsInconsistent())
 					throw new InconsistentDataException(Properties.Resources.InconsistentData);
@@ -195,20 +187,20 @@ namespace Comical.Core
 				yield return Flush();
 		}
 
-		public IDisposable EnterUndirtiableSection()
-		{
-			if (!_canDirty)
-				return new DelegateDisposable(() => { });
-			_canDirty = false;
-			return new DelegateDisposable(() => _canDirty = true);
-		}
-
 		protected IDisposable EnterSingleOperation()
 		{
 			if (IsBusy)
 				throw new InvalidOperationException(Properties.Resources.MultiAsyncOperationIsNotSupported);
 			IsBusy = true;
 			return new DelegateDisposable(() => IsBusy = false);
+		}
+
+		void OnCollectionsChanged(object? sender, EventArgs e) => IsDirty = true;
+
+		void OnSelfPropertyChanged(object? sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName is nameof(Thumbnail) or nameof(Title) or nameof(Author) or nameof(Published) or nameof(BindingSide))
+				IsDirty = true;
 		}
 
 		bool _busy = false;
@@ -222,11 +214,7 @@ namespace Comical.Core
 		public bool IsDirty
 		{
 			get => _dirty;
-			private set
-			{
-				if (_canDirty || !value)
-					Utils.SetProperty(ref _dirty, value, this, PropertyChanged);
-			}
+			private set => Utils.SetProperty(ref _dirty, value, this, PropertyChanged);
 		}
 
 		Version _fileVersion = FileHeader.LatestSupportedFileVersion;

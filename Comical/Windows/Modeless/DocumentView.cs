@@ -24,8 +24,7 @@ namespace Comical
 			_comic.PropertyChanged += OnComicPropertyChanged;
 			_comic.Images.CollectionChanged += OnComicImagesCollectionChanged;
 			OnComicImagesCollectionChanged(_comic.Images, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
-			using (_comic.EnterUndirtiableSection())
-				BindingSideComboBox.SelectedIndex = (int)BindingSide.Right;
+			OnComicPropertyChanged(_comic, new System.ComponentModel.PropertyChangedEventArgs(nameof(_comic.BindingSide)));
 		}
 
 		readonly Comic _comic;

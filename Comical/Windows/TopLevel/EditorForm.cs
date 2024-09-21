@@ -14,6 +14,7 @@ namespace Comical
 	{
 		public EditorForm()
 		{
+			_comic.Clear(BindingSide.Right);
 			_imageList = new ContentsView(_comic.Images);
 			_bookmarkList = new BookmarksView(_comic.Images, _comic.Bookmarks);
 			_document = new DocumentView(_comic);
@@ -226,7 +227,7 @@ namespace Comical
 		{
 			if (await QuerySaveAsync() != CPDialogs.TaskDialogResult.Cancel)
 			{
-				_comic.Clear();
+				_comic.Clear(BindingSide.Right);
 				SavedFilePath = string.Empty;
 			}
 		}
