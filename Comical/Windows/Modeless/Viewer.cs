@@ -7,12 +7,20 @@ namespace Comical
 	{
 		public Viewer() => InitializeComponent();
 
+		Binary? _image;
+
 		protected override string GetPersistString() => "Viewer";
 
 		public Binary? Image
 		{
-			get => MainPreviewer.Image;
-			set => MainPreviewer.SetImage(value);
+			get => _image;
+			set
+			{
+				if (_image == value) return;
+				_image = value;
+				MainPreviewer.Image?.Dispose();
+				MainPreviewer.Image = _image?.ToImage();
+			}
 		}
 
 		void OnSizeMenuItemsCheckedChanged(object? sender, EventArgs e) => MainPreviewer.StretchMode = FitToWindowMenuItem.Checked ? Comical.Controls.PreviewerStretchMode.Uniform : Comical.Controls.PreviewerStretchMode.None;

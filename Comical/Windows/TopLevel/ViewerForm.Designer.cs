@@ -15,6 +15,11 @@
 		{
 			if (disposing && (components != null))
 			{
+				if (MainPreviewer.Image != null)
+				{
+					MainPreviewer.Image.Dispose();
+					MainPreviewer.Image = null;
+				}
 				components.Dispose();
 				_comic.Dispose();
 				_closeBrush.Dispose();
@@ -44,7 +49,6 @@
 			// 
 			// MainPreviewer
 			// 
-			MainPreviewer.AutoScroll = true;
 			MainPreviewer.BackColor = System.Drawing.Color.Transparent;
 			MainPreviewer.Dock = System.Windows.Forms.DockStyle.Fill;
 			MainPreviewer.Location = new System.Drawing.Point(0, 0);

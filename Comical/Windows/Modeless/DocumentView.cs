@@ -41,8 +41,9 @@ namespace Comical
 		void LoadImage(Binary? binaryImage)
 		{
 			_comic.Thumbnail = binaryImage;
-			ThumbnailPreviewer.SetImage(binaryImage);
-			var size = ThumbnailPreviewer.ImageSize;
+			ThumbnailPreviewer.Image?.Dispose();
+			ThumbnailPreviewer.Image = binaryImage?.ToImage();
+			var size = ThumbnailPreviewer.Image?.Size ?? default;
 			SizeLabel.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, size.Width, size.Height);
 		}
 
@@ -79,10 +80,10 @@ namespace Comical
 
 		void OnEditButtonClick(object? sender, EventArgs e)
 		{
-			if (ThumbnailPreviewer.Image == null)
+			if (_comic.Thumbnail == null)
 				return;
 			using var dialog = new ImageEditDialog();
-			dialog.Image = ThumbnailPreviewer.Image;
+			dialog.Image = _comic.Thumbnail;
 			if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
 				LoadImage(dialog.Image);
 		}

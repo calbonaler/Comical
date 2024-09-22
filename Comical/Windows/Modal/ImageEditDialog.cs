@@ -77,28 +77,19 @@ namespace Comical
 		void OnRecalculateRequested(object? sender, EventArgs e)
 		{
 			var magSz = ImageBounds.Size;
-			PreviewHScrollBar.LargeChange = PreviewBox.ClientSize.Width;
-			PreviewHScrollBar.Maximum = magSz.Width;
-			PreviewHScrollBar.Visible = PreviewHScrollBar.Maximum > PreviewHScrollBar.LargeChange - 1;
-			PreviewVScrollBar.LargeChange = PreviewBox.ClientSize.Height;
-			PreviewVScrollBar.Maximum = magSz.Height;
-			PreviewVScrollBar.Visible = PreviewVScrollBar.Maximum > PreviewVScrollBar.LargeChange - 1;
+			PreviewBox.ScrollBars.ContentSize = magSz;
 			PreviewBox.Invalidate();
-		}
-
-		void OnPreviewScrollBarsScroll(object? sender, ScrollEventArgs e)
-		{
-			PreviewBox.Invalidate();
-			PreviewBox.Focus();
 		}
 
 		#region PreviewBox EventHandlers
+
+		void OnPreviewBoxScrollChanged(object sender, EventArgs e) => PreviewBox.Invalidate();
 
 		void OnPreviewBoxMouseDown(object? sender, MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Left)
 			{
-				point1 = point2 = GetVerifiedLocation(e.Location + new Size(PreviewHScrollBar.Value, PreviewVScrollBar.Value));
+				point1 = point2 = GetVerifiedLocation(e.Location + (Size)PreviewBox.ScrollBars.Position);
 				leftMouseDown = true;
 			}
 		}
@@ -107,7 +98,7 @@ namespace Comical
 		{
 			if (leftMouseDown && e.Button == MouseButtons.Left)
 			{
-				point2 = GetVerifiedLocation(e.Location + new Size(PreviewHScrollBar.Value, PreviewVScrollBar.Value));
+				point2 = GetVerifiedLocation(e.Location + (Size)PreviewBox.ScrollBars.Position);
 				PreviewBox.Invalidate();
 			}
 		}
@@ -116,7 +107,7 @@ namespace Comical
 		{
 			if (leftMouseDown && e.Button == MouseButtons.Left)
 			{
-				point2 = GetVerifiedLocation(e.Location + new Size(PreviewHScrollBar.Value, PreviewVScrollBar.Value));
+				point2 = GetVerifiedLocation(e.Location + (Size)PreviewBox.ScrollBars.Position);
 				PreviewBox.Invalidate();
 				leftMouseDown = false;
 			}
@@ -125,7 +116,7 @@ namespace Comical
 		void OnPreviewBoxPaint(object? sender, PaintEventArgs e)
 		{
 			Debug.Assert(internalImage != null);
-			e.Graphics.TranslateTransform(-PreviewHScrollBar.Value, -PreviewVScrollBar.Value);
+			e.Graphics.TranslateTransform(-PreviewBox.ScrollBars.Position.X, -PreviewBox.ScrollBars.Position.Y);
 			e.Graphics.DrawImage(internalImage, ImageBounds);
 			using (var reg = new Region(ImageBounds))
 			{
@@ -179,15 +170,8 @@ namespace Comical
 		void OnPreviewBoxMouseWheel(object? sender, MouseEventArgs e)
 		{
 			if ((ModifierKeys & Keys.Control) != 0)
-				MagnifyRatioNumericUpDown.Value = RoundInteger((int)MagnifyRatioNumericUpDown.Value + SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 1, 100);
-			else if ((ModifierKeys & Keys.Shift) != 0)
-				PreviewHScrollBar.Value = RoundInteger(PreviewHScrollBar.Value - 10 * SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 0, PreviewHScrollBar.Maximum - PreviewHScrollBar.LargeChange + 1);
-			else
-				PreviewVScrollBar.Value = RoundInteger(PreviewVScrollBar.Value - 10 * SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 0, PreviewVScrollBar.Maximum - PreviewVScrollBar.LargeChange + 1);
-			PreviewBox.Invalidate();
+				MagnifyRatioNumericUpDown.Value = Math.Clamp((int)MagnifyRatioNumericUpDown.Value + SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 1, 100);
 		}
-
-		static int RoundInteger(int value, int min, int max) => value < min ? min : value > max ? max : value;
 
 		#endregion
 
@@ -207,8 +191,6 @@ namespace Comical
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			PreviewHScrollBar.Height = SystemInformation.HorizontalScrollBarHeight;
-			PreviewVScrollBar.Width = SystemInformation.VerticalScrollBarWidth;
 			using (var ms = new System.IO.MemoryStream(Properties.Resources.Cross))
 				PreviewBox.Cursor = new Cursor(ms);
 			OnRecalculateRequested(null, EventArgs.Empty);

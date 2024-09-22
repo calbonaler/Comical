@@ -34,18 +34,12 @@
 			var resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageEditDialog));
 			System.Windows.Forms.Button OKButton;
 			System.Windows.Forms.Button CancelButton;
-			System.Windows.Forms.TableLayoutPanel PreviewPanel;
-			PreviewHScrollBar = new System.Windows.Forms.HScrollBar();
-			PreviewBox = new Controls.FocusablePictureBox();
-			PreviewVScrollBar = new System.Windows.Forms.VScrollBar();
 			MagnifyRatioNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			SizeLabel = new System.Windows.Forms.Label();
+			PreviewBox = new Controls.ScrollBaredControl();
 			MagnifyRatioLabel = new System.Windows.Forms.Label();
 			OKButton = new System.Windows.Forms.Button();
 			CancelButton = new System.Windows.Forms.Button();
-			PreviewPanel = new System.Windows.Forms.TableLayoutPanel();
-			PreviewPanel.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)PreviewBox).BeginInit();
 			((System.ComponentModel.ISupportInitialize)MagnifyRatioNumericUpDown).BeginInit();
 			SuspendLayout();
 			// 
@@ -70,42 +64,6 @@
 			CancelButton.Name = "CancelButton";
 			CancelButton.UseVisualStyleBackColor = true;
 			// 
-			// PreviewPanel
-			// 
-			resources.ApplyResources(PreviewPanel, "PreviewPanel");
-			PreviewPanel.BackColor = System.Drawing.Color.White;
-			PreviewPanel.Controls.Add(PreviewHScrollBar, 0, 1);
-			PreviewPanel.Controls.Add(PreviewBox, 0, 0);
-			PreviewPanel.Controls.Add(PreviewVScrollBar, 1, 0);
-			PreviewPanel.Name = "PreviewPanel";
-			PreviewPanel.Resize += OnRecalculateRequested;
-			// 
-			// PreviewHScrollBar
-			// 
-			resources.ApplyResources(PreviewHScrollBar, "PreviewHScrollBar");
-			PreviewHScrollBar.Name = "PreviewHScrollBar";
-			PreviewHScrollBar.Scroll += OnPreviewScrollBarsScroll;
-			// 
-			// PreviewBox
-			// 
-			PreviewBox.BackColor = System.Drawing.Color.White;
-			resources.ApplyResources(PreviewBox, "PreviewBox");
-			PreviewBox.Name = "PreviewBox";
-			PreviewBox.TabStop = false;
-			PreviewBox.KeyDown += OnPreviewBoxKeyDown;
-			PreviewBox.KeyUp += OnPreviewBoxKeyUp;
-			PreviewBox.Paint += OnPreviewBoxPaint;
-			PreviewBox.MouseDown += OnPreviewBoxMouseDown;
-			PreviewBox.MouseLeave += OnPreviewBoxMouseLeave;
-			PreviewBox.MouseMove += OnPreviewBoxMouseMove;
-			PreviewBox.MouseUp += OnPreviewBoxMouseUp;
-			// 
-			// PreviewVScrollBar
-			// 
-			resources.ApplyResources(PreviewVScrollBar, "PreviewVScrollBar");
-			PreviewVScrollBar.Name = "PreviewVScrollBar";
-			PreviewVScrollBar.Scroll += OnPreviewScrollBarsScroll;
-			// 
 			// MagnifyRatioNumericUpDown
 			// 
 			resources.ApplyResources(MagnifyRatioNumericUpDown, "MagnifyRatioNumericUpDown");
@@ -120,13 +78,27 @@
 			SizeLabel.BackColor = System.Drawing.Color.Transparent;
 			SizeLabel.Name = "SizeLabel";
 			// 
+			// PreviewBox
+			// 
+			resources.ApplyResources(PreviewBox, "PreviewBox");
+			PreviewBox.BackColor = System.Drawing.Color.White;
+			PreviewBox.Name = "PreviewBox";
+			PreviewBox.ScrollChanged += OnPreviewBoxScrollChanged;
+			PreviewBox.Paint += OnPreviewBoxPaint;
+			PreviewBox.KeyDown += OnPreviewBoxKeyDown;
+			PreviewBox.KeyUp += OnPreviewBoxKeyUp;
+			PreviewBox.MouseDown += OnPreviewBoxMouseDown;
+			PreviewBox.MouseLeave += OnPreviewBoxMouseLeave;
+			PreviewBox.MouseMove += OnPreviewBoxMouseMove;
+			PreviewBox.MouseUp += OnPreviewBoxMouseUp;
+			// 
 			// ImageEditDialog
 			// 
 			AcceptButton = OKButton;
 			resources.ApplyResources(this, "$this");
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.CancelButton = CancelButton;
-			Controls.Add(PreviewPanel);
+			Controls.Add(PreviewBox);
 			Controls.Add(SizeLabel);
 			Controls.Add(MagnifyRatioNumericUpDown);
 			Controls.Add(CancelButton);
@@ -141,21 +113,15 @@
 			Controls.SetChildIndex(CancelButton, 0);
 			Controls.SetChildIndex(MagnifyRatioNumericUpDown, 0);
 			Controls.SetChildIndex(SizeLabel, 0);
-			Controls.SetChildIndex(PreviewPanel, 0);
-			PreviewPanel.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)PreviewBox).EndInit();
+			Controls.SetChildIndex(PreviewBox, 0);
 			((System.ComponentModel.ISupportInitialize)MagnifyRatioNumericUpDown).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
 
 		#endregion
-
-		Controls.FocusablePictureBox PreviewBox;
 		System.Windows.Forms.NumericUpDown MagnifyRatioNumericUpDown;
 		private System.Windows.Forms.Label SizeLabel;
-		private System.Windows.Forms.HScrollBar PreviewHScrollBar;
-		private System.Windows.Forms.VScrollBar PreviewVScrollBar;
-
+		private Controls.ScrollBaredControl PreviewBox;
 	}
 }

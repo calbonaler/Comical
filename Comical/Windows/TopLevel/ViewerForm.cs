@@ -15,10 +15,10 @@ namespace Comical
 		{
 			InitializeComponent();
 			MainPreviewer.ContextMenuStrip = BookmarksContextMenu;
-			MainPreviewer.ViewPane.MouseMove += OnMainPreviewerViewPaneMouseMove;
-			MainPreviewer.ViewPane.MouseUp += OnMainPreviewerViewPaneMouseUp;
-			MainPreviewer.ViewPane.Paint += OnMainPreviewerViewPanePaint;
-			MainPreviewer.ViewPane.KeyDown += OnMainPreviewerViewPaneKeyDown;
+			MainPreviewer.MouseMove += OnMainPreviewerViewPaneMouseMove;
+			MainPreviewer.MouseUp += OnMainPreviewerViewPaneMouseUp;
+			MainPreviewer.Paint += OnMainPreviewerViewPanePaint;
+			MainPreviewer.KeyDown += OnMainPreviewerViewPaneKeyDown;
 			_comic = new Comic();
 			_openingFileName = fileName;
 		}
@@ -40,15 +40,34 @@ namespace Comical
 
 		void SetCurrentSpread(int value)
 		{
-			if (_currentSpreadIndex != value)
+			if (_currentSpreadIndex == value)
+				return;
+			MainPreviewer.Image?.Dispose();
+			MainPreviewer.Image = null;
+			_currentSpreadIndex = value;
+			Debug.Assert(_spreads != null);
+			var spread = _spreads[_currentSpreadIndex];
+			if (spread.Fill is { } fill)
+				MainPreviewer.Image = fill.Data.ToImage();
+			else
 			{
-				_currentSpreadIndex = value;
-				Debug.Assert(_spreads != null);
-				var spread = _spreads[_currentSpreadIndex];
-				if (spread.Fill is { } fill)
-					MainPreviewer.SetImage(fill.Data);
-				else
-					MainPreviewer.SetImage(spread.Left?.Data, spread.Right?.Data);
+				using var left = spread.Left?.Data?.ToImage();
+				using var right = spread.Right?.Data?.ToImage();
+				var image = new Bitmap(Math.Max(left?.Width ?? 0, right?.Width ?? 0) * 2, Math.Max(left?.Height ?? 0, right?.Height ?? 0));
+				try
+				{
+					using var g = Graphics.FromImage(image);
+					if (left != null)
+						g.DrawImage(left, new Point(image.Width / 2 - left.Width, 0));
+					if (right != null)
+						g.DrawImage(right, new Point(image.Width / 2, 0));
+				}
+				catch
+				{
+					image?.Dispose();
+					throw;
+				}
+				MainPreviewer.Image = image;
 			}
 		}
 
@@ -102,17 +121,17 @@ namespace Comical
 
 		void OnMainPreviewerViewPaneMouseMove(object? sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.None && (_comic.BindingSide == BindingSide.Left ? e.X >= Math.Min(MainPreviewer.ViewPane.ClientSize.Width, MainPreviewer.ClientSize.Width) - MainPreviewer.AutoScrollPosition.X - Properties.Resources.Next.Width : e.X <= Properties.Resources.Next.Width - MainPreviewer.AutoScrollPosition.X))
+			if (e.Button == MouseButtons.None && (_comic.BindingSide == BindingSide.Left ? e.X >= MainPreviewer.ClientSize.Width - Properties.Resources.Next.Width * DeviceDpi / 96 : e.X <= Properties.Resources.Next.Width * DeviceDpi / 96))
 			{
 				_focusMode = FocusMode.Next;
 				MainPreviewer.Cursor = Cursors.Default;
 			}
-			else if (e.Button == MouseButtons.None && (_comic.BindingSide == BindingSide.Left ? e.X <= Properties.Resources.Previous.Width - MainPreviewer.AutoScrollPosition.X : e.X >= Math.Min(MainPreviewer.ViewPane.ClientSize.Width, MainPreviewer.ClientSize.Width) - MainPreviewer.AutoScrollPosition.X - Properties.Resources.Previous.Width))
+			else if (e.Button == MouseButtons.None && (_comic.BindingSide == BindingSide.Left ? e.X <= Properties.Resources.Previous.Width : e.X >= MainPreviewer.ClientSize.Width - Properties.Resources.Previous.Width * DeviceDpi / 96))
 			{
 				_focusMode = FocusMode.Previous;
 				MainPreviewer.Cursor = Cursors.Default;
 			}
-			else if (e.Button == MouseButtons.None && e.Y >= MainPreviewer.ClientSize.Height - CloseHeight - MainPreviewer.AutoScrollPosition.Y)
+			else if (e.Button == MouseButtons.None && e.Y >= MainPreviewer.ClientSize.Height - CloseHeight * DeviceDpi / 96)
 			{
 				_focusMode = FocusMode.Close;
 				MainPreviewer.Cursor = Cursors.Default;
@@ -148,16 +167,16 @@ namespace Comical
 		{
 			var g = e.Graphics;
 			if (_focusMode == FocusMode.Close)
-				g.FillRectangle(_closeBrush, -MainPreviewer.AutoScrollPosition.X, MainPreviewer.ClientSize.Height - CloseHeight - MainPreviewer.AutoScrollPosition.Y, MainPreviewer.ViewPane.ClientSize.Width, CloseHeight);
+				g.FillRectangle(_closeBrush, 0, MainPreviewer.ClientSize.Height - CloseHeight * DeviceDpi / 96, MainPreviewer.ClientSize.Width, CloseHeight * DeviceDpi / 96);
 			else if (_focusMode != FocusMode.None)
 			{
 				var img = (Bitmap?)Properties.Resources.ResourceManager.GetObject(_focusMode.ToString(), Properties.Resources.Culture);
 				Debug.Assert(img != null);
-				var y = (MainPreviewer.ClientSize.Height - img.Height) / 2 - MainPreviewer.AutoScrollPosition.Y;
+				var y = (MainPreviewer.ClientSize.Height - img.Height * DeviceDpi / 96) / 2;
 				if (_comic.BindingSide == BindingSide.Left ^ _focusMode == FocusMode.Next)
-					g.DrawImage(img, -MainPreviewer.AutoScrollPosition.X, y);
+					g.DrawImage(img, 0, y);
 				else
-					g.DrawImage(img, Math.Min(MainPreviewer.ClientSize.Width, MainPreviewer.ViewPane.ClientSize.Width) - img.Width - MainPreviewer.AutoScrollPosition.X, y);
+					g.DrawImage(img, MainPreviewer.ClientSize.Width - img.Width * DeviceDpi / 96, y);
 			}
 		}
 

@@ -1,96 +1,29 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
-using Comical.Core;
 
 namespace Comical.Controls
 {
-	public class Previewer : ScrollableControl
+	public partial class Previewer : ScrollBaredControl
 	{
-		public Previewer()
-		{
-			SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-			ViewPane = new FocusablePictureBox();
-			((System.ComponentModel.ISupportInitialize)ViewPane).BeginInit();
-			SuspendLayout();
-			ViewPane.Dock = DockStyle.Fill;
-			ViewPane.Location = new Point(0, 0);
-			ViewPane.MouseDown += OnViewPaneMouseDown;
-			ViewPane.MouseMove += OnViewPaneMouseMove;
-			ViewPane.MouseUp += OnViewPaneMouseUp;
-			AutoScroll = true;
-			Controls.Add(ViewPane);
-			((System.ComponentModel.ISupportInitialize)ViewPane).EndInit();
-			ResumeLayout(false);
-		}
-
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				ViewPane.Image?.Dispose();
-				ViewPane.Dispose();
-			}
-			base.Dispose(disposing);
-		}
-
+		Image? image;
 		PreviewerStretchMode stretchMode;
-		bool avoidResizeMessage = false;
 		Cursor currentCursor = Cursors.Default;
 		bool cursorOverride = false;
-		Binary?[]? images;
 
-		public PictureBox ViewPane { get; private set; }
-
-		public Binary? Image => images != null && images.Length > 0 ? images[0] : null;
-
-		public void SetImage(Binary? image) => SetImage(image, null, false);
-
-		public void SetImage(Binary? leftImage, Binary? rightImage) => SetImage(leftImage, rightImage, true);
-
-		void SetImage(Binary? primaryImage, Binary? secondaryImage, bool useSecondary)
+		public Image? Image
 		{
-			if (useSecondary)
+			get => image;
+			set
 			{
-				if (images != null && images.Length == 2 && images[0] == primaryImage && images[1] == secondaryImage) return;
-				images = [primaryImage, secondaryImage];
-			}
-			else
-			{
-				if (images != null && images.Length == 1 && images[0] == primaryImage) return;
-				images = [primaryImage];
-			}
-			ViewPane.Image?.Dispose();
-			if (useSecondary)
-			{
-				Bitmap? image = null;
-				try
+				if (image != value)
 				{
-					using (var left = primaryImage?.ToImage())
-					using (var right = secondaryImage?.ToImage())
-					{
-						image = new Bitmap(Math.Max(left?.Width ?? 0, right?.Width ?? 0) * 2, Math.Max(left?.Height ?? 0, right?.Height ?? 0));
-						using var g = Graphics.FromImage(image);
-						if (left != null)
-							g.DrawImage(left, new Point(image.Width / 2 - left.Width, 0));
-						if (right != null)
-							g.DrawImage(right, new Point(image.Width / 2, 0));
-					}
-					ViewPane.Image = image;
-					image = null;
+					image = value;
+					UpdateAutoScroll();
 				}
-				finally { image?.Dispose(); }
 			}
-			else
-			{
-				ViewPane.Image = primaryImage?.ToImage();
-			}
-			UpdatePictureBoxSize();
 		}
-
-		public Size ImageSize => ViewPane.Image == null ? default : ViewPane.Image.Size;
 
 		public PreviewerStretchMode StretchMode
 		{
@@ -100,49 +33,29 @@ namespace Comical.Controls
 				if (stretchMode != value)
 				{
 					stretchMode = value;
-					UpdatePictureBoxSize();
+					UpdateAutoScroll();
 				}
 			}
 		}
 
-		void UpdatePictureBoxSize()
+		void UpdateAutoScroll()
 		{
-			try
-			{
-				avoidResizeMessage = true;
-				var imageSize = ImageSize;
-				var pbsm = PictureBoxSizeMode.CenterImage;
-				var ds = DockStyle.Fill;
-				if (imageSize.Width > ClientSize.Width - AutoScrollMargin.Width || imageSize.Height > ClientSize.Height - AutoScrollMargin.Height)
-				{
-					if (stretchMode == PreviewerStretchMode.Uniform)
-						pbsm = PictureBoxSizeMode.Zoom;
-					else
-						ds = DockStyle.None;
-				}
-				ViewPane.SizeMode = pbsm;
-				ViewPane.Dock = ds;
-				if (ds == DockStyle.None)
-				{
-					ViewPane.ClientSize = new Size(Math.Max(imageSize.Width, ClientSize.Width - AutoScrollMargin.Width - SystemInformation.VerticalScrollBarWidth),
-						Math.Max(imageSize.Height, ClientSize.Height - AutoScrollMargin.Height - SystemInformation.HorizontalScrollBarHeight));
-					ViewPane.Location = AutoScrollPosition;
-					SetCursor(false);
-				}
-				else
-					SetCursorInternal(Cursors.Default);
-			}
-			finally { avoidResizeMessage = false; }
+			ScrollBars.ContentSize = StretchMode != PreviewerStretchMode.Uniform && Image != null ? Image.Size : default;
+			if (ScrollBars.IsOverflow)
+				SetCursor(false);
+			else
+				SetCursorInternal(Cursors.Default);
+			Invalidate();
 		}
 
 		protected override void OnResize(EventArgs e)
 		{
-			if (!avoidResizeMessage)
-				UpdatePictureBoxSize();
 			base.OnResize(e);
+			UpdateAutoScroll();
 		}
 
 		Point origin;
+		Point originalAutoScrollPosition;
 		bool dragging = false;
 
 		void SetCursor(bool grisp)
@@ -155,7 +68,7 @@ namespace Comical.Controls
 		{
 			currentCursor = cursor;
 			if (!cursorOverride)
-				ViewPane.Cursor = currentCursor;
+				base.Cursor = currentCursor;
 		}
 
 		[AllowNull]
@@ -167,61 +80,81 @@ namespace Comical.Controls
 				if (value == null)
 				{
 					cursorOverride = false;
-					ViewPane.Cursor = currentCursor;
+					base.Cursor = currentCursor;
 				}
 				else
 				{
 					cursorOverride = true;
-					ViewPane.Cursor = value;
+					base.Cursor = value;
 				}
 			}
 		}
 
-		void OnViewPaneMouseDown(object? sender, MouseEventArgs e)
+		protected override void OnMouseDown(MouseEventArgs e)
 		{
 			if (e.Button.HasFlag(MouseButtons.Left))
 			{
-				Debug.Assert(ViewPane.Parent != null);
-				origin = ViewPane.Parent.PointToScreen(e.Location);
-				if (ViewPane.Dock == DockStyle.None)
+				origin = e.Location;
+				originalAutoScrollPosition = Point.Empty - (Size)ScrollBars.Position;
+				if (ScrollBars.IsOverflow)
 					SetCursor(true);
 			}
+			base.OnMouseDown(e);
 		}
 
-		void OnViewPaneMouseMove(object? sender, MouseEventArgs e)
+		protected override void OnMouseMove(MouseEventArgs e)
 		{
-			if (e.Button.HasFlag(MouseButtons.Left) && (dragging || Math.Abs(origin.X - e.X) > SystemInformation.DragSize.Width / 2 || Math.Abs(origin.Y - e.Y) > SystemInformation.DragSize.Height / 2))
+			if (e.Button.HasFlag(MouseButtons.Left))
 			{
-				dragging = true;
-				AutoScrollPosition = origin - (Size)ViewPane.PointToScreen(e.Location);
-				ViewPane.Refresh();
+				var diff = origin - (Size)e.Location;
+				if (!dragging || Math.Abs(diff.X) > SystemInformation.DragSize.Width / 2 || Math.Abs(diff.Y) > SystemInformation.DragSize.Height / 2)
+				{
+					dragging = true;
+					ScrollBars.Position = diff - (Size)originalAutoScrollPosition;
+					Invalidate();
+				}
 			}
+			base.OnMouseMove(e);
 		}
 
-		void OnViewPaneMouseUp(object? sender, MouseEventArgs e)
+		protected override void OnMouseUp(MouseEventArgs e)
 		{
 			if (e.Button.HasFlag(MouseButtons.Left))
 			{
 				dragging = false;
-				if (ViewPane.Dock == DockStyle.None)
+				if (ScrollBars.IsOverflow)
 					SetCursor(false);
 			}
+			base.OnMouseUp(e);
 		}
 
-		protected override void Select(bool directed, bool forward)
+		protected override void OnScrollChanged(EventArgs e)
 		{
-			base.Select(directed, forward);
-			ViewPane.Select();
+			base.OnScrollChanged(e);
+			Invalidate();
 		}
 
-		public override ContextMenuStrip? ContextMenuStrip
+		protected override void OnPaint(PaintEventArgs e)
 		{
-			get => base.ContextMenuStrip;
-			set
+			if (Image == null)
+				return;
+			var scaledSize = Utils.ScaleSize(Image.Size, ClientSize);
+			Size displaySize;
+			Rectangle srcRect;
+			if (StretchMode == PreviewerStretchMode.Uniform || scaledSize == Image.Size)
 			{
-				base.ContextMenuStrip = value;
-				ViewPane.ContextMenuStrip = value;
+				displaySize = scaledSize;
+				srcRect = new(default, Image.Size);
 			}
+			else
+			{
+				displaySize = new Size(Math.Min(Image.Width, ClientSize.Width), Math.Min(Image.Height, ClientSize.Height));
+				srcRect = new(ScrollBars.Position, displaySize);
+			}
+			e.Graphics.DrawImage(Image,
+				new Rectangle((Point)((ClientSize - displaySize) / 2), displaySize),
+				srcRect, GraphicsUnit.Pixel);
+			base.OnPaint(e);
 		}
 	}
 

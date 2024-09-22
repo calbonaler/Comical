@@ -15,6 +15,11 @@
 		{
 			if (disposing && (components != null))
 			{
+				if (MainPreviewer.Image != null)
+				{
+					MainPreviewer.Image.Dispose();
+					MainPreviewer.Image = null;
+				}
 				components.Dispose();
 			}
 			base.Dispose(disposing);

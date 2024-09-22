@@ -15,6 +15,11 @@
 		{
 			if (disposing)
 			{
+				if (ThumbnailPreviewer.Image != null)
+				{
+					ThumbnailPreviewer.Image.Dispose();
+					ThumbnailPreviewer.Image = null;
+				}
 				_comic.PropertyChanged -= OnComicPropertyChanged;
 				_comic.Images.CollectionChanged -= OnComicImagesCollectionChanged;
 				if (components != null)
