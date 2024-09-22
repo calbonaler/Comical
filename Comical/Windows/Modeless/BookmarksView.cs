@@ -13,6 +13,7 @@ namespace Comical
 		public BookmarksView(ImageReferenceCollection images, BookmarkCollection bookmarks)
 		{
 			InitializeComponent();
+			BookmarksDataGridView.RowTemplate.Height = BookmarksDataGridView.RowTemplate.Height * DeviceDpi / 96;
 
 			_images = images;
 			_images.CollectionChanged += OnImagesCollectionChanged;
