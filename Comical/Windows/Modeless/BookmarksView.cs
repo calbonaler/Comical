@@ -99,14 +99,16 @@ namespace Comical
 
 		void OnBookmarksDataGridViewQueryRowDragDropEffect(object? sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.Source == BookmarksDataGridView ? DragDropEffects.Move : DragDropEffects.Link;
 
-		void OnBookmarksDataGridViewRowMoving(object? sender, Controls.RowMovingEventArgs e)
+		void OnBookmarksDataGridViewRowDropped(object? sender, Controls.RowDroppedEventArgs e)
 		{
-			if (e.Source == BookmarksDataGridView)
-				_bookmarks.Move(e.SourceRows[0].Index, e.Destination);
+			if (e.RowSet.Source == BookmarksDataGridView)
+			{
+				_bookmarks.Move(e.RowSet.Rows[0].Index, e.Destination);
+				e.SelectDroppedRows(BookmarksDataGridView);
+			}
 			else
 			{
-				e.Cancel = true;
-				_bookmarks.Insert(e.Destination, new Bookmark() { Target = e.SourceRows[0].Index });
+				_bookmarks.Insert(e.Destination, new Bookmark() { Target = e.RowSet.Rows[0].Index });
 			}
 		}
 

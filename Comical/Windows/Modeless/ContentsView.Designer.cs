@@ -123,7 +123,7 @@
 			// 
 			ImagesDataGridView.AllowDrop = true;
 			ImagesDataGridView.AllowUserToAddRows = false;
-			ImagesDataGridView.AllowUserToMoveRows = true;
+			ImagesDataGridView.AllowUserToDragRows = true;
 			ImagesDataGridView.AllowUserToResizeColumns = false;
 			ImagesDataGridView.AllowUserToResizeRows = false;
 			ImagesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -144,7 +144,7 @@
 			ImagesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			ImagesDataGridView.ShowCellToolTips = false;
 			ImagesDataGridView.VirtualMode = true;
-			ImagesDataGridView.RowMoving += OnImagesDataGridViewRowMoving;
+			ImagesDataGridView.RowDropped += OnImagesDataGridViewRowDropped;
 			ImagesDataGridView.QueryRowDragDropEffect += OnImagesDataGridViewQueryRowDragDropEffect;
 			ImagesDataGridView.CellDoubleClick += OnImagesDataGridViewCellDoubleClick;
 			ImagesDataGridView.CellValueNeeded += OnImagesDataGridViewCellValueNeeded;

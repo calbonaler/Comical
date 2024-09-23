@@ -192,10 +192,13 @@ namespace Comical
 			}
 		}
 
-		void OnImagesDataGridViewRowMoving(object? sender, Controls.RowMovingEventArgs e)
+		void OnImagesDataGridViewRowDropped(object? sender, Controls.RowDroppedEventArgs e)
 		{
-			if (e.Source == ImagesDataGridView)
-				_images.MoveRange(e.SourceRows[0].Index, e.SourceRows.Count, e.Destination);
+			if (e.RowSet.Source == ImagesDataGridView)
+			{
+				_images.MoveRange(e.RowSet.Rows[0].Index, e.RowSet.Rows.Count, e.Destination);
+				e.SelectDroppedRows(ImagesDataGridView);
+			}
 		}
 
 		void OnImagesDataGridViewQueryRowDragDropEffect(object? sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.Source == ImagesDataGridView ? DragDropEffects.Move : DragDropEffects.None;

@@ -99,7 +99,7 @@
 			// 
 			BookmarksDataGridView.AllowDrop = true;
 			BookmarksDataGridView.AllowUserToAddRows = false;
-			BookmarksDataGridView.AllowUserToMoveRows = true;
+			BookmarksDataGridView.AllowUserToDragRows = true;
 			BookmarksDataGridView.AllowUserToResizeColumns = false;
 			BookmarksDataGridView.AllowUserToResizeRows = false;
 			BookmarksDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -120,7 +120,7 @@
 			BookmarksDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			BookmarksDataGridView.ShowCellToolTips = false;
 			BookmarksDataGridView.VirtualMode = true;
-			BookmarksDataGridView.RowMoving += OnBookmarksDataGridViewRowMoving;
+			BookmarksDataGridView.RowDropped += OnBookmarksDataGridViewRowDropped;
 			BookmarksDataGridView.QueryRowDragDropEffect += OnBookmarksDataGridViewQueryRowDragDropEffect;
 			BookmarksDataGridView.CellDoubleClick += OnBookmarksDataGridViewCellDoubleClick;
 			BookmarksDataGridView.CellErrorTextNeeded += OnBookmarksDataGridViewCellErrorTextNeeded;
