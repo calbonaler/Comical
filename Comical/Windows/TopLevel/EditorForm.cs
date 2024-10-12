@@ -60,8 +60,8 @@ namespace Comical
 			_imageList.ImageReferenceSelected += (s, ev) =>
 			{
 				var count = _imageList.SelectedIndices.Count();
-				SetAsThumbnailMenuItem.Enabled = count == 1;
-				AddBookmarksMenuItem.Enabled = OpenImageMenuItem.Enabled = DeleteImagesMenuItem.Enabled = ExportImagesMenuItem.Enabled = ExtractImagesMenuItem.Enabled = StartViewModeSettingMenuItem.Enabled = InvertViewModeMenuItem.Enabled = count > 0;
+				OpenImageMenuItem.Enabled = SetAsThumbnailMenuItem.Enabled = count == 1;
+				AddBookmarksMenuItem.Enabled = DeleteImagesMenuItem.Enabled = ExportImagesMenuItem.Enabled = ExtractImagesMenuItem.Enabled = StartViewModeSettingMenuItem.Enabled = InvertViewModeMenuItem.Enabled = count > 0;
 			};
 			_imageList.ExportRequested += OnExportImagesMenuItemClick;
 			_imageList.ExtractRequested += OnExtractImagesMenuItemClick;
