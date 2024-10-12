@@ -38,15 +38,6 @@ namespace Comical
 			OnPublishedDateTimePickerValueChanged(PublishedDateTimePicker, EventArgs.Empty);
 		}
 
-		void LoadImage(Binary? binaryImage)
-		{
-			_comic.Thumbnail = binaryImage;
-			ThumbnailPreviewer.Image?.Dispose();
-			ThumbnailPreviewer.Image = binaryImage?.ToImage();
-			var size = ThumbnailPreviewer.Image?.Size ?? default;
-			SizeLabel.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, size.Width, size.Height);
-		}
-
 		void OnComicPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e) => this.InvokeIfNeeded(() =>
 		{
 			switch (e.PropertyName)
@@ -66,7 +57,10 @@ namespace Comical
 					BindingSideComboBox.SelectedIndex = (int)_comic.BindingSide;
 					break;
 				case nameof(_comic.Thumbnail):
-					LoadImage(_comic.Thumbnail);
+					ThumbnailPreviewer.Image?.Dispose();
+					ThumbnailPreviewer.Image = _comic.Thumbnail?.ToImage();
+					var size = ThumbnailPreviewer.Image?.Size ?? default;
+					SizeLabel.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.ImageSizeStringRepresentation, size.Width, size.Height);
 					break;
 			}
 		});
@@ -78,7 +72,7 @@ namespace Comical
 			using var dialog = new ImageEditDialog();
 			dialog.Image = _comic.Thumbnail;
 			if (dialog.ShowDialog(this) == DialogResult.OK)
-				LoadImage(dialog.Image);
+				_comic.Thumbnail = dialog.Image;
 		}
 
 		void OnSearchOnBrowserButtonClick(object? sender, EventArgs e)
@@ -132,7 +126,7 @@ namespace Comical
 		{
 			Debug.Assert(e.Data != null, "I think this never happens.");
 			if (DataObjectToDraggedImageReferenceIndex(e.Data) is { } index)
-				LoadImage(_comic.Images[index].Data);
+				_comic.Thumbnail = _comic.Images[index].Data;
 		}
 	}
 }
