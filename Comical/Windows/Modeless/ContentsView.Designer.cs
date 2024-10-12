@@ -45,6 +45,8 @@
 			StartViewModeSettingLeftMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			StartViewModeSettingRightMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			ImageMenuSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+			SetAsThumbnailMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ImageMenuSeparator5 = new System.Windows.Forms.ToolStripSeparator();
 			DeleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			ImagesDataGridView = new Controls.DraggableDataGridView();
 			ImageDataGridViewColumn = new System.Windows.Forms.DataGridViewImageColumn();
@@ -56,9 +58,9 @@
 			// 
 			// ImageContextMenu
 			// 
-			ImageContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { OpenMenuItem, ImageMenuSeparator1, AddToBookmarkMenuItem, ImageMenuSeparator2, ExportMenuItem, ExtractMenuItem, ImageMenuSeparator3, StartViewModeSettingLeftMenuItem, StartViewModeSettingRightMenuItem, ImageMenuSeparator4, DeleteMenuItem });
-			ImageContextMenu.Name = "conImage";
 			resources.ApplyResources(ImageContextMenu, "ImageContextMenu");
+			ImageContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { OpenMenuItem, ImageMenuSeparator1, AddToBookmarkMenuItem, ImageMenuSeparator2, ExportMenuItem, ExtractMenuItem, ImageMenuSeparator3, StartViewModeSettingLeftMenuItem, StartViewModeSettingRightMenuItem, ImageMenuSeparator4, SetAsThumbnailMenuItem, ImageMenuSeparator5, DeleteMenuItem });
+			ImageContextMenu.Name = "conImage";
 			// 
 			// OpenMenuItem
 			// 
@@ -68,18 +70,18 @@
 			// 
 			// ImageMenuSeparator1
 			// 
-			ImageMenuSeparator1.Name = "ImageMenuSeparator1";
 			resources.ApplyResources(ImageMenuSeparator1, "ImageMenuSeparator1");
+			ImageMenuSeparator1.Name = "ImageMenuSeparator1";
 			// 
 			// AddToBookmarkMenuItem
 			// 
-			AddToBookmarkMenuItem.Name = "AddToBookmarkMenuItem";
 			resources.ApplyResources(AddToBookmarkMenuItem, "AddToBookmarkMenuItem");
+			AddToBookmarkMenuItem.Name = "AddToBookmarkMenuItem";
 			// 
 			// ImageMenuSeparator2
 			// 
-			ImageMenuSeparator2.Name = "ImageMenuSeparator2";
 			resources.ApplyResources(ImageMenuSeparator2, "ImageMenuSeparator2");
+			ImageMenuSeparator2.Name = "ImageMenuSeparator2";
 			// 
 			// ExportMenuItem
 			// 
@@ -93,25 +95,35 @@
 			// 
 			// ImageMenuSeparator3
 			// 
-			ImageMenuSeparator3.Name = "ImageMenuSeparator3";
 			resources.ApplyResources(ImageMenuSeparator3, "ImageMenuSeparator3");
+			ImageMenuSeparator3.Name = "ImageMenuSeparator3";
 			// 
 			// StartViewModeSettingLeftMenuItem
 			// 
-			StartViewModeSettingLeftMenuItem.Name = "StartViewModeSettingLeftMenuItem";
 			resources.ApplyResources(StartViewModeSettingLeftMenuItem, "StartViewModeSettingLeftMenuItem");
+			StartViewModeSettingLeftMenuItem.Name = "StartViewModeSettingLeftMenuItem";
 			StartViewModeSettingLeftMenuItem.Click += OnStartViewModeSettingLeftMenuItemClick;
 			// 
 			// StartViewModeSettingRightMenuItem
 			// 
-			StartViewModeSettingRightMenuItem.Name = "StartViewModeSettingRightMenuItem";
 			resources.ApplyResources(StartViewModeSettingRightMenuItem, "StartViewModeSettingRightMenuItem");
+			StartViewModeSettingRightMenuItem.Name = "StartViewModeSettingRightMenuItem";
 			StartViewModeSettingRightMenuItem.Click += OnStartViewModeSettingRightMenuItemClick;
 			// 
 			// ImageMenuSeparator4
 			// 
-			ImageMenuSeparator4.Name = "ImageMenuSeparator4";
 			resources.ApplyResources(ImageMenuSeparator4, "ImageMenuSeparator4");
+			ImageMenuSeparator4.Name = "ImageMenuSeparator4";
+			// 
+			// SetAsThumbnailMenuItem
+			// 
+			resources.ApplyResources(SetAsThumbnailMenuItem, "SetAsThumbnailMenuItem");
+			SetAsThumbnailMenuItem.Name = "SetAsThumbnailMenuItem";
+			// 
+			// ImageMenuSeparator5
+			// 
+			resources.ApplyResources(ImageMenuSeparator5, "ImageMenuSeparator5");
+			ImageMenuSeparator5.Name = "ImageMenuSeparator5";
 			// 
 			// DeleteMenuItem
 			// 
@@ -121,6 +133,7 @@
 			// 
 			// ImagesDataGridView
 			// 
+			resources.ApplyResources(ImagesDataGridView, "ImagesDataGridView");
 			ImagesDataGridView.AllowDrop = true;
 			ImagesDataGridView.AllowUserToAddRows = false;
 			ImagesDataGridView.AllowUserToDragRows = true;
@@ -134,7 +147,6 @@
 			ImagesDataGridView.ColumnHeadersVisible = false;
 			ImagesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { ImageDataGridViewColumn, ViewModeDataGridViewColumn });
 			ImagesDataGridView.ContextMenuStrip = ImageContextMenu;
-			resources.ApplyResources(ImagesDataGridView, "ImagesDataGridView");
 			ImagesDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
 			ImagesDataGridView.GridColor = System.Drawing.SystemColors.Control;
 			ImagesDataGridView.MultiDrag = true;
@@ -172,8 +184,8 @@
 			// 
 			// ContentsView
 			// 
-			AllowDrop = true;
 			resources.ApplyResources(this, "$this");
+			AllowDrop = true;
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			Controls.Add(ImagesDataGridView);
 			HideOnClose = true;
@@ -198,5 +210,7 @@
 		private System.Windows.Forms.ToolStripSeparator ImageMenuSeparator4;
 		private System.Windows.Forms.DataGridViewImageColumn ImageDataGridViewColumn;
 		private System.Windows.Forms.DataGridViewComboBoxColumn ViewModeDataGridViewColumn;
+		private System.Windows.Forms.ToolStripMenuItem SetAsThumbnailMenuItem;
+		private System.Windows.Forms.ToolStripSeparator ImageMenuSeparator5;
 	}
 }

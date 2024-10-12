@@ -57,10 +57,16 @@ namespace Comical
 			LoadFromXml(MainDockPanel, Properties.Settings.Default.DockPanelConfiguration, _imageList, _bookmarkList, _document);
 
 			_imageList.FileDropped += async (s, ev) => await AddAnythingLocalAsync(!ev.Control, ev.FileNames);
-			_imageList.ImageReferenceSelected += (s, ev) => AddBookmarksMenuItem.Enabled = OpenImageMenuItem.Enabled = DeleteImagesMenuItem.Enabled = ExportImagesMenuItem.Enabled = ExtractImagesMenuItem.Enabled = StartViewModeSettingMenuItem.Enabled = InvertViewModeMenuItem.Enabled = _imageList.SelectedIndices.Any();
+			_imageList.ImageReferenceSelected += (s, ev) =>
+			{
+				var count = _imageList.SelectedIndices.Count();
+				SetAsThumbnailMenuItem.Enabled = count == 1;
+				AddBookmarksMenuItem.Enabled = OpenImageMenuItem.Enabled = DeleteImagesMenuItem.Enabled = ExportImagesMenuItem.Enabled = ExtractImagesMenuItem.Enabled = StartViewModeSettingMenuItem.Enabled = InvertViewModeMenuItem.Enabled = count > 0;
+			};
 			_imageList.ExportRequested += OnExportImagesMenuItemClick;
 			_imageList.ExtractRequested += OnExtractImagesMenuItemClick;
 			_imageList.BookmarkRequested += OnAddBookmarksMenuItemClick;
+			_imageList.SetAsThumbnailRequested += OnSetAsThumbnailMenuItemClick;
 
 			_bookmarkList.BookmarkSelected += (s, ev) => DeleteBookmarksMenuItem.Enabled = _bookmarkList.SelectedIndices.Any();
 			_bookmarkList.BookmarkNavigated += (s, ev) => _imageList.SelectSingleImage(ev.Bookmark.Target);
@@ -320,6 +326,13 @@ namespace Comical
 		void OnStartViewModeSettingRightMenuItemClick(object? sender, EventArgs e) => _imageList.SetSelectedImagesViewModes(false);
 
 		void OnInvertViewModeMenuItemClick(object? sender, EventArgs e) => _imageList.InvertSelectedImagesViewModes();
+
+		void OnSetAsThumbnailMenuItemClick(object? sender, EventArgs e)
+		{
+			var firstImageIndex = _imageList.SelectedIndices.FirstOrDefault(-1);
+			if (firstImageIndex >= 0)
+				_comic.Thumbnail = _comic.Images[firstImageIndex].Data;
+		}
 
 		#endregion
 

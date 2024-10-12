@@ -53,6 +53,7 @@
 			System.Windows.Forms.ToolStripSeparator ImageMenuSeparator3;
 			System.Windows.Forms.ToolStripMenuItem StartViewModeSettingLeftMenuItem;
 			System.Windows.Forms.ToolStripMenuItem StartViewModeSettingRightMenuItem;
+			System.Windows.Forms.ToolStripSeparator ImageMenuSeparator4;
 			System.Windows.Forms.ToolStripMenuItem BookmarksMenuItem;
 			System.Windows.Forms.ToolStripMenuItem ToolMenuItem;
 			System.Windows.Forms.ToolStripMenuItem OptionMenuItem;
@@ -71,6 +72,7 @@
 			ExtractImagesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			StartViewModeSettingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			InvertViewModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			SetAsThumbnailMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			AddBookmarksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			DeleteBookmarksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -98,6 +100,7 @@
 			ImageMenuSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			StartViewModeSettingLeftMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			StartViewModeSettingRightMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			ImageMenuSeparator4 = new System.Windows.Forms.ToolStripSeparator();
 			BookmarksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			ToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			OptionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -174,7 +177,7 @@
 			// 
 			// ImagesMenuItem
 			// 
-			ImagesMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { AddImagesMenuItem, ImageMenuSeparator1, OpenImageMenuItem, DeleteImagesMenuItem, ImageMenuSeparator2, ExportImagesMenuItem, ExtractImagesMenuItem, ImageMenuSeparator3, StartViewModeSettingMenuItem, InvertViewModeMenuItem });
+			ImagesMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { AddImagesMenuItem, ImageMenuSeparator1, OpenImageMenuItem, DeleteImagesMenuItem, ImageMenuSeparator2, ExportImagesMenuItem, ExtractImagesMenuItem, ImageMenuSeparator3, StartViewModeSettingMenuItem, InvertViewModeMenuItem, ImageMenuSeparator4, SetAsThumbnailMenuItem });
 			ImagesMenuItem.Name = "ImagesMenuItem";
 			resources.ApplyResources(ImagesMenuItem, "ImagesMenuItem");
 			// 
@@ -258,6 +261,17 @@
 			resources.ApplyResources(InvertViewModeMenuItem, "InvertViewModeMenuItem");
 			InvertViewModeMenuItem.Name = "InvertViewModeMenuItem";
 			InvertViewModeMenuItem.Click += OnInvertViewModeMenuItemClick;
+			// 
+			// ImageMenuSeparator4
+			// 
+			ImageMenuSeparator4.Name = "ImageMenuSeparator4";
+			resources.ApplyResources(ImageMenuSeparator4, "ImageMenuSeparator4");
+			// 
+			// SetAsThumbnailMenuItem
+			// 
+			resources.ApplyResources(SetAsThumbnailMenuItem, "SetAsThumbnailMenuItem");
+			SetAsThumbnailMenuItem.Name = "SetAsThumbnailMenuItem";
+			SetAsThumbnailMenuItem.Click += OnSetAsThumbnailMenuItemClick;
 			// 
 			// BookmarksMenuItem
 			// 
@@ -419,5 +433,6 @@
 		private System.Windows.Forms.ToolStripMenuItem OpenImageMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem StartViewModeSettingMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem InvertViewModeMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem SetAsThumbnailMenuItem;
 	}
 }

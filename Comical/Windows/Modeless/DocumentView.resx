@@ -117,156 +117,471 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BindingSideComboBox.Items1" xml:space="preserve">
-    <value>Left</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BindingSideLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 3, 0, 0</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="BindingSideComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 23</value>
-  </data>
-  <data name="PublishedLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 101</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MainSplitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>283</value>
-  </data>
-  <data name="&gt;&gt;Panel2TableLayoutPanel.Parent" xml:space="preserve">
-    <value>MainSplitContainer.Panel2</value>
-  </data>
-  <data name="&gt;&gt;BindingSideLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PublishedLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="CultureDependingPublishedLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 3, 0, 0</value>
-  </data>
-  <data name="&gt;&gt;BindingSideLabel.Parent" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
-  </data>
-  <data name="SizeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 15</value>
-  </data>
-  <data name="&gt;&gt;CultureDependingPublishedLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;BindingSideLabel.Name" xml:space="preserve">
-    <value>BindingSideLabel</value>
-  </data>
-  <data name="PublishedLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 3, 0, 0</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="SizeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="MainSplitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>548, 392</value>
+  <data name="&gt;&gt;ThumbnailPreviewer.Parent" xml:space="preserve">
+    <value>Panel2TableLayoutPanel</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ThumbnailIndexNumericUpDown.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
+  <data name="Panel1TableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="&gt;&gt;PublishedLabel.Parent" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Panel1TableLayoutPanel.RowCount" type="System.Int32, mscorlib">
+    <value>10</value>
   </data>
-  <data name="&gt;&gt;ThumbnailLabel.Name" xml:space="preserve">
-    <value>ThumbnailLabel</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="EditButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 26</value>
   </data>
-  <data name="Panel2TableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="ThumbnailLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="ThumbnailPreviewer" Row="2" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="UpdateButton" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="SizeLabel" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ThumbnailIndexNumericUpDown" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="EditButton" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,Percent,100,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="&gt;&gt;Panel1TableLayoutPanel.Type" xml:space="preserve">
+  <data name="&gt;&gt;Panel2TableLayoutPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CultureDependingPublishedLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="PublishedDateTimePicker.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>Disable</value>
-  </data>
-  <data name="BindingSideComboBox.Items2" xml:space="preserve">
-    <value>Right</value>
-  </data>
-  <data name="PublishedLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="TitleTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>277, 23</value>
   </data>
-  <data name="PublishedDateTimePicker.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
-  </data>
-  <data name="TitleLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="ThumbnailPreviewer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 53</value>
-  </data>
-  <data name="CultureDependingPublishedLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 15</value>
-  </data>
-  <data name="&gt;&gt;SearchOnBrowserButton.Name" xml:space="preserve">
-    <value>SearchOnBrowserButton</value>
-  </data>
-  <data name="&gt;&gt;ThumbnailIndexNumericUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ThumbnailIndexNumericUpDown.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="AuthorLabel.Text" xml:space="preserve">
-    <value>&amp;Author:</value>
-  </data>
-  <data name="EditButton.Text" xml:space="preserve">
-    <value>&amp;Edit</value>
-  </data>
-  <data name="ThumbnailPreviewer.AutoScroll" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CultureDependingPublishedLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;CultureDependingPublishedTextBox.Parent" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;CultureDependingPublishedTextBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="BindingSideComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="SearchOnBrowserButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>182, 119</value>
+  </data>
+  <data name="SizeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PublishedDateTimePicker.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 23</value>
+  </data>
+  <data name="&gt;&gt;Panel1TableLayoutPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="CultureDependingPublishedTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="&gt;&gt;BindingSideComboBox.Parent" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
+  <data name="Panel2TableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;ThumbnailPreviewer.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;TitleLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PublishedDateTimePicker.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Disable</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AuthorComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="Panel1TableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="BindingSideComboBox" Row="9" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="BindingSideLabel" Row="8" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="CultureDependingPublishedTextBox" Row="7" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="CultureDependingPublishedLabel" Row="6" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="TitleLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="TitleTextBox" Row="1" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="PublishedLabel" Row="4" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="AuthorLabel" Row="2" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="SearchOnBrowserButton" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="AuthorComboBox" Row="3" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="PublishedDateTimePicker" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>572, 416</value>
+  </data>
+  <data name="BindingSideComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 23</value>
+  </data>
+  <data name="EditButton.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="MainSplitContainer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>548, 392</value>
+  </data>
+  <data name="&gt;&gt;EditButton.Parent" xml:space="preserve">
+    <value>Panel2TableLayoutPanel</value>
+  </data>
+  <data name="MainSplitContainer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;TitleLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="PublishedLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 0, 0</value>
+  </data>
+  <data name="Panel2TableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="ThumbnailLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 15</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailLabel.Name" xml:space="preserve">
+    <value>ThumbnailLabel</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Panel2.Name" xml:space="preserve">
+    <value>MainSplitContainer.Panel2</value>
   </data>
   <data name="SizeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="MainSplitContainer.SplitterWidth" type="System.Int32, mscorlib">
+  <data name="TitleLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 15</value>
+  </data>
+  <data name="&gt;&gt;TitleLabel.Name" xml:space="preserve">
+    <value>TitleLabel</value>
+  </data>
+  <data name="&gt;&gt;CultureDependingPublishedTextBox.Name" xml:space="preserve">
+    <value>CultureDependingPublishedTextBox</value>
+  </data>
+  <data name="&gt;&gt;TitleLabel.Parent" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
+  </data>
+  <data name="EditButton.Text" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="&gt;&gt;Panel2TableLayoutPanel.Parent" xml:space="preserve">
+    <value>MainSplitContainer.Panel2</value>
+  </data>
+  <data name="Panel2TableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>259, 392</value>
+  </data>
+  <data name="&gt;&gt;BindingSideLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="EditButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>158, 363</value>
+  </data>
+  <data name="&gt;&gt;PublishedDateTimePicker.Parent" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;EditButton.Name" xml:space="preserve">
+    <value>EditButton</value>
+  </data>
+  <data name="AuthorLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;CultureDependingPublishedLabel.Parent" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;SearchOnBrowserButton.Name" xml:space="preserve">
+    <value>SearchOnBrowserButton</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Panel2.Parent" xml:space="preserve">
+    <value>MainSplitContainer</value>
+  </data>
+  <data name="&gt;&gt;SizeLabel.Name" xml:space="preserve">
+    <value>SizeLabel</value>
+  </data>
+  <data name="SearchOnBrowserButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="SearchOnBrowserButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;BindingSideLabel.Name" xml:space="preserve">
+    <value>BindingSideLabel</value>
+  </data>
+  <data name="TitleLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 3</value>
+  </data>
+  <data name="&gt;&gt;BindingSideComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PublishedLabel.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="ThumbnailLabel.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;MainSplitContainer.Panel1.Name" xml:space="preserve">
+    <value>MainSplitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;SearchOnBrowserButton.Parent" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="&gt;&gt;CultureDependingPublishedLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ThumbnailLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 3</value>
+  </data>
+  <data name="CultureDependingPublishedTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 23</value>
+  </data>
+  <data name="PublishedLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;Panel1TableLayoutPanel.Name" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ThumbnailLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;SearchOnBrowserButton.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="PublishedDateTimePicker.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="SizeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>31, 15</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailPreviewer.Name" xml:space="preserve">
+    <value>ThumbnailPreviewer</value>
+  </data>
+  <data name="&gt;&gt;PublishedLabel.Name" xml:space="preserve">
+    <value>PublishedLabel</value>
+  </data>
+  <data name="BindingSideComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BindingSideLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="TitleLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;PublishedLabel.Parent" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;SizeLabel.Parent" xml:space="preserve">
+    <value>Panel2TableLayoutPanel</value>
+  </data>
+  <data name="AuthorComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 71</value>
+  </data>
+  <data name="&gt;&gt;TitleTextBox.Parent" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
+  </data>
+  <data name="Panel2TableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;Panel2TableLayoutPanel.Name" xml:space="preserve">
+    <value>Panel2TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PublishedLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="BindingSideLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 198</value>
+  </data>
+  <data name="&gt;&gt;EditButton.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="SizeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;EditButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MainSplitContainer.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ThumbnailPreviewer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>253, 336</value>
+  </data>
+  <data name="&gt;&gt;Panel1TableLayoutPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CultureDependingPublishedLabel.Text" xml:space="preserve">
+    <value>Published (&amp;culture-depending):</value>
+  </data>
+  <data name="&gt;&gt;BindingSideLabel.Parent" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
   </data>
   <data name="PublishedDateTimePicker.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 120</value>
   </data>
-  <data name="SizeLabel.Text" xml:space="preserve">
-    <value>0 x 0</value>
+  <data name="BindingSideLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 15</value>
+  </data>
+  <data name="ThumbnailLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Panel1TableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="MainSplitContainer.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Yu Gothic UI, 9pt</value>
+  </data>
+  <data name="&gt;&gt;CultureDependingPublishedLabel.Name" xml:space="preserve">
+    <value>CultureDependingPublishedLabel</value>
+  </data>
+  <data name="ThumbnailLabel.Text" xml:space="preserve">
+    <value>Thumbnail:</value>
+  </data>
+  <data name="SizeLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="PublishedLabel.Text" xml:space="preserve">
+    <value>&amp;Published:</value>
+  </data>
+  <data name="&gt;&gt;AuthorLabel.Name" xml:space="preserve">
+    <value>AuthorLabel</value>
+  </data>
+  <data name="TitleLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 0, 0</value>
+  </data>
+  <data name="AuthorLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 15</value>
+  </data>
+  <data name="ThumbnailPreviewer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="BindingSideLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="BindingSideLabel.Text" xml:space="preserve">
+    <value>Page turning &amp;direction:</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="PublishedDateTimePicker.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="PublishedLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>62, 15</value>
+  </data>
+  <data name="CultureDependingPublishedLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;Panel1TableLayoutPanel.Parent" xml:space="preserve">
+    <value>MainSplitContainer.Panel1</value>
+  </data>
+  <data name="MainSplitContainer.SplitterWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="TitleLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="BindingSideComboBox.Items1" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="&gt;&gt;AuthorComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SearchOnBrowserButton.Text" xml:space="preserve">
+    <value>&amp;Search</value>
+  </data>
+  <data name="TitleTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="AuthorComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="CultureDependingPublishedLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;BindingSideLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CultureDependingPublishedLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CultureDependingPublishedTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;AuthorLabel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="MainSplitContainer.SplitterDistance" type="System.Int32, mscorlib">
+    <value>283</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;AuthorLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PublishedDateTimePicker.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TitleLabel.Text" xml:space="preserve">
+    <value>&amp;Title:</value>
+  </data>
+  <data name="&gt;&gt;BindingSideComboBox.Name" xml:space="preserve">
+    <value>BindingSideComboBox</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Panel1.Parent" xml:space="preserve">
+    <value>MainSplitContainer</value>
+  </data>
+  <data name="SearchOnBrowserButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 26</value>
+  </data>
+  <data name="&gt;&gt;PublishedLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MainSplitContainer.Panel1MinSize" type="System.Int32, mscorlib">
+    <value>240</value>
+  </data>
+  <data name="TitleTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;AuthorComboBox.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;CultureDependingPublishedLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SizeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
+  </data>
+  <data name="BindingSideLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="AuthorLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 0, 0</value>
+  </data>
+  <data name="MainSplitContainer.Panel2MinSize" type="System.Int32, mscorlib">
+    <value>180</value>
+  </data>
+  <data name="AuthorComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 23</value>
+  </data>
+  <data name="CultureDependingPublishedLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 151</value>
+  </data>
+  <data name="TitleTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 22</value>
+  </data>
+  <data name="&gt;&gt;BindingSideComboBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="AuthorComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;CultureDependingPublishedTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailPreviewer.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="CultureDependingPublishedLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 15</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailPreviewer.Type" xml:space="preserve">
+    <value>Comical.Controls.Previewer, Comical, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SizeLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;BindingSideComboBox.Parent" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
+  </data>
+  <data name="AuthorLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 52</value>
+  </data>
+  <data name="TitleTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="Panel1TableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -292,556 +607,184 @@
         AACABwAAgA8AAA==
 </value>
   </data>
-  <data name="&gt;&gt;BindingSideComboBox.Name" xml:space="preserve">
-    <value>BindingSideComboBox</value>
-  </data>
-  <data name="SearchOnBrowserButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="Panel1TableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="BindingSideComboBox" Row="9" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="BindingSideLabel" Row="8" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="CultureDependingPublishedTextBox" Row="7" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="CultureDependingPublishedLabel" Row="6" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="TitleLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="TitleTextBox" Row="1" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="PublishedLabel" Row="4" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="AuthorLabel" Row="2" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="SearchOnBrowserButton" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="AuthorComboBox" Row="3" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="PublishedDateTimePicker" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="AuthorComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 71</value>
-  </data>
-  <data name="BindingSideLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="CultureDependingPublishedTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;TitleLabel.Name" xml:space="preserve">
-    <value>TitleLabel</value>
-  </data>
-  <data name="SizeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;PublishedDateTimePicker.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PublishedLabel.Name" xml:space="preserve">
-    <value>PublishedLabel</value>
-  </data>
-  <data name="&gt;&gt;SizeLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="MainSplitContainer.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>240</value>
-  </data>
-  <data name="Panel2TableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>259, 392</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Name" xml:space="preserve">
-    <value>MainSplitContainer</value>
+  <data name="SizeLabel.Text" xml:space="preserve">
+    <value>0 x 0</value>
   </data>
   <data name="Panel2TableLayoutPanel.RowCount" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;Panel2TableLayoutPanel.Name" xml:space="preserve">
-    <value>Panel2TableLayoutPanel</value>
-  </data>
-  <data name="BindingSideLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;AuthorComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;UpdateButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SearchOnBrowserButton.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="ThumbnailLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CultureDependingPublishedTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 23</value>
-  </data>
-  <data name="BindingSideLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Panel1TableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="UpdateButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 21</value>
-  </data>
-  <data name="&gt;&gt;CultureDependingPublishedTextBox.Name" xml:space="preserve">
-    <value>CultureDependingPublishedTextBox</value>
-  </data>
-  <data name="&gt;&gt;ThumbnailIndexNumericUpDown.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="UpdateButton.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>572, 416</value>
-  </data>
-  <data name="TitleTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
-  <data name="MainSplitContainer.Panel2MinSize" type="System.Int32, mscorlib">
-    <value>180</value>
-  </data>
-  <data name="&gt;&gt;ThumbnailIndexNumericUpDown.Parent" xml:space="preserve">
-    <value>Panel2TableLayoutPanel</value>
-  </data>
-  <data name="BindingSideLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 198</value>
-  </data>
-  <data name="ThumbnailIndexNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 22</value>
-  </data>
-  <data name="ThumbnailLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="SizeLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="Panel1TableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>283, 392</value>
-  </data>
-  <data name="UpdateButton.Text" xml:space="preserve">
-    <value>&amp;Update</value>
-  </data>
-  <data name="&gt;&gt;CultureDependingPublishedLabel.Name" xml:space="preserve">
-    <value>CultureDependingPublishedLabel</value>
-  </data>
-  <data name="SearchOnBrowserButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;ThumbnailPreviewer.Type" xml:space="preserve">
-    <value>Comical.Controls.Previewer, Comical, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;AuthorLabel.Parent" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
-  </data>
-  <data name="AuthorComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
-  </data>
-  <data name="&gt;&gt;AuthorLabel.Name" xml:space="preserve">
-    <value>AuthorLabel</value>
-  </data>
-  <data name="&gt;&gt;Panel1TableLayoutPanel.Name" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;TitleLabel.Parent" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;UpdateButton.Name" xml:space="preserve">
-    <value>UpdateButton</value>
-  </data>
-  <data name="&gt;&gt;AuthorComboBox.Parent" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Panel1.Name" xml:space="preserve">
-    <value>MainSplitContainer.Panel1</value>
-  </data>
-  <data name="AuthorLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 15</value>
-  </data>
-  <data name="&gt;&gt;BindingSideComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CultureDependingPublishedLabel.Parent" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;TitleLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
   </data>
   <data name="AuthorComboBox.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;Panel1TableLayoutPanel.ZOrder" xml:space="preserve">
+  <data name="$this.Text" xml:space="preserve">
+    <value>Configure Document</value>
+  </data>
+  <data name="&gt;&gt;TitleTextBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="AuthorLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;CultureDependingPublishedTextBox.Parent" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
+  </data>
+  <data name="AuthorLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BindingSideLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Name" xml:space="preserve">
+    <value>MainSplitContainer</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="Panel1TableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="Panel2TableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="ThumbnailLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="ThumbnailPreviewer" Row="1" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="SizeLabel" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="EditButton" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,Percent,100,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="EditButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PublishedLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 101</value>
+  </data>
+  <data name="&gt;&gt;AuthorComboBox.Name" xml:space="preserve">
+    <value>AuthorComboBox</value>
+  </data>
+  <data name="CultureDependingPublishedLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;Panel2TableLayoutPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="&gt;&gt;MainSplitContainer.Panel2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="TitleLabel.Text" xml:space="preserve">
-    <value>&amp;Title:</value>
-  </data>
-  <data name="Panel2TableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="ThumbnailLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 3</value>
-  </data>
-  <data name="AuthorLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 3, 0, 0</value>
-  </data>
-  <data name="SearchOnBrowserButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 26</value>
-  </data>
-  <data name="EditButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="CultureDependingPublishedTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 169</value>
-  </data>
-  <data name="&gt;&gt;CultureDependingPublishedTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="AuthorComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 23</value>
-  </data>
-  <data name="&gt;&gt;AuthorLabel.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;BindingSideComboBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;PublishedLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="SearchOnBrowserButton.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="BindingSideComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;TitleTextBox.Parent" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Panel2.Parent" xml:space="preserve">
-    <value>MainSplitContainer</value>
-  </data>
-  <data name="&gt;&gt;ThumbnailLabel.Parent" xml:space="preserve">
-    <value>Panel2TableLayoutPanel</value>
-  </data>
-  <data name="ThumbnailLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 15</value>
-  </data>
-  <data name="ThumbnailIndexNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 23</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SearchOnBrowserButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ThumbnailPreviewer.Name" xml:space="preserve">
-    <value>ThumbnailPreviewer</value>
-  </data>
-  <data name="AuthorLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;ThumbnailPreviewer.Parent" xml:space="preserve">
-    <value>Panel2TableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;Panel2TableLayoutPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="Panel2TableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="TitleLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 15</value>
-  </data>
-  <data name="&gt;&gt;AuthorLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SizeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 374</value>
-  </data>
-  <data name="SearchOnBrowserButton.Text" xml:space="preserve">
-    <value>&amp;Search</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>MS UI Gothic, 9pt</value>
-  </data>
-  <data name="Panel2TableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="EditButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 26</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="ThumbnailPreviewer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="&gt;&gt;Panel2TableLayoutPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="CultureDependingPublishedLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 151</value>
-  </data>
-  <data name="PublishedLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BindingSideLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 15</value>
-  </data>
-  <data name="&gt;&gt;UpdateButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;EditButton.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="BindingSideComboBox.Items" xml:space="preserve">
-    <value>(Unspecified)</value>
-  </data>
-  <data name="CultureDependingPublishedLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;Panel1TableLayoutPanel.Parent" xml:space="preserve">
-    <value>MainSplitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;ThumbnailLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;AuthorComboBox.Name" xml:space="preserve">
-    <value>AuthorComboBox</value>
-  </data>
-  <data name="AuthorLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;SearchOnBrowserButton.Parent" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;AuthorComboBox.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="AuthorComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Panel2.Name" xml:space="preserve">
-    <value>MainSplitContainer.Panel2</value>
-  </data>
-  <data name="UpdateButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Panel1TableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;PublishedDateTimePicker.Parent" xml:space="preserve">
-    <value>Panel1TableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;TitleTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MainSplitContainer.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 9pt</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TitleTextBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <data name="&gt;&gt;PublishedDateTimePicker.ZOrder" xml:space="preserve">
     <value>10</value>
-  </data>
-  <data name="&gt;&gt;SizeLabel.Parent" xml:space="preserve">
-    <value>Panel2TableLayoutPanel</value>
-  </data>
-  <data name="BindingSideLabel.Text" xml:space="preserve">
-    <value>Page turning &amp;direction:</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>WeifenLuo.WinFormsUI.Docking.DockContent, WeifenLuo.WinFormsUI.Docking, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481</value>
-  </data>
-  <data name="Panel1TableLayoutPanel.RowCount" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="TitleTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="TitleTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 22</value>
-  </data>
-  <data name="BindingSideComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 216</value>
-  </data>
-  <data name="AuthorLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
   </data>
   <data name="ThumbnailPreviewer.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="AuthorLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 52</value>
+  <data name="CultureDependingPublishedTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 169</value>
   </data>
-  <data name="CultureDependingPublishedLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;EditButton.Parent" xml:space="preserve">
-    <value>Panel2TableLayoutPanel</value>
-  </data>
-  <data name="Panel1TableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
-  </data>
-  <data name="PublishedDateTimePicker.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 23</value>
-  </data>
-  <data name="TitleLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 3, 0, 0</value>
-  </data>
-  <data name="SizeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="AuthorComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;EditButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PublishedDateTimePicker.Name" xml:space="preserve">
-    <value>PublishedDateTimePicker</value>
-  </data>
-  <data name="PublishedDateTimePicker.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Panel1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;BindingSideLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="TitleLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;TitleLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MainSplitContainer.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="PublishedLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="TitleLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 3</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ThumbnailLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 3, 0, 0</value>
-  </data>
-  <data name="ThumbnailLabel.Text" xml:space="preserve">
-    <value>Thu&amp;mbnail:</value>
-  </data>
-  <data name="TitleLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="SearchOnBrowserButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 119</value>
-  </data>
-  <data name="EditButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 363</value>
-  </data>
-  <data name="&gt;&gt;SizeLabel.Name" xml:space="preserve">
-    <value>SizeLabel</value>
-  </data>
-  <data name="&gt;&gt;UpdateButton.Parent" xml:space="preserve">
-    <value>Panel2TableLayoutPanel</value>
-  </data>
-  <data name="CultureDependingPublishedLabel.Text" xml:space="preserve">
-    <value>Published (&amp;culture-depending):</value>
-  </data>
-  <data name="TitleTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="PublishedLabel.Text" xml:space="preserve">
-    <value>&amp;Published:</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Configure Document</value>
-  </data>
-  <data name="Panel2TableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="EditButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Panel1TableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="Panel2TableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="UpdateButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Right</value>
+  <data name="PublishedLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;TitleTextBox.Name" xml:space="preserve">
-    <value>TitleTextBox</value>
+  <data name="ThumbnailLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="MainSplitContainer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="&gt;&gt;ThumbnailLabel.Parent" xml:space="preserve">
+    <value>Panel2TableLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;MainSplitContainer.Panel1.Parent" xml:space="preserve">
-    <value>MainSplitContainer</value>
+  <data name="SizeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 374</value>
   </data>
-  <data name="PublishedLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 15</value>
-  </data>
-  <data name="EditButton.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="ThumbnailPreviewer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 21</value>
   </data>
   <data name="MainSplitContainer.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>
   </data>
+  <data name="EditButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
   <data name="&gt;&gt;SizeLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ThumbnailLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="AuthorLabel.Text" xml:space="preserve">
+    <value>&amp;Author:</value>
   </data>
-  <data name="&gt;&gt;ThumbnailIndexNumericUpDown.Name" xml:space="preserve">
-    <value>ThumbnailIndexNumericUpDown</value>
+  <data name="&gt;&gt;TitleTextBox.Name" xml:space="preserve">
+    <value>TitleTextBox</value>
   </data>
-  <data name="ThumbnailPreviewer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 304</value>
+  <data name="BindingSideComboBox.Items" xml:space="preserve">
+    <value>(Unspecified)</value>
   </data>
-  <data name="&gt;&gt;EditButton.Name" xml:space="preserve">
-    <value>EditButton</value>
+  <data name="ThumbnailLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="UpdateButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 26</value>
+  <data name="Panel1TableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 392</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DocumentView</value>
   </data>
+  <data name="BindingSideComboBox.Items2" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="BindingSideComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 216</value>
+  </data>
+  <data name="&gt;&gt;TitleTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CultureDependingPublishedTextBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;PublishedDateTimePicker.Name" xml:space="preserve">
+    <value>PublishedDateTimePicker</value>
+  </data>
+  <data name="TitleLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="SearchOnBrowserButton.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;SearchOnBrowserButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AuthorLabel.Parent" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;AuthorComboBox.Parent" xml:space="preserve">
+    <value>Panel1TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="CultureDependingPublishedLabel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
   <metadata name="EditButton.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="BindingSideLabel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="AuthorLabel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="MainSplitContainer.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="TitleLabel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="CultureDependingPublishedLabel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="PublishedLabel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="AuthorLabel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="Panel2TableLayoutPanel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="Panel1TableLayoutPanel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="MainSplitContainer.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="PublishedLabel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="SearchOnBrowserButton.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
-  <metadata name="SearchOnBrowserButton.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Panel1TableLayoutPanel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
 </root>

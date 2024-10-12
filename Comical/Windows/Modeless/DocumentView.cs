@@ -1,8 +1,10 @@
-﻿using Comical.Core;
+﻿using Comical.Controls;
+using Comical.Core;
 using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace Comical
@@ -22,8 +24,6 @@ namespace Comical
 
 			_comic = comic;
 			_comic.PropertyChanged += OnComicPropertyChanged;
-			_comic.Images.CollectionChanged += OnComicImagesCollectionChanged;
-			OnComicImagesCollectionChanged(_comic.Images, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
 			OnComicPropertyChanged(_comic, new System.ComponentModel.PropertyChangedEventArgs(nameof(_comic.BindingSide)));
 		}
 
@@ -71,20 +71,13 @@ namespace Comical
 			}
 		});
 
-		void OnComicImagesCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => this.InvokeIfNeeded(() =>
-		{
-			ThumbnailLabel.Enabled = ThumbnailIndexNumericUpDown.Enabled = UpdateButton.Enabled = _comic.Images.Count > 0;
-			if (_comic.Images.Count > 0)
-				ThumbnailIndexNumericUpDown.Maximum = _comic.Images.Count - 1;
-		});
-
 		void OnEditButtonClick(object? sender, EventArgs e)
 		{
 			if (_comic.Thumbnail == null)
 				return;
 			using var dialog = new ImageEditDialog();
 			dialog.Image = _comic.Thumbnail;
-			if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+			if (dialog.ShowDialog(this) == DialogResult.OK)
 				LoadImage(dialog.Image);
 		}
 
@@ -121,10 +114,25 @@ namespace Comical
 
 		void OnBindingSideComboBoxSelectedIndexChanged(object? sender, EventArgs e) => _comic.BindingSide = (BindingSide)BindingSideComboBox.SelectedIndex;
 
-		void OnUpdateButtonClick(object? sender, EventArgs e)
+		static int? DataObjectToDraggedImageReferenceIndex(IDataObject dataObject)
 		{
-			if (ThumbnailIndexNumericUpDown.Enabled)
-				LoadImage(_comic.Images[(int)ThumbnailIndexNumericUpDown.Value].Data);
+			return dataObject.GetDataPresent(typeof(DataGridViewDraggedRowSet)) &&
+				dataObject.GetData(typeof(DataGridViewDraggedRowSet)) is DataGridViewDraggedRowSet rowSet &&
+				rowSet.Items.Count == 1 &&
+				rowSet.Items[0] is ImageReference ? rowSet.StartIndex : null;
+		}
+
+		void OnThumbnailPreviewerDragEnter(object? sender, DragEventArgs e)
+		{
+			Debug.Assert(e.Data != null, "I think this never happens.");
+			e.Effect = DataObjectToDraggedImageReferenceIndex(e.Data) is not null ? DragDropEffects.Copy : DragDropEffects.None;
+		}
+
+		void OnThumbnailPreviewerDragDrop(object? sender, DragEventArgs e)
+		{
+			Debug.Assert(e.Data != null, "I think this never happens.");
+			if (DataObjectToDraggedImageReferenceIndex(e.Data) is { } index)
+				LoadImage(_comic.Images[index].Data);
 		}
 	}
 }

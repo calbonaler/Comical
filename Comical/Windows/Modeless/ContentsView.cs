@@ -56,6 +56,12 @@ namespace Comical
 			remove => AddToBookmarkMenuItem.Click -= value;
 		}
 
+		public event EventHandler SetAsThumbnailRequested
+		{
+			add => SetAsThumbnailMenuItem.Click += value;
+			remove => SetAsThumbnailMenuItem.Click -= value;
+		}
+
 		public event EventHandler<FileDroppedEventArgs>? FileDropped;
 
 		public IDisposable BeginAsyncWork()
@@ -167,7 +173,7 @@ namespace Comical
 				try { ActiveViewer.Image = _images[firstSelectedIndex].Data; }
 				catch (ArgumentException) { }
 			}
-			OpenMenuItem.Visible = ImageMenuSeparator1.Visible = count == 1;
+			OpenMenuItem.Visible = ImageMenuSeparator1.Visible = ImageMenuSeparator5.Visible = SetAsThumbnailMenuItem.Visible = count == 1;
 			AddToBookmarkMenuItem.Visible = ImageMenuSeparator2.Visible =
 				ExportMenuItem.Visible = ExtractMenuItem.Visible = ImageMenuSeparator3.Visible =
 				StartViewModeSettingLeftMenuItem.Visible = StartViewModeSettingRightMenuItem.Visible = ImageMenuSeparator4.Visible =

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -139,22 +139,22 @@
   <data name="OpenMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANbSURBVDhPbZN9TNR1HMd/tfUHf7S2HrbWetia1WbpnMay
-        fzQ2mtGDLRTMqMhzHoJlGUKYwKHIw4XQGQ8mAmWgoaIIB8cUQQF5Djjk4TiQO+IOOO4BDo4DDvVe/Thv
-        2qzX9tm+2+f7en+2z75fwdZ1ZMLalWw2dxxmsl2GqTWW8eYDGBujGK3fx9/X96KvieBWtVSnvSyJEh7G
-        pk5hzpCPrUeORTzb9bnoenJYmq/l7lL9/VqcUTJYGarzag9YDri9UOGphelz2IYUDFdL6fvrF2YsSu64
-        rom9apbmqhio/Byv9oB/Byw5y1h0XGTosoTu5qP0tmZ4RNdsmRhegka5/X8CupJZWlDicl4S5QvM28+i
-        VX2J+kYKNxtTPKLTehrHZAF9ZcH/DbB2HsE1V8rCbAnz08XMWYvQVITQeT0BdZ3MI86OHcc+qqC3dOv9
-        gG1fhb+wcv3GFYJF3P7CzHmc03/isBYyYxInlW+j/Wo05X/EuKdHM5nSybEOHmbwaijd5zfnaDSax5/d
-        8Kns6VX+24XJ9gScU2dwWE6Jcj7Txl/FSVsoyfvWXVmZzvGCHzD1x2PqiWRc/Q3Knz92r/AL3rEm+nTP
-        E6+86S+Y2uKYNf+OfeIkU4YcrCPHqFAEulPTdxOiVBOfl4pRHYmhQ8qwTs9RuYS1iVWG1yOyVD4+Tz0n
-        TLQcxD6ei82QjUWvYHwgjST5LgLLtAS13CUyL4vyc1IyCxMJybmCf3YDvj+1Oj47mLlHJpM9Kow1xWAb
-        zcKiy0Dfl4FUnsTKE1reKDbzVqWT9+rvENQOn9S5CLhkZlOR2AtNPCmVSh/zbNN4Yz/m4XRMg6mcKghn
-        TWIVL6Z182ruMKvOWlmrWmRDnZvNjbd5v0RHRNzXyGSpz3vkZZbf+4Q2mbG+Q9SUxrljk8JYHXeBl9Jv
-        8lrBCL5Ft9iUf4U9GQfYkltLifxDN/CIVxeE5c9i7E1gtPtHRjqiGGreh+LQB6yLL+blY/2EJe1noC4U
-        XUMwQzUf0Vr4zpBXvYe+VvxptWFoa3YyUCNh4JqEtkI/8tOCeDs6m90xO2k/E0BbkZ9HFut7r3qPQdWO
-        Z/pVX2zsuRgY3lkccKK10K+h5TdfR9Lede9+Fxu79cnVfoFNTU0+3usPIQj/ACd5dUeQn/j+AAAAAElF
-        TkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANaSURBVDhPbZNrTNNnFIf/W7IPfFiW7JIsyy7J4rbETWN0
+        ZO6LrgmLYxeXoeAc25g1FsHNzSEMJ1AUC3QIw3FxguAI6FAQhQpEuSggl9IBRa4t0jKupRcKlHJT++xP
+        bXRxe5KTvMl5n99JTt5XsHUcm7B2xJvNbUeZ1MgxqaMYbz7EaGM4w/UH+PvGfow1odyukhl0V6XhwqPY
+        tAnMjeRg61JiEc/TxiwMXZksz9dyb7n+QS3OqNCXBxk82kNWAu4sXHHXgv0CtoFUBqtk9Pz1GzMWFXeX
+        rou9KpbnKukv/xKP9pB/Byw7S1l0lDBwVUpn83G61SlucWm2VAwvpk+1838COuJZXlCx5LwsyheZnz6P
+        ruJrtDcTuNWY4Bad1rM4JnPpKQ34b4C1/RhLc5dYmC1m3l7InLWAviuBtN+IRVsnd4uzYyeZHk6l+9L2
+        BwE7vgl5afXGzasEi7j9hZkinPY/cVjzmTGJk8p2oKmOoDQv0mUfTmPKoMSqP4q+OojOoq2ZfX19Tz6/
+        6XP5s2t8dgqTmlicU+dwWPJEOQf76O/ipG0UZX/vKi9P5mTuT5h6YzB1hTGu/Y6ylE9dqyQBu9ZFnO16
+        6rW3fQRTazSz5j+YnshmaiQT69AJVL/6uRKT9xKo0hJzOpFRbRgjbTIGDUaOK6Wsj6sceTM0vcLL65kX
+        hImWw0yPZ2EbycBiTGW8PwmFcg9+pTr8W+4Rdjqdsgsy0vLjCMy8hk9GA96/qB1fHE7bJ5fLHxfGmiKx
+        DadjMaRg7ElBplSw+pSOtwrNvFPu5IP6u/hr4LO6JXwvm9lSIPaC4rJlMtkT7m2O3jyIeTAZkz6RvNwQ
+        1sVV8nJSJ69nDbLmvJX1FYtsqnOxtfEOHxYbCI3+Frk88UW3vMLKe5/QxTPWc4TqkmhXlCKYtdEXeSX5
+        Fm/kDuFdcJstOdfYl3KIbVm1FCV+7AIe8+iCsPJZRrtjGe78maG2cAaaD5B65CM2xBTy6oleghUH6a8L
+        wtAQwEDNJ6jz3xvwqPcx1oo/rTYYXc1u+muk9F+X0povISfJn3cjMtgbuRvNOV9aCyRuWawfPep99BW7
+        nuut+GpzV4lfSHuh7yl1vqSh5Yy3Q7F/w/s/REVtf3qtxK+pqcnLc/0RBOEfEpt1O2g/GVIAAAAASUVO
+        RK5CYII=
 </value>
   </data>
   <data name="OpenMenuItem.Size" type="System.Drawing.Size, System.Drawing">
@@ -231,16 +231,10 @@
     <value>終了(&amp;X)</value>
   </data>
   <data name="FileMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 19</value>
+    <value>67, 19</value>
   </data>
   <data name="FileMenuItem.Text" xml:space="preserve">
     <value>ファイル(&amp;F)</value>
-  </data>
-  <data name="EditMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 19</value>
-  </data>
-  <data name="EditMenuItem.Text" xml:space="preserve">
-    <value>編集(&amp;E)</value>
   </data>
   <data name="ImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 19</value>
@@ -249,7 +243,7 @@
     <value>画像(&amp;I)</value>
   </data>
   <data name="AddImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>189, 22</value>
   </data>
   <data name="AddImagesMenuItem.Text" xml:space="preserve">
     <value>追加(&amp;A)</value>
@@ -272,7 +266,7 @@
 </value>
   </data>
   <data name="AddImagesFromFilesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 22</value>
+    <value>159, 22</value>
   </data>
   <data name="AddImagesFromFilesMenuItem.Text" xml:space="preserve">
     <value>ファイルから(&amp;F)...</value>
@@ -296,20 +290,16 @@
 </value>
   </data>
   <data name="AddImagesFromFolderMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 22</value>
+    <value>159, 22</value>
   </data>
   <data name="AddImagesFromFolderMenuItem.Text" xml:space="preserve">
     <value>フォルダーから(&amp;L)...</value>
   </data>
   <data name="ImageMenuSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 6</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="OpenImageMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+    <value>186, 6</value>
   </data>
   <data name="OpenImageMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>189, 22</value>
   </data>
   <data name="OpenImageMenuItem.Text" xml:space="preserve">
     <value>開く(&amp;O)</value>
@@ -317,7 +307,7 @@
   <data name="DeleteImagesMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
+        wwAADsMBx2+oZAAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
         80110fkJViYHTbi5fBiKPFxTz2XFfPgxo/P/r2nt/791Vf2/EBewK1ZFRQOqDwweJsRafy9NP3YxI/ZL
         mLxMjSgDAy9UioEhQF9fd254wIJnldm/fmaF/P8a7vD/ipXqnR4dDXOQ/NMI/8qvTpq/lhko33Tk4LAH
         a8IG4uRlvdZa6R55Yizx/7U6+//TagJ3T1hq77gox/l/mRTXicky3GAD8QIjbl7uhfqaBReUub7cVuL8
@@ -331,13 +321,13 @@
 </value>
   </data>
   <data name="DeleteImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>189, 22</value>
   </data>
   <data name="DeleteImagesMenuItem.Text" xml:space="preserve">
     <value>削除(&amp;D)</value>
   </data>
   <data name="ImageMenuSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 6</value>
+    <value>186, 6</value>
   </data>
   <data name="ExportImagesMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -349,7 +339,7 @@
 </value>
   </data>
   <data name="ExportImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>189, 22</value>
   </data>
   <data name="ExportImagesMenuItem.Text" xml:space="preserve">
     <value>エクスポート(&amp;T)...</value>
@@ -367,40 +357,49 @@
 </value>
   </data>
   <data name="ExtractImagesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>189, 22</value>
   </data>
   <data name="ExtractImagesMenuItem.Text" xml:space="preserve">
     <value>抽出(&amp;C)...</value>
   </data>
   <data name="ImageMenuSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 6</value>
+    <value>186, 6</value>
   </data>
   <data name="StartViewModeSettingMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>189, 22</value>
   </data>
   <data name="StartViewModeSettingMenuItem.Text" xml:space="preserve">
     <value>表示の自動設定(&amp;V)</value>
   </data>
   <data name="StartViewModeSettingLeftMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="StartViewModeSettingLeftMenuItem.Text" xml:space="preserve">
     <value>左で開始(&amp;L)</value>
   </data>
   <data name="StartViewModeSettingRightMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="StartViewModeSettingRightMenuItem.Text" xml:space="preserve">
     <value>右で開始(&amp;R)</value>
   </data>
   <data name="InvertViewModeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>189, 22</value>
   </data>
   <data name="InvertViewModeMenuItem.Text" xml:space="preserve">
     <value>表示の切り替え(&amp;N)</value>
   </data>
+  <data name="ImageMenuSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 6</value>
+  </data>
+  <data name="SetAsThumbnailMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 22</value>
+  </data>
+  <data name="SetAsThumbnailMenuItem.Text" xml:space="preserve">
+    <value>サムネイルとして設定(&amp;H)</value>
+  </data>
   <data name="BookmarksMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 19</value>
+    <value>86, 19</value>
   </data>
   <data name="BookmarksMenuItem.Text" xml:space="preserve">
     <value>ブックマーク(&amp;B)</value>
@@ -414,7 +413,7 @@
   <data name="DeleteBookmarksMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        xAAADsQBlSsOGwAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
+        wwAADsMBx2+oZAAAAk9JREFUOE9joBgcXjQv9Oes7qcvm4v+P5/Q/HJdalztXHcHHqg0CriXmcH5rrIk
         80110fkJViYHTbi5fBiKPFxTz2XFfPgxo/P/r2nt/791Vf2/EBewK1ZFRQOqDwweJsRafy9NP3YxI/ZL
         mLxMjSgDAy9UioEhQF9fd254wIJnldm/fmaF/P8a7vD/ipXqnR4dDXOQ/NMI/8qvTpq/lhko33Tk4LAH
         a8IG4uRlvdZa6R55Yizx/7U6+//TagJ3T1hq77gox/l/mRTXicky3GAD8QIjbl7uhfqaBReUub7cVuL8
@@ -440,7 +439,7 @@
     <value>ツール(&amp;T)</value>
   </data>
   <data name="OptionMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="OptionMenuItem.Text" xml:space="preserve">
     <value>オプション(&amp;O)</value>
@@ -483,7 +482,7 @@
 </value>
   </data>
   <data name="ContentsWindowMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>141, 22</value>
   </data>
   <data name="ContentsWindowMenuItem.Text" xml:space="preserve">
     <value>コンテンツ(&amp;C)</value>
@@ -504,7 +503,7 @@
 </value>
   </data>
   <data name="BookmarksWindowMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>141, 22</value>
   </data>
   <data name="BookmarksWindowMenuItem.Text" xml:space="preserve">
     <value>ブックマーク(&amp;B)</value>
@@ -527,22 +526,22 @@
   <data name="OpenButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANbSURBVDhPbZN9TNR1HMd/tfUHf7S2HrbWetia1WbpnMay
-        fzQ2mtGDLRTMqMhzHoJlGUKYwKHIw4XQGQ8mAmWgoaIIB8cUQQF5Djjk4TiQO+IOOO4BDo4DDvVe/Thv
-        2qzX9tm+2+f7en+2z75fwdZ1ZMLalWw2dxxmsl2GqTWW8eYDGBujGK3fx9/X96KvieBWtVSnvSyJEh7G
-        pk5hzpCPrUeORTzb9bnoenJYmq/l7lL9/VqcUTJYGarzag9YDri9UOGphelz2IYUDFdL6fvrF2YsSu64
-        rom9apbmqhio/Byv9oB/Byw5y1h0XGTosoTu5qP0tmZ4RNdsmRhegka5/X8CupJZWlDicl4S5QvM28+i
-        VX2J+kYKNxtTPKLTehrHZAF9ZcH/DbB2HsE1V8rCbAnz08XMWYvQVITQeT0BdZ3MI86OHcc+qqC3dOv9
-        gG1fhb+wcv3GFYJF3P7CzHmc03/isBYyYxInlW+j/Wo05X/EuKdHM5nSybEOHmbwaijd5zfnaDSax5/d
-        8Kns6VX+24XJ9gScU2dwWE6Jcj7Txl/FSVsoyfvWXVmZzvGCHzD1x2PqiWRc/Q3Knz92r/AL3rEm+nTP
-        E6+86S+Y2uKYNf+OfeIkU4YcrCPHqFAEulPTdxOiVBOfl4pRHYmhQ8qwTs9RuYS1iVWG1yOyVD4+Tz0n
-        TLQcxD6ei82QjUWvYHwgjST5LgLLtAS13CUyL4vyc1IyCxMJybmCf3YDvj+1Oj47mLlHJpM9Kow1xWAb
-        zcKiy0Dfl4FUnsTKE1reKDbzVqWT9+rvENQOn9S5CLhkZlOR2AtNPCmVSh/zbNN4Yz/m4XRMg6mcKghn
-        TWIVL6Z182ruMKvOWlmrWmRDnZvNjbd5v0RHRNzXyGSpz3vkZZbf+4Q2mbG+Q9SUxrljk8JYHXeBl9Jv
-        8lrBCL5Ft9iUf4U9GQfYkltLifxDN/CIVxeE5c9i7E1gtPtHRjqiGGreh+LQB6yLL+blY/2EJe1noC4U
-        XUMwQzUf0Vr4zpBXvYe+VvxptWFoa3YyUCNh4JqEtkI/8tOCeDs6m90xO2k/E0BbkZ9HFut7r3qPQdWO
-        Z/pVX2zsuRgY3lkccKK10K+h5TdfR9Lede9+Fxu79cnVfoFNTU0+3usPIQj/ACd5dUeQn/j+AAAAAElF
-        TkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANaSURBVDhPbZNrTNNnFIf/W7IPfFiW7JIsyy7J4rbETWN0
+        ZO6LrgmLYxeXoeAc25g1FsHNzSEMJ1AUC3QIw3FxguAI6FAQhQpEuSggl9IBRa4t0jKupRcKlHJT++xP
+        bXRxe5KTvMl5n99JTt5XsHUcm7B2xJvNbUeZ1MgxqaMYbz7EaGM4w/UH+PvGfow1odyukhl0V6XhwqPY
+        tAnMjeRg61JiEc/TxiwMXZksz9dyb7n+QS3OqNCXBxk82kNWAu4sXHHXgv0CtoFUBqtk9Pz1GzMWFXeX
+        rou9KpbnKukv/xKP9pB/Byw7S1l0lDBwVUpn83G61SlucWm2VAwvpk+1838COuJZXlCx5LwsyheZnz6P
+        ruJrtDcTuNWY4Bad1rM4JnPpKQ34b4C1/RhLc5dYmC1m3l7InLWAviuBtN+IRVsnd4uzYyeZHk6l+9L2
+        BwE7vgl5afXGzasEi7j9hZkinPY/cVjzmTGJk8p2oKmOoDQv0mUfTmPKoMSqP4q+OojOoq2ZfX19Tz6/
+        6XP5s2t8dgqTmlicU+dwWPJEOQf76O/ipG0UZX/vKi9P5mTuT5h6YzB1hTGu/Y6ylE9dqyQBu9ZFnO16
+        6rW3fQRTazSz5j+YnshmaiQT69AJVL/6uRKT9xKo0hJzOpFRbRgjbTIGDUaOK6Wsj6sceTM0vcLL65kX
+        hImWw0yPZ2EbycBiTGW8PwmFcg9+pTr8W+4Rdjqdsgsy0vLjCMy8hk9GA96/qB1fHE7bJ5fLHxfGmiKx
+        DadjMaRg7ElBplSw+pSOtwrNvFPu5IP6u/hr4LO6JXwvm9lSIPaC4rJlMtkT7m2O3jyIeTAZkz6RvNwQ
+        1sVV8nJSJ69nDbLmvJX1FYtsqnOxtfEOHxYbCI3+Frk88UW3vMLKe5/QxTPWc4TqkmhXlCKYtdEXeSX5
+        Fm/kDuFdcJstOdfYl3KIbVm1FCV+7AIe8+iCsPJZRrtjGe78maG2cAaaD5B65CM2xBTy6oleghUH6a8L
+        wtAQwEDNJ6jz3xvwqPcx1oo/rTYYXc1u+muk9F+X0povISfJn3cjMtgbuRvNOV9aCyRuWawfPep99BW7
+        nuut+GpzV4lfSHuh7yl1vqSh5Yy3Q7F/w/s/REVtf3qtxK+pqcnLc/0RBOEfEpt1O2g/GVIAAAAASUVO
+        RK5CYII=
 </value>
   </data>
   <data name="OpenButton.Text" xml:space="preserve">

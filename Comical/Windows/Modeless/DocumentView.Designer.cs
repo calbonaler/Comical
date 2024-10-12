@@ -21,7 +21,6 @@
 					ThumbnailPreviewer.Image = null;
 				}
 				_comic.PropertyChanged -= OnComicPropertyChanged;
-				_comic.Images.CollectionChanged -= OnComicImagesCollectionChanged;
 				if (components != null)
 					components.Dispose();
 			}
@@ -54,9 +53,7 @@
 			PublishedDateTimePicker = new System.Windows.Forms.DateTimePicker();
 			ThumbnailLabel = new System.Windows.Forms.Label();
 			ThumbnailPreviewer = new Controls.Previewer();
-			UpdateButton = new System.Windows.Forms.Button();
 			SizeLabel = new System.Windows.Forms.Label();
-			ThumbnailIndexNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			MainSplitContainer = new System.Windows.Forms.SplitContainer();
 			Panel1TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			BindingSideLabel = new System.Windows.Forms.Label();
@@ -73,7 +70,6 @@
 			MainSplitContainer.SuspendLayout();
 			Panel1TableLayoutPanel.SuspendLayout();
 			Panel2TableLayoutPanel.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)ThumbnailIndexNumericUpDown).BeginInit();
 			SuspendLayout();
 			// 
 			// MainSplitContainer
@@ -189,11 +185,9 @@
 			// 
 			resources.ApplyResources(Panel2TableLayoutPanel, "Panel2TableLayoutPanel");
 			Panel2TableLayoutPanel.Controls.Add(ThumbnailLabel, 0, 0);
-			Panel2TableLayoutPanel.Controls.Add(ThumbnailPreviewer, 0, 2);
-			Panel2TableLayoutPanel.Controls.Add(UpdateButton, 1, 1);
-			Panel2TableLayoutPanel.Controls.Add(SizeLabel, 0, 3);
-			Panel2TableLayoutPanel.Controls.Add(ThumbnailIndexNumericUpDown, 0, 1);
-			Panel2TableLayoutPanel.Controls.Add(EditButton, 1, 3);
+			Panel2TableLayoutPanel.Controls.Add(ThumbnailPreviewer, 0, 1);
+			Panel2TableLayoutPanel.Controls.Add(SizeLabel, 0, 2);
+			Panel2TableLayoutPanel.Controls.Add(EditButton, 1, 2);
 			Panel2TableLayoutPanel.Name = "Panel2TableLayoutPanel";
 			// 
 			// ThumbnailLabel
@@ -205,26 +199,18 @@
 			// ThumbnailPreviewer
 			// 
 			resources.ApplyResources(ThumbnailPreviewer, "ThumbnailPreviewer");
+			ThumbnailPreviewer.AllowDrop = true;
 			Panel2TableLayoutPanel.SetColumnSpan(ThumbnailPreviewer, 2);
+			ThumbnailPreviewer.Image = null;
 			ThumbnailPreviewer.Name = "ThumbnailPreviewer";
 			ThumbnailPreviewer.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
-			// 
-			// UpdateButton
-			// 
-			resources.ApplyResources(UpdateButton, "UpdateButton");
-			UpdateButton.Name = "UpdateButton";
-			UpdateButton.UseVisualStyleBackColor = true;
-			UpdateButton.Click += OnUpdateButtonClick;
+			ThumbnailPreviewer.DragDrop += OnThumbnailPreviewerDragDrop;
+			ThumbnailPreviewer.DragEnter += OnThumbnailPreviewerDragEnter;
 			// 
 			// SizeLabel
 			// 
 			resources.ApplyResources(SizeLabel, "SizeLabel");
 			SizeLabel.Name = "SizeLabel";
-			// 
-			// ThumbnailIndexNumericUpDown
-			// 
-			resources.ApplyResources(ThumbnailIndexNumericUpDown, "ThumbnailIndexNumericUpDown");
-			ThumbnailIndexNumericUpDown.Name = "ThumbnailIndexNumericUpDown";
 			// 
 			// EditButton
 			// 
@@ -248,7 +234,6 @@
 			Panel1TableLayoutPanel.PerformLayout();
 			Panel2TableLayoutPanel.ResumeLayout(false);
 			Panel2TableLayoutPanel.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)ThumbnailIndexNumericUpDown).EndInit();
 			ResumeLayout(false);
 		}
 
@@ -261,8 +246,6 @@
 		private System.Windows.Forms.ComboBox BindingSideComboBox;
 		private System.Windows.Forms.Label ThumbnailLabel;
 		private Controls.Previewer ThumbnailPreviewer;
-		private System.Windows.Forms.NumericUpDown ThumbnailIndexNumericUpDown;
-		private System.Windows.Forms.Button UpdateButton;
 		private System.Windows.Forms.TextBox CultureDependingPublishedTextBox;
 	}
 }

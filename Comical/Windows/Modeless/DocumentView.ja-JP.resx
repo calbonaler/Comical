@@ -161,13 +161,10 @@
     <value>検索(&amp;S)</value>
   </data>
   <data name="ThumbnailLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 15</value>
+    <value>58, 15</value>
   </data>
   <data name="ThumbnailLabel.Text" xml:space="preserve">
-    <value>サムネイル(&amp;M):</value>
-  </data>
-  <data name="UpdateButton.Text" xml:space="preserve">
-    <value>更新(&amp;U)</value>
+    <value>サムネイル:</value>
   </data>
   <data name="EditButton.Text" xml:space="preserve">
     <value>編集(&amp;E)</value>
