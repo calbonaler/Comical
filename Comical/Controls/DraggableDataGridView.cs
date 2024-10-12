@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -24,6 +24,11 @@ namespace Comical.Controls
 		}
 
 		int ScrollArea => FirstDisplayedScrollingRowIndex >= 0 ? Rows[FirstDisplayedScrollingRowIndex].Height / 2 : 48;
+
+		/// <summary>ユーザーによる行のドラッグが開始するときに発生します。</summary>
+		[Category("アクション")]
+		[Description("ユーザーによる行のドラッグが開始するときに発生します。")]
+		public event EventHandler<RowDragStartingEventArgs>? RowDragStarting;
 
 		/// <summary>ユーザーによってドラッグされた行を受け入れるときに発生します。</summary>
 		[Category("アクション")]
@@ -56,6 +61,15 @@ namespace Comical.Controls
 		[DefaultValue(false)]
 		public bool MultiDrag { get; set; }
 
+		public void SelectRowRange(int start, int count)
+		{
+			if (SelectionMode is not DataGridViewSelectionMode.FullRowSelect and not DataGridViewSelectionMode.RowHeaderSelect || !MultiSelect && count > 1)
+				return;
+			ClearSelection();
+			foreach (var i in Enumerable.Range(start, count))
+				SetSelectedRowCore(i, true);
+		}
+
 		int HitRowIndex
 		{
 			get => _hitRowIndex;
@@ -83,10 +97,6 @@ namespace Comical.Controls
 
 		DragHitTestInfo DragHitTest(DataGridViewDraggedRowSet set, Point point)
 		{
-			var ev = new QueryRowDragDropEffectEventArgs(DragDropEffects.Move, set.Source);
-			OnQueryRowDragDropEffect(ev);
-			if (ev.Effect == DragDropEffects.None)
-				return DragHitTestInfo.Nowhere;
 			var pt = PointToClient(point);
 			var index = HitTest(pt.X, pt.Y).RowIndex;
 			if (index < 0)
@@ -104,16 +114,9 @@ namespace Comical.Controls
 				if (pt.Y >= rect.Y + rect.Height / 2)
 					index++;
 			}
-			var actualDest = index;
-			if (set.Source == this)
-			{
-				var rowIndex = set.Rows.Min(x => x.Index);
-				if (index > rowIndex + set.Rows.Count)
-					actualDest = index - set.Rows.Count;
-				else if (index >= rowIndex)
-					return DragHitTestInfo.Nowhere;
-			}
-			return new DragHitTestInfo(ev.Effect | DragDropEffects.Scroll, index, actualDest);
+			var ev = new QueryRowDragDropEffectEventArgs(set, index, DragDropEffects.Move);
+			OnQueryRowDragDropEffect(ev);
+			return ev.Effect == DragDropEffects.None ? DragHitTestInfo.Nowhere : new DragHitTestInfo(ev.Effect | DragDropEffects.Scroll, index);
 		}
 
 		int IncrementDragOverCalled(int value)
@@ -165,10 +168,16 @@ namespace Comical.Controls
 		{
 			if (e != null && AllowUserToDragRows && e.Button == MouseButtons.Left && _origin != null &&
 				SelectionMode == DataGridViewSelectionMode.FullRowSelect &&
-				(MultiDrag ? SelectedRows.Count > 0 : SelectedRows.Count == 1) &&
 				(Math.Abs(_origin.Value.X - e.X) > SystemInformation.DragSize.Width / 2 || Math.Abs(_origin.Value.Y - e.Y) > SystemInformation.DragSize.Height / 2))
 			{
-				DoDragDrop(new DataGridViewDraggedRowSet(SelectedRows, this), DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move | DragDropEffects.Scroll);
+				if (TryGetRangeIfIndicesAreContiguous(SelectedRows.Cast<DataGridViewRow>().Select(x => x.Index)) is { } range &&
+					(MultiDrag ? range.Count > 0 : range.Count == 1))
+				{
+					var ev = new RowDragStartingEventArgs(range.Start, range.Count, DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move | DragDropEffects.Scroll);
+					OnRowDragStarting(ev);
+					if (ev.Items != null)
+						DoDragDrop(new DataGridViewDraggedRowSet(range.Start, ev.Items), ev.AllowedEffects);
+				}
 				_origin = null;
 			}
 			base.OnMouseMove(e);
@@ -218,7 +227,7 @@ namespace Comical.Controls
 			drgevent.Effect = info.Effect;
 			if (info.Effect == DragDropEffects.None)
 				return;
-			OnRowDropped(new RowDroppedEventArgs(set, info.ActualDestination));
+			OnRowDropped(new RowDroppedEventArgs(set, info.HitIndex));
 			HitRowIndex = -1;
 		}
 
@@ -236,43 +245,79 @@ namespace Comical.Controls
 			base.OnRowPostPaint(e);
 		}
 
+		/// <summary><see cref="RowDragStarting"/> イベントを発生させます。</summary>
+		protected virtual void OnRowDragStarting(RowDragStartingEventArgs e) => RowDragStarting?.Invoke(this, e);
+
 		/// <summary><see cref="RowDropped"/> イベントを発生させます。</summary>
 		protected virtual void OnRowDropped(RowDroppedEventArgs e) => RowDropped?.Invoke(this, e);
 
 		/// <summary><see cref="QueryRowDragDropEffect"/> イベントを発生させます。</summary>
 		protected virtual void OnQueryRowDragDropEffect(QueryRowDragDropEffectEventArgs e) => QueryRowDragDropEffect?.Invoke(this, e);
 
-		readonly record struct DragHitTestInfo(DragDropEffects Effect, int HitIndex, int ActualDestination)
+		static (int Start, int Count)? TryGetRangeIfIndicesAreContiguous(IEnumerable<int> indices)
 		{
-			public static readonly DragHitTestInfo Nowhere = new(DragDropEffects.None, -1, -1);
+			var inclusiveMin = int.MaxValue;
+			var exclusiveMax = 0;
+			var count = 0;
+			foreach (var i in indices)
+			{
+				inclusiveMin = Math.Clamp(i, 0, inclusiveMin);
+				exclusiveMax = Math.Max(exclusiveMax, i + 1);
+				count++;
+			}
+			return count == 0 ? (0, count) : count == exclusiveMax - inclusiveMin ? new(inclusiveMin, count) : null;
+		}
+
+		readonly record struct DragHitTestInfo(DragDropEffects Effect, int HitIndex)
+		{
+			public static readonly DragHitTestInfo Nowhere = new(DragDropEffects.None, -1);
 		}
 	}
 
-	public class DataGridViewDraggedRowSet(DataGridViewSelectedRowCollection rows, DataGridView source)
+	public class DataGridViewDraggedRowSet(int startIndex, IReadOnlyList<object> items)
 	{
-		public ReadOnlyCollection<DataGridViewRow> Rows { get; } = rows.Cast<DataGridViewRow>().OrderBy(x => x.Index).ToArray().AsReadOnly();
+		public int StartIndex { get; } = startIndex;
 
-		public DataGridView Source { get; } = source;
+		public int EndIndex => StartIndex + Items.Count;
+
+		public IReadOnlyList<object> Items { get; } = items;
 	}
 
-	public class RowDroppedEventArgs(DataGridViewDraggedRowSet rowSet, int dest) : EventArgs
+	public class RowDragStartingEventArgs(int startIndex, int count, DragDropEffects allowedEffects) : EventArgs
 	{
-		public int Destination { get; } = dest;
+		public int StartIndex { get; } = startIndex;
 
-		public DataGridViewDraggedRowSet RowSet { get; } = rowSet;
+		public int Count { get; } = count;
 
-		public void SelectDroppedRows(DataGridView dataGridView)
+		public DragDropEffects AllowedEffects { get; set; } = allowedEffects;
+
+		public IReadOnlyList<object>? Items { get; private set; }
+
+		public void SetItems(IEnumerable items)
 		{
-			dataGridView.ClearSelection();
-			foreach (var i in Enumerable.Range(Destination, RowSet.Rows.Count))
-				dataGridView.Rows[i].Selected = true;
+			Items = items.Cast<object>().ToArray();
+			if (Items.Count != Count)
+				throw new ArgumentException($"Must have same number of items as {nameof(Count)}", nameof(items));
 		}
 	}
 
-	public class QueryRowDragDropEffectEventArgs(DragDropEffects effects, DataGridView source) : EventArgs
+	public class RowDroppedEventArgs(DataGridViewDraggedRowSet rows, int index) : EventArgs
 	{
+		public DataGridViewDraggedRowSet RowSet { get; } = rows;
+
+		public int Index { get; } = index;
+
+		public int MoveInListIndex => Index - (Index > RowSet.EndIndex ? RowSet.Items.Count : 0);
+	}
+
+	public class QueryRowDragDropEffectEventArgs(DataGridViewDraggedRowSet set, int index, DragDropEffects effects) : EventArgs
+	{
+		public DataGridViewDraggedRowSet RowSet { get; } = set;
+
+		public int Index { get; } = index;
+
+		public bool MovesIntoMovingRows => Index >= RowSet.StartIndex && Index <= RowSet.EndIndex;
+
 		public DragDropEffects Effect { get; set; } = effects;
-
-		public DataGridView Source { get; } = source;
 	}
 }

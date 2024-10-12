@@ -192,16 +192,18 @@ namespace Comical
 			}
 		}
 
+		void OnImagesDataGridViewRowDragStarting(object sender, Controls.RowDragStartingEventArgs e) => e.SetItems(_images.Skip(e.StartIndex).Take(e.Count));
+
+		void OnImagesDataGridViewQueryRowDragDropEffect(object? sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.RowSet.Items[0] is ImageReference && !e.MovesIntoMovingRows ? DragDropEffects.Move : DragDropEffects.None;
+
 		void OnImagesDataGridViewRowDropped(object? sender, Controls.RowDroppedEventArgs e)
 		{
-			if (e.RowSet.Source == ImagesDataGridView)
+			if (e.RowSet.Items[0] is ImageReference)
 			{
-				_images.MoveRange(e.RowSet.Rows[0].Index, e.RowSet.Rows.Count, e.Destination);
-				e.SelectDroppedRows(ImagesDataGridView);
+				_images.MoveRange(e.RowSet.StartIndex, e.RowSet.Items.Count, e.MoveInListIndex);
+				ImagesDataGridView.SelectRowRange(e.MoveInListIndex, e.RowSet.Items.Count);
 			}
 		}
-
-		void OnImagesDataGridViewQueryRowDragDropEffect(object? sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.Source == ImagesDataGridView ? DragDropEffects.Move : DragDropEffects.None;
 
 		void OnImagesDataGridViewCellDoubleClick(object? sender, DataGridViewCellEventArgs e) => OpenFirstSelectedImage();
 

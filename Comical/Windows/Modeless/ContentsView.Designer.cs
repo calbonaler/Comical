@@ -144,6 +144,7 @@
 			ImagesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			ImagesDataGridView.ShowCellToolTips = false;
 			ImagesDataGridView.VirtualMode = true;
+			ImagesDataGridView.RowDragStarting += OnImagesDataGridViewRowDragStarting;
 			ImagesDataGridView.RowDropped += OnImagesDataGridViewRowDropped;
 			ImagesDataGridView.QueryRowDragDropEffect += OnImagesDataGridViewQueryRowDragDropEffect;
 			ImagesDataGridView.CellDoubleClick += OnImagesDataGridViewCellDoubleClick;

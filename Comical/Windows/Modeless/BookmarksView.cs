@@ -97,18 +97,26 @@ namespace Comical
 				_bookmarks[e.RowIndex].Target = target;
 		}
 
-		void OnBookmarksDataGridViewQueryRowDragDropEffect(object? sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.Source == BookmarksDataGridView ? DragDropEffects.Move : DragDropEffects.Link;
+		void OnBookmarksDataGridViewRowDragStarting(object sender, Controls.RowDragStartingEventArgs e) => e.SetItems(_bookmarks.Skip(e.StartIndex).Take(e.Count));
+
+		void OnBookmarksDataGridViewQueryRowDragDropEffect(object? sender, Controls.QueryRowDragDropEffectEventArgs e) => e.Effect = e.RowSet.Items[0] switch
+		{
+			Bookmark => !e.MovesIntoMovingRows ? DragDropEffects.Move : DragDropEffects.None,
+			ImageReference => DragDropEffects.Link,
+			_ => DragDropEffects.None,
+		};
 
 		void OnBookmarksDataGridViewRowDropped(object? sender, Controls.RowDroppedEventArgs e)
 		{
-			if (e.RowSet.Source == BookmarksDataGridView)
+			switch (e.RowSet.Items[0])
 			{
-				_bookmarks.Move(e.RowSet.Rows[0].Index, e.Destination);
-				e.SelectDroppedRows(BookmarksDataGridView);
-			}
-			else
-			{
-				_bookmarks.Insert(e.Destination, new Bookmark() { Target = e.RowSet.Rows[0].Index });
+				case Bookmark:
+					_bookmarks.Move(e.RowSet.StartIndex, e.MoveInListIndex);
+					BookmarksDataGridView.SelectRowRange(e.MoveInListIndex, e.RowSet.Items.Count);
+					break;
+				case ImageReference:
+					_bookmarks.Insert(e.Index, new Bookmark() { Target = e.RowSet.StartIndex });
+					break;
 			}
 		}
 

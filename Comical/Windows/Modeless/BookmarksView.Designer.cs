@@ -120,6 +120,7 @@
 			BookmarksDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			BookmarksDataGridView.ShowCellToolTips = false;
 			BookmarksDataGridView.VirtualMode = true;
+			BookmarksDataGridView.RowDragStarting += OnBookmarksDataGridViewRowDragStarting;
 			BookmarksDataGridView.RowDropped += OnBookmarksDataGridViewRowDropped;
 			BookmarksDataGridView.QueryRowDragDropEffect += OnBookmarksDataGridViewQueryRowDragDropEffect;
 			BookmarksDataGridView.CellDoubleClick += OnBookmarksDataGridViewCellDoubleClick;
