@@ -1,18 +1,17 @@
 ﻿using System;
 
-namespace Comical.Core
-{
-	public sealed class DelegateDisposable(Action? action) : IDisposable
-	{
-		Action? _action = action;
+namespace Comical.Core;
 
-		public void Dispose()
+public sealed class DelegateDisposable(Action? action) : IDisposable
+{
+	Action? _action = action;
+
+	public void Dispose()
+	{
+		if (_action != null)
 		{
-			if (_action != null)
-			{
-				_action();
-				_action = null;
-			}
+			_action();
+			_action = null;
 		}
 	}
 }
