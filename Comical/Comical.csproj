@@ -35,7 +35,6 @@
   <ItemGroup>
     <PackageReference Include="DockPanelSuite" Version="3.1.1" />
     <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.1.1" />
-    <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ComicalCore\ComicalCore.csproj" />

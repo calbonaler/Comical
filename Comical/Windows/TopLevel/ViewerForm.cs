@@ -3,13 +3,13 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Comical.Core;
-using CPDialogs = Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Comical;
 
-public partial class ViewerForm : Microsoft.WindowsAPICodePack.Shell.GlassForm
+public partial class ViewerForm : Form
 {
 	public ViewerForm(string fileName)
 	{
@@ -84,25 +84,19 @@ public partial class ViewerForm : Microsoft.WindowsAPICodePack.Shell.GlassForm
 	{
 		Activate();
 		MainPreviewer.Select();
-		using (var dialog = new CPDialogs.TaskDialog())
+		var page = new TaskDialogPage()
 		{
-			dialog.Cancelable = false;
-			CPDialogs.TaskDialogButton btnCancel = new CPDialogs.TaskDialogButton(nameof(btnCancel), Properties.Resources.Cancel);
-			dialog.Controls.Add(btnCancel);
-			dialog.Caption = Application.ProductName;
-			dialog.Icon = CPDialogs.TaskDialogStandardIcon.None;
-			dialog.InstructionText = Properties.Resources.OpeningFile;
-			dialog.OwnerWindowHandle = Handle;
-			dialog.ProgressBar = new CPDialogs.TaskDialogProgressBar(0, 100, 0);
-			dialog.Opened += async (s, ev) =>
-			{
-				btnCancel.Enabled = false;
-				await _comic.OpenAsync(fileName, new Progress<int>(x => this.InvokeIfNeeded(() => dialog.ProgressBar.Value = x)));
-				dialog.Close(CPDialogs.TaskDialogResult.Ok);
-			};
-			dialog.StartupLocation = CPDialogs.TaskDialogStartupLocation.CenterOwner;
-			dialog.Show();
-		}
+			Buttons = [new TaskDialogButton(Properties.Resources.Cancel, false)],
+			Caption = Application.ProductName,
+			Heading = Properties.Resources.OpeningFile,
+			ProgressBar = new(),
+		};
+		page.Created += async (s, ev) =>
+		{
+			await _comic.OpenAsync(fileName, new Progress<int>(x => this.InvokeIfNeeded(() => page.ProgressBar.Value = x)));
+			page.BoundDialog!.Close();
+		};
+		TaskDialog.ShowDialog(this, page);
 		_spreads = [.. _comic.ConstructSpreads()];
 		BookmarksContextMenu.Items.AddRange([.. _comic.Bookmarks.Select(b => new ToolStripMenuItem(b.Name, null, (s, ev) => SetCurrentSpread(Array.FindIndex(_spreads, x => x.Left == _comic.Images[b.Target] || x.Right == _comic.Images[b.Target]))))]);
 		_openingFileName = "";
@@ -204,6 +198,7 @@ public partial class ViewerForm : Microsoft.WindowsAPICodePack.Shell.GlassForm
 		DesktopBounds = Screen.FromControl(this).Bounds;
 		Open(_openingFileName);
 		base.OnLoad(e);
+		NativeMethods.ExtendFrameIntoClientArea(Handle, new Margins(-1, -1, -1, -1));
 	}
 
 	// Prevent base class from filling background
@@ -216,4 +211,15 @@ public partial class ViewerForm : Microsoft.WindowsAPICodePack.Shell.GlassForm
 		Previous,
 		Next,
 	}
+
+	static partial class NativeMethods
+	{
+		[LibraryImport("dwmapi.dll")]
+		private static partial int DwmExtendFrameIntoClientArea(IntPtr hWnd, in Margins insetMargins);
+
+		public static void ExtendFrameIntoClientArea(IntPtr hWnd, in Margins insetMargins)
+			=> Marshal.ThrowExceptionForHR(DwmExtendFrameIntoClientArea(hWnd, in insetMargins));
+	}
+
+	record struct Margins(int Left, int Right, int Top, int Bottom);
 }
