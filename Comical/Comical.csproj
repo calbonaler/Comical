@@ -15,7 +15,8 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Nullable>enable</Nullable>
-		<ForceDesignerDPIUnaware>true</ForceDesignerDPIUnaware>
+    <ForceDesignerDPIUnaware>true</ForceDesignerDPIUnaware>
+    <RollForward>Major</RollForward>
   </PropertyGroup>
   <ItemGroup>
     <RuntimeHostConfigurationOption Include="System.Globalization.UseNls" Value="true" />
