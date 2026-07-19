@@ -1,10 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35208.52
+# Visual Studio Version 18
+VisualStudioVersion = 18.8.12009.203 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Comical", "Comical\Comical.csproj", "{35914A0E-9765-4594-A011-17BE47F01025}"
-EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "Setup\Setup.wixproj", "{703293D2-9FA9-406D-8E6B-F5CEC3E19326}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicalCore", "ComicalCore\ComicalCore.csproj", "{9C92D548-FA74-4E71-A040-A24F3E93067F}"
 EndProject
@@ -20,8 +18,6 @@ Global
 		{35914A0E-9765-4594-A011-17BE47F01025}.Debug|x64.Build.0 = Debug|Any CPU
 		{35914A0E-9765-4594-A011-17BE47F01025}.Release|x64.ActiveCfg = Release|Any CPU
 		{35914A0E-9765-4594-A011-17BE47F01025}.Release|x64.Build.0 = Release|Any CPU
-		{703293D2-9FA9-406D-8E6B-F5CEC3E19326}.Debug|x64.ActiveCfg = Debug|x64
-		{703293D2-9FA9-406D-8E6B-F5CEC3E19326}.Release|x64.ActiveCfg = Release|x64
 		{9C92D548-FA74-4E71-A040-A24F3E93067F}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{9C92D548-FA74-4E71-A040-A24F3E93067F}.Debug|x64.Build.0 = Debug|Any CPU
 		{9C92D548-FA74-4E71-A040-A24F3E93067F}.Release|x64.ActiveCfg = Release|Any CPU
