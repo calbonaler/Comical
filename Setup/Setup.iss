@@ -14,7 +14,7 @@
 #define ShellExtName "ComicFileHandler"
 #define ShellExtFileName ShellExtName + ".dll"
 #define ShellExtProjectDir "..\" + ShellExtName
-#define ShellExtOutputDir ShellExtProjectDir + "\Release"
+#define ShellExtOutputDir ShellExtProjectDir + "\bin\x64\Release"
 #define ShellExtFilePath ShellExtOutputDir + "\" + ShellExtFileName
 #define ShellExtPropertyHandlerClsid "001823E8-247E-4685-BD84-350347B0460C"
 #define ShellExtPropertyHandlerDescription "Comic Property Handler"
