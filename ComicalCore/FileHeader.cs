@@ -2,6 +2,7 @@
 using System.Buffers;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -88,7 +89,7 @@ public class FileHeader
 		return new FileHeader(title, author, published, bindingSide, thumbnail, fileVersion);
 	}
 
-	public static readonly Version LatestSupportedFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version!;
+	public static readonly Version LatestSupportedFileVersion = Version.Parse(Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()!.Version);
 	static ReadOnlySpan<byte> FileIdentifier => "CIC"u8;
 
 	public Binary? Thumbnail { get; }

@@ -9,8 +9,9 @@
     <Company>calbonaler</Company>
     <Product>ComicalCore</Product>
     <Copyright>Copyright © calbonaler 2012-2024</Copyright>
-    <AssemblyVersion>4.4.13.0</AssemblyVersion>
     <FileVersion>4.4.13.0</FileVersion>
+    <InformationalVersion>4.4.13</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>

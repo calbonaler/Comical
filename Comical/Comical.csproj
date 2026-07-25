@@ -8,8 +8,9 @@
     <Company>calbonaler</Company>
     <Product>Comical</Product>
     <Copyright>Copyright © calbonaler 2010-2024</Copyright>
-    <AssemblyVersion>4.4.17.0</AssemblyVersion>
     <FileVersion>4.4.17.0</FileVersion>
+    <InformationalVersion>4.4.17</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Resources\Comical.ico</ApplicationIcon>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>

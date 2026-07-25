@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Linq;
@@ -35,9 +34,7 @@ public partial class AboutDialog : Form
 	protected override void OnLoad(System.EventArgs e)
 	{
 		base.OnLoad(e);
-		var version = Assembly.GetExecutingAssembly().GetName().Version;
-		Debug.Assert(version != null);
-		lblVersionHeader.Text = version.ToString(3);
+		lblVersionHeader.Text = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
 #pragma warning disable CA1863 // リソースに対してCompositeFormatは使用できない
 		CopyrightLabel.Text = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false).FirstOrDefault() is AssemblyCopyrightAttribute ca
 			? string.Format(CultureInfo.CurrentCulture, Resources.AboutDialog_CopyrightFormat, ca.Copyright)
