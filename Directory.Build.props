@@ -1,0 +1,7 @@
+<Project>
+	<PropertyGroup>
+		<Company>calbonaler</Company>
+		<Product>Comical</Product>
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+	</PropertyGroup>
+</Project>

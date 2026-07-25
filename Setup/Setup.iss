@@ -2,7 +2,6 @@
 #define DotNetMinor 0
 #dim DotNetFrameworks[2] { "Microsoft.NETCore.App", "Microsoft.WindowsDesktop.App" }
 #define AppName "Comical"
-#define AppPublisher "calbonaler"
 #define AppFileName AppName + ".exe"
 #define AppProjectDir "..\" + AppName
 #define AppResourcesDir AppProjectDir + "\Resources"
@@ -22,16 +21,17 @@
 #define ShellExtThumbnailProviderDescription "Comic Thumbnail Provider"
 #define SetupResourcesDir "Resources"
 
-#define GetVersionStringWithoutBuild(str filename) \
-  GetVersionComponents(filename, Local[0], Local[1], Local[2], Local[3]), \
-  Str(Local[0]) + "." + Str(Local[1]) + "." + Str(Local[2])
-#define AppVersion GetVersionStringWithoutBuild(AppFilePath)
+#define AppPublisher GetFileCompany(AppFilePath)
+#define AppCopyright GetFileCopyright(AppFilePath)
+#define AppVersion GetFileProductVersion(AppFilePath)
+#define AppFileVersion GetFileVersionString(AppFilePath)
 
 [Setup]
 ; アプリケーション情報
 AppName={#AppName}
-AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
+AppCopyright={#AppCopyright}
+AppVersion={#AppVersion}
 UninstallDisplayName={#AppName}
 UninstallDisplayIcon={app}\{#AppFileName}
 ; アプリケーション要件
@@ -50,7 +50,8 @@ WizardSmallImageFile={#SetupResourcesDir}\WizardSmall100.png,{#SetupResourcesDir
 ; ビルド出力
 OutputDir=bin
 OutputBaseFilename={#AppName}-{#AppVersion}-Setup
-VersionInfoVersion={#AppVersion}
+VersionInfoOriginalFileName={#AppName}-{#AppVersion}-Setup.exe
+VersionInfoVersion={#AppFileVersion}
 
 [Languages]
 Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"

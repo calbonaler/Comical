@@ -37,9 +37,15 @@
     <None Include="ComicFileHandler.def">
       <Filter>ソース ファイル</Filter>
     </None>
+    <None Include="Resource.rc">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Version.rc">
+      <Filter>リソース ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource.rc">
+    <ResourceCompile Include="Main.rc">
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
   </ItemGroup>

@@ -1,0 +1,65 @@
+﻿<Project>
+	<!-- 未指定の場合のみgitの実行コマンドを取得 -->
+	<Target Name="ResolveGitExe" Condition="'$(GitExe)' == ''">
+		<Exec Command="git --version" IgnoreExitCode="true" StandardOutputImportance="Low" StandardErrorImportance="Low">
+			<Output TaskParameter="ExitCode" PropertyName="GitFromPath"/>
+		</Exec>
+		<PropertyGroup>
+			<GitExe Condition="'$(GitFromPath)' == '0'">git</GitExe>
+			<GitExe Condition="'$(GitFromPath)' != '0'">C:\Program Files\Git\cmd\git.exe</GitExe>
+		</PropertyGroup>
+	</Target>
+	<!-- Gitタグからバージョンを取得 -->
+	<Target Name="GetVersionFromGitTag" DependsOnTargets="ResolveGitExe">
+		<Exec
+			Command="&quot;$(GitExe)&quot; describe --tags --abbrev=0" ConsoleToMSBuild="true" IgnoreExitCode="true"
+			StandardOutputImportance="Low">
+			<Output TaskParameter="ConsoleOutput" PropertyName="GitTag"/>
+			<Output TaskParameter="ExitCode" PropertyName="GotGitTag"/>
+		</Exec>
+		<PropertyGroup>
+			<!-- バージョンが取得できない場合はフォールバック -->
+			<TagVersion Condition="'$(GotGitTag)' != '0'">0.0.0</TagVersion>
+			<TagVersion Condition="'$(GotGitTag)' == '0'">$(GitTag.Trim())</TagVersion>
+			<TagVersionMajor>$([System.Text.RegularExpressions.Regex]::Match('$(TagVersion)', '^(\d+)\.\d+\.\d+$').Groups[1].Value)</TagVersionMajor>
+			<TagVersionMinor>$([System.Text.RegularExpressions.Regex]::Match('$(TagVersion)', '^\d+\.(\d+)\.\d+$').Groups[1].Value)</TagVersionMinor>
+			<TagVersionPatch>$([System.Text.RegularExpressions.Regex]::Match('$(TagVersion)', '^\d+\.\d+\.(\d+)$').Groups[1].Value)</TagVersionPatch>
+		</PropertyGroup>
+	</Target>
+	<!-- Gitタグから年を取得 -->
+	<Target Name="GetYearFromGitTag" DependsOnTargets="GetVersionFromGitTag">
+		<Exec
+			Command="&quot;$(GitExe)&quot; log -1 --format=%25%25ad --date=format:%25%25Y $(GitTag)" ConsoleToMSBuild="true"
+			StandardOutputImportance="Low">
+			<Output TaskParameter="ConsoleOutput" PropertyName="TagYear"/>
+		</Exec>
+	</Target>
+	<!-- 著作権情報を取得 -->
+	<Target Name="GetCopyrightFromGitTag" DependsOnTargets="GetYearFromGitTag">
+		<PropertyGroup>
+			<Copyright Condition="'$(CopyrightStartYear)' != '$(TagYear)'">Copyright © $(Company) $(CopyrightStartYear)-$(TagYear)</Copyright>
+			<Copyright Condition="'$(CopyrightStartYear)' == '$(TagYear)'">Copyright © $(Company) $(CopyrightStartYear)</Copyright>
+		</PropertyGroup>
+	</Target>
+	<!-- バージョンを上書き -->
+	<Target Name="OverrideVersion" DependsOnTargets="GetVersionFromGitTag;GetCopyrightFromGitTag" BeforeTargets="BeforeBuild">
+		<PropertyGroup>
+			<!-- 製品バージョンとファイルバージョンを設定 -->
+			<InformationalVersion>$(TagVersion)</InformationalVersion>
+			<FileVersion>$(TagVersion).0</FileVersion>
+		</PropertyGroup>
+	</Target>
+	<!-- C++バージョン情報リソース用ヘッダ生成 -->
+	<Target Name="GenerateVersionHeader" DependsOnTargets="GetVersionFromGitTag;GetCopyrightFromGitTag" BeforeTargets="ClCompile">
+		<WriteLinesToFile
+			File="$(ProjectDir)obj\version.h"
+			Lines='
+#define APP_COMPANY "$(Company)"
+#define APP_PRODUCT "$(Product)"
+#define APP_COPYRIGHT "$(Copyright)"
+#define APP_VERSION $(TagVersionMajor),$(TagVersionMinor),$(TagVersionPatch)
+#define APP_VERSION_STRING "$(TagVersion)"
+'
+			Encoding="Unicode" Overwrite="true" />
+	</Target>
+</Project>

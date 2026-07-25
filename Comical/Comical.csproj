@@ -5,12 +5,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <AssemblyTitle>Comical</AssemblyTitle>
     <Description>Managing and Reading Comics</Description>
-    <Company>calbonaler</Company>
-    <Product>Comical</Product>
-    <Copyright>Copyright © calbonaler 2010-2024</Copyright>
-    <FileVersion>4.4.17.0</FileVersion>
-    <InformationalVersion>4.4.17</InformationalVersion>
-    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <CopyrightStartYear>2010</CopyrightStartYear>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Resources\Comical.ico</ApplicationIcon>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>

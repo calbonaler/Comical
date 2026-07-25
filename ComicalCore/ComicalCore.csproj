@@ -6,12 +6,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <AssemblyTitle>ComicalCore</AssemblyTitle>
     <Description>Core System for Comical Application</Description>
-    <Company>calbonaler</Company>
-    <Product>ComicalCore</Product>
-    <Copyright>Copyright © calbonaler 2012-2024</Copyright>
-    <FileVersion>4.4.13.0</FileVersion>
-    <InformationalVersion>4.4.13</InformationalVersion>
-    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <CopyrightStartYear>2012</CopyrightStartYear>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
