@@ -63,7 +63,16 @@ public partial class EditorForm : Form
 	{
 		MainDockPanel.Theme = new VS2015LightTheme();
 
-		LoadFromXml(MainDockPanel, Settings.Default.DockPanelConfiguration, _imageList, _bookmarkList, _document);
+		var defaultDockContents = new DockContent[] { _imageList, _bookmarkList, _document };
+		LoadFromXml(MainDockPanel, Settings.Default.DockPanelConfiguration, defaultDockContents);
+		foreach (var content in defaultDockContents)
+		{
+			if (content.DockPanel == null)
+			{
+				content.Show(MainDockPanel);
+				content.Hide();
+			}
+		}
 
 		_imageList.FileDropped += async (s, ev) => await AddAnythingLocalAsync(!ev.Control, ev.FileNames);
 		_imageList.ImageReferenceSelected += (s, ev) =>
@@ -228,12 +237,12 @@ public partial class EditorForm : Form
 		return result;
 	}
 
-	static void LoadFromXml(DockPanel panel, string xml, params IDockContent[] contents)
+	static void LoadFromXml(DockPanel panel, string xml, IEnumerable<IDockContent> contents)
 	{
 		if (string.IsNullOrEmpty(xml))
 			return;
 		using var ms = new MemoryStream(Encoding.UTF8.GetBytes(xml));
-		panel.LoadFromXml(ms, persistString => Array.Find(contents, x => string.Equals(persistString, x.DockHandler.GetPersistStringCallback(), StringComparison.Ordinal)));
+		panel.LoadFromXml(ms, persistString => contents.FirstOrDefault(x => string.Equals(persistString, x.DockHandler.GetPersistStringCallback(), StringComparison.Ordinal)));
 	}
 
 	#region FileMenu
