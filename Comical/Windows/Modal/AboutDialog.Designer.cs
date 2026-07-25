@@ -93,7 +93,6 @@
 			MainPanel.ResumeLayout(false);
 			MainPanel.PerformLayout();
 			ResumeLayout(false);
-			PerformLayout();
 		}
 
 		#endregion

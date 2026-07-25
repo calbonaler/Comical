@@ -157,17 +157,14 @@
   <data name="lblVersionHeader.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="lblVersionHeader.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lblVersionHeader.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="lblVersionHeader.Location" type="System.Drawing.Point, System.Drawing">
-    <value>382, 58</value>
+    <value>241, 58</value>
   </data>
   <data name="lblVersionHeader.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 15</value>
+    <value>141, 15</value>
   </data>
   <data name="lblVersionHeader.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
