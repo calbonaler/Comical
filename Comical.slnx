@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="Comical/Comical.csproj" />
+  <Project Path="ComicalCore/ComicalCore.csproj" />
+  <Project Path="ComicFileHandler/ComicFileHandler.vcxproj" Id="db009f18-6821-4290-b70d-309befcb61fc" />
+</Solution>
