@@ -14,8 +14,7 @@ static class Program
 	[STAThread]
 	static void Main(string[] args)
 	{
-		Application.EnableVisualStyles();
-		Application.SetCompatibleTextRenderingDefault(false);
+		ApplicationConfiguration.Initialize();
 		if (!Settings.Default.HasUpgraded)
 		{
 			Settings.Default.Upgrade();
