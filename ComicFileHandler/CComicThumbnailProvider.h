@@ -14,18 +14,14 @@
 class _declspec(uuid("{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}")) CComicThumbnailProvider: public CCoclassBase<IInitializeWithStream, IThumbnailProvider>
 {
 public:
-#pragma warning (push)
-#pragma warning (disable: 26429) // not null
+#pragma warning (suppress: 26429) // not null
 	IFACEMETHODIMP Initialize(_In_ IStream* pStream, _In_ DWORD) override
-#pragma warning (pop)
 	{
 		return m_pStream ? HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED) : pStream->QueryInterface(&m_pStream);
 	}
 
-#pragma warning (push)
-#pragma warning (disable: 26429) // not null
+#pragma warning (suppress: 26429) // not null
 	IFACEMETHODIMP GetThumbnail(UINT, __RPC__deref_out_opt HBITMAP* phbmp, __RPC__out WTS_ALPHATYPE* pdwAlpha) override
-#pragma warning (pop)
 	{
 		*phbmp = nullptr;
 		CComPtr<IWICImagingFactory> pImagingFactory;

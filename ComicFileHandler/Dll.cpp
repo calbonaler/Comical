@@ -23,27 +23,21 @@ __control_entrypoint(DllExport) STDAPI DllCanUnloadNow() { return !g_cRefModule 
 
 void DllAddRef() noexcept
 {
-#pragma warning (push)
-#pragma warning (disable: 26447) // declared noexcept but maybe throw (InterlockedIncrement)
+#pragma warning (suppress: 26447) // declared noexcept but maybe throw (InterlockedIncrement)
 	InterlockedIncrement(&g_cRefModule);
-#pragma warning (pop)
 }
 
 void DllRelease() noexcept
 {
-#pragma warning (push)
-#pragma warning (disable: 26447) // declared noexcept but maybe throw (InterlockedIncrement)
+#pragma warning (suppress: 26447) // declared noexcept but maybe throw (InterlockedIncrement)
 	InterlockedDecrement(&g_cRefModule);
-#pragma warning (pop)
 }
 
 class CClassFactoryBase : public CCoclassBase<IClassFactory>
 {
 public:
-#pragma warning (push)
-#pragma warning (disable: 26429) // nullability is not tested (ppv)
+#pragma warning (suppress: 26429) // nullability is not tested (ppv)
 	IFACEMETHODIMP CreateInstance(_In_opt_ IUnknown* punkOuter, _In_ const IID& riid, _COM_Outptr_ void** ppv) noexcept override
-#pragma warning (pop)
 	{
 		*ppv = nullptr;
 		if (punkOuter)
@@ -66,10 +60,8 @@ protected:
 template <typename T> class CClassFactory : public CClassFactoryBase
 {
 protected:
-#pragma warning (push)
-#pragma warning (disable: 26429) // nullability is not tested (ppv)
+#pragma warning (suppress: 26429) // nullability is not tested (ppv)
 	IFACEMETHODIMP CreateInstanceCore(_In_ const IID& riid, _COM_Outptr_ void** ppv) noexcept override
-#pragma warning (pop)
 	{
 		*ppv = nullptr;
 		CComPtr<T> pNew;

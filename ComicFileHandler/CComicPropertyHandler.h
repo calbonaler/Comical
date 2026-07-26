@@ -20,10 +20,8 @@
 class _declspec(uuid("001823E8-247E-4685-BD84-350347B0460C")) CComicPropertyHandler: public CCoclassBase<IInitializeWithStream, IPropertyStore, IPropertyStoreCapabilities>
 {
 public:
-#pragma warning (push)
-#pragma warning (disable: 26429) // not null
+#pragma warning (suppress: 26429) // not null
 	IFACEMETHODIMP Initialize(_In_ IStream* pStream, _In_ DWORD) override
-#pragma warning (pop)
 	{
 		if (m_pCache)
 			return HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED);
@@ -43,16 +41,11 @@ public:
 			{ &PKEY_Keywords, ReadBookmarks },
 		};
 		TEST(PSCreateMemoryPropertyStore(IID_PPV_ARGS(&m_pCache)));
-#pragma warning (push)
-#pragma warning (disable: 26494) // object must be initialized
+#pragma warning (suppress: 26494) // object must be initialized
 		UINT32 version;
-#pragma warning (pop)
 		for (const auto& mapping : mappings)
 		{
-#pragma warning (push)
-#pragma warning (disable: 26476) // avoid naked union
 			PROPVARIANT prop;
-#pragma warning (pop)
 			PropVariantInit(&prop);
 			auto hres = mapping.getter(*pStream, &prop, version);
 			if (hres == S_OK && mapping.pKey)
@@ -102,23 +95,17 @@ private:
 		UINT32 lengthInBytes;
 		TEST(Read7BitEncodedInt(stream, lengthInBytes));
 		value.clear();
-#pragma warning (push)
-#pragma warning (disable: 26494) // object must be initialized
+#pragma warning (suppress: 26494) // object must be initialized
 		WCHAR buffer[64];
-#pragma warning (pop)
 		ULONG bytesRead = 0;
 		for (UINT32 bytesReadSoFar = 0; bytesReadSoFar < lengthInBytes; bytesReadSoFar += bytesRead)
 		{
-#pragma warning (push)
-#pragma warning (disable: 26485) // do not decay array to pointer
+#pragma warning (suppress: 26485) // do not decay array to pointer
 			TEST(stream.Read(buffer, std::min(lengthInBytes - bytesReadSoFar, static_cast<UINT32>(sizeof(buffer))), &bytesRead));
-#pragma warning (pop)
 			if (bytesRead == 0)
 				return HRESULT_FROM_WIN32(ERROR_HANDLE_EOF);
-#pragma warning (push)
-#pragma warning (disable: 26485) // do not decay array to pointer
+#pragma warning (suppress: 26485) // do not decay array to pointer
 			value.append(buffer, (static_cast<size_t>(bytesRead) + 1) / 2);
-#pragma warning (pop)
 		}
 		return S_OK;
 	}
@@ -134,10 +121,8 @@ private:
 	static HRESULT ReadFileIdentifier(IStream& stream, PROPVARIANT*, UINT32&)
 	{
 		CHAR identifier[3];
-#pragma warning (push)
-#pragma warning (disable: 26485) // do not decay array to pointer
+#pragma warning (suppress: 26485) // do not decay array to pointer
 		TEST(stream.Read(identifier, sizeof(identifier), nullptr));
-#pragma warning (pop)
 		if (identifier[0] != 'C' || identifier[1] != 'I' || identifier[2] != 'C')
 			return E_INVALIDARG;
 		return S_FALSE;
@@ -176,10 +161,8 @@ private:
 	static HRESULT ReadPublished(IStream& stream, PROPVARIANT* var, UINT32&)
 	{
 		UINT8 date[4];
-#pragma warning (push)
-#pragma warning (disable: 26485) // do not decay array to pointer
+#pragma warning (suppress: 26485) // do not decay array to pointer
 		TEST(stream.Read(date, ARRAYSIZE(date), nullptr));
-#pragma warning (pop)
 		SYSTEMTIME st = { };
 		st.wYear = gsl::narrow_cast<WORD>(date[0] + (date[1] << 8));
 		st.wMonth = date[2];
@@ -195,15 +178,11 @@ private:
 		return InitPropVariantFromFileTime(&ft, var);
 	}
 
-#pragma warning (push)
-#pragma warning (disable: 26460) // mark reference parameter as const
+#pragma warning (suppress: 26460) // mark reference parameter as const (version)
 	static HRESULT ReadBindingSide(IStream& stream, PROPVARIANT*, UINT32& version)
-#pragma warning (pop)
 	{
-#pragma warning (push)
-#pragma warning (disable: 26494) // object must be initialized
+#pragma warning (suppress: 26494) // object must be initialized
 		UINT8 boundSide;
-#pragma warning (pop)
 		if (version >= MakeVersion(4, 0))
 			TEST(stream.Read(&boundSide, sizeof(boundSide), nullptr));
 		return S_FALSE;

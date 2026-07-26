@@ -9,10 +9,8 @@ inline bool SucceededAndLogIfFailed(HRESULT hr, const char* file, int line) noex
 	{
 		char data[2048];
 		sprintf_s(data, "%x, %s (%d)", hr, file, line);
-#pragma warning (push)
-#pragma warning (disable: 26485) // do not decay array to pointer
+#pragma warning (suppress: 26485) // do not decay array to pointer
 		MessageBoxA(nullptr, data, "FAILED", MB_OK);
-#pragma warning (pop)
 		return false;
 	}
 	return true;
