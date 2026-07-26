@@ -1,3 +1,12 @@
+#include "pch.h"
+
+#include <Windows.h>
+#include <atlcomcli.h>
+#include <sal.h>
+
+#include <new>
+
+#include "Dll.h"
 #include "CComicPropertyHandler.h"
 #include "CComicThumbnailProvider.h"
 

@@ -1,6 +1,21 @@
 #pragma once
 
+#include <Windows.h>
+#include <atlcomcli.h>
+#include <propsys.h>
+#include <propkey.h>
+#include <propkeydef.h>
+#include <propvarutil.h>
+#include <sal.h>
+
+#include <algorithm>
+#include <string>
+#include <sstream>
+
+#include <gsl/util>
+
 #include "Dll.h"
+#include "Util.h"
 
 class _declspec(uuid("001823E8-247E-4685-BD84-350347B0460C")) CComicPropertyHandler: public CCoclassBase<IInitializeWithStream, IPropertyStore, IPropertyStoreCapabilities>
 {
@@ -43,12 +58,12 @@ public:
 			if (hres == S_OK && mapping.pKey)
 			{
 				hres = PSCoerceToCanonicalValue(*mapping.pKey, &prop);
-				if (SUCCEEDED(hres))
+				if (XSUCCEEDED(hres))
 					hres = m_pCache->SetValueAndState(*mapping.pKey, &prop, PSC_NORMAL);
 			}
 			const auto hrClear = PropVariantClear(&prop);
-			const auto hrClearSuccess = SUCCEEDED(hrClear);
-			if (FAILED(hres))
+			const auto hrClearSuccess = XSUCCEEDED(hrClear);
+			if (XFAILED(hres))
 				return hres;
 			if (!hrClearSuccess)
 				return hrClear;

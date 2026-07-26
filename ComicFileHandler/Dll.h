@@ -1,38 +1,7 @@
 #pragma once
 
-#define NOMINMAX
-
-#include <ShObjIdl.h>
-#include <propkey.h>
-#include <propvarutil.h>
-#include <atlbase.h>
-#include <thumbcache.h>
-#include <wincodec.h>
-#include <sstream>
-#include <algorithm>
-#include <gsl/gsl>
-
-#ifdef _DEBUG
-inline bool SUCCEEDED_DEBUG(HRESULT hr, const char* file, int line) noexcept
-{
-	if (hr < 0)
-	{
-		char data[2048];
-		sprintf_s(data, "%x, %s (%d)", hr, file, line);
-#pragma warning (push)
-#pragma warning (disable: 26485) // do not decay array to pointer
-		MessageBoxA(nullptr, data, "FAILED", MB_OK);
-#pragma warning (pop)
-		return false;
-	}
-	return true;
-}
-#undef SUCCEEDED
-#undef FAILED
-#define SUCCEEDED(hr) SUCCEEDED_DEBUG(hr, __FILE__, __LINE__)
-#define FAILED(hr) (!SUCCEEDED_DEBUG(hr, __FILE__, __LINE__))
-#endif
-#define TEST(x) do { const auto hr = x; if (FAILED(hr)) return hr; } while (false)
+#include <Windows.h>
+#include <sal.h>
 
 void DllAddRef() noexcept;
 void DllRelease() noexcept;

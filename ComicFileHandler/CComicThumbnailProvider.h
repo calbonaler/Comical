@@ -1,6 +1,15 @@
 #pragma once
 
+#include <atlcomcli.h>
+#include <propsys.h>
+#include <thumbcache.h>
+#include <wincodec.h>
+#include <sal.h>
+
+#include <gsl/util>
+
 #include "Dll.h"
+#include "Util.h"
 
 class _declspec(uuid("{4423CDF9-0C1B-4F23-8CC4-BA634252CD6A}")) CComicThumbnailProvider: public CCoclassBase<IInitializeWithStream, IThumbnailProvider>
 {
@@ -49,7 +58,7 @@ public:
 		if (!hbmp)
 			return E_OUTOFMEMORY;
 		const auto hr = pBitmapSourceConverted->CopyPixels(nullptr, nWidth * 4, nWidth * nHeight * 4, static_cast<BYTE*>(pBits));
-		if (SUCCEEDED(hr))
+		if (XSUCCEEDED(hr))
 		{
 			*pdwAlpha = WTSAT_ARGB;
 			*phbmp = hbmp;
