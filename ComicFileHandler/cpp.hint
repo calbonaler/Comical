@@ -1,0 +1,2 @@
+#define STDAPI EXTERN_C HRESULT
+#define IFACEMETHODIMP_(type) type

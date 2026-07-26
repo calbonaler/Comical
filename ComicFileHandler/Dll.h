@@ -6,10 +6,8 @@
 void DllAddRef() noexcept;
 void DllRelease() noexcept;
 
-#define ELIPSIS ...
-
 template <class ...TBase>
-class CCoclassBase : public TBase ELIPSIS
+class CCoclassBase : public TBase...
 {
 public:
 	CCoclassBase() noexcept { DllAddRef(); }

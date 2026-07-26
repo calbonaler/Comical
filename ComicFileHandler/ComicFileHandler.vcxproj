@@ -138,6 +138,7 @@
       <Culture Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">0x0411</Culture>
       <Culture Condition="'$(Configuration)|$(Platform)'=='Release|x64'">0x0411</Culture>
     </ResourceCompile>
+    <None Include="cpp.hint" />
     <None Include="Resource.rc" />
     <None Include="Version.rc" />
   </ItemGroup>
