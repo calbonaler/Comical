@@ -52,7 +52,7 @@
     <None Include="Version.rc">
       <Filter>リソース ファイル</Filter>
     </None>
-    <None Include=".editorconfig" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Main.rc">

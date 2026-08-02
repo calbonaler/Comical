@@ -1,0 +1,10 @@
+[*.cs]
+dotnet_diagnostic.CA1824.severity = none
+dotnet_diagnostic.IDE0010.severity = none
+dotnet_diagnostic.IDE0058.severity = none
+
+[*.{cpp,h}]
+cpp_include_cleanup_excluded_files = pch.h
+
+[pch.h]
+cpp_include_cleanup_remove_unused_error_tag_type = none

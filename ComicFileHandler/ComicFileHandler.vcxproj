@@ -130,7 +130,6 @@
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".editorconfig" />
     <None Include="ComicFileHandler.def" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,0 @@
-[*.{cpp,h}]
-cpp_include_cleanup_excluded_files = pch.h
-
-[pch.h]
-cpp_include_cleanup_remove_unused_error_tag_type = none

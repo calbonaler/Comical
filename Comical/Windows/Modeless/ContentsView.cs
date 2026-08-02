@@ -254,7 +254,7 @@ public partial class ContentsView : WeifenLuo.WinFormsUI.Docking.DockContent
 
 	void OnStartViewModeSettingRightMenuItemClick(object? sender, EventArgs e) => SetSelectedImagesViewModes(false);
 
-	class ThumbnailCache : IDisposable
+	sealed class ThumbnailCache : IDisposable
 	{
 		readonly Dictionary<Binary, Image> _cache = [];
 
