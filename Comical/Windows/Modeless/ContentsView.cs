@@ -16,7 +16,7 @@ public partial class ContentsView : WeifenLuo.WinFormsUI.Docking.DockContent
 	{
 		InitializeComponent();
 		ImagesDataGridView.RowTemplate.Height = ThumbnailSize.Height;
-		ViewModeDataGridViewColumn.DataSource = Enum.GetNames(typeof(ImageViewMode));
+		ViewModeDataGridViewColumn.DataSource = Enum.GetNames<ImageViewMode>();
 
 		_images = images;
 		_images.CollectionChanged += OnImagesCollectionChanged;

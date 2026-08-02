@@ -1,4 +1,4 @@
-#define DotNetMajor 8
+#define DotNetMajor 10
 #define DotNetMinor 0
 #dim DotNetFrameworks[2] { "Microsoft.NETCore.App", "Microsoft.WindowsDesktop.App" }
 #define AppName "Comical"

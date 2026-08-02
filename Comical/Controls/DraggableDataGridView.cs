@@ -11,10 +11,8 @@ namespace Comical.Controls;
 public class DraggableDataGridView : DataGridView
 {
 	bool _mouseDownOnSelectedCell;
-	bool _allowUserToDragRows;
 	Point? _origin;
 	int _dragOverCalled;
-	int _hitRowIndex = -1;
 	readonly Pen _insertionPen = new(Color.Black, 2.0F);
 
 	protected override void Dispose(bool disposing)
@@ -46,10 +44,10 @@ public class DraggableDataGridView : DataGridView
 	[DefaultValue(false)]
 	public bool AllowUserToDragRows
 	{
-		get => _allowUserToDragRows;
+		get;
 		set
 		{
-			_allowUserToDragRows = value;
+			field = value;
 			if (value)
 				AllowDrop = true;
 		}
@@ -72,19 +70,19 @@ public class DraggableDataGridView : DataGridView
 
 	int HitRowIndex
 	{
-		get => _hitRowIndex;
+		get;
 		set
 		{
-			if (_hitRowIndex != value)
+			if (field != value)
 			{
-				if (_hitRowIndex >= 0 && _hitRowIndex < RowCount)
-					InvalidateRow(_hitRowIndex);
+				if (field >= 0 && field < RowCount)
+					InvalidateRow(field);
 				if (value >= 0 && value < RowCount)
 					InvalidateRow(value);
-				_hitRowIndex = value;
+				field = value;
 			}
 		}
-	}
+	} = -1;
 
 	void AddFirstDisplayedScrollingRowIndex(int addend)
 	{
@@ -130,12 +128,12 @@ public class DraggableDataGridView : DataGridView
 
 	protected override void OnCellMouseDown(DataGridViewCellMouseEventArgs e)
 	{
-		if (e != null && e.ColumnIndex >= 0 && e.RowIndex >= 0 && this[e.ColumnIndex, e.RowIndex].Selected)
+		if (e.ColumnIndex >= 0 && e.RowIndex >= 0 && this[e.ColumnIndex, e.RowIndex].Selected)
 		{
 			_mouseDownOnSelectedCell = true;
 			return;
 		}
-		if (e != null && e.ColumnIndex >= 0 && e.RowIndex >= 0 && e.Button == MouseButtons.Right)
+		if (e.ColumnIndex >= 0 && e.RowIndex >= 0 && e.Button == MouseButtons.Right)
 			ClearSelection(e.ColumnIndex, e.RowIndex, true);
 		else
 			base.OnCellMouseDown(e);
@@ -143,7 +141,7 @@ public class DraggableDataGridView : DataGridView
 
 	protected override void OnCellMouseUp(DataGridViewCellMouseEventArgs e)
 	{
-		if (e != null && e.ColumnIndex >= 0 && e.RowIndex >= 0 && this[e.ColumnIndex, e.RowIndex].Selected && _mouseDownOnSelectedCell)
+		if (e.ColumnIndex >= 0 && e.RowIndex >= 0 && this[e.ColumnIndex, e.RowIndex].Selected && _mouseDownOnSelectedCell)
 		{
 			_mouseDownOnSelectedCell = false;
 			if (e.Button == MouseButtons.Left)
@@ -159,14 +157,13 @@ public class DraggableDataGridView : DataGridView
 
 	protected override void OnMouseDown(MouseEventArgs e)
 	{
-		if (e != null)
-			_origin = e.Location;
+		_origin = e.Location;
 		base.OnMouseDown(e);
 	}
 
 	protected override void OnMouseMove(MouseEventArgs e)
 	{
-		if (e != null && AllowUserToDragRows && e.Button == MouseButtons.Left && _origin != null &&
+		if (AllowUserToDragRows && e.Button == MouseButtons.Left && _origin != null &&
 			SelectionMode == DataGridViewSelectionMode.FullRowSelect &&
 			(Math.Abs(_origin.Value.X - e.X) > SystemInformation.DragSize.Width / 2 || Math.Abs(_origin.Value.Y - e.Y) > SystemInformation.DragSize.Height / 2))
 		{
@@ -240,7 +237,7 @@ public class DraggableDataGridView : DataGridView
 
 	protected override void OnRowPostPaint(DataGridViewRowPostPaintEventArgs e)
 	{
-		if (e != null && e.RowIndex == HitRowIndex)
+		if (e.RowIndex == HitRowIndex)
 			e.Graphics.DrawLine(_insertionPen, e.RowBounds.Left, e.RowBounds.Top + 1, e.RowBounds.Right, e.RowBounds.Top + 1);
 		base.OnRowPostPaint(e);
 	}

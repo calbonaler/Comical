@@ -12,6 +12,7 @@ public partial class DialogBase : Form
 
 	[Localizable(true)]
 	[Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
+	[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
 	public string Description
 	{
 		get => DescriptionLabel.Text;

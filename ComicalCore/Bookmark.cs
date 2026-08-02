@@ -7,20 +7,9 @@ namespace Comical.Core;
 
 public class Bookmark : INotifyPropertyChanged
 {
-	string _name = string.Empty;
-	int _target;
+	public string Name { get; set => Utils.SetProperty(ref field, value ?? string.Empty, this, PropertyChanged); } = string.Empty;
 
-	public string Name
-	{
-		get => _name;
-		set => Utils.SetProperty(ref _name, value ?? string.Empty, this, PropertyChanged);
-	}
-
-	public int Target
-	{
-		get => _target;
-		set => Utils.SetProperty(ref _target, value, this, PropertyChanged);
-	}
+	public int Target { get; set => Utils.SetProperty(ref field, value, this, PropertyChanged); }
 
 	internal static Bookmark Load(BinaryReader reader)
 	{

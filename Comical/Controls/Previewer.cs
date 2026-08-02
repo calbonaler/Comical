@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
@@ -9,32 +10,32 @@ namespace Comical.Controls;
 
 public partial class Previewer : ScrollBaredControl
 {
-	Image? image;
-	PreviewerStretchMode stretchMode;
 	Cursor currentCursor = Cursors.Default;
 	bool cursorOverride;
 
+	[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
 	public Image? Image
 	{
-		get => image;
+		get;
 		set
 		{
-			if (image != value)
+			if (field != value)
 			{
-				image = value;
+				field = value;
 				UpdateAutoScroll();
 			}
 		}
 	}
 
+	[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
 	public PreviewerStretchMode StretchMode
 	{
-		get => stretchMode;
+		get;
 		set
 		{
-			if (stretchMode != value)
+			if (field != value)
 			{
-				stretchMode = value;
+				field = value;
 				UpdateAutoScroll();
 			}
 		}

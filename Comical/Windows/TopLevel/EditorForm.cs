@@ -30,7 +30,6 @@ public partial class EditorForm : Form
 	}
 
 	readonly Comic _comic = new();
-	string? _savedFilePath;
 	static readonly IReadOnlyList<string> ImageExtensions = ["bmp", "dib", "gif", "jpeg", "jpe", "jpg", "jfif", "png", "tiff", "tif",];
 	readonly ContentsView _imageList;
 	readonly BookmarksView _bookmarkList;
@@ -38,12 +37,12 @@ public partial class EditorForm : Form
 
 	string? SavedFilePath
 	{
-		get => _savedFilePath;
+		get;
 		set
 		{
-			if (!string.Equals(_savedFilePath, value, StringComparison.Ordinal))
+			if (!string.Equals(field, value, StringComparison.Ordinal))
 			{
-				_savedFilePath = value;
+				field = value;
 				UpdateTitle();
 			}
 		}

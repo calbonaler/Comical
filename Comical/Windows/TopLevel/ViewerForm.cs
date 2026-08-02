@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -186,11 +185,11 @@ public partial class ViewerForm : Form
 
 	#endregion
 
-	protected override void OnClosing(CancelEventArgs e)
+	protected override void OnFormClosing(FormClosingEventArgs e)
 	{
 		if (_comic.IsBusy)
 			e.Cancel = true;
-		base.OnClosing(e);
+		base.OnFormClosing(e);
 	}
 
 	protected override void OnLoad(EventArgs e)

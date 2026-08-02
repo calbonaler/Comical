@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Comical.Controls;
 using Comical.Core;
 
@@ -8,19 +9,18 @@ public partial class Viewer : WeifenLuo.WinFormsUI.Docking.DockContent
 {
 	public Viewer() => InitializeComponent();
 
-	Binary? _image;
-
 	protected override string GetPersistString() => "Viewer";
 
+	[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 	public Binary? Image
 	{
-		get => _image;
+		get;
 		set
 		{
-			if (_image == value) return;
-			_image = value;
+			if (field == value) return;
+			field = value;
 			MainPreviewer.Image?.Dispose();
-			MainPreviewer.Image = _image?.ToImage();
+			MainPreviewer.Image = field?.ToImage();
 		}
 	}
 

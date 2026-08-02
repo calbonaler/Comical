@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
@@ -25,5 +26,6 @@ public partial class ToolStripRadioMenuItem : ToolStripMenuItem
 		base.OnClick(e);
 	}
 
+	[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
 	public int Group { get; set; }
 }

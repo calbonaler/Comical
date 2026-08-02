@@ -203,61 +203,14 @@ public class Comic : IDisposable, INotifyPropertyChanged
 			IsDirty = true;
 	}
 
-	bool _busy;
-	public bool IsBusy
-	{
-		get => _busy;
-		private set => Utils.SetProperty(ref _busy, value, this, PropertyChanged);
-	}
-
-	bool _dirty;
-	public bool IsDirty
-	{
-		get => _dirty;
-		private set => Utils.SetProperty(ref _dirty, value, this, PropertyChanged);
-	}
-
-	Version _fileVersion = FileHeader.LatestSupportedFileVersion;
-	public Version FileVersion
-	{
-		get => _fileVersion;
-		private set => Utils.SetProperty(ref _fileVersion, value, this, PropertyChanged);
-	}
-
-	Binary? _thumbnail;
-	public Binary? Thumbnail
-	{
-		get => _thumbnail;
-		set => Utils.SetProperty(ref _thumbnail, value, this, PropertyChanged);
-	}
-
-	string _title = "";
-	public string Title
-	{
-		get => _title;
-		set => Utils.SetProperty(ref _title, value, this, PropertyChanged);
-	}
-
-	string _author = "";
-	public string Author
-	{
-		get => _author;
-		set => Utils.SetProperty(ref _author, value, this, PropertyChanged);
-	}
-
-	DateTime? _published;
-	public DateTime? Published
-	{
-		get => _published;
-		set => Utils.SetProperty(ref _published, value, this, PropertyChanged);
-	}
-
-	BindingSide _bindingSide;
-	public BindingSide BindingSide
-	{
-		get => _bindingSide;
-		set => Utils.SetProperty(ref _bindingSide, value, this, PropertyChanged);
-	}
+	public bool IsBusy { get; private set => Utils.SetProperty(ref field, value, this, PropertyChanged); }
+	public bool IsDirty { get; private set => Utils.SetProperty(ref field, value, this, PropertyChanged); }
+	public Version FileVersion { get; private set => Utils.SetProperty(ref field, value, this, PropertyChanged); } = FileHeader.LatestSupportedFileVersion;
+	public Binary? Thumbnail { get; set => Utils.SetProperty(ref field, value, this, PropertyChanged); }
+	public string Title { get; set => Utils.SetProperty(ref field, value, this, PropertyChanged); } = "";
+	public string Author { get; set => Utils.SetProperty(ref field, value, this, PropertyChanged); } = "";
+	public DateTime? Published { get; set => Utils.SetProperty(ref field, value, this, PropertyChanged); }
+	public BindingSide BindingSide { get; set => Utils.SetProperty(ref field, value, this, PropertyChanged); }
 
 	public event PropertyChangedEventHandler? PropertyChanged;
 }

@@ -104,7 +104,7 @@ public class SynchronizedObservableCollection<T> : IDisposable, IList<T>, IReadO
 	protected void CheckReentrancy()
 	{
 		if (_monitor.IsBusy && CollectionChanged != null && CollectionChanged.GetInvocationList().Length > 1)
-			throw new InvalidOperationException(nameof(SynchronizedObservableCollection<T>) + " の再入は許可されていません。");
+			throw new InvalidOperationException(nameof(SynchronizedObservableCollection<>) + " の再入は許可されていません。");
 	}
 
 	public void Clear()

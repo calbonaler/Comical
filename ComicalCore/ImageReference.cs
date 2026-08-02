@@ -8,15 +8,9 @@ namespace Comical.Core;
 
 public class ImageReference(Binary data) : INotifyPropertyChanged
 {
-	ImageViewMode _mode;
-
 	public Binary Data { get; } = data ?? throw new ArgumentNullException(nameof(data));
 
-	public ImageViewMode ViewMode
-	{
-		get => _mode;
-		set => Utils.SetProperty(ref _mode, value, this, PropertyChanged);
-	}
+	public ImageViewMode ViewMode { get; set => Utils.SetProperty(ref field, value, this, PropertyChanged); }
 
 	internal static async Task<ImageReference> LoadAsync(BinaryReader reader, Version fileVersion)
 	{

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
@@ -44,6 +45,7 @@ public partial class ImageEditDialog : DialogBase
 	}
 
 	[MaybeNull]
+	[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 	public Binary Image
 	{
 		get => image;
