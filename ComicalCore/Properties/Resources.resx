@@ -129,4 +129,7 @@
   <data name="MultiAsyncOperationIsNotSupported" xml:space="preserve">
     <value>複数の非同期操作の実行はサポートされていません。</value>
   </data>
+  <data name="ThumbnailMustBeBitmap" xml:space="preserve">
+    <value>サムネイルはビットマップ形式でなければなりません。</value>
+  </data>
 </root>

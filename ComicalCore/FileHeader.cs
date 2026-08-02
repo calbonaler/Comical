@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Buffers;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,28 +40,17 @@ public class FileHeader
 		ArgumentNullException.ThrowIfNull(stream);
 
 		Binary? thumbnail = null;
-		var headerBuffer = ArrayPool<byte>.Shared.Rent(6);
-		try
+		var headerSpan = (stackalloc byte[FileIdentifier.Length]);
+		var readHeader = headerSpan[..stream.TryReadExactlyWithBytesRead(headerSpan)];
+		if (!readHeader.SequenceEqual(FileIdentifier))
 		{
-			var header = headerBuffer.AsMemory(..6);
-			var readHeaderLength = await stream.ReadExactlyNoThrowAsync(header[0..FileIdentifier.Length]).ConfigureAwait(false);
-			if (readHeaderLength == FileIdentifier.Length && header.Span[..2].SequenceEqual("BM"u8))
-			{
-				readHeaderLength += await stream.ReadExactlyNoThrowAsync(header[readHeaderLength..]).ConfigureAwait(false);
-				if (readHeaderLength < header.Length)
-					return null;
-				thumbnail = await Binary.TryFromStreamAsync(stream, (int)BitConverter.ToUInt32(header.Span[2..]) - header.Length, header).ConfigureAwait(false);
-				if (thumbnail == null)
-					return null;
-				readHeaderLength = await stream.ReadExactlyNoThrowAsync(header[..FileIdentifier.Length]).ConfigureAwait(false);
-			}
-
-			if (readHeaderLength < FileIdentifier.Length)
+			thumbnail = await Binary.TryReadBitmapAsync(stream, readHeader).ConfigureAwait(false);
+			if (thumbnail == null)
 				return null;
-			if (!header.Span[..FileIdentifier.Length].SequenceEqual(FileIdentifier))
+			var headerSpan2 = (stackalloc byte[FileIdentifier.Length]);
+			if (!stream.TryReadExactly(headerSpan2) || !headerSpan2.SequenceEqual(FileIdentifier))
 				return null;
 		}
-		finally { ArrayPool<byte>.Shared.Return(headerBuffer); }
 
 		var majorFileVersion = stream.ReadByte();
 		var minorFileVersion = 0;

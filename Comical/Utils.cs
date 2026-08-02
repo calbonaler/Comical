@@ -41,5 +41,13 @@ static class Utils
 		return Binary.FromMemoryStream(ms);
 	}
 
+	public static Binary EnsureBitmap(this Binary binary)
+	{
+		if (binary.IsBitmap) return binary;
+		using var image = binary.ToImage();
+		using var bitmap = new Bitmap(image);
+		return bitmap.ToBinary(ImageFormat.Bmp);
+	}
+
 	public static ImageCodecInfo? GetImageCodecInfo(this Image image) => Array.Find(ImageCodecInfo.GetImageDecoders(), item => item.FormatID == image.RawFormat.Guid);
 }

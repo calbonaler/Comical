@@ -125,6 +125,6 @@ public partial class DocumentView : DockContent
 	{
 		Debug.Assert(e.Data != null, "I think this never happens.");
 		if (DataObjectToDraggedImageReferenceIndex(e.Data) is { } index)
-			_comic.Thumbnail = _comic.Images[index].Data;
+			_comic.Thumbnail = _comic.Images[index].Data.EnsureBitmap();
 	}
 }

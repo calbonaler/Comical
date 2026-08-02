@@ -346,7 +346,7 @@ public partial class EditorForm : Form
 	{
 		var firstImageIndex = _imageList.SelectedIndices.FirstOrDefault(-1);
 		if (firstImageIndex >= 0)
-			_comic.Thumbnail = _comic.Images[firstImageIndex].Data;
+			_comic.Thumbnail = _comic.Images[firstImageIndex].Data.EnsureBitmap();
 	}
 
 	#endregion
