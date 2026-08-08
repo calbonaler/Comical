@@ -228,8 +228,6 @@ public partial class EditorForm : Form
 		dialog.Filter = $"{Resources.ComicalImageCollection}|*.cic";
 		dialog.AddExtension = true;
 		dialog.DefaultExt = "cic";
-		if (Settings.Default.DefaultSavedFileName.Length > 0)
-			dialog.FileName = string.Format(CultureInfo.CurrentCulture, Settings.Default.DefaultSavedFileName, _comic.Title, _comic.Author, _comic.Published);
 		if (dialog.ShowDialog(this) != DialogResult.OK)
 			return false;
 		var result = await SaveAsync(dialog.FileName);
@@ -360,12 +358,6 @@ public partial class EditorForm : Form
 	void OnDeleteBookmarksMenuItemClick(object? sender, EventArgs e) => _bookmarkList.DeleteSelectedBookmarks();
 
 	#endregion
-
-	void OnOptionMenuItemClick(object? sender, EventArgs e)
-	{
-		using var dialog = new OptionDialog();
-		dialog.ShowDialog(this);
-	}
 
 	void OnAboutMenuItemClick(object? sender, EventArgs e)
 	{

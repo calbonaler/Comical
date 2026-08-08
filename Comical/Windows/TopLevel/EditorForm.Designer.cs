@@ -55,8 +55,6 @@
 			System.Windows.Forms.ToolStripMenuItem StartViewModeSettingRightMenuItem;
 			System.Windows.Forms.ToolStripSeparator ImageMenuSeparator4;
 			System.Windows.Forms.ToolStripMenuItem BookmarksMenuItem;
-			System.Windows.Forms.ToolStripMenuItem ToolMenuItem;
-			System.Windows.Forms.ToolStripMenuItem OptionMenuItem;
 			System.Windows.Forms.ToolStripMenuItem HelpMenuItem;
 			System.Windows.Forms.ToolStripMenuItem AboutMenuItem;
 			System.Windows.Forms.StatusStrip MainStatusBar;
@@ -102,8 +100,6 @@
 			StartViewModeSettingRightMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			ImageMenuSeparator4 = new System.Windows.Forms.ToolStripSeparator();
 			BookmarksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			ToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			OptionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			MainStatusBar = new System.Windows.Forms.StatusStrip();
@@ -291,18 +287,6 @@
 			DeleteBookmarksMenuItem.Name = "DeleteBookmarksMenuItem";
 			DeleteBookmarksMenuItem.Click += OnDeleteBookmarksMenuItemClick;
 			// 
-			// ToolMenuItem
-			// 
-			ToolMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { OptionMenuItem });
-			ToolMenuItem.Name = "ToolMenuItem";
-			resources.ApplyResources(ToolMenuItem, "ToolMenuItem");
-			// 
-			// OptionMenuItem
-			// 
-			OptionMenuItem.Name = "OptionMenuItem";
-			resources.ApplyResources(OptionMenuItem, "OptionMenuItem");
-			OptionMenuItem.Click += OnOptionMenuItemClick;
-			// 
 			// HelpMenuItem
 			// 
 			HelpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { AboutMenuItem });
@@ -379,7 +363,7 @@
 			// 
 			// MainMenu
 			// 
-			MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { FileMenuItem, ViewMenuItem, ImagesMenuItem, BookmarksMenuItem, ToolMenuItem, HelpMenuItem });
+			MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { FileMenuItem, ViewMenuItem, ImagesMenuItem, BookmarksMenuItem, HelpMenuItem });
 			resources.ApplyResources(MainMenu, "MainMenu");
 			MainMenu.Name = "MainMenu";
 			MainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
