@@ -16,7 +16,7 @@ public partial class DocumentView : DockContent
 	public DocumentView(Comic comic)
 	{
 		InitializeComponent();
-		AuthorComboBox.Items.AddRange([.. Settings.Default.RecentAuthors.Cast<string>()]);
+		AuthorComboBox.Items.AddRange([.. Settings.Default.RecentAuthors]);
 		var calendar = CultureInfo.CurrentCulture.OptionalCalendars.FirstOrDefault(cal => cal is not GregorianCalendar);
 		if (calendar != null)
 		{
