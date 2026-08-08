@@ -126,6 +126,7 @@ public partial class EditorForm : Form
 			},
 			_imageList.BeginAsyncWork(),
 			_bookmarkList.BeginAsyncWork(),
+			_document.BeginAsyncWork(),
 		};
 	}
 

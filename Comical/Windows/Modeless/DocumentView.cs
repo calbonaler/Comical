@@ -40,6 +40,16 @@ public partial class DocumentView : DockContent
 		OnPublishedDateTimePickerValueChanged(PublishedDateTimePicker, EventArgs.Empty);
 	}
 
+	public IDisposable BeginAsyncWork()
+	{
+		Enabled = false;
+		return new DelegateDisposable(() =>
+		{
+			Enabled = true;
+			OnPublishedDateTimePickerValueChanged(PublishedDateTimePicker, EventArgs.Empty);
+		});
+	}
+
 	void OnComicPropertyChanged(object? sender, PropertyChangedEventArgs e) => this.InvokeIfNeeded(() =>
 	{
 		switch (e.PropertyName)
