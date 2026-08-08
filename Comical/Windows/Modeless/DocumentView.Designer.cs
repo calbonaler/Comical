@@ -45,15 +45,15 @@
 			System.Windows.Forms.Label AuthorLabel;
 			System.Windows.Forms.Button SearchOnBrowserButton;
 			System.Windows.Forms.TableLayoutPanel Panel2TableLayoutPanel;
-			System.Windows.Forms.Button EditButton;
 			BindingSideComboBox = new System.Windows.Forms.ComboBox();
 			CultureDependingPublishedTextBox = new System.Windows.Forms.TextBox();
 			TitleTextBox = new System.Windows.Forms.TextBox();
 			AuthorComboBox = new System.Windows.Forms.ComboBox();
 			PublishedDateTimePicker = new System.Windows.Forms.DateTimePicker();
 			ThumbnailLabel = new System.Windows.Forms.Label();
-			ThumbnailPreviewer = new Controls.Previewer();
+			ThumbnailPreviewer = new Comical.Controls.Previewer();
 			SizeLabel = new System.Windows.Forms.Label();
+			EditButton = new System.Windows.Forms.Button();
 			MainSplitContainer = new System.Windows.Forms.SplitContainer();
 			Panel1TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			BindingSideLabel = new System.Windows.Forms.Label();
@@ -63,7 +63,6 @@
 			AuthorLabel = new System.Windows.Forms.Label();
 			SearchOnBrowserButton = new System.Windows.Forms.Button();
 			Panel2TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-			EditButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)MainSplitContainer).BeginInit();
 			MainSplitContainer.Panel1.SuspendLayout();
 			MainSplitContainer.Panel2.SuspendLayout();
@@ -79,12 +78,10 @@
 			// 
 			// MainSplitContainer.Panel1
 			// 
-			resources.ApplyResources(MainSplitContainer.Panel1, "MainSplitContainer.Panel1");
 			MainSplitContainer.Panel1.Controls.Add(Panel1TableLayoutPanel);
 			// 
 			// MainSplitContainer.Panel2
 			// 
-			resources.ApplyResources(MainSplitContainer.Panel2, "MainSplitContainer.Panel2");
 			MainSplitContainer.Panel2.Controls.Add(Panel2TableLayoutPanel);
 			// 
 			// Panel1TableLayoutPanel
@@ -198,9 +195,9 @@
 			// 
 			// ThumbnailPreviewer
 			// 
-			resources.ApplyResources(ThumbnailPreviewer, "ThumbnailPreviewer");
 			ThumbnailPreviewer.AllowDrop = true;
 			Panel2TableLayoutPanel.SetColumnSpan(ThumbnailPreviewer, 2);
+			resources.ApplyResources(ThumbnailPreviewer, "ThumbnailPreviewer");
 			ThumbnailPreviewer.Image = null;
 			ThumbnailPreviewer.Name = "ThumbnailPreviewer";
 			ThumbnailPreviewer.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
@@ -247,5 +244,6 @@
 		private System.Windows.Forms.Label ThumbnailLabel;
 		private Controls.Previewer ThumbnailPreviewer;
 		private System.Windows.Forms.TextBox CultureDependingPublishedTextBox;
+		private System.Windows.Forms.Button EditButton;
 	}
 }

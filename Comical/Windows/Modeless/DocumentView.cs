@@ -65,14 +65,14 @@ public partial class DocumentView : DockContent
 #pragma warning disable CA1863 // リソースに対してCompositeFormatは使用できない
 				SizeLabel.Text = string.Format(CultureInfo.CurrentCulture, Resources.ImageSizeStringRepresentation, size.Width, size.Height);
 #pragma warning restore CA1863
+				EditButton.Enabled = _comic.Thumbnail is not null;
 				break;
 		}
 	});
 
 	void OnEditButtonClick(object? sender, EventArgs e)
 	{
-		if (_comic.Thumbnail == null)
-			return;
+		Debug.Assert(_comic.Thumbnail is not null);
 		using var dialog = new ImageEditDialog();
 		dialog.Image = _comic.Thumbnail;
 		if (dialog.ShowDialog(this) == DialogResult.OK)
