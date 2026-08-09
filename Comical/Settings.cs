@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -29,7 +29,7 @@ sealed class Settings
 
 	public FormWindowState EditorWindowState { get; set; } = FormWindowState.Normal;
 	public Rectangle EditorWindowBounds { get; set; } = new(0, 0, 800, 600);
-	public List<string> RecentAuthors { get; set; } = [];
+	public ObservableCollection<string> RecentAuthors { get; init; } = [];
 
 	public static Settings Default
 	{

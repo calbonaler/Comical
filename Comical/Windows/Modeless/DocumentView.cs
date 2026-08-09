@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -17,6 +18,7 @@ public partial class DocumentView : DockContent
 	{
 		InitializeComponent();
 		AuthorComboBox.Items.AddRange([.. Settings.Default.RecentAuthors]);
+		Settings.Default.RecentAuthors.CollectionChanged += OnRecentAuthorsCollectionChanged;
 		var calendar = CultureInfo.CurrentCulture.OptionalCalendars.FirstOrDefault(cal => cal is not GregorianCalendar);
 		if (calendar != null)
 		{
@@ -48,6 +50,12 @@ public partial class DocumentView : DockContent
 			Enabled = true;
 			OnPublishedDateTimePickerValueChanged(PublishedDateTimePicker, EventArgs.Empty);
 		});
+	}
+
+	void OnRecentAuthorsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+	{
+		AuthorComboBox.Items.Clear();
+		AuthorComboBox.Items.AddRange([.. Settings.Default.RecentAuthors]);
 	}
 
 	void OnComicPropertyChanged(object? sender, PropertyChangedEventArgs e) => this.InvokeIfNeeded(() =>
