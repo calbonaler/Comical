@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Comical.Core;
@@ -63,7 +62,9 @@ public partial class EditorForm : Form
 		MainDockPanel.Theme = new VS2015LightTheme();
 
 		var defaultDockContents = new DockContent[] { _imageList, _bookmarkList, _document };
-		LoadFromXml(MainDockPanel, Settings.Default.DockPanelConfiguration, defaultDockContents);
+		IDockContent? DeserializeDockContent(string persistString)
+			=> defaultDockContents.FirstOrDefault(x => string.Equals(persistString, x.DockHandler.GetPersistStringCallback(), StringComparison.Ordinal));
+		Settings.LoadDockPanelConfiguration(stream => MainDockPanel.LoadFromXml(stream, DeserializeDockContent));
 		foreach (var content in defaultDockContents)
 		{
 			if (content.DockPanel == null)
@@ -235,14 +236,6 @@ public partial class EditorForm : Form
 		return result;
 	}
 
-	static void LoadFromXml(DockPanel panel, string xml, IEnumerable<IDockContent> contents)
-	{
-		if (string.IsNullOrEmpty(xml))
-			return;
-		using var ms = new MemoryStream(Encoding.UTF8.GetBytes(xml));
-		panel.LoadFromXml(ms, persistString => contents.FirstOrDefault(x => string.Equals(persistString, x.DockHandler.GetPersistStringCallback(), StringComparison.Ordinal)));
-	}
-
 	#region FileMenu
 
 	async void OnNewMenuItemClick(object? sender, EventArgs e)
@@ -392,15 +385,11 @@ public partial class EditorForm : Form
 	protected override void OnFormClosed(FormClosedEventArgs e)
 	{
 		base.OnFormClosed(e);
-		using (var ms = new MemoryStream())
-		{
-			MainDockPanel.SaveAsXml(ms, Encoding.UTF8);
-			Settings.Default.DockPanelConfiguration = Encoding.UTF8.GetString(ms.ToArray());
-		}
 		Settings.Default.EditorWindowState = WindowState;
 		if (WindowState == FormWindowState.Normal)
 			Settings.Default.EditorWindowBounds = DesktopBounds;
 		Settings.Default.Save();
+		Settings.SaveDockPanelConfiguration(MainDockPanel.SaveAsXml);
 	}
 
 	#endregion

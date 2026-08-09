@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -28,7 +29,6 @@ sealed class Settings
 
 	public FormWindowState EditorWindowState { get; set; } = FormWindowState.Normal;
 	public Rectangle EditorWindowBounds { get; set; } = new(0, 0, 800, 600);
-	public string DockPanelConfiguration { get; set; } = string.Empty;
 	public List<string> RecentAuthors { get; set; } = [];
 
 	public static Settings Default
@@ -59,6 +59,19 @@ sealed class Settings
 		JsonSerializer.Serialize(stream, this, _serializerOptions);
 	}
 
+	public static void LoadDockPanelConfiguration(Action<Stream> action)
+	{
+		if (!File.Exists(DockPanelConfigurationFilePath)) return;
+		using var stream = File.OpenRead(DockPanelConfigurationFilePath);
+		action(stream);
+	}
+	public static void SaveDockPanelConfiguration(Action<Stream, Encoding> action)
+	{
+		Directory.CreateDirectory(SettingsDirectoryPath);
+		using var stream = File.Create(DockPanelConfigurationFilePath);
+		action(stream, new UTF8Encoding(false));
+	}
+
 	static string SettingsDirectoryPath
 	{
 		get
@@ -71,6 +84,7 @@ sealed class Settings
 		}
 	}
 	static string SettingsFilePath => Path.Combine(SettingsDirectoryPath, "Settings.json");
+	static string DockPanelConfigurationFilePath => Path.Combine(SettingsDirectoryPath, "DockPanelConfiguration.xml");
 
 	sealed class RectangleJsonConverter : JsonConverter<Rectangle>
 	{
