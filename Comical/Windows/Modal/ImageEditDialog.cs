@@ -193,6 +193,8 @@ public partial class ImageEditDialog : DialogBase
 			MagnifyRatioNumericUpDown.Value = Math.Clamp((int)MagnifyRatioNumericUpDown.Value + SystemInformation.MouseWheelScrollLines * e.Delta / SystemInformation.MouseWheelScrollDelta, 1, 100);
 	}
 
+	void OnPreviewBoxResize(object sender, EventArgs e) => PreviewBox.Invalidate();
+
 	#endregion
 
 	void OnOKButtonClick(object? sender, EventArgs e)

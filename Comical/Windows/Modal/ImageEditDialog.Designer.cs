@@ -36,7 +36,7 @@
 			System.Windows.Forms.Button CancelButton;
 			MagnifyRatioNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			SizeLabel = new System.Windows.Forms.Label();
-			PreviewBox = new Controls.ScrollBaredControl();
+			PreviewBox = new Comical.Controls.ScrollBaredControl();
 			MagnifyRatioLabel = new System.Windows.Forms.Label();
 			OKButton = new System.Windows.Forms.Button();
 			CancelButton = new System.Windows.Forms.Button();
@@ -91,6 +91,7 @@
 			PreviewBox.MouseLeave += OnPreviewBoxMouseLeave;
 			PreviewBox.MouseMove += OnPreviewBoxMouseMove;
 			PreviewBox.MouseUp += OnPreviewBoxMouseUp;
+			PreviewBox.Resize += OnPreviewBoxResize;
 			// 
 			// ImageEditDialog
 			// 
