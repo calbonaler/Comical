@@ -3,9 +3,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Numerics;
 using System.Windows.Forms;
 using Comical.Core;
 using Comical.Properties;
@@ -28,19 +30,18 @@ public partial class ImageEditDialog : DialogBase
 	Binary? image;
 	Image? internalImage;
 
-	Rectangle ImageBounds => internalImage != null ? new(default, internalImage.Size * (int)MagnifyRatioNumericUpDown.Value / 100) : default;
-
-	Rectangle ClippedImageBounds => point1 == point2 ? ImageBounds : new Rectangle(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Abs(point2.X - point1.X) + 1, Math.Abs(point2.Y - point1.Y) + 1);
-
-	Rectangle UnmagnifiedClippedImageBounds
+	(Rectangle ClipBounds, Size ScaledSize) ImageClipBoundsAndScaledSize
 	{
 		get
 		{
 			Debug.Assert(internalImage != null);
-			if (point1 == point2)
-				return new Rectangle(Point.Empty, internalImage.Size);
-			var bounds = new Rectangle(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Abs(point2.X - point1.X) + 1, Math.Abs(point2.Y - point1.Y) + 1);
-			return new Rectangle(bounds.X * 100 / (int)MagnifyRatioNumericUpDown.Value, bounds.Y * 100 / (int)MagnifyRatioNumericUpDown.Value, bounds.Width * 100 / (int)MagnifyRatioNumericUpDown.Value, bounds.Height * 100 / (int)MagnifyRatioNumericUpDown.Value);
+			var clipRect =
+				point1 == point2 ? new Rectangle(default, internalImage.Size) :
+				new Rectangle(
+					Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y),
+					Math.Abs(point2.X - point1.X) + 1, Math.Abs(point2.Y - point1.Y) + 1
+				);
+			return (clipRect, clipRect.Size * (int)MagnifyRatioNumericUpDown.Value / 100);
 		}
 	}
 
@@ -60,29 +61,40 @@ public partial class ImageEditDialog : DialogBase
 
 	static void DrawCross(Graphics g, Point center)
 	{
-		using var ms = new MemoryStream(Resources.Cross);
-		using var cursor = new Cursor(ms);
-		cursor.Draw(g, new Rectangle(center - (Size)cursor.HotSpot, cursor.Size));
+		var state = g.Save();
+		try
+		{
+			using var ms = new MemoryStream(Resources.Cross);
+			using var cursor = new Cursor(ms);
+			var points = (stackalloc Point[] { center });
+			g.TransformPoints(CoordinateSpace.Page, CoordinateSpace.World, points);
+			g.ResetTransform();
+			cursor.Draw(g, new Rectangle(points[0] - (Size)cursor.HotSpot, cursor.Size));
+		}
+		finally { g.Restore(state); }
 	}
 
-	Point GetVerifiedLocation(Point loc)
+	Point ConstrainPointInImage(Point loc)
 	{
-		var sz = ImageBounds.Size;
-		if (loc.X < 0)
-			loc.X = 0;
-		else if (loc.X > sz.Width - 1)
-			loc.X = sz.Width - 1;
-		if (loc.Y < 0)
-			loc.Y = 0;
-		else if (loc.Y > sz.Height - 1)
-			loc.Y = sz.Height - 1;
-		return loc;
+		Debug.Assert(internalImage != null);
+		return new(Math.Clamp(loc.X, 0, internalImage.Width - 1), Math.Clamp(loc.Y, 0, internalImage.Height - 1));
+	}
+
+	Matrix3x2 Transform =>
+		Matrix3x2.CreateScale((float)MagnifyRatioNumericUpDown.Value / 100)
+		* Matrix3x2.CreateTranslation(-PreviewBox.ScrollBars.Position.X, -PreviewBox.ScrollBars.Position.Y);
+
+	Point ClientPointToImage(Point point)
+	{
+		Matrix3x2.Invert(Transform, out var inverseTransform);
+		var result = Vector2.Transform(new Vector2(point.X, point.Y), inverseTransform);
+		return ConstrainPointInImage(new Point((int)result.X, (int)result.Y));
 	}
 
 	void OnRecalculateRequested(object? sender, EventArgs e)
 	{
-		var magSz = ImageBounds.Size;
-		PreviewBox.ScrollBars.ContentSize = magSz;
+		Debug.Assert(internalImage != null);
+		PreviewBox.ScrollBars.ContentSize = internalImage.Size * (int)MagnifyRatioNumericUpDown.Value / 100;
 		PreviewBox.Invalidate();
 	}
 
@@ -94,7 +106,7 @@ public partial class ImageEditDialog : DialogBase
 	{
 		if (e.Button == MouseButtons.Left)
 		{
-			point1 = point2 = GetVerifiedLocation(e.Location + (Size)PreviewBox.ScrollBars.Position);
+			point1 = point2 = ClientPointToImage(e.Location);
 			leftMouseDown = true;
 		}
 	}
@@ -103,7 +115,7 @@ public partial class ImageEditDialog : DialogBase
 	{
 		if (leftMouseDown && e.Button == MouseButtons.Left)
 		{
-			point2 = GetVerifiedLocation(e.Location + (Size)PreviewBox.ScrollBars.Position);
+			point2 = ClientPointToImage(e.Location);
 			PreviewBox.Invalidate();
 		}
 	}
@@ -112,7 +124,7 @@ public partial class ImageEditDialog : DialogBase
 	{
 		if (leftMouseDown && e.Button == MouseButtons.Left)
 		{
-			point2 = GetVerifiedLocation(e.Location + (Size)PreviewBox.ScrollBars.Position);
+			point2 = ClientPointToImage(e.Location);
 			PreviewBox.Invalidate();
 			leftMouseDown = false;
 		}
@@ -121,13 +133,14 @@ public partial class ImageEditDialog : DialogBase
 	void OnPreviewBoxPaint(object? sender, PaintEventArgs e)
 	{
 		Debug.Assert(internalImage != null);
-		e.Graphics.TranslateTransform(-PreviewBox.ScrollBars.Position.X, -PreviewBox.ScrollBars.Position.Y);
-		e.Graphics.DrawImage(internalImage, ImageBounds);
-		using (var reg = new Region(ImageBounds))
+		e.Graphics.TransformElements = Transform;
+		e.Graphics.DrawImage(internalImage, default(Point));
+		using (var reg = new Region(new Rectangle(default, internalImage.Size)))
 		{
-			reg.Xor(ClippedImageBounds);
+			var (clipRect, scaledSize) = ImageClipBoundsAndScaledSize;
+			reg.Xor(clipRect);
 #pragma warning disable CA1863 // リソースに対してCompositeFormatは使用できない
-			SizeLabel.Text = string.Format(CultureInfo.CurrentCulture, Resources.ImageSizeStringRepresentation, ClippedImageBounds.Width, ClippedImageBounds.Height);
+			SizeLabel.Text = string.Format(CultureInfo.CurrentCulture, Resources.ImageSizeStringRepresentation, scaledSize.Width, scaledSize.Height);
 #pragma warning restore CA1863
 			e.Graphics.FillRegion(Brushes.Blue, reg);
 		}
@@ -154,7 +167,7 @@ public partial class ImageEditDialog : DialogBase
 			shiftScale.Y = -1;
 		else if (e.KeyCode == Keys.Down)
 			shiftScale.Y = +1;
-		loc = GetVerifiedLocation(loc + new Size(shiftScale.X * dif, shiftScale.Y * dif));
+		loc = ConstrainPointInImage(loc + new Size(shiftScale.X * dif, shiftScale.Y * dif));
 		if (e.Shift)
 			point1 = point2 = loc;
 		else if (point2Move)
@@ -185,10 +198,11 @@ public partial class ImageEditDialog : DialogBase
 	void OnOKButtonClick(object? sender, EventArgs e)
 	{
 		Debug.Assert(internalImage != null);
-		using (var image = new Bitmap(ClippedImageBounds.Width, ClippedImageBounds.Height))
+		var (clipRect, scaledSize) = ImageClipBoundsAndScaledSize;
+		using (var image = new Bitmap(scaledSize.Width, scaledSize.Height))
 		{
 			using (var g = Graphics.FromImage(image))
-				g.DrawImage(internalImage, new Rectangle(Point.Empty, image.Size), UnmagnifiedClippedImageBounds, GraphicsUnit.Pixel);
+				g.DrawImage(internalImage, new Rectangle(default, scaledSize), clipRect, GraphicsUnit.Pixel);
 			this.image = image.ToBinary(ImageFormat.Bmp);
 		}
 		DialogResult = DialogResult.OK;
