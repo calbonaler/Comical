@@ -23,6 +23,8 @@ sealed class Settings
 		};
 		_serializerOptions.MakeReadOnly(true);
 	}
+	[JsonConstructor]
+	Settings() { }
 
 	static readonly Lock _lock = new();
 	static readonly JsonSerializerOptions _serializerOptions;
