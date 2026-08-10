@@ -15,11 +15,6 @@
 		{
 			if (disposing)
 			{
-				if (ThumbnailPreviewer.Image != null)
-				{
-					ThumbnailPreviewer.Image.Dispose();
-					ThumbnailPreviewer.Image = null;
-				}
 				_comic.PropertyChanged -= OnComicPropertyChanged;
 				if (components != null)
 					components.Dispose();
@@ -35,9 +30,8 @@
 		/// </summary>
 		void InitializeComponent()
 		{
-			System.Windows.Forms.SplitContainer MainSplitContainer;
-			var resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentView));
 			System.Windows.Forms.TableLayoutPanel Panel1TableLayoutPanel;
+			var resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentView));
 			System.Windows.Forms.Label BindingSideLabel;
 			System.Windows.Forms.Label CultureDependingPublishedLabel;
 			System.Windows.Forms.Label TitleLabel;
@@ -51,9 +45,13 @@
 			AuthorComboBox = new System.Windows.Forms.ComboBox();
 			PublishedDateTimePicker = new System.Windows.Forms.DateTimePicker();
 			ThumbnailLabel = new System.Windows.Forms.Label();
-			ThumbnailPreviewer = new Comical.Controls.Previewer();
+			ThumbnailEditOKButton = new System.Windows.Forms.Button();
+			ThumbnailEditCancelButton = new System.Windows.Forms.Button();
+			ThumbnailEditButton = new System.Windows.Forms.Button();
+			ThumbnailClipper = new Comical.Controls.ImageClipper();
+			MagnifyRatioNumericUpDown = new Comical.Controls.SuffixNumericUpDown();
 			SizeLabel = new System.Windows.Forms.Label();
-			EditButton = new System.Windows.Forms.Button();
+			ThumbnailMaximizeButton = new System.Windows.Forms.Button();
 			MainSplitContainer = new System.Windows.Forms.SplitContainer();
 			Panel1TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			BindingSideLabel = new System.Windows.Forms.Label();
@@ -63,26 +61,14 @@
 			AuthorLabel = new System.Windows.Forms.Label();
 			SearchOnBrowserButton = new System.Windows.Forms.Button();
 			Panel2TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+			Panel1TableLayoutPanel.SuspendLayout();
+			Panel2TableLayoutPanel.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)MagnifyRatioNumericUpDown).BeginInit();
 			((System.ComponentModel.ISupportInitialize)MainSplitContainer).BeginInit();
 			MainSplitContainer.Panel1.SuspendLayout();
 			MainSplitContainer.Panel2.SuspendLayout();
 			MainSplitContainer.SuspendLayout();
-			Panel1TableLayoutPanel.SuspendLayout();
-			Panel2TableLayoutPanel.SuspendLayout();
 			SuspendLayout();
-			// 
-			// MainSplitContainer
-			// 
-			resources.ApplyResources(MainSplitContainer, "MainSplitContainer");
-			MainSplitContainer.Name = "MainSplitContainer";
-			// 
-			// MainSplitContainer.Panel1
-			// 
-			MainSplitContainer.Panel1.Controls.Add(Panel1TableLayoutPanel);
-			// 
-			// MainSplitContainer.Panel2
-			// 
-			MainSplitContainer.Panel2.Controls.Add(Panel2TableLayoutPanel);
 			// 
 			// Panel1TableLayoutPanel
 			// 
@@ -182,39 +168,87 @@
 			// 
 			resources.ApplyResources(Panel2TableLayoutPanel, "Panel2TableLayoutPanel");
 			Panel2TableLayoutPanel.Controls.Add(ThumbnailLabel, 0, 0);
-			Panel2TableLayoutPanel.Controls.Add(ThumbnailPreviewer, 0, 1);
+			Panel2TableLayoutPanel.Controls.Add(ThumbnailEditOKButton, 1, 4);
+			Panel2TableLayoutPanel.Controls.Add(ThumbnailEditCancelButton, 2, 4);
+			Panel2TableLayoutPanel.Controls.Add(ThumbnailEditButton, 2, 3);
+			Panel2TableLayoutPanel.Controls.Add(ThumbnailClipper, 0, 1);
+			Panel2TableLayoutPanel.Controls.Add(MagnifyRatioNumericUpDown, 2, 2);
 			Panel2TableLayoutPanel.Controls.Add(SizeLabel, 0, 2);
-			Panel2TableLayoutPanel.Controls.Add(EditButton, 1, 2);
+			Panel2TableLayoutPanel.Controls.Add(ThumbnailMaximizeButton, 0, 3);
 			Panel2TableLayoutPanel.Name = "Panel2TableLayoutPanel";
 			// 
 			// ThumbnailLabel
 			// 
 			resources.ApplyResources(ThumbnailLabel, "ThumbnailLabel");
-			Panel2TableLayoutPanel.SetColumnSpan(ThumbnailLabel, 2);
+			Panel2TableLayoutPanel.SetColumnSpan(ThumbnailLabel, 3);
 			ThumbnailLabel.Name = "ThumbnailLabel";
 			// 
-			// ThumbnailPreviewer
+			// ThumbnailEditOKButton
 			// 
-			ThumbnailPreviewer.AllowDrop = true;
-			Panel2TableLayoutPanel.SetColumnSpan(ThumbnailPreviewer, 2);
-			resources.ApplyResources(ThumbnailPreviewer, "ThumbnailPreviewer");
-			ThumbnailPreviewer.Image = null;
-			ThumbnailPreviewer.Name = "ThumbnailPreviewer";
-			ThumbnailPreviewer.StretchMode = Comical.Controls.PreviewerStretchMode.Uniform;
-			ThumbnailPreviewer.DragDrop += OnThumbnailPreviewerDragDrop;
-			ThumbnailPreviewer.DragEnter += OnThumbnailPreviewerDragEnter;
+			resources.ApplyResources(ThumbnailEditOKButton, "ThumbnailEditOKButton");
+			ThumbnailEditOKButton.Name = "ThumbnailEditOKButton";
+			ThumbnailEditOKButton.UseVisualStyleBackColor = true;
+			ThumbnailEditOKButton.Click += OnOKButtonClick;
+			// 
+			// ThumbnailEditCancelButton
+			// 
+			resources.ApplyResources(ThumbnailEditCancelButton, "ThumbnailEditCancelButton");
+			ThumbnailEditCancelButton.Name = "ThumbnailEditCancelButton";
+			ThumbnailEditCancelButton.UseVisualStyleBackColor = true;
+			ThumbnailEditCancelButton.Click += OnCancelButtonClick;
+			// 
+			// ThumbnailEditButton
+			// 
+			resources.ApplyResources(ThumbnailEditButton, "ThumbnailEditButton");
+			ThumbnailEditButton.Name = "ThumbnailEditButton";
+			ThumbnailEditButton.UseVisualStyleBackColor = true;
+			ThumbnailEditButton.Click += OnEditButtonClick;
+			// 
+			// ThumbnailClipper
+			// 
+			ThumbnailClipper.AllowDrop = true;
+			Panel2TableLayoutPanel.SetColumnSpan(ThumbnailClipper, 3);
+			resources.ApplyResources(ThumbnailClipper, "ThumbnailClipper");
+			ThumbnailClipper.Name = "ThumbnailClipper";
+			ThumbnailClipper.PropertyChanged += OnThumbnailClipperPropertyChanged;
+			ThumbnailClipper.DragDrop += OnThumbnailClipperDragDrop;
+			ThumbnailClipper.DragEnter += OnThumbnailClipperDragEnter;
+			// 
+			// MagnifyRatioNumericUpDown
+			// 
+			resources.ApplyResources(MagnifyRatioNumericUpDown, "MagnifyRatioNumericUpDown");
+			MagnifyRatioNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			MagnifyRatioNumericUpDown.Name = "MagnifyRatioNumericUpDown";
+			MagnifyRatioNumericUpDown.Suffix = " %";
+			MagnifyRatioNumericUpDown.Value = new decimal(new int[] { 100, 0, 0, 0 });
+			MagnifyRatioNumericUpDown.ValueChanged += OnMagnifyRatioNumericUpDownValueChanged;
 			// 
 			// SizeLabel
 			// 
 			resources.ApplyResources(SizeLabel, "SizeLabel");
+			Panel2TableLayoutPanel.SetColumnSpan(SizeLabel, 2);
 			SizeLabel.Name = "SizeLabel";
 			// 
-			// EditButton
+			// ThumbnailMaximizeButton
 			// 
-			resources.ApplyResources(EditButton, "EditButton");
-			EditButton.Name = "EditButton";
-			EditButton.UseVisualStyleBackColor = true;
-			EditButton.Click += OnEditButtonClick;
+			resources.ApplyResources(ThumbnailMaximizeButton, "ThumbnailMaximizeButton");
+			ThumbnailMaximizeButton.Name = "ThumbnailMaximizeButton";
+			Panel2TableLayoutPanel.SetRowSpan(ThumbnailMaximizeButton, 2);
+			ThumbnailMaximizeButton.UseVisualStyleBackColor = true;
+			ThumbnailMaximizeButton.Click += OnThumbnailMaximizeButtonClick;
+			// 
+			// MainSplitContainer
+			// 
+			resources.ApplyResources(MainSplitContainer, "MainSplitContainer");
+			MainSplitContainer.Name = "MainSplitContainer";
+			// 
+			// MainSplitContainer.Panel1
+			// 
+			MainSplitContainer.Panel1.Controls.Add(Panel1TableLayoutPanel);
+			// 
+			// MainSplitContainer.Panel2
+			// 
+			MainSplitContainer.Panel2.Controls.Add(Panel2TableLayoutPanel);
 			// 
 			// DocumentView
 			// 
@@ -223,14 +257,15 @@
 			Controls.Add(MainSplitContainer);
 			HideOnClose = true;
 			Name = "DocumentView";
-			MainSplitContainer.Panel1.ResumeLayout(false);
-			MainSplitContainer.Panel2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)MainSplitContainer).EndInit();
-			MainSplitContainer.ResumeLayout(false);
 			Panel1TableLayoutPanel.ResumeLayout(false);
 			Panel1TableLayoutPanel.PerformLayout();
 			Panel2TableLayoutPanel.ResumeLayout(false);
 			Panel2TableLayoutPanel.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)MagnifyRatioNumericUpDown).EndInit();
+			MainSplitContainer.Panel1.ResumeLayout(false);
+			MainSplitContainer.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)MainSplitContainer).EndInit();
+			MainSplitContainer.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
@@ -242,8 +277,13 @@
 		System.Windows.Forms.Label SizeLabel;
 		private System.Windows.Forms.ComboBox BindingSideComboBox;
 		private System.Windows.Forms.Label ThumbnailLabel;
-		private Controls.Previewer ThumbnailPreviewer;
 		private System.Windows.Forms.TextBox CultureDependingPublishedTextBox;
-		private System.Windows.Forms.Button EditButton;
+		private System.Windows.Forms.Button ThumbnailEditButton;
+		private System.Windows.Forms.SplitContainer MainSplitContainer;
+		private System.Windows.Forms.Button ThumbnailEditOKButton;
+		private Controls.SuffixNumericUpDown MagnifyRatioNumericUpDown;
+		private System.Windows.Forms.Button ThumbnailEditCancelButton;
+		private Controls.ImageClipper ThumbnailClipper;
+		private System.Windows.Forms.Button ThumbnailMaximizeButton;
 	}
 }

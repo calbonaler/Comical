@@ -117,20 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="MainSplitContainer.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MainSplitContainer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="MainSplitContainer.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 9pt</value>
-  </data>
-  <data name="MainSplitContainer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
-  </data>
   <metadata name="Panel1TableLayoutPanel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
@@ -138,6 +124,7 @@
   <data name="Panel1TableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="BindingSideComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -150,6 +137,7 @@
   <data name="BindingSideComboBox.Items2" xml:space="preserve">
     <value>Right</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="BindingSideComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 216</value>
   </data>
@@ -157,7 +145,7 @@
     <value>277, 23</value>
   </data>
   <data name="BindingSideComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="&gt;&gt;BindingSideComboBox.Name" xml:space="preserve">
     <value>BindingSideComboBox</value>
@@ -191,7 +179,7 @@
     <value>128, 15</value>
   </data>
   <data name="BindingSideLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="BindingSideLabel.Text" xml:space="preserve">
     <value>Page turning &amp;direction:</value>
@@ -218,7 +206,7 @@
     <value>277, 23</value>
   </data>
   <data name="CultureDependingPublishedTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>8</value>
   </data>
   <data name="&gt;&gt;CultureDependingPublishedTextBox.Name" xml:space="preserve">
     <value>CultureDependingPublishedTextBox</value>
@@ -251,7 +239,7 @@
     <value>172, 15</value>
   </data>
   <data name="CultureDependingPublishedLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+    <value>7</value>
   </data>
   <data name="CultureDependingPublishedLabel.Text" xml:space="preserve">
     <value>Published (&amp;culture-depending):</value>
@@ -506,7 +494,7 @@
     <value>283, 392</value>
   </data>
   <data name="Panel1TableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;Panel1TableLayoutPanel.Name" xml:space="preserve">
     <value>Panel1TableLayoutPanel</value>
@@ -523,26 +511,11 @@
   <data name="Panel1TableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="BindingSideComboBox" Row="9" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="BindingSideLabel" Row="8" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="CultureDependingPublishedTextBox" Row="7" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="CultureDependingPublishedLabel" Row="6" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="TitleLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="TitleTextBox" Row="1" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="PublishedLabel" Row="4" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="AuthorLabel" Row="2" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="SearchOnBrowserButton" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="AuthorComboBox" Row="3" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="PublishedDateTimePicker" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="&gt;&gt;MainSplitContainer.Panel1.Name" xml:space="preserve">
-    <value>MainSplitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Panel1.Parent" xml:space="preserve">
-    <value>MainSplitContainer</value>
-  </data>
-  <data name="&gt;&gt;MainSplitContainer.Panel1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="MainSplitContainer.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>240</value>
-  </data>
   <metadata name="Panel2TableLayoutPanel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <data name="Panel2TableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="ThumbnailLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -577,29 +550,158 @@
   <data name="&gt;&gt;ThumbnailLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="ThumbnailPreviewer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="ThumbnailEditOKButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
-  <data name="ThumbnailPreviewer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 21</value>
+  <data name="ThumbnailEditOKButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>54, 363</value>
   </data>
-  <data name="ThumbnailPreviewer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 336</value>
+  <data name="ThumbnailEditOKButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 26</value>
   </data>
-  <data name="ThumbnailPreviewer.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="ThumbnailEditOKButton.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
-  <data name="&gt;&gt;ThumbnailPreviewer.Name" xml:space="preserve">
-    <value>ThumbnailPreviewer</value>
+  <data name="ThumbnailEditOKButton.Text" xml:space="preserve">
+    <value>OK</value>
   </data>
-  <data name="&gt;&gt;ThumbnailPreviewer.Type" xml:space="preserve">
-    <value>Comical.Controls.Previewer, Comical, Culture=neutral, PublicKeyToken=null</value>
+  <data name="ThumbnailEditOKButton.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;ThumbnailPreviewer.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ThumbnailEditOKButton.Name" xml:space="preserve">
+    <value>ThumbnailEditOKButton</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailEditOKButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailEditOKButton.Parent" xml:space="preserve">
     <value>Panel2TableLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;ThumbnailPreviewer.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ThumbnailEditOKButton.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="ThumbnailEditCancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="ThumbnailEditCancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ThumbnailEditCancelButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>158, 363</value>
+  </data>
+  <data name="ThumbnailEditCancelButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 26</value>
+  </data>
+  <data name="ThumbnailEditCancelButton.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="ThumbnailEditCancelButton.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ThumbnailEditCancelButton.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailEditCancelButton.Name" xml:space="preserve">
+    <value>ThumbnailEditCancelButton</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailEditCancelButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailEditCancelButton.Parent" xml:space="preserve">
+    <value>Panel2TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailEditCancelButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ThumbnailEditButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="ThumbnailEditButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ThumbnailEditButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ThumbnailEditButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>158, 331</value>
+  </data>
+  <data name="ThumbnailEditButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 26</value>
+  </data>
+  <data name="ThumbnailEditButton.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="ThumbnailEditButton.Text" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailEditButton.Name" xml:space="preserve">
+    <value>ThumbnailEditButton</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailEditButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailEditButton.Parent" xml:space="preserve">
+    <value>Panel2TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailEditButton.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ThumbnailClipper.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="ThumbnailClipper.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 21</value>
+  </data>
+  <data name="ThumbnailClipper.Size" type="System.Drawing.Size, System.Drawing">
+    <value>253, 275</value>
+  </data>
+  <data name="ThumbnailClipper.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="ThumbnailClipper.Text" xml:space="preserve">
+    <value>imageClipper1</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailClipper.Name" xml:space="preserve">
+    <value>ThumbnailClipper</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailClipper.Type" xml:space="preserve">
+    <value>Comical.Controls.ImageClipper, Comical, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailClipper.Parent" xml:space="preserve">
+    <value>Panel2TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;ThumbnailClipper.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="MagnifyRatioNumericUpDown.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="MagnifyRatioNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>158, 302</value>
+  </data>
+  <data name="MagnifyRatioNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 23</value>
+  </data>
+  <data name="MagnifyRatioNumericUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="MagnifyRatioNumericUpDown.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="MagnifyRatioNumericUpDown.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;MagnifyRatioNumericUpDown.Name" xml:space="preserve">
+    <value>MagnifyRatioNumericUpDown</value>
+  </data>
+  <data name="&gt;&gt;MagnifyRatioNumericUpDown.Type" xml:space="preserve">
+    <value>Comical.Controls.SuffixNumericUpDown, Comical, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MagnifyRatioNumericUpDown.Parent" xml:space="preserve">
+    <value>Panel2TableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;MagnifyRatioNumericUpDown.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="SizeLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -611,7 +713,7 @@
     <value>NoControl</value>
   </data>
   <data name="SizeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 374</value>
+    <value>3, 310</value>
   </data>
   <data name="SizeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
@@ -620,7 +722,7 @@
     <value>31, 15</value>
   </data>
   <data name="SizeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="SizeLabel.Text" xml:space="preserve">
     <value>0 x 0</value>
@@ -635,40 +737,34 @@
     <value>Panel2TableLayoutPanel</value>
   </data>
   <data name="&gt;&gt;SizeLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>6</value>
   </data>
-  <data name="EditButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="ThumbnailMaximizeButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="EditButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="ThumbnailMaximizeButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 363</value>
   </data>
-  <data name="EditButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="ThumbnailMaximizeButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 26</value>
   </data>
-  <data name="EditButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 363</value>
+  <data name="ThumbnailMaximizeButton.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="EditButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 26</value>
+  <data name="ThumbnailMaximizeButton.Text" xml:space="preserve">
+    <value>❮❮</value>
   </data>
-  <data name="EditButton.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="&gt;&gt;ThumbnailMaximizeButton.Name" xml:space="preserve">
+    <value>ThumbnailMaximizeButton</value>
   </data>
-  <data name="EditButton.Text" xml:space="preserve">
-    <value>&amp;Edit</value>
-  </data>
-  <data name="&gt;&gt;EditButton.Name" xml:space="preserve">
-    <value>EditButton</value>
-  </data>
-  <data name="&gt;&gt;EditButton.Type" xml:space="preserve">
+  <data name="&gt;&gt;ThumbnailMaximizeButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;EditButton.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ThumbnailMaximizeButton.Parent" xml:space="preserve">
     <value>Panel2TableLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;EditButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;ThumbnailMaximizeButton.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="Panel2TableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -677,13 +773,13 @@
     <value>0, 0</value>
   </data>
   <data name="Panel2TableLayoutPanel.RowCount" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="Panel2TableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>259, 392</value>
   </data>
   <data name="Panel2TableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;Panel2TableLayoutPanel.Name" xml:space="preserve">
     <value>Panel2TableLayoutPanel</value>
@@ -698,7 +794,31 @@
     <value>0</value>
   </data>
   <data name="Panel2TableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="ThumbnailLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="ThumbnailPreviewer" Row="1" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="SizeLabel" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="EditButton" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,Percent,100,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="ThumbnailLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="3" /&gt;&lt;Control Name="ThumbnailEditOKButton" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="ThumbnailEditCancelButton" Row="4" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="ThumbnailEditButton" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="ThumbnailClipper" Row="1" RowSpan="1" Column="0" ColumnSpan="3" /&gt;&lt;Control Name="MagnifyRatioNumericUpDown" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="SizeLabel" Row="2" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="ThumbnailMaximizeButton" Row="3" RowSpan="2" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,Percent,100,AutoSize,0,AutoSize,0,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="MainSplitContainer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="MainSplitContainer.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Yu Gothic UI, 9pt</value>
+  </data>
+  <data name="MainSplitContainer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Panel1.Name" xml:space="preserve">
+    <value>MainSplitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Panel1.Parent" xml:space="preserve">
+    <value>MainSplitContainer</value>
+  </data>
+  <data name="&gt;&gt;MainSplitContainer.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="MainSplitContainer.Panel1MinSize" type="System.Int32, mscorlib">
+    <value>240</value>
   </data>
   <data name="&gt;&gt;MainSplitContainer.Panel2.Name" xml:space="preserve">
     <value>MainSplitContainer.Panel2</value>

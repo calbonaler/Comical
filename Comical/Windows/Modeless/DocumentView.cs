@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -77,25 +78,11 @@ public partial class DocumentView : DockContent
 				BindingSideComboBox.SelectedIndex = (int)_comic.BindingSide;
 				break;
 			case nameof(_comic.Thumbnail):
-				ThumbnailPreviewer.Image?.Dispose();
-				ThumbnailPreviewer.Image = _comic.Thumbnail?.ToImage();
-				var size = ThumbnailPreviewer.Image?.Size ?? default;
-#pragma warning disable CA1863 // リソースに対してCompositeFormatは使用できない
-				SizeLabel.Text = string.Format(CultureInfo.CurrentCulture, Resources.ImageSizeStringRepresentation, size.Width, size.Height);
-#pragma warning restore CA1863
-				EditButton.Enabled = _comic.Thumbnail is not null;
+				ThumbnailClipper.SetImage(_comic.Thumbnail);
+				ThumbnailEditButton.Enabled = _comic.Thumbnail is not null;
 				break;
 		}
 	});
-
-	void OnEditButtonClick(object? sender, EventArgs e)
-	{
-		Debug.Assert(_comic.Thumbnail is not null);
-		using var dialog = new ImageEditDialog();
-		dialog.Image = _comic.Thumbnail;
-		if (dialog.ShowDialog(this) == DialogResult.OK)
-			_comic.Thumbnail = dialog.Image;
-	}
 
 	void OnSearchOnBrowserButtonClick(object? sender, EventArgs e) => Process.Start(new ProcessStartInfo()
 	{
@@ -133,16 +120,50 @@ public partial class DocumentView : DockContent
 		rowSet.Items.Count == 1 &&
 		rowSet.Items[0] is ImageReference ? rowSet.StartIndex : null;
 
-	void OnThumbnailPreviewerDragEnter(object? sender, DragEventArgs e)
+	void OnEditButtonClick(object? sender, EventArgs e) => ThumbnailClipper.BeginEdit();
+
+	void OnOKButtonClick(object sender, EventArgs e) => _comic.Thumbnail = ThumbnailClipper.CommitEdit(ImageFormat.Bmp);
+
+	void OnCancelButtonClick(object sender, EventArgs e) => ThumbnailClipper.CancelEdit();
+
+	void OnMagnifyRatioNumericUpDownValueChanged(object sender, EventArgs e) => ThumbnailClipper.MagnifyRatio = (int)MagnifyRatioNumericUpDown.Value;
+
+	void OnThumbnailClipperDragEnter(object? sender, DragEventArgs e)
 	{
 		Debug.Assert(e.Data != null, "I think this never happens.");
 		e.Effect = DataObjectToDraggedImageReferenceIndex(e.Data) is not null ? DragDropEffects.Copy : DragDropEffects.None;
 	}
 
-	void OnThumbnailPreviewerDragDrop(object? sender, DragEventArgs e)
+	void OnThumbnailClipperDragDrop(object? sender, DragEventArgs e)
 	{
 		Debug.Assert(e.Data != null, "I think this never happens.");
 		if (DataObjectToDraggedImageReferenceIndex(e.Data) is { } index)
 			_comic.Thumbnail = _comic.Images[index].Data.EnsureBitmap();
+	}
+
+	void OnThumbnailClipperPropertyChanged(object sender, PropertyChangedEventArgs e)
+	{
+		switch (e.PropertyName)
+		{
+			case nameof(ThumbnailClipper.IsEditing):
+				MagnifyRatioNumericUpDown.Visible = ThumbnailEditOKButton.Visible = ThumbnailEditCancelButton.Visible = ThumbnailClipper.IsEditing;
+				ThumbnailEditButton.Visible = !ThumbnailClipper.IsEditing;
+				break;
+			case nameof(ThumbnailClipper.MagnifyRatio):
+				MagnifyRatioNumericUpDown.Value = ThumbnailClipper.MagnifyRatio;
+				break;
+			case nameof(ThumbnailClipper.ClippedImageSize):
+				var size = ThumbnailClipper.ClippedImageSize;
+#pragma warning disable CA1863 // リソースに対してCompositeFormatは使用できない
+				SizeLabel.Text = string.Format(CultureInfo.CurrentCulture, Resources.ImageSizeStringRepresentation, size.Width, size.Height);
+#pragma warning restore CA1863
+				break;
+		}
+	}
+
+	void OnThumbnailMaximizeButtonClick(object sender, EventArgs e)
+	{
+		MainSplitContainer.Panel1Collapsed = !MainSplitContainer.Panel1Collapsed;
+		ThumbnailMaximizeButton.Text = MainSplitContainer.Panel1Collapsed ? "❯❯" : "❮❮";
 	}
 }
