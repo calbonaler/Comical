@@ -57,9 +57,9 @@ public partial class ViewerForm : Form
 			{
 				using var g = Graphics.FromImage(image);
 				if (left != null)
-					g.DrawImage(left, new Point(image.Width / 2 - left.Width, 0));
+					g.DrawImage(left, new Rectangle(image.Width / 2 - left.Width, 0, left.Width, left.Height));
 				if (right != null)
-					g.DrawImage(right, new Point(image.Width / 2, 0));
+					g.DrawImage(right, new Rectangle(image.Width / 2, 0, right.Width, right.Height));
 			}
 			catch
 			{
