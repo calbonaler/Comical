@@ -36,29 +36,43 @@ public class Binary
 			await FromStreamAsync(fileStream, (int)fileStream.Length, true).ConfigureAwait(false);
 	}
 
+	static (byte[]? DataBuffer, int DataLength, int BytesFilled) TryReadBitmapHeader(Stream stream, ReadOnlySpan<byte> leadingBytes, bool returnData)
+	{
+		var writableHeader = leadingBytes.Length < Bitmap.MinimumLength ? stackalloc byte[Bitmap.MinimumLength] : default;
+		if (!writableHeader.IsEmpty)
+		{
+			leadingBytes.CopyTo(writableHeader);
+			if (!stream.TryReadExactly(writableHeader[leadingBytes.Length..Bitmap.MinimumLength]))
+				return (null, 0, 0);
+		}
+		var headerBytes = !writableHeader.IsEmpty ? writableHeader[..Bitmap.MinimumLength] : leadingBytes;
+		if (!Bitmap.TryGetLength(headerBytes, out var bitmapLength))
+			return (null, 0, 0);
+		byte[]? bitmapData;
+		if (returnData)
+		{
+			bitmapData = new byte[bitmapLength];
+			headerBytes.CopyTo(bitmapData);
+		}
+		else
+			bitmapData = null;
+		return (bitmapData, bitmapLength, Math.Min(headerBytes.Length, bitmapLength));
+	}
+
 	internal static Task<Binary?> TryReadBitmapAsync(Stream stream, ReadOnlySpan<byte> leadingBytes)
 	{
-		static (byte[]? DataBuffer, int BytesFilled) TryReadHeader(Stream stream, ReadOnlySpan<byte> leadingBytes)
-		{
-			var writableHeader = leadingBytes.Length < Bitmap.MinimumLength ? stackalloc byte[Bitmap.MinimumLength] : default;
-			if (!writableHeader.IsEmpty)
-			{
-				leadingBytes.CopyTo(writableHeader);
-				if (!stream.TryReadExactly(writableHeader[leadingBytes.Length..Bitmap.MinimumLength]))
-					return (null, 0);
-			}
-			var headerBytes = !writableHeader.IsEmpty ? writableHeader[..Bitmap.MinimumLength] : leadingBytes;
-			if (!Bitmap.TryGetLength(headerBytes, out var bitmapLength))
-				return (null, 0);
-			var bitmapData = new byte[bitmapLength];
-			headerBytes.CopyTo(bitmapData);
-			var bytesFilled = Math.Min(headerBytes.Length, bitmapLength);
-			return (bitmapData, bytesFilled);
-		}
 		static async Task<Binary?> TryReadDataAsync(Stream stream, byte[] bitmapData, int bytesFilled)
 			=> await stream.TryReadExactlyAsync(bitmapData.AsMemory(bytesFilled)).ConfigureAwait(false) ? new Binary(bitmapData) : null;
-		var (bitmapData, bytesFilled) = TryReadHeader(stream, leadingBytes);
+		var (bitmapData, _, bytesFilled) = TryReadBitmapHeader(stream, leadingBytes, true);
 		return bitmapData != null ? TryReadDataAsync(stream, bitmapData, bytesFilled) : Task.FromResult<Binary?>(null);
+	}
+
+	internal static bool TrySkipBitmap(Stream stream, ReadOnlySpan<byte> leadingBytes)
+	{
+		var (_, bitmapLength, bytesFilled) = TryReadBitmapHeader(stream, leadingBytes, false);
+		if (bitmapLength == 0) return false;
+		stream.Seek(bitmapLength - bytesFilled, SeekOrigin.Current);
+		return true;
 	}
 
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]

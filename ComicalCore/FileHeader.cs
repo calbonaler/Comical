@@ -29,10 +29,19 @@ public class FileHeader
 		FileVersion = fileVersion;
 	}
 
-	public static async Task<FileHeader?> LoadAsync(string fileName)
+	public static bool CanLoad(string fileName)
 	{
-		using var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-		return await LoadAsync(fs).ConfigureAwait(false);
+		using var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+		var headerSpan = (stackalloc byte[FileIdentifier.Length]);
+		var readHeader = headerSpan[..stream.TryReadExactlyWithBytesRead(headerSpan)];
+		if (!readHeader.SequenceEqual(FileIdentifier))
+		{
+			if (!Binary.TrySkipBitmap(stream, readHeader))
+				return false;
+			if (!stream.TryReadExactly(headerSpan) || !headerSpan.SequenceEqual(FileIdentifier))
+				return false;
+		}
+		return TryReadFileVersion(stream) is not null;
 	}
 
 	public static async Task<FileHeader?> LoadAsync(Stream stream)
@@ -52,12 +61,8 @@ public class FileHeader
 				return null;
 		}
 
-		var majorFileVersion = stream.ReadByte();
-		var minorFileVersion = 0;
-		if (majorFileVersion >= 4)
-			minorFileVersion = stream.ReadByte();
-		var fileVersion = new Version(majorFileVersion, minorFileVersion);
-		if (fileVersion > LatestSupportedFileVersion)
+		var fileVersion = TryReadFileVersion(stream);
+		if (fileVersion is null)
 			return null;
 
 		var skip = stream.ReadByte();
@@ -74,6 +79,16 @@ public class FileHeader
 		var bindingSide = fileVersion.Major >= 4 ? (BindingSide)reader.ReadByte() : BindingSide.Right;
 
 		return new FileHeader(title, author, published, bindingSide, thumbnail, fileVersion);
+	}
+
+	static Version? TryReadFileVersion(Stream stream)
+	{
+		var majorFileVersion = stream.ReadByte();
+		var minorFileVersion = 0;
+		if (majorFileVersion >= 4)
+			minorFileVersion = stream.ReadByte();
+		var fileVersion = new Version(majorFileVersion, minorFileVersion);
+		return fileVersion <= LatestSupportedFileVersion ? fileVersion : null;
 	}
 
 	public static readonly Version LatestSupportedFileVersion = Version.Parse(Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()!.Version);

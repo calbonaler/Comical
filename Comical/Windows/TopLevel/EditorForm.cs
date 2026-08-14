@@ -144,7 +144,7 @@ public partial class EditorForm : Form
 				}
 				if (!File.Exists(path))
 					continue;
-				if (await FileHeader.LoadAsync(path).ConfigureAwait(false) != null)
+				if (FileHeader.CanLoad(path))
 				{
 					comicFiles.Add(path);
 					continue;
